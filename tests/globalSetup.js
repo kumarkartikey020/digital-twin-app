@@ -30,7 +30,7 @@ module.exports = async function globalSetup() {
     execSync(`"${pgCtl}" -D "${clusterDir}" -l "${logFile}" -o "-p 5433 -h 127.0.0.1" start`, { stdio: 'ignore' });
 
     let connected = false;
-    for (let i = 0; i < 20; i++) {
+    for (let i = 0; i < 40; i++) {
       try {
         const probe = new Client({ connectionString: 'postgresql://postgres@127.0.0.1:5433/postgres' });
         await probe.connect();
