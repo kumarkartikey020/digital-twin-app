@@ -1723,20 +1723,51 @@ function renderCareers(filter) {
 
         function setStudentType(type) {
             ensureStudentDefaults();
-            APP_DATA.studentProfile.type = type;
+            // Normalize type
+            var normType = type;
+            if (type === 'university') normType = 'professional';
+            APP_DATA.studentProfile.type = normType;
             APP_DATA.studentProfile.updatedAt = new Date().toISOString();
-            if (type === 'school' && !APP_DATA.studentProfile.classLevel) {
-                APP_DATA.studentProfile.classLevel = '9';
-            }
-            if (type === 'university' && !APP_DATA.studentProfile.uniLevel) {
+
+            if (normType === 'junior' && (!APP_DATA.studentProfile.classLevel || parseInt(APP_DATA.studentProfile.classLevel, 10) > 8)) {
+                APP_DATA.studentProfile.classLevel = '7';
+            } else if (normType === 'school' && (!APP_DATA.studentProfile.classLevel || parseInt(APP_DATA.studentProfile.classLevel, 10) < 9 || parseInt(APP_DATA.studentProfile.classLevel, 10) > 10)) {
+                APP_DATA.studentProfile.classLevel = '10';
+            } else if (normType === 'career' && (!APP_DATA.studentProfile.classLevel || parseInt(APP_DATA.studentProfile.classLevel, 10) < 11)) {
+                APP_DATA.studentProfile.classLevel = '12';
+            } else if (normType === 'professional' && !APP_DATA.studentProfile.uniLevel) {
                 APP_DATA.studentProfile.uniLevel = '1st Year';
             }
+
             renderStudentProfile();
             updateClassChips();
             updateFocusSummary();
             syncData();
+
+            // Sync with Student Intelligence Backend API if authenticated
+            if (APP_DATA.userData && APP_DATA.userData.token) {
+                fetch('/api/v1/student/onboarding', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + APP_DATA.userData.token
+                    },
+                    body: JSON.stringify({
+                        academicClass: APP_DATA.studentProfile.classLevel || '10',
+                        studentSegment: normType,
+                        streamOrFocus: APP_DATA.studentProfile.stream || 'General Exploratory'
+                    })
+                }).catch(function(e) { console.warn('Student onboarding sync:', e); });
+            }
+
             setDashboardOpen(true, true);
-            showToast('👋', type === 'school' ? 'School dashboard activated.' : 'College dashboard activated.');
+            var segmentNames = {
+                junior: '🌟 DTV Junior (Classes 5-8)',
+                school: '🎯 DTV School (Classes 9-10)',
+                career: '🚀 DTV Career (Classes 11-12)',
+                professional: '💼 DTV Professional'
+            };
+            showToast('👋', (segmentNames[normType] || 'Student') + ' ecosystem activated.');
             var dash = document.getElementById('student-dashboard');
             if (dash) {
                 setTimeout(function() {
@@ -1750,18 +1781,44 @@ function renderCareers(filter) {
 
         function setClassLevel(level) {
             ensureStudentDefaults();
+            var lv = parseInt(level, 10);
             APP_DATA.studentProfile.classLevel = String(level);
+            // Auto-assign segment based on class
+            if (lv <= 8) {
+                APP_DATA.studentProfile.type = 'junior';
+            } else if (lv <= 10) {
+                APP_DATA.studentProfile.type = 'school';
+            } else {
+                APP_DATA.studentProfile.type = 'career';
+            }
             APP_DATA.studentProfile.updatedAt = new Date().toISOString();
             updateClassChips();
             updateFocusSummary();
             renderStudentProfile();
             syncData();
+
+            // Sync with backend API
+            if (APP_DATA.userData && APP_DATA.userData.token) {
+                fetch('/api/v1/student/onboarding', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + APP_DATA.userData.token
+                    },
+                    body: JSON.stringify({
+                        academicClass: String(level),
+                        studentSegment: APP_DATA.studentProfile.type,
+                        streamOrFocus: APP_DATA.studentProfile.stream || 'General Exploratory'
+                    })
+                }).catch(function(e) { console.warn('Student onboarding sync:', e); });
+            }
         }
 
         function setUniLevel(level) {
             if (!level) return;
             ensureStudentDefaults();
             APP_DATA.studentProfile.uniLevel = level;
+            APP_DATA.studentProfile.type = 'professional';
             APP_DATA.studentProfile.updatedAt = new Date().toISOString();
             updateFocusSummary();
             renderStudentProfile();
@@ -1781,25 +1838,38 @@ function renderCareers(filter) {
             var effectiveType = type || 'school';
             var dash = document.getElementById('student-dashboard');
             if (dash) dash.setAttribute('data-student', effectiveType);
+
+            var segJunior = document.getElementById('seg-junior');
             var segSchool = document.getElementById('seg-school');
+            var segCareer = document.getElementById('seg-career');
             var segUni = document.getElementById('seg-university');
+
+            if (segJunior) segJunior.classList.toggle('active', effectiveType === 'junior');
             if (segSchool) segSchool.classList.toggle('active', effectiveType === 'school');
-            if (segUni) segUni.classList.toggle('active', effectiveType === 'university');
+            if (segCareer) segCareer.classList.toggle('active', effectiveType === 'career');
+            if (segUni) segUni.classList.toggle('active', effectiveType === 'professional' || effectiveType === 'university');
+
             var label = document.getElementById('profile-label');
             if (label) {
-                if (!type) label.textContent = 'Not selected';
-                else label.textContent = type === 'school' ? 'School Student' : 'College Student';
+                var labels = {
+                    junior: 'DTV Junior (5-8)',
+                    school: 'DTV School (9-10)',
+                    career: 'DTV Career (11-12)',
+                    professional: 'DTV Professional',
+                    university: 'DTV Professional'
+                };
+                label.textContent = labels[effectiveType] || 'Not selected';
             }
             var levelEl = document.getElementById('profile-level');
             if (levelEl) {
                 if (!type) {
                     levelEl.textContent = 'Select a profile';
-                } else if (type === 'school') {
-                    levelEl.textContent = APP_DATA.studentProfile.classLevel ? 'Class ' + APP_DATA.studentProfile.classLevel : 'Select class';
-                } else {
+                } else if (type === 'professional' || type === 'university') {
                     var lvl = APP_DATA.studentProfile.uniLevel || 'Select year';
                     if (APP_DATA.studentProfile.stream) lvl += ' - ' + APP_DATA.studentProfile.stream;
                     levelEl.textContent = lvl;
+                } else {
+                    levelEl.textContent = APP_DATA.studentProfile.classLevel ? 'Class ' + APP_DATA.studentProfile.classLevel : 'Select class';
                 }
             }
             var uniSelect = document.getElementById('uni-level');

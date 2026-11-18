@@ -1,5 +1,6 @@
 const nodemailer = require('nodemailer');
 const env = require('../config/env');
+const { redactEmail } = require('../utils/otp');
 
 const transporter = nodemailer.createTransport({
     service: 'gmail',
@@ -7,7 +8,7 @@ const transporter = nodemailer.createTransport({
         user: env.SMTP_USER,
         pass: env.SMTP_PASS
     },
-    tls: { rejectUnauthorized: false }
+    tls: { rejectUnauthorized: true }
 });
 
 const canSendEmail = () => env.BREVO_API_KEY || (env.SMTP_USER && env.SMTP_PASS);
@@ -70,8 +71,8 @@ async function sendHtmlEmail(toEmail, subject, htmlContent, fromName = 'Digital 
 async function sendVerificationEmail(toEmail, otpCode) {
     if (env.NODE_ENV === 'test') return;
     if (!canSendEmail()) {
-        console.warn('⚠️ Email credentials not set. Email delivery is disabled. (Check environment variables)');
-        console.log(`\n📧 MOCK EMAIL TO: ${toEmail}\n🔒 OTP CODE: ${otpCode}\n`);
+        console.warn('⚠️ Email credentials not set. Email delivery is disabled.');
+        console.log(`[SECURE LOG] Verification code generated for: ${redactEmail(toEmail)} (OTP value suppressed for security)`);
         return;
     }
 
@@ -91,9 +92,9 @@ async function sendVerificationEmail(toEmail, otpCode) {
 
     try {
         await sendHtmlEmail(toEmail, 'Verify your Digital Twin Verse Account', html);
-        console.log(`Email OTP sent successfully to ${toEmail}`);
+        console.log(`Email verification dispatched to ${redactEmail(toEmail)}`);
     } catch (error) {
-        console.error('Error sending OTP email:', error);
+        console.error('Error sending OTP email:', error.message);
     }
 }
 
@@ -101,7 +102,7 @@ async function sendPasswordResetEmail(toEmail, otpCode) {
     if (env.NODE_ENV === 'test') return;
     if (!canSendEmail()) {
         console.warn('⚠️ Email credentials not set.');
-        console.log(`\n📧 MOCK RESET EMAIL TO: ${toEmail}\n🔒 OTP CODE: ${otpCode}\n`);
+        console.log(`[SECURE LOG] Password reset code generated for: ${redactEmail(toEmail)} (OTP value suppressed for security)`);
         return;
     }
 
@@ -121,7 +122,7 @@ async function sendPasswordResetEmail(toEmail, otpCode) {
 
     try {
         await sendHtmlEmail(toEmail, 'Reset your Digital Twin Verse Password', html);
-        console.log(`Password reset email sent successfully to ${toEmail}`);
+        console.log(`Password reset email dispatched to ${redactEmail(toEmail)}`);
     } catch (error) {
         console.error('Error sending reset email:', error);
         throw error;

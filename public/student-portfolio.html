@@ -1,0 +1,1578 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Portfolio &amp; Achievement Showcase | Digital Twin Verse</title>
+    <meta name="description" content="Verified student development portfolio, project showcase, dynamic roadmaps, and organisation accomplishments.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/premium-theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #080a0f;
+            --bg-card: rgba(17, 24, 39, 0.85);
+            --bg-card-hover: rgba(31, 41, 55, 0.95);
+            --border-glow: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(139, 92, 246, 0.45);
+            --accent-purple: #8b5cf6;
+            --accent-blue: #3b82f6;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.09) 0%, transparent 45%),
+                radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.09) 0%, transparent 45%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.25rem 1rem 4rem;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-glow);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .brand-logo img {
+            height: 38px;
+            width: auto;
+            border-radius: 8px;
+        }
+
+        .brand-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-title span {
+            color: var(--accent-purple);
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(59, 130, 246, 0.2));
+            border: 1px solid rgba(139, 92, 246, 0.35);
+            color: #d8b4fe;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.65rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-purple), var(--accent-blue));
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(139, 92, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glow);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.85rem;
+            font-size: 0.8rem;
+            border-radius: 8px;
+        }
+
+        /* Hero Portfolio Banner */
+        .portfolio-hero {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            backdrop-filter: blur(14px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-purple), var(--accent-blue), var(--accent-emerald));
+        }
+
+        .hero-main {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            flex-wrap: wrap;
+        }
+
+        .avatar-box {
+            width: 84px;
+            height: 84px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #1e1b4b, #312e81);
+            border: 2px solid rgba(139, 92, 246, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.25rem;
+            color: #d8b4fe;
+            font-weight: 800;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            overflow: hidden;
+        }
+
+        .avatar-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-details h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-headline {
+            font-size: 1rem;
+            color: #93c5fd;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .hero-meta {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            flex-wrap: wrap;
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border-glow);
+            padding: 1rem 1.5rem;
+            border-radius: 14px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-val {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: #fff;
+        }
+
+        .stat-lbl {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+        }
+
+        /* Privacy Banner (Minor Protection) */
+        .privacy-banner {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px dashed rgba(245, 158, 11, 0.4);
+            border-radius: 12px;
+            padding: 0.85rem 1.25rem;
+            margin-bottom: 1.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.85rem;
+            color: #fcd34d;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        /* Workspace Tab Navigation */
+        .portfolio-tabs {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-glow);
+            margin-bottom: 1.75rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scrollbar-width: thin;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.75rem 1.15rem;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .tab-btn.active {
+            color: #ffffff;
+            background: rgba(139, 92, 246, 0.18);
+            border: 1px solid rgba(139, 92, 246, 0.4);
+        }
+
+        /* Content Sections */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .section-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Project Cards Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            border-color: var(--border-active);
+            transform: translateY(-2px);
+        }
+
+        .featured-ribbon {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: linear-gradient(135deg, rgba(245, 158, 11, 0.2), rgba(234, 88, 12, 0.2));
+            border: 1px solid rgba(245, 158, 11, 0.4);
+            color: #fcd34d;
+            font-size: 0.7rem;
+            font-weight: 800;
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .project-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.25rem;
+        }
+
+        .project-category-tag {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--accent-purple);
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .project-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .problem-statement-box {
+            background: rgba(0, 0, 0, 0.25);
+            border-left: 3px solid var(--accent-blue);
+            padding: 0.65rem 0.85rem;
+            border-radius: 0 8px 8px 0;
+            font-size: 0.8rem;
+            color: #cbd5e1;
+        }
+
+        .tech-pill {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glow);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            color: #cbd5e1;
+        }
+
+        .project-links {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            border-top: 1px solid var(--border-glow);
+            padding-top: 0.85rem;
+            font-size: 0.825rem;
+        }
+
+        .project-links a {
+            color: #93c5fd;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-weight: 600;
+        }
+
+        .project-links a:hover {
+            color: #fff;
+        }
+
+        /* Achievements Grid */
+        .achievements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .achievement-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            transition: all 0.2s ease;
+        }
+
+        .achievement-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .badge-icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #34d399;
+            flex-shrink: 0;
+        }
+
+        .badge-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.2rem;
+        }
+
+        .badge-desc {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+            margin-bottom: 0.4rem;
+        }
+
+        .badge-meta {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 1.75rem;
+            width: 100%;
+            max-width: 620px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.15rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            padding: 0.65rem 0.85rem;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-purple);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: #1e293b;
+            border: 1px solid var(--border-glow);
+            color: var(--text-primary);
+            padding: 0.85rem 1.25rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            display: none;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Viewports */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem 0.75rem 3rem;
+            }
+            .portfolio-hero {
+                padding: 1.25rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .achievements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <a href="/" class="brand-logo">
+                <img src="/img/dtv-logo.jpg" alt="DTV Logo">
+                <div class="brand-title">Digital<span>Twin Verse</span></div>
+                <span class="brand-badge">Student Portfolio</span>
+            </a>
+            <div class="nav-actions">
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openEditPortfolioModal()" id="btn-edit-portfolio">
+                    <i class="ph ph-note-pencil"></i> Edit Bio
+                </button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="openCreateProjectModal()" id="btn-add-project">
+                    <i class="ph-bold ph-plus"></i> Add Project
+                </button>
+                <a href="/student-dashboard" class="btn btn-secondary btn-sm">
+                    <i class="ph ph-student"></i> Dashboard
+                </a>
+                <a href="/capacity-connect" class="btn btn-secondary btn-sm">
+                    <i class="ph ph-buildings"></i> Capacity Connect
+                </a>
+            </div>
+        </header>
+
+        <!-- Hero Portfolio Card -->
+        <section class="portfolio-hero" id="portfolio-hero">
+            <div class="hero-main">
+                <div class="avatar-box" id="user-avatar-box">
+                    <i class="ph ph-user"></i>
+                </div>
+                <div class="hero-details">
+                    <h1 id="user-name-display">
+                        Loading Student Portfolio...
+                        <span class="brand-badge" id="user-segment-badge">DTV School</span>
+                    </h1>
+                    <div class="hero-headline" id="user-headline">Loading headline...</div>
+                    <div class="hero-meta" id="user-meta-row">
+                        <span id="meta-academic-class"><i class="ph ph-graduation-cap"></i> Academic Level</span>
+                        <span id="meta-target-career"><i class="ph ph-compass"></i> Career Trajectory</span>
+                        <span id="meta-location"><i class="ph ph-map-pin"></i> Remote</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-stats">
+                <div class="stat-item">
+                    <div class="stat-val" id="stat-completion-pct" style="color: #a78bfa;">0%</div>
+                    <div class="stat-lbl">Completion</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-val" id="stat-projects-count" style="color: #60a5fa;">0</div>
+                    <div class="stat-lbl">Projects</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-val" id="stat-achievements-count" style="color: #34d399;">0</div>
+                    <div class="stat-lbl">Badges</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Privacy Alert (When viewed by an Organisation) -->
+        <div class="privacy-banner" id="privacy-shield-banner" style="display: none;">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <i class="ph-fill ph-shield-check" style="font-size: 1.25rem;"></i>
+                <span><strong>Child Privacy Shield Active:</strong> Sensitive contact information is masked under DTV Minor Protection Guidelines.</span>
+            </div>
+            <a href="/capacity-connect" style="color: inherit; text-decoration: underline; font-weight: 600;">Explore Capacity Connect</a>
+        </div>
+
+        <!-- Portfolio Tabbed Navigation -->
+        <nav class="portfolio-tabs">
+            <button class="tab-btn active" onclick="switchPortfolioTab('projects')">
+                <i class="ph ph-code"></i> Project Showcase (<span id="tab-cnt-projects">0</span>)
+            </button>
+            <button class="tab-btn" onclick="switchPortfolioTab('skills')">
+                <i class="ph ph-wrench"></i> Skills &amp; Competencies
+            </button>
+            <button class="tab-btn" onclick="switchPortfolioTab('achievements')">
+                <i class="ph ph-trophy"></i> Verified Achievements (<span id="tab-cnt-badges">0</span>)
+            </button>
+            <button class="tab-btn" onclick="switchPortfolioTab('roadmaps')">
+                <i class="ph ph-map-trifold"></i> Learning Roadmaps
+            </button>
+            <button class="tab-btn" onclick="switchPortfolioTab('accomplishments')">
+                <i class="ph ph-seal-check"></i> Industry Accomplishments
+            </button>
+            <button class="tab-btn" onclick="switchPortfolioTab('bio')">
+                <i class="ph ph-user-circle"></i> About &amp; Story
+            </button>
+        </nav>
+
+        <!-- TAB 1: PROJECTS SHOWCASE -->
+        <section id="tab-projects" class="tab-content active">
+            <div class="section-head">
+                <div>
+                    <h2 class="section-title">Verified Project Showcase</h2>
+                    <p class="section-desc">Practical implementations, real-world solutions, and open-source contributions.</p>
+                </div>
+                <button type="button" class="btn btn-primary btn-sm" onclick="openCreateProjectModal()">
+                    <i class="ph-bold ph-plus"></i> Publish Project
+                </button>
+            </div>
+            <div class="projects-grid" id="projects-container">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading projects...</p>
+            </div>
+        </section>
+
+        <!-- TAB 2: SKILLS & COMPETENCIES -->
+        <section id="tab-skills" class="tab-content">
+            <div class="section-head">
+                <div>
+                    <h2 class="section-title">Skills &amp; Empirical Competencies</h2>
+                    <p class="section-desc">Demonstrated technical and foundational proficiencies across curriculum quests.</p>
+                </div>
+            </div>
+            <div id="skills-cloud" style="display: flex; flex-wrap: wrap; gap: 0.65rem; margin-bottom: 2rem;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading skills...</p>
+            </div>
+            <div class="section-head">
+                <h3 class="section-title" style="font-size: 1.15rem;">Career Focus &amp; Interests</h3>
+            </div>
+            <div id="interests-cloud" style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading interests...</p>
+            </div>
+        </section>
+
+        <!-- TAB 3: VERIFIED ACHIEVEMENTS -->
+        <section id="tab-achievements" class="tab-content">
+            <div class="section-head">
+                <div>
+                    <h2 class="section-title">Verified Achievement Ledger</h2>
+                    <p class="section-desc">Genuine badges awarded from verified milestones, roadmap completions, and challenge deliveries.</p>
+                </div>
+            </div>
+            <div class="achievements-grid" id="achievements-container">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading achievements...</p>
+            </div>
+        </section>
+
+        <!-- TAB 4: LEARNING ROADMAPS -->
+        <section id="tab-roadmaps" class="tab-content">
+            <div class="section-head">
+                <div>
+                    <h2 class="section-title">Dynamic Learning Roadmaps</h2>
+                    <p class="section-desc">Empirical 6-month personalized development trajectories and milestone progress.</p>
+                </div>
+            </div>
+            <div id="roadmaps-container" style="display: flex; flex-direction: column; gap: 1rem;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading learning roadmaps...</p>
+            </div>
+        </section>
+
+        <!-- TAB 5: INDUSTRY ACCOMPLISHMENTS -->
+        <section id="tab-accomplishments" class="tab-content">
+            <div class="section-head">
+                <div>
+                    <h2 class="section-title">Capacity Connect Accomplishments</h2>
+                    <p class="section-desc">Challenge deliveries, organisation selections, competitions, and accredited certifications.</p>
+                </div>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openAddCertModal()">
+                    <i class="ph ph-plus"></i> Add Certification
+                </button>
+            </div>
+            <div id="accomplishments-container" style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading accomplishments...</p>
+            </div>
+            <div class="section-head">
+                <h3 class="section-title" style="font-size: 1.15rem;">Certifications &amp; Credentials</h3>
+            </div>
+            <div id="certifications-container" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">No external certifications added yet.</p>
+            </div>
+        </section>
+
+        <!-- TAB 6: ABOUT & STORY -->
+        <section id="tab-bio" class="tab-content">
+            <div class="section-head">
+                <div>
+                    <h2 class="section-title">Learner Narrative &amp; Background</h2>
+                    <p class="section-desc">Personal introduction, academic philosophy, and career aspiration statement.</p>
+                </div>
+            </div>
+            <div class="project-card" style="max-width: 800px;">
+                <div style="font-size: 0.95rem; line-height: 1.6; color: #cbd5e1; white-space: pre-wrap;" id="portfolio-bio-text">
+                    No bio shared yet. Click "Edit Bio" to add your personal introduction.
+                </div>
+                <div style="display: flex; gap: 1rem; margin-top: 1rem; flex-wrap: wrap;" id="portfolio-social-links">
+                    <!-- Social / External links -->
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL 1: EDIT PORTFOLIO -->
+    <div class="modal-overlay" id="edit-portfolio-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('edit-portfolio-modal')">&times;</button>
+            <h2 class="modal-title">Edit Portfolio Profile</h2>
+            <form id="edit-portfolio-form" onsubmit="handleUpdatePortfolio(event)">
+                <div class="form-group">
+                    <label class="form-label">Headline *</label>
+                    <input type="text" id="edit-headline" class="form-control" placeholder="e.g. Aspiring AI Engineer &amp; Robotics Enthusiast" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bio &amp; Introduction</label>
+                    <textarea id="edit-bio" class="form-control" placeholder="Introduce your passions, what you love building, and what challenges excite you..."></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Location</label>
+                        <input type="text" id="edit-location" class="form-control" placeholder="e.g. Bangalore, India">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Portfolio Visibility</label>
+                        <select id="edit-visibility" class="form-control">
+                            <option value="public">Public (Visible to All)</option>
+                            <option value="organizations_only">Verified Organisations Only</option>
+                            <option value="private">Private (Only Me)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">GitHub URL</label>
+                    <input type="url" id="edit-github" class="form-control" placeholder="https://github.com/username">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">LinkedIn URL</label>
+                    <input type="url" id="edit-linkedin" class="form-control" placeholder="https://linkedin.com/in/username">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Personal Website / Portfolio Link</label>
+                    <input type="url" id="edit-website" class="form-control" placeholder="https://myportfolio.dev">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Portfolio</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: ADD / EDIT PROJECT -->
+    <div class="modal-overlay" id="create-project-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('create-project-modal')">&times;</button>
+            <h2 class="modal-title">Publish Project Showcase</h2>
+            <form id="create-project-form" onsubmit="handlePublishProject(event)">
+                <input type="hidden" id="proj-edit-id">
+                <div class="form-group">
+                    <label class="form-label">Project Title *</label>
+                    <input type="text" id="proj-title" class="form-control" placeholder="e.g. Autonomous Drone Obstacle Avoidance Simulation" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Category</label>
+                        <select id="proj-category" class="form-control">
+                            <option value="software">Software Application</option>
+                            <option value="ai_ml">Artificial Intelligence &amp; ML</option>
+                            <option value="robotics">Robotics &amp; Automation</option>
+                            <option value="hardware">Hardware &amp; IoT</option>
+                            <option value="research">Academic Research</option>
+                            <option value="design">Design &amp; UI/UX</option>
+                            <option value="stem_experiment">STEM Experiment</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Your Role</label>
+                        <input type="text" id="proj-role" class="form-control" placeholder="e.g. Solo Developer / Lead Architect" value="Solo Creator">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Tagline (One-liner)</label>
+                    <input type="text" id="proj-tagline" class="form-control" placeholder="Real-time multi-agent spatial mapping with zero collision">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Technologies Used (Comma separated) *</label>
+                    <input type="text" id="proj-techs" class="form-control" placeholder="Python, PyTorch, ROS, OpenCV" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Problem Statement</label>
+                    <textarea id="proj-problem" class="form-control" placeholder="What core problem or scientific challenge does this project solve?"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description &amp; Architecture *</label>
+                    <textarea id="proj-desc" class="form-control" placeholder="Explain the architecture, methodology, algorithms, and key implementation details..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Outcomes, Metrics &amp; Impact</label>
+                    <textarea id="proj-outcomes" class="form-control" placeholder="e.g. Achieved 94% avoidance accuracy across 50 simulated obstacle fields"></textarea>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">GitHub Repo URL</label>
+                        <input type="url" id="proj-github" class="form-control" placeholder="https://github.com/username/project">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Live Demo URL</label>
+                        <input type="url" id="proj-demo" class="form-control" placeholder="https://demo.example.com">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Project Screenshot / Architecture Media</label>
+                    <input type="file" id="proj-file" class="form-control" accept="image/*,.pdf" style="padding:0.45rem;" onchange="handleProjectFileUpload(event)">
+                    <input type="hidden" id="proj-media-url">
+                    <div id="proj-upload-status" style="font-size:0.75rem; color:#93c5fd; margin-top:0.35rem; display:none;"></div>
+                </div>
+                <div class="form-group">
+                    <label style="display:flex; align-items:center; gap:0.5rem; font-size:0.85rem; color:#fcd34d; cursor:pointer;">
+                        <input type="checkbox" id="proj-featured">
+                        <span>Feature this as my primary showcase project</span>
+                    </label>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Publish to Showcase</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: ADD CERTIFICATION -->
+    <div class="modal-overlay" id="add-cert-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('add-cert-modal')">&times;</button>
+            <h2 class="modal-title">Add Certification</h2>
+            <form id="add-cert-form" onsubmit="handleAddCertification(event)">
+                <div class="form-group">
+                    <label class="form-label">Certification Title *</label>
+                    <input type="text" id="cert-title" class="form-control" placeholder="e.g. Certified TensorFlow Developer" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Issuing Organisation *</label>
+                    <input type="text" id="cert-org" class="form-control" placeholder="e.g. Google / DeepMind" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Issue Date</label>
+                        <input type="date" id="cert-date" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Credential ID</label>
+                        <input type="text" id="cert-cred-id" class="form-control" placeholder="e.g. TF-839210">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Verification / Credential URL</label>
+                    <input type="url" id="cert-url" class="form-control" placeholder="https://certificate.org/verify/xyz">
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Save Certification</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast-msg">
+        <i class="ph-fill ph-check-circle" style="color: #34d399; font-size: 1.25rem;"></i>
+        <span id="toast-text">Operation completed</span>
+    </div>
+
+    <script>
+        var currentStudentId = null;
+        var portfolioData = null;
+        var isOwner = true;
+
+        function getAuthHeader() {
+            var token = localStorage.getItem('token') || localStorage.getItem('accessToken');
+            return token ? { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
+        }
+
+        function showToast(text, isError) {
+            var toast = document.getElementById('toast-msg');
+            var txt = document.getElementById('toast-text');
+            txt.textContent = text;
+            toast.style.borderColor = isError ? 'rgba(244, 63, 94, 0.4)' : 'rgba(16, 185, 129, 0.4)';
+            toast.className = 'toast show';
+            setTimeout(function() {
+                toast.className = 'toast';
+            }, 3500);
+        }
+
+        function openModal(id) {
+            var el = document.getElementById(id);
+            if (el) el.classList.add('active');
+        }
+
+        function closeModal(id) {
+            var el = document.getElementById(id);
+            if (el) el.classList.remove('active');
+        }
+
+        function openEditPortfolioModal() {
+            if (!portfolioData) return;
+            var m = portfolioData.meta || {};
+            document.getElementById('edit-headline').value = m.headline || '';
+            document.getElementById('edit-bio').value = m.bio || '';
+            document.getElementById('edit-location').value = m.location || '';
+            document.getElementById('edit-visibility').value = m.portfolioVisibility || 'public';
+            document.getElementById('edit-github').value = m.githubUrl || '';
+            document.getElementById('edit-linkedin').value = m.linkedinUrl || '';
+            document.getElementById('edit-website').value = m.websiteUrl || '';
+            openModal('edit-portfolio-modal');
+        }
+
+        function openCreateProjectModal() {
+            document.getElementById('create-project-form').reset();
+            document.getElementById('proj-edit-id').value = '';
+            var mUrl = document.getElementById('proj-media-url');
+            if (mUrl) mUrl.value = '';
+            var st = document.getElementById('proj-upload-status');
+            if (st) { st.style.display = 'none'; st.innerHTML = ''; }
+            openModal('create-project-modal');
+        }
+
+        async function handleProjectFileUpload(e) {
+            var file = e.target.files[0];
+            if (!file) return;
+
+            var statusEl = document.getElementById('proj-upload-status');
+            statusEl.style.display = 'block';
+            statusEl.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Uploading media attachment...';
+
+            var formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                var token = localStorage.getItem('token') || localStorage.getItem('accessToken');
+                var res = await fetch('/api/v1/files/upload', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: token ? { 'Authorization': 'Bearer ' + token } : {},
+                    body: formData
+                });
+
+                if (res.ok) {
+                    var data = await res.json();
+                    var fileUrl = data.file && data.file.url ? data.file.url : '';
+                    document.getElementById('proj-media-url').value = fileUrl;
+                    statusEl.innerHTML = '<span style="color:#34d399;"><i class="ph-fill ph-check-circle"></i> File uploaded securely: ' + escapeHtml(file.name) + '</span>';
+                } else {
+                    var err = await res.json().catch(function() { return {}; });
+                    statusEl.innerHTML = '<span style="color:#f87171;"><i class="ph-fill ph-warning-circle"></i> Upload failed: ' + escapeHtml(err.message || 'Server rejected file') + '</span>';
+                }
+            } catch (err) {
+                statusEl.innerHTML = '<span style="color:#f87171;"><i class="ph-fill ph-warning-circle"></i> Upload network error</span>';
+            }
+        }
+
+        function openAddCertModal() {
+            document.getElementById('add-cert-form').reset();
+            openModal('add-cert-modal');
+        }
+
+        function switchPortfolioTab(tabId) {
+            var tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(function(btn) { btn.classList.remove('active'); });
+            var contents = document.querySelectorAll('.tab-content');
+            contents.forEach(function(sec) { sec.classList.remove('active'); });
+
+            var targetSec = document.getElementById('tab-' + tabId);
+            if (targetSec) targetSec.classList.add('active');
+
+            tabs.forEach(function(btn) {
+                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').indexOf(tabId) !== -1) {
+                    btn.classList.add('active');
+                }
+            });
+        }
+
+        async function initPortfolio() {
+            // Check if viewing a specific student from URL path e.g. /portfolio/:studentId
+            var pathParts = window.location.pathname.split('/').filter(Boolean);
+            var targetId = null;
+            if (pathParts[0] === 'portfolio' && pathParts[1]) {
+                targetId = pathParts[1];
+            }
+
+            var endpoint = targetId ? `/api/v1/portfolio/${targetId}` : `/api/v1/portfolio/me/profile`;
+
+            try {
+                var res = await fetch(endpoint, {
+                    credentials: 'include',
+                    headers: getAuthHeader()
+                });
+
+                if (res.ok) {
+                    var json = await res.json();
+                    portfolioData = json.data;
+                    currentStudentId = portfolioData.studentId;
+                    renderPortfolio(portfolioData);
+                } else {
+                    renderFallbackPortfolio();
+                }
+            } catch (err) {
+                console.error('Failed to load portfolio:', err);
+                renderFallbackPortfolio();
+            }
+        }
+
+        function renderPortfolio(data) {
+            var u = data.user || {};
+            var meta = data.meta || {};
+            var acad = data.academicProfile || {};
+            var privacy = data.privacy || {};
+
+            // Name & Badges
+            document.getElementById('user-name-display').innerHTML = `
+                ${escapeHtml(u.name)}
+                <span class="brand-badge">${escapeHtml(acad.studentSegment ? 'DTV ' + acad.studentSegment.toUpperCase() : 'STUDENT')}</span>
+            `;
+
+            document.getElementById('user-headline').textContent = meta.headline || 'Student Learner | Digital Twin Verse';
+
+            document.getElementById('meta-academic-class').innerHTML = `<i class="ph ph-graduation-cap"></i> Class ${escapeHtml(acad.academicClass || 'N/A')}`;
+            document.getElementById('meta-target-career').innerHTML = `<i class="ph ph-compass"></i> ${escapeHtml(acad.targetCareerPath || 'Technology')}`;
+            document.getElementById('meta-location').innerHTML = `<i class="ph ph-map-pin"></i> ${escapeHtml(meta.location || 'Remote')}`;
+
+            // Stats
+            document.getElementById('stat-completion-pct').textContent = (meta.completionScore || 0) + '%';
+            document.getElementById('stat-projects-count').textContent = (data.projects || []).length;
+            document.getElementById('stat-achievements-count').textContent = (data.achievements || []).length;
+            document.getElementById('tab-cnt-projects').textContent = (data.projects || []).length;
+            document.getElementById('tab-cnt-badges').textContent = (data.achievements || []).length;
+
+            // Privacy banner
+            if (privacy.privacyProtected) {
+                document.getElementById('privacy-shield-banner').style.display = 'flex';
+            }
+
+            // Bio
+            document.getElementById('portfolio-bio-text').textContent = meta.bio || meta.aboutMe || 'Learner dedicated to exploring verified problem statements and technology sprints.';
+
+            // Social Links
+            var socialRow = document.getElementById('portfolio-social-links');
+            var links = [];
+            if (meta.githubUrl) links.push(`<a href="${escapeHtml(meta.githubUrl)}" target="_blank" class="btn btn-secondary btn-sm"><i class="ph ph-github-logo"></i> GitHub</a>`);
+            if (meta.linkedinUrl) links.push(`<a href="${escapeHtml(meta.linkedinUrl)}" target="_blank" class="btn btn-secondary btn-sm"><i class="ph ph-linkedin-logo"></i> LinkedIn</a>`);
+            if (meta.websiteUrl) links.push(`<a href="${escapeHtml(meta.websiteUrl)}" target="_blank" class="btn btn-secondary btn-sm"><i class="ph ph-globe"></i> Website</a>`);
+            socialRow.innerHTML = links.join(' ');
+
+            // Render Projects
+            renderProjects(data.projects || []);
+
+            // Render Skills
+            renderSkills(data.skills || [], data.interests || []);
+
+            // Render Achievements
+            renderAchievements(data.achievements || []);
+
+            // Render Roadmaps
+            renderRoadmaps(data.roadmaps || []);
+
+            // Render Accomplishments & Certifications
+            renderAccomplishments(data.organisationAccomplishments || [], data.certifications || []);
+        }
+
+        function renderProjects(projects) {
+            var container = document.getElementById('projects-container');
+            if (projects.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">No projects published yet. Click "Publish Project" to build your showcase!</p>';
+                return;
+            }
+
+            container.innerHTML = projects.map(function(p) {
+                var techs = Array.isArray(p.technologies) ? p.technologies : JSON.parse(p.technologies || '[]');
+                var techBadges = techs.map(function(t) { return `<span class="tech-pill">${escapeHtml(t)}</span>`; }).join(' ');
+                var mediaUrls = Array.isArray(p.media_urls) ? p.media_urls : (p.media_urls ? JSON.parse(p.media_urls) : []);
+                var mediaHtml = '';
+                if (mediaUrls.length > 0 && mediaUrls[0]) {
+                    mediaHtml = `<div style="margin-bottom:0.75rem; border-radius:10px; overflow:hidden; max-height:200px; border:1px solid var(--border-glow); background:rgba(0,0,0,0.2);"><img src="${escapeHtml(mediaUrls[0])}" alt="${escapeHtml(p.title)}" style="width:100%; height:100%; object-fit:cover;" onerror="this.parentElement.style.display='none'"></div>`;
+                }
+
+                return `
+                    <div class="project-card">
+                        ${p.is_featured ? '<div class="featured-ribbon"><i class="ph-fill ph-star"></i> Featured</div>' : ''}
+                        ${mediaHtml}
+                        <div>
+                            <div class="project-category-tag">${escapeHtml((p.project_category || 'software').replace('_', ' '))}</div>
+                            <h3 class="project-title">${escapeHtml(p.title)}</h3>
+                            ${p.tagline ? `<div style="font-size:0.85rem; color:#93c5fd; margin-bottom:0.4rem;">${escapeHtml(p.tagline)}</div>` : ''}
+                            <p class="project-desc">${escapeHtml(p.description)}</p>
+                        </div>
+
+                        ${p.problem_statement ? `
+                            <div class="problem-statement-box">
+                                <strong>Problem:</strong> ${escapeHtml(p.problem_statement)}
+                            </div>
+                        ` : ''}
+
+                        ${p.outcomes_and_impact ? `
+                            <div style="font-size:0.8rem; color:#34d399; font-weight:600;">
+                                <i class="ph ph-trend-up"></i> ${escapeHtml(p.outcomes_and_impact)}
+                            </div>
+                        ` : ''}
+
+                        <div style="display:flex; flex-wrap:wrap; gap:0.35rem;">
+                            ${techBadges}
+                        </div>
+
+                        ${p.verified_by_org_name ? `
+                            <div style="background:rgba(16,185,129,0.1); border:1px solid rgba(16,185,129,0.3); border-radius:6px; padding:0.35rem 0.65rem; font-size:0.75rem; color:#6ee7b7; display:inline-flex; align-items:center; gap:0.35rem;">
+                                <i class="ph-bold ph-seal-check"></i> Endorsed by ${escapeHtml(p.verified_by_org_name)}
+                            </div>
+                        ` : ''}
+
+                        <div class="project-links">
+                            ${p.github_repo_url ? `<a href="${escapeHtml(p.github_repo_url)}" target="_blank"><i class="ph ph-github-logo"></i> Code</a>` : ''}
+                            ${p.live_demo_url ? `<a href="${escapeHtml(p.live_demo_url)}" target="_blank"><i class="ph ph-arrow-square-out"></i> Live Demo</a>` : ''}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderSkills(skills, interests) {
+            var sc = document.getElementById('skills-cloud');
+            if (skills.length === 0) {
+                sc.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No skills registered. Complete curriculum quests to verify your proficiencies.</p>';
+            } else {
+                sc.innerHTML = skills.map(function(s) {
+                    var lvlColor = s.proficiency_level === 'advanced' ? '#34d399' : (s.proficiency_level === 'intermediate' ? '#60a5fa' : '#a78bfa');
+                    return `
+                        <div style="background:var(--bg-card); border:1px solid var(--border-glow); padding:0.6rem 0.9rem; border-radius:10px; display:inline-flex; align-items:center; gap:0.5rem; font-size:0.85rem;">
+                            <span style="font-weight:700; color:#fff;">${escapeHtml(s.skill_name)}</span>
+                            <span style="font-size:0.75rem; color:${lvlColor}; text-transform:capitalize;">• ${escapeHtml(s.proficiency_level)}</span>
+                            ${s.verified ? '<i class="ph-fill ph-check-circle" style="color:#34d399; font-size:0.85rem;" title="Verified Skill"></i>' : ''}
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            var ic = document.getElementById('interests-cloud');
+            if (interests.length === 0) {
+                ic.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No specific interest tags configured.</p>';
+            } else {
+                ic.innerHTML = interests.map(function(i) {
+                    return `<span class="tech-pill" style="font-size:0.8rem; padding:0.35rem 0.75rem;">${escapeHtml(i.interest_name)}</span>`;
+                }).join(' ');
+            }
+        }
+
+        function renderAchievements(achievements) {
+            var container = document.getElementById('achievements-container');
+            if (achievements.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">No achievements unlocked yet. Complete quests and publish projects to earn genuine badges!</p>';
+                return;
+            }
+
+            container.innerHTML = achievements.map(function(a) {
+                var dt = a.awarded_at ? new Date(a.awarded_at).toLocaleDateString() : 'Verified';
+                return `
+                    <div class="achievement-card">
+                        <div class="badge-icon-box">
+                            <i class="ph-fill ${escapeHtml(a.badge_icon || 'ph-trophy')}"></i>
+                        </div>
+                        <div>
+                            <div class="badge-title">${escapeHtml(a.badge_title)}</div>
+                            <div class="badge-desc">${escapeHtml(a.description)}</div>
+                            <div class="badge-meta">
+                                <span><i class="ph ph-calendar"></i> ${dt}</span>
+                                <span style="color:#fbbf24;"><i class="ph-fill ph-lightning"></i> +${a.xp_bonus || 50} XP</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderRoadmaps(roadmaps) {
+            var container = document.getElementById('roadmaps-container');
+            if (roadmaps.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">No active roadmaps found. Synthesize an adaptive roadmap from your Student Dashboard.</p>';
+                return;
+            }
+
+            container.innerHTML = roadmaps.map(function(r) {
+                var progress = parseFloat(r.overall_progress || '0').toFixed(0);
+                return `
+                    <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:14px; padding:1.25rem;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.5rem;">
+                            <div>
+                                <h3 style="font-weight:700; font-size:1.1rem; color:#fff;">${escapeHtml(r.title)}</h3>
+                                <div style="font-size:0.8rem; color:#93c5fd;">Goal: ${escapeHtml(r.primary_goal)} • Target: ${escapeHtml(r.target_career_path)}</div>
+                            </div>
+                            <span class="brand-badge" style="background:rgba(59,130,246,0.15); color:#93c5fd;">${escapeHtml(r.status.toUpperCase())}</span>
+                        </div>
+                        <div style="margin-top:0.75rem;">
+                            <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.35rem;">
+                                <span>Roadmap Completion Progress</span>
+                                <strong style="color:#fff;">${progress}% (${r.completed_tasks || 0} / ${r.total_tasks || 24} tasks)</strong>
+                            </div>
+                            <div style="height:6px; background:rgba(255,255,255,0.08); border-radius:9999px; overflow:hidden;">
+                                <div style="width:${progress}%; height:100%; background:linear-gradient(90deg, var(--accent-purple), var(--accent-emerald)); border-radius:9999px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function renderAccomplishments(accomplishments, certs) {
+            var container = document.getElementById('accomplishments-container');
+            if (accomplishments.length === 0) {
+                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No organisation challenge accomplishments yet. Apply to challenges in Capacity Connect!</p>';
+            } else {
+                container.innerHTML = accomplishments.map(function(acc) {
+                    return `
+                        <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:12px; padding:1rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
+                            <div>
+                                <div style="font-weight:700; font-size:0.95rem; color:#fff;">${escapeHtml(acc.opportunity_title)}</div>
+                                <div style="font-size:0.8rem; color:#93c5fd;">${escapeHtml(acc.organization_name)} (${escapeHtml(acc.org_type)})</div>
+                            </div>
+                            <div style="text-align:right;">
+                                <span class="brand-badge" style="background:rgba(16,185,129,0.15); color:#6ee7b7;"><i class="ph-bold ph-check"></i> ${escapeHtml(acc.status.toUpperCase())}</span>
+                                ${acc.stipend_or_reward ? `<div style="font-size:0.75rem; color:#34d399; margin-top:0.25rem;">${escapeHtml(acc.stipend_or_reward)}</div>` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            var certContainer = document.getElementById('certifications-container');
+            if (certs.length === 0) {
+                certContainer.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No external certifications listed.</p>';
+            } else {
+                certContainer.innerHTML = certs.map(function(c) {
+                    return `
+                        <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:10px; padding:0.85rem 1.15rem; display:flex; justify-content:space-between; align-items:center;">
+                            <div>
+                                <div style="font-weight:700; font-size:0.9rem; color:#fff;">${escapeHtml(c.title)}</div>
+                                <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(c.issuing_organization)} ${c.issue_date ? '• ' + new Date(c.issue_date).toLocaleDateString() : ''}</div>
+                            </div>
+                            ${c.credential_url ? `<a href="${escapeHtml(c.credential_url)}" target="_blank" class="btn btn-secondary btn-sm"><i class="ph ph-arrow-square-out"></i> Verify</a>` : ''}
+                        </div>
+                    `;
+                }).join('');
+            }
+        }
+
+        function renderFallbackPortfolio() {
+            renderPortfolio({
+                user: { name: 'Aarav Junior', email: 'aar***@***.com', role: 'student' },
+                privacy: { isMinor: true, privacyProtected: true },
+                meta: {
+                    headline: 'STEM Explorer & Visual Logic Builder | DTV Junior',
+                    bio: 'Passionate about coding visual robotics, deducing algorithmic patterns, and building science simulations.',
+                    completionScore: 80
+                },
+                academicProfile: {
+                    studentSegment: 'junior',
+                    academicClass: '6',
+                    targetCareerPath: 'Robotics & Automation',
+                    streamOrFocus: 'STEM Curiosity'
+                },
+                projects: [
+                    {
+                        id: 'p-1',
+                        title: 'Interactive Clean Energy Simulation',
+                        project_category: 'stem_experiment',
+                        description: 'Simulated wind and solar power distribution algorithms solving everyday community energy challenges.',
+                        problem_statement: 'Balancing renewable power storage against intermittent urban demand.',
+                        technologies: ['Block Logic', 'Simulation Engine', 'Physics Modeling'],
+                        outcomes_and_impact: 'Balanced simulated microgrid efficiency by 38%',
+                        is_featured: true
+                    }
+                ],
+                achievements: [
+                    { badge_title: 'Genesis Quest', badge_icon: 'ph-sparkle', description: 'Completed your first verified learning quest.', xp_bonus: 50 },
+                    { badge_title: 'Creator Genesis', badge_icon: 'ph-code', description: 'Published your first verified project showcase.', xp_bonus: 100 }
+                ],
+                skills: [
+                    { skill_name: 'Scratch Logic', proficiency_level: 'intermediate', verified: true },
+                    { skill_name: 'Pattern Deduction', proficiency_level: 'beginner', verified: true }
+                ],
+                interests: [{ interest_name: 'Robotics' }, { interest_name: 'Clean Energy' }],
+                roadmaps: [
+                    { title: 'Junior Creative Code Sprint', primary_goal: 'Visual Coding Logic', target_career_path: 'Robotics', status: 'active', overall_progress: 45, total_tasks: 24, completed_tasks: 11 }
+                ],
+                organisationAccomplishments: []
+            });
+        }
+
+        // FORM HANDLERS
+        async function handleUpdatePortfolio(e) {
+            e.preventDefault();
+            var headline = document.getElementById('edit-headline').value.trim();
+            var bio = document.getElementById('edit-bio').value.trim();
+            var location = document.getElementById('edit-location').value.trim();
+            var visibility = document.getElementById('edit-visibility').value;
+            var github = document.getElementById('edit-github').value.trim();
+            var linkedin = document.getElementById('edit-linkedin').value.trim();
+            var website = document.getElementById('edit-website').value.trim();
+
+            try {
+                var res = await fetch('/api/v1/portfolio/me/profile', {
+                    method: 'PUT',
+                    credentials: 'include',
+                    headers: getAuthHeader(),
+                    body: JSON.stringify({
+                        headline: headline,
+                        bio: bio || null,
+                        location: location || null,
+                        portfolioVisibility: visibility,
+                        githubUrl: github || null,
+                        linkedinUrl: linkedin || null,
+                        websiteUrl: website || null
+                    })
+                });
+
+                if (res.ok) {
+                    showToast('Portfolio profile updated successfully!');
+                    closeModal('edit-portfolio-modal');
+                    initPortfolio();
+                } else {
+                    var err = await res.json();
+                    showToast(err.message || 'Update failed', true);
+                }
+            } catch (err) {
+                showToast('Failed to update portfolio', true);
+            }
+        }
+
+        async function handlePublishProject(e) {
+            e.preventDefault();
+            var title = document.getElementById('proj-title').value.trim();
+            var category = document.getElementById('proj-category').value;
+            var role = document.getElementById('proj-role').value.trim();
+            var tagline = document.getElementById('proj-tagline').value.trim();
+            var techsRaw = document.getElementById('proj-techs').value;
+            var problem = document.getElementById('proj-problem').value.trim();
+            var desc = document.getElementById('proj-desc').value.trim();
+            var outcomes = document.getElementById('proj-outcomes').value.trim();
+            var github = document.getElementById('proj-github').value.trim();
+            var demo = document.getElementById('proj-demo').value.trim();
+            var isFeatured = document.getElementById('proj-featured').checked;
+            var mediaUrl = document.getElementById('proj-media-url') ? document.getElementById('proj-media-url').value.trim() : '';
+            var mediaUrls = mediaUrl ? [mediaUrl] : [];
+
+            var techs = techsRaw ? techsRaw.split(',').map(function(t) { return t.trim(); }).filter(Boolean) : [];
+
+            try {
+                var res = await fetch('/api/v1/portfolio/projects', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: getAuthHeader(),
+                    body: JSON.stringify({
+                        title: title,
+                        projectCategory: category,
+                        studentRole: role || 'Solo Creator',
+                        tagline: tagline || null,
+                        technologies: techs,
+                        problemStatement: problem || null,
+                        description: desc,
+                        outcomesAndImpact: outcomes || null,
+                        githubRepoUrl: github || null,
+                        liveDemoUrl: demo || null,
+                        mediaUrls: mediaUrls,
+                        isFeatured: isFeatured
+                    })
+                });
+
+                if (res.ok) {
+                    showToast('Project published to showcase!');
+                    closeModal('create-project-modal');
+                    initPortfolio();
+                } else {
+                    var err = await res.json();
+                    showToast(err.message || 'Publishing failed', true);
+                }
+            } catch (err) {
+                showToast('Failed to publish project', true);
+            }
+        }
+
+        async function handleAddCertification(e) {
+            e.preventDefault();
+            var title = document.getElementById('cert-title').value.trim();
+            var org = document.getElementById('cert-org').value.trim();
+            var date = document.getElementById('cert-date').value;
+            var credId = document.getElementById('cert-cred-id').value.trim();
+            var url = document.getElementById('cert-url').value.trim();
+
+            try {
+                var res = await fetch('/api/v1/portfolio/certifications', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: getAuthHeader(),
+                    body: JSON.stringify({
+                        title: title,
+                        issuingOrganization: org,
+                        issueDate: date ? new Date(date).toISOString() : null,
+                        credentialId: credId || null,
+                        credentialUrl: url || null
+                    })
+                });
+
+                if (res.ok) {
+                    showToast('Certification added!');
+                    closeModal('add-cert-modal');
+                    initPortfolio();
+                } else {
+                    var err = await res.json();
+                    showToast(err.message || 'Failed to add certification', true);
+                }
+            } catch (err) {
+                showToast('Failed to add certification', true);
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        document.addEventListener('DOMContentLoaded', initPortfolio);
+    </script>
+</body>
+</html>

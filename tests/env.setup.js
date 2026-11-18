@@ -1,11 +1,24 @@
 require('dotenv').config();
+const { assertSafeTestDatabase, isProductionDatabase } = require('./databaseGuard');
 
-process.env.NODE_ENV = process.env.NODE_ENV || 'test';
+process.env.NODE_ENV = 'test';
 process.env.PORT = process.env.PORT || '3001';
-process.env.TEST_DATABASE_URL = process.env.TEST_DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/digital_twin_test';
+
+// Dedicated local test cluster running on port 5433 with trust authentication
+process.env.TEST_DATABASE_URL = 'postgresql://postgres@127.0.0.1:5433/digital_twin_test';
+if (isProductionDatabase(process.env.TEST_DATABASE_URL)) {
+  process.env.TEST_DATABASE_URL = 'postgresql://postgres@127.0.0.1:5433/digital_twin_test';
+}
+
 process.env.DATABASE_URL = process.env.TEST_DATABASE_URL;
-process.env.JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || 'test-access-secret';
-process.env.JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'test-refresh-secret';
+process.env.REDIS_URL = '';
+
+// Fail-closed verification: Ensure DATABASE_URL is verified safe
+assertSafeTestDatabase(process.env.DATABASE_URL, 'Jest environment initialization');
+
+process.env.JWT_ACCESS_SECRET = process.env.JWT_ACCESS_SECRET || 'test-access-secret-for-jest-only-min-32-chars';
+process.env.JWT_REFRESH_SECRET = process.env.JWT_REFRESH_SECRET || 'test-refresh-secret-for-jest-only-min-32-chars';
+process.env.OTP_SECRET = process.env.OTP_SECRET || 'test-otp-secret-for-jest-only-min-32-chars';
 process.env.JWT_ACCESS_TTL = process.env.JWT_ACCESS_TTL || '15m';
 process.env.JWT_REFRESH_TTL = process.env.JWT_REFRESH_TTL || '30d';
 process.env.COOKIE_SECURE = 'false';

@@ -42,6 +42,32 @@ const refreshSchema = Joi.object({
   }).optional()
 });
 
+const verifyOTPSchema = Joi.object({
+  body: Joi.object({
+    otpCode: Joi.string().trim().length(6).pattern(/^\d{6}$/).required().messages({
+      'string.length': 'Verification code must be exactly 6 digits.',
+      'string.pattern.base': 'Verification code must contain digits only.'
+    })
+  }).required()
+});
+
+const forgotPasswordSchema = Joi.object({
+  body: Joi.object({
+    email: Joi.string().email().required()
+  }).required()
+});
+
+const resetPasswordSchema = Joi.object({
+  body: Joi.object({
+    email: Joi.string().email().required(),
+    otpCode: Joi.string().trim().length(6).pattern(/^\d{6}$/).required().messages({
+      'string.length': 'Verification code must be exactly 6 digits.',
+      'string.pattern.base': 'Verification code must contain digits only.'
+    }),
+    newPassword: Joi.string().min(8).max(72).required()
+  }).required()
+});
+
 /**
  * @openapi
  * /auth/signup:
@@ -185,10 +211,10 @@ router.post('/logout', authLimiter, authController.logout);
  */
 router.get('/me', authenticate, authController.me);
 
-router.post('/verify-otp', authenticate, authLimiter, authController.verifyOTP);
+router.post('/verify-otp', authenticate, authLimiter, validate(verifyOTPSchema), authController.verifyOTP);
 router.post('/resend-otp', authenticate, authLimiter, authController.resendOTP);
-router.post('/forgot-password', authLimiter, authController.forgotPassword);
-router.post('/reset-password', authLimiter, authController.resetPassword);
+router.post('/forgot-password', authLimiter, validate(forgotPasswordSchema), authController.forgotPassword);
+router.post('/reset-password', authLimiter, validate(resetPasswordSchema), authController.resetPassword);
 router.get('/smtp-debug', authenticate, authorize('admin'), authController.smtpDebug);
 
 module.exports = router;

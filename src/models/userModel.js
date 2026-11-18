@@ -15,6 +15,7 @@ function mapUser(row) {
     linkCode: row.link_code,
     otpCode: row.otp_code,
     otpExpiresAt: row.otp_expires_at,
+    otpAttempts: row.otp_attempts || 0,
     isActive: row.is_active,
     createdAt: row.created_at,
     updatedAt: row.updated_at,
@@ -127,7 +128,7 @@ async function verifyEmail(id) {
 
 async function setOTP(id, otpCode, expiresAt) {
   const result = await db.query(
-    'UPDATE users SET otp_code = $1, otp_expires_at = $2, updated_at = now() WHERE id = $3 RETURNING *',
+    'UPDATE users SET otp_code = $1, otp_expires_at = $2, otp_attempts = 0, updated_at = now() WHERE id = $3 RETURNING *',
     [otpCode, expiresAt, id]
   );
   return mapUser(result.rows[0]);
@@ -135,7 +136,15 @@ async function setOTP(id, otpCode, expiresAt) {
 
 async function clearOTP(id) {
   const result = await db.query(
-    'UPDATE users SET otp_code = null, otp_expires_at = null, updated_at = now() WHERE id = $1 RETURNING *',
+    'UPDATE users SET otp_code = null, otp_expires_at = null, otp_attempts = 0, updated_at = now() WHERE id = $1 RETURNING *',
+    [id]
+  );
+  return mapUser(result.rows[0]);
+}
+
+async function incrementOTPAttempts(id) {
+  const result = await db.query(
+    'UPDATE users SET otp_attempts = COALESCE(otp_attempts, 0) + 1, updated_at = now() WHERE id = $1 RETURNING *',
     [id]
   );
   return mapUser(result.rows[0]);
@@ -143,7 +152,7 @@ async function clearOTP(id) {
 
 async function updatePassword(id, passwordHash) {
   const result = await db.query(
-    'UPDATE users SET password_hash = $1, otp_code = null, otp_expires_at = null, updated_at = now() WHERE id = $2 RETURNING *',
+    'UPDATE users SET password_hash = $1, otp_code = null, otp_expires_at = null, otp_attempts = 0, updated_at = now() WHERE id = $2 RETURNING *',
     [passwordHash, id]
   );
   return mapUser(result.rows[0]);
@@ -211,6 +220,7 @@ module.exports = {
   verifyEmail,
   setOTP,
   clearOTP,
+  incrementOTPAttempts,
   updatePassword,
   updateActiveStatus,
   linkParentStudent,

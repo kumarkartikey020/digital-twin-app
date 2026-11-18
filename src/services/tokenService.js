@@ -2,9 +2,14 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const ms = require('ms');
 const env = require('../config/env');
+const db = require('../db');
 const tokenModel = require('../models/tokenModel');
 const userModel = require('../models/userModel');
 const ApiError = require('../utils/apiError');
+const logger = require('../config/logger');
+
+// Grace period for legitimate concurrent refresh requests (e.g., parallel tab/fetch races)
+const REFRESH_REUSE_GRACE_MS = 15 * 1000; // 15 seconds
 
 function signAccessToken(user) {
   return jwt.sign({ sub: user.id, role: user.role }, env.JWT_ACCESS_SECRET, {
@@ -31,48 +36,92 @@ function getRefreshExpiresAt() {
   return new Date(Date.now() + ttlMs);
 }
 
-async function createAuthTokens(user, meta) {
+async function createAuthTokens(user, meta, familyId = null, client = db) {
   const accessToken = signAccessToken(user);
   const refreshToken = generateRefreshToken();
   const refreshHash = hashToken(refreshToken);
   const expiresAt = getRefreshExpiresAt();
+  const tokenFamilyId = familyId || crypto.randomUUID();
 
   await tokenModel.create({
     userId: user.id,
     tokenHash: refreshHash,
     expiresAt: expiresAt,
-    ipAddress: meta.ip,
-    userAgent: meta.userAgent
-  });
+    ipAddress: meta ? meta.ip : null,
+    userAgent: meta ? meta.userAgent : null,
+    familyId: tokenFamilyId
+  }, client);
 
   return {
     accessToken: accessToken,
     refreshToken: refreshToken,
     accessExpiresIn: getAccessExpiresInSeconds(),
-    refreshExpiresAt: expiresAt
+    refreshExpiresAt: expiresAt,
+    familyId: tokenFamilyId
   };
 }
 
 async function rotateRefreshToken(refreshToken, meta) {
   const tokenHash = hashToken(refreshToken);
-  const record = await tokenModel.findByHash(tokenHash);
-  if (!record) {
-    throw new ApiError(401, 'Invalid refresh token.');
-  }
 
-  if (record.revoked_at || new Date(record.expires_at) < new Date()) {
-    throw new ApiError(401, 'Refresh token expired.');
-  }
+  return await db.withTransaction(async (client) => {
+    // Row lock on token record prevents concurrent race conditions
+    const record = await tokenModel.findByHashForUpdate(client, tokenHash);
+    if (!record) {
+      throw new ApiError(401, 'Invalid refresh token.');
+    }
 
-  const user = await userModel.findById(record.user_id);
-  if (!user || !user.isActive) {
-    throw new ApiError(401, 'Account is inactive or missing.');
-  }
+    if (new Date(record.expires_at) < new Date()) {
+      throw new ApiError(401, 'Refresh token expired.');
+    }
 
-  await tokenModel.revoke(record.id);
-  const tokens = await createAuthTokens(user, meta);
+    const familyId = record.family_id || record.id;
 
-  return { user: user, tokens: tokens };
+    // Check if token was already revoked
+    if (record.revoked_at) {
+      const revokedMsAgo = Date.now() - new Date(record.revoked_at).getTime();
+
+      if (revokedMsAgo > REFRESH_REUSE_GRACE_MS) {
+        // Hostile reuse detected! Invalidate the ENTIRE token family
+        await tokenModel.revokeFamily(familyId, client);
+        logger.warn('SECURITY ALERT: Hostile refresh token reuse detected! Revoking entire token family.', {
+          userId: record.user_id,
+          familyId: familyId,
+          revokedMsAgo
+        });
+        throw new ApiError(401, 'Security Alert: Compromised refresh token reused. All active sessions have been terminated. Please log in again.');
+      } else {
+        // Legitimate parallel request within grace window (e.g. concurrent page loads)
+        logger.info('Benign concurrent token refresh within grace window', {
+          userId: record.user_id,
+          familyId: familyId,
+          revokedMsAgo
+        });
+        throw new ApiError(401, 'Refresh token already rotated. Please use the updated session token.');
+      }
+    }
+
+    // Token is valid and unrevoked: verify user status
+    const userRes = await client.query('SELECT * FROM users WHERE id = $1', [record.user_id]);
+    const userRow = userRes.rows[0];
+    if (!userRow || !userRow.is_active) {
+      throw new ApiError(401, 'Account is inactive or missing.');
+    }
+
+    // Revoke current token
+    await tokenModel.revoke(record.id, client);
+
+    // Issue new token in the same token family
+    const userObj = {
+      id: userRow.id,
+      email: userRow.email,
+      role: userRow.role,
+      name: userRow.name
+    };
+    const tokens = await createAuthTokens(userObj, meta, familyId, client);
+
+    return { user: userObj, tokens: tokens };
+  });
 }
 
 async function revokeRefreshToken(refreshToken) {
@@ -84,5 +133,6 @@ module.exports = {
   createAuthTokens,
   rotateRefreshToken,
   revokeRefreshToken,
-  getAccessExpiresInSeconds
+  getAccessExpiresInSeconds,
+  REFRESH_REUSE_GRACE_MS
 };

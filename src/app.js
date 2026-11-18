@@ -42,7 +42,7 @@ app.use((req, res, next) => {
            if (fn) return fn(err);
            return next(err);
         }
-        const injected = data.replace(/<script /g, `<script nonce="${res.locals.cspNonce}" `);
+        const injected = data.replace(/<script(?=[\s>])/gi, `<script nonce="${res.locals.cspNonce}" `);
         res.send(injected);
       });
     } else {
@@ -89,13 +89,14 @@ app.use(helmet({
         "https://checkout.razorpay.com", 
         "https://cdnjs.cloudflare.com",
         "https://cdn.tailwindcss.com",
-        "https://cdn.jsdelivr.net"
+        "https://cdn.jsdelivr.net",
+        "https://unpkg.com"
       ],
       scriptSrcAttr: ["'unsafe-inline'"],
-      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.tailwindcss.com"],
-      fontSrc: ["'self'", "data:", "https://fonts.gstatic.com"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdn.tailwindcss.com", "https://cdn.jsdelivr.net", "https://unpkg.com"],
+      fontSrc: ["'self'", "data:", "https://fonts.gstatic.com", "https://cdn.jsdelivr.net", "https://unpkg.com"],
       imgSrc: ["'self'", "data:", "blob:", "https://www.google-analytics.com", "https://*.razorpay.com", "https://razorpay.com", "https://images.unsplash.com", "https://*.digitaltwinvrs.com", "https://digitaltwinvrs.com"],
-      connectSrc: ["'self'", "https://www.google-analytics.com", "https://*.analytics.google.com", "https://*.razorpay.com", "wss:"],
+      connectSrc: ["'self'", "https://www.google-analytics.com", "https://*.analytics.google.com", "https://*.razorpay.com", "https://cdn.jsdelivr.net", "https://unpkg.com", "wss:"],
       frameSrc: ["'self'", "https://api.razorpay.com", "https://checkout.razorpay.com"],
       mediaSrc: ["'self'", "data:", "blob:"],
       objectSrc: ["'none'"],
@@ -126,7 +127,8 @@ const allowedOrigins = env.CORS_ORIGINS
 
 app.use(cors({
   origin: function (origin, callback) {
-    if (!origin || allowedOrigins.includes(origin)) {
+    const isLocal = /^https?:\/\/(localhost|127\.0\.0\.1)(:\d+)?$/.test(origin || '');
+    if (!origin || allowedOrigins.includes(origin) || isLocal) {
       callback(null, true);
     } else {
       callback(new Error('CORS Policy Blocked: ' + origin));
@@ -161,6 +163,7 @@ app.use('/api', aiRoutes);
 app.use('/api/v1/parent', parentRoutes);
 app.use('/api/v1', routes);
 app.use('/api/readiness', require('./routes/careerReadinessRoutes'));
+app.use('/api/student', require('./routes/studentRoutes'));
 app.use('/api/institutions', require('./routes/institutionalRoutes'));
 app.use('/api/futureverse', require('./routes/futureverseRoutes'));
 
@@ -208,6 +211,24 @@ app.get(['/genesis', '/genesis/'], (req, res) => {
       res.sendFile('genesis.html', { root: publicDir });
     }
   });
+});
+
+// Student Intelligence Ecosystem Dashboard Route
+app.get(['/student-dashboard', '/student-dashboard.html', '/student-dashboard/'], (req, res) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.sendFile('student-dashboard.html', { root: publicDir });
+});
+
+// Capacity Connect B2B & Organisation Ecosystem Route
+app.get(['/capacity-connect', '/capacity-connect.html', '/capacity-connect/'], (req, res) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.sendFile('capacity-connect.html', { root: publicDir });
+});
+
+// Student Portfolio & Achievement Ecosystem Route
+app.get(['/student-portfolio', '/student-portfolio.html', '/student-portfolio/', '/portfolio/:studentId'], (req, res) => {
+  res.set('Cache-Control', 'no-cache, no-store, must-revalidate');
+  res.sendFile('student-portfolio.html', { root: publicDir });
 });
 
 // Dedicated Problem Topic Pages Route

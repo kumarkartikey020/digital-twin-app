@@ -27,8 +27,11 @@ router.use('/admin/subscriptions', require('./adminSubscriptionRoutes'));
 router.use('/team', require('./teamRoutes'));
 router.use('/analyzer', require('./analyzerRoutes'));
 router.use('/organizations', require('./organizationRoutes'));
+router.use('/capacity-connect', require('./capacityConnectRoutes'));
 router.use('/institutions', require('./institutionalRoutes'));
 router.use('/readiness', require('./careerReadinessRoutes'));
+router.use('/student', require('./studentRoutes'));
+router.use('/portfolio', require('./portfolioRoutes'));
 router.use('/', aiRoutes);
 
 router.get('/config', (req, res) => {

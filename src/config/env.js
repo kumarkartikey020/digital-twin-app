@@ -18,6 +18,7 @@ const schema = Joi.object({
   SUPABASE_ANON_KEY: Joi.string().allow(''),
   JWT_ACCESS_SECRET: Joi.string().required(),
   JWT_REFRESH_SECRET: Joi.string().required(),
+  OTP_SECRET: Joi.string().allow('').default(''),
   JWT_ACCESS_TTL: Joi.string().default('15m'),
   JWT_REFRESH_TTL: Joi.string().default('30d'),
   COOKIE_SECURE: Joi.boolean().truthy('true').falsy('false').default(false),

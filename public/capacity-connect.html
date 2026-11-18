@@ -1,0 +1,2069 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Capacity Connect | Digital Twin Verse B2B &amp; Organisation Ecosystem</title>
+    <meta name="description" content="Connect students with schools, colleges, universities, companies, and institutions through structured opportunities, challenges, talent discovery, and mentorship.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/premium-theme.css">
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
+    <style>
+        :root {
+            --bg-dark: #080a0f;
+            --bg-card: rgba(17, 24, 39, 0.85);
+            --bg-card-hover: rgba(31, 41, 55, 0.95);
+            --border-glow: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(59, 130, 246, 0.5);
+            --accent-blue: #3b82f6;
+            --accent-indigo: #6366f1;
+            --accent-purple: #8b5cf6;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.08) 0%, transparent 45%),
+                radial-gradient(circle at 90% 80%, rgba(99, 102, 241, 0.08) 0%, transparent 45%);
+            background-attachment: fixed;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 1.25rem 1rem 4rem;
+        }
+
+        /* Top Navigation Bar */
+        .top-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--border-glow);
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            color: var(--text-primary);
+        }
+
+        .brand-logo img {
+            height: 38px;
+            width: auto;
+            border-radius: 8px;
+        }
+
+        .brand-title {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-title span {
+            color: var(--accent-blue);
+        }
+
+        .brand-badge {
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(99, 102, 241, 0.2));
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            color: #93c5fd;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.6rem;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.65rem 1.25rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-decoration: none;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--accent-blue), var(--accent-indigo));
+            color: #ffffff;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+        }
+
+        .btn-primary:hover {
+            opacity: 0.95;
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glow);
+            color: var(--text-primary);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-sm {
+            padding: 0.4rem 0.85rem;
+            font-size: 0.8rem;
+            border-radius: 8px;
+        }
+
+        .btn-success {
+            background: rgba(16, 185, 129, 0.2);
+            border: 1px solid rgba(16, 185, 129, 0.4);
+            color: #6ee7b7;
+        }
+
+        .btn-danger {
+            background: rgba(244, 63, 94, 0.2);
+            border: 1px solid rgba(244, 63, 94, 0.4);
+            color: #fda4af;
+        }
+
+        /* Hero Banner & Org Meta */
+        .org-header {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1.25rem;
+            backdrop-filter: blur(12px);
+        }
+
+        .org-info {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            flex-wrap: wrap;
+        }
+
+        .org-avatar {
+            width: 64px;
+            height: 64px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border: 1px solid var(--border-glow);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+            color: #93c5fd;
+            font-weight: 800;
+            overflow: hidden;
+        }
+
+        .org-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .org-text h1 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 0.35rem;
+            display: flex;
+            align-items: center;
+            gap: 0.65rem;
+            flex-wrap: wrap;
+        }
+
+        .org-badge-type {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .org-badge-verified {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.65rem;
+            border-radius: 6px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .verified-badge {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #6ee7b7;
+        }
+
+        .pending-badge {
+            background: rgba(245, 158, 11, 0.15);
+            border: 1px solid rgba(245, 158, 11, 0.3);
+            color: #fcd34d;
+        }
+
+        .org-meta-row {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .org-meta-row span {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* Workspace Tab Navigation */
+        .workspace-tabs {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            border-bottom: 1px solid var(--border-glow);
+            margin-bottom: 1.75rem;
+            overflow-x: auto;
+            padding-bottom: 0.5rem;
+            scrollbar-width: thin;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            font-weight: 600;
+            padding: 0.75rem 1.15rem;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .tab-btn.active {
+            color: #ffffff;
+            background: rgba(59, 130, 246, 0.15);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        /* Metric Cards Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .metric-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+            backdrop-filter: blur(10px);
+            transition: transform 0.2s ease;
+        }
+
+        .metric-card:hover {
+            border-color: var(--border-active);
+            transform: translateY(-2px);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .metric-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .metric-value {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .metric-footer {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        /* Content Sections */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .section-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .section-desc {
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-top: 0.25rem;
+        }
+
+        /* Filters & Search Toolbar */
+        .toolbar {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 0.85rem 1rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.85rem;
+            flex-wrap: wrap;
+        }
+
+        .search-box {
+            position: relative;
+            flex: 1;
+            min-width: 220px;
+        }
+
+        .search-box input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            padding: 0.55rem 0.85rem 0.55rem 2.25rem;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            outline: none;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent-blue);
+        }
+
+        .search-box i {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+        }
+
+        .filter-select {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            padding: 0.55rem 0.85rem;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .filter-select:focus {
+            border-color: var(--accent-blue);
+        }
+
+        /* Cards Grid for Students, Opportunities, Applications */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 1.25rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glow);
+            border-radius: 14px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.85rem;
+            transition: all 0.2s ease;
+        }
+
+        .card:hover {
+            border-color: var(--border-active);
+            background: var(--bg-card-hover);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            gap: 0.75rem;
+        }
+
+        .card-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+        }
+
+        .card-subtitle {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
+        }
+
+        .card-pill {
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 0.2rem 0.55rem;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        .card-pill.pill-blue {
+            background: rgba(59, 130, 246, 0.2);
+            color: #93c5fd;
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .card-pill.pill-green {
+            background: rgba(16, 185, 129, 0.2);
+            color: #6ee7b7;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .card-pill.pill-amber {
+            background: rgba(245, 158, 11, 0.2);
+            color: #fcd34d;
+            border: 1px solid rgba(245, 158, 11, 0.3);
+        }
+
+        .card-pill.pill-purple {
+            background: rgba(139, 92, 246, 0.2);
+            color: #d8b4fe;
+            border: 1px solid rgba(139, 92, 246, 0.3);
+        }
+
+        .card-body {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            flex: 1;
+        }
+
+        .tags-row {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+
+        .tag-chip {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-glow);
+            font-size: 0.75rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 6px;
+            color: var(--text-secondary);
+        }
+
+        .privacy-alert {
+            background: rgba(245, 158, 11, 0.1);
+            border: 1px dashed rgba(245, 158, 11, 0.4);
+            border-radius: 8px;
+            padding: 0.5rem 0.75rem;
+            font-size: 0.75rem;
+            color: #fbbf24;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .card-footer {
+            border-top: 1px solid var(--border-glow);
+            padding-top: 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-box {
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-radius: 16px;
+            padding: 1.75rem;
+            width: 100%;
+            max-width: 620px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 1.25rem;
+            right: 1.25rem;
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.25rem;
+            cursor: pointer;
+        }
+
+        .modal-close:hover {
+            color: var(--text-primary);
+        }
+
+        .modal-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.15rem;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-control {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.35);
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            padding: 0.65rem 0.85rem;
+            color: var(--text-primary);
+            font-size: 0.875rem;
+            outline: none;
+        }
+
+        .form-control:focus {
+            border-color: var(--accent-blue);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 90px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            cursor: pointer;
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 1.5rem;
+            right: 1.5rem;
+            background: #1e293b;
+            border: 1px solid var(--border-glow);
+            color: var(--text-primary);
+            padding: 0.85rem 1.25rem;
+            border-radius: 10px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            display: none;
+            align-items: center;
+            gap: 0.65rem;
+            font-size: 0.875rem;
+            font-weight: 500;
+            z-index: 2000;
+        }
+
+        .toast.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Mobile Viewport Adjustments */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem 0.75rem 3rem;
+            }
+            .org-header {
+                padding: 1.25rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .metrics-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .metrics-grid {
+                grid-template-columns: 1fr;
+            }
+            .top-nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Top Navigation -->
+        <header class="top-nav">
+            <a href="/" class="brand-logo">
+                <img src="/img/dtv-logo.jpg" alt="DTV Logo">
+                <div class="brand-title">Capacity<span>Connect</span></div>
+                <span class="brand-badge">B2B Ecosystem</span>
+            </a>
+            <div class="nav-actions">
+                <select id="org-switcher" class="filter-select" onchange="switchOrganization(this.value)">
+                    <option value="">Select Organisation...</option>
+                </select>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openRegisterOrgModal()">
+                    <i class="ph ph-plus-circle"></i> Add Org
+                </button>
+                <a href="/student-dashboard" class="btn btn-secondary btn-sm">
+                    <i class="ph ph-student"></i> Student Portal
+                </a>
+                <a href="/" class="btn btn-secondary btn-sm">
+                    <i class="ph ph-house"></i> Home
+                </a>
+            </div>
+        </header>
+
+        <!-- Active Organisation Banner -->
+        <section class="org-header" id="org-header-banner">
+            <div class="org-info">
+                <div class="org-avatar" id="org-avatar-display">
+                    <i class="ph ph-buildings"></i>
+                </div>
+                <div class="org-text">
+                    <h1 id="org-name-display">
+                        Loading Organisation...
+                        <span id="org-type-badge" class="org-badge-type">Company</span>
+                        <span id="org-verification-badge" class="org-badge-verified pending-badge">
+                            <i class="ph ph-clock"></i> Pending Verification
+                        </span>
+                    </h1>
+                    <div class="org-meta-row" id="org-meta-row">
+                        <span id="org-meta-sector"><i class="ph ph-briefcase"></i> Technology</span>
+                        <span id="org-meta-email"><i class="ph ph-envelope"></i> contact@org.com</span>
+                        <span id="org-meta-website"><i class="ph ph-globe"></i> www.org.com</span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary" onclick="openCreateOppModal()">
+                    <i class="ph-bold ph-plus"></i> Post Opportunity
+                </button>
+            </div>
+        </section>
+
+        <!-- Tabbed Workspace -->
+        <nav class="workspace-tabs">
+            <button class="tab-btn active" onclick="switchTab('dashboard')">
+                <i class="ph ph-squares-four"></i> Dashboard
+            </button>
+            <button class="tab-btn" onclick="switchTab('talent')">
+                <i class="ph ph-users"></i> Talent Discovery
+            </button>
+            <button class="tab-btn" onclick="switchTab('opportunities')">
+                <i class="ph ph-briefcase"></i> Opportunities &amp; Challenges
+            </button>
+            <button class="tab-btn" onclick="switchTab('applications')">
+                <i class="ph ph-file-text"></i> Applications Pipeline
+            </button>
+            <button class="tab-btn" onclick="switchTab('mentorship')">
+                <i class="ph ph-chalkboard-teacher"></i> Mentorship Network
+            </button>
+            <button class="tab-btn" onclick="switchTab('analytics')">
+                <i class="ph ph-chart-line-up"></i> Analytics &amp; Reports
+            </button>
+            <button class="tab-btn" onclick="switchTab('settings')">
+                <i class="ph ph-gear"></i> Org Settings
+            </button>
+        </nav>
+
+        <!-- TAB 1: DASHBOARD -->
+        <section id="tab-dashboard" class="tab-content active">
+            <!-- Metrics Cards -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span>Active Opportunities</span>
+                        <div class="metric-icon" style="color: #60a5fa;"><i class="ph-fill ph-briefcase"></i></div>
+                    </div>
+                    <div class="metric-value" id="metric-active-opps">0</div>
+                    <div class="metric-footer">
+                        <span id="metric-published-challenges">0 Project Challenges</span>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span>Total Applications</span>
+                        <div class="metric-icon" style="color: #34d399;"><i class="ph-fill ph-file-text"></i></div>
+                    </div>
+                    <div class="metric-value" id="metric-total-apps">0</div>
+                    <div class="metric-footer">
+                        <span id="metric-conversion-rate">0.0% Acceptance Rate</span>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span>Candidate Talent Pool</span>
+                        <div class="metric-icon" style="color: #a78bfa;"><i class="ph-fill ph-users-three"></i></div>
+                    </div>
+                    <div class="metric-value" id="metric-total-candidates">0</div>
+                    <div class="metric-footer">
+                        <span>Engaged student learners</span>
+                    </div>
+                </div>
+
+                <div class="metric-card">
+                    <div class="metric-header">
+                        <span>Mentorship Sessions</span>
+                        <div class="metric-icon" style="color: #fbbf24;"><i class="ph-fill ph-graduation-cap"></i></div>
+                    </div>
+                    <div class="metric-value" id="metric-mentorship-sessions">0</div>
+                    <div class="metric-footer">
+                        <span id="metric-mentorship-rating">5.0 ★ Rating</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Dashboard Columns: Recent Apps & Skill Distribution -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+                <!-- Recent Applications -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Recent Applications</div>
+                            <div class="card-subtitle">Latest candidate submissions awaiting review</div>
+                        </div>
+                        <button class="btn btn-secondary btn-sm" onclick="switchTab('applications')">View All</button>
+                    </div>
+                    <div id="dash-recent-apps" style="display: flex; flex-direction: column; gap: 0.75rem;">
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">No applications received yet.</p>
+                    </div>
+                </div>
+
+                <!-- Skill Distribution -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Candidate Skill Distribution</div>
+                            <div class="card-subtitle">Real-time talent competencies from applicants</div>
+                        </div>
+                    </div>
+                    <div id="dash-skill-distribution" style="display: flex; flex-direction: column; gap: 0.65rem;">
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">No skill data available yet.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 2: TALENT DISCOVERY -->
+        <section id="tab-talent" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Student Discovery &amp; Talent Exploration</h2>
+                    <p class="section-desc">Search and discover student profiles across Junior, School, Career, and Professional segments with verified privacy protections.</p>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <div class="search-box">
+                    <i class="ph ph-magnifying-glass"></i>
+                    <input type="text" id="talent-search" placeholder="Search by name, career goal, or focus..." oninput="debounceTalentSearch()">
+                </div>
+                <select id="talent-filter-segment" class="filter-select" onchange="loadTalent()">
+                    <option value="">All Segments</option>
+                    <option value="junior">Junior (Classes 5–8)</option>
+                    <option value="school">School (Classes 9–10)</option>
+                    <option value="career">Career (Classes 11–12)</option>
+                    <option value="professional">Professional (College)</option>
+                </select>
+                <select id="talent-filter-skill" class="filter-select" onchange="loadTalent()">
+                    <option value="">All Skills</option>
+                    <option value="Python">Python</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Artificial Intelligence">Artificial Intelligence</option>
+                    <option value="Data Analysis">Data Analysis</option>
+                    <option value="Robotics">Robotics</option>
+                    <option value="Web Development">Web Development</option>
+                </select>
+            </div>
+
+            <div class="cards-grid" id="talent-grid">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading talent pool...</p>
+            </div>
+        </section>
+
+        <!-- TAB 3: OPPORTUNITIES & CHALLENGES -->
+        <section id="tab-opportunities" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Opportunities &amp; Project Challenges</h2>
+                    <p class="section-desc">Publish real-world project challenges, internships, workshops, and skill development programmes.</p>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="openCreateOppModal()">
+                    <i class="ph-bold ph-plus"></i> Create Opportunity
+                </button>
+            </div>
+
+            <div class="toolbar">
+                <select id="opp-filter-type" class="filter-select" onchange="loadOpportunities()">
+                    <option value="">All Types</option>
+                    <option value="project_challenge">Project Challenge</option>
+                    <option value="skill_programme">Skill Programme</option>
+                    <option value="internship">Internship</option>
+                    <option value="workshop">Workshop</option>
+                    <option value="competition">Competition / Hackathon</option>
+                    <option value="learning_opportunity">Learning Opportunity</option>
+                </select>
+                <select id="opp-filter-status" class="filter-select" onchange="loadOpportunities()">
+                    <option value="">All Statuses</option>
+                    <option value="published">Published</option>
+                    <option value="draft">Draft</option>
+                    <option value="closed">Closed</option>
+                </select>
+            </div>
+
+            <div class="cards-grid" id="opps-grid">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading opportunities...</p>
+            </div>
+        </section>
+
+        <!-- TAB 4: APPLICATIONS PIPELINE -->
+        <section id="tab-applications" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Applications Review Pipeline</h2>
+                    <p class="section-desc">Review student submissions, evaluate eligibility, and track decision statuses.</p>
+                </div>
+            </div>
+
+            <div class="toolbar">
+                <select id="apps-filter-status" class="filter-select" onchange="loadApplications()">
+                    <option value="">All Statuses</option>
+                    <option value="submitted">Submitted (New)</option>
+                    <option value="reviewing">Under Review</option>
+                    <option value="shortlisted">Shortlisted</option>
+                    <option value="accepted">Accepted</option>
+                    <option value="rejected">Rejected</option>
+                    <option value="withdrawn">Withdrawn</option>
+                </select>
+            </div>
+
+            <div class="cards-grid" id="apps-grid">
+                <p style="color: var(--text-muted); font-size: 0.9rem;">Loading applications...</p>
+            </div>
+        </section>
+
+        <!-- TAB 5: MENTORSHIP NETWORK -->
+        <section id="tab-mentorship" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Mentorship &amp; Guidance Network</h2>
+                    <p class="section-desc">Manage organisation mentors, schedule 1-on-1 sessions, and track development outcomes.</p>
+                </div>
+                <button type="button" class="btn btn-primary" onclick="openRegisterMentorModal()">
+                    <i class="ph-bold ph-user-plus"></i> Add Mentor
+                </button>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+                <!-- Mentors Roster -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Organisation Mentors</div>
+                            <div class="card-subtitle">Active guides in your institution</div>
+                        </div>
+                    </div>
+                    <div id="mentors-list" style="display: flex; flex-direction: column; gap: 0.85rem;">
+                        <p style="font-size: 0.85rem; color: var(--text-muted);">No mentors registered yet.</p>
+                    </div>
+                </div>
+
+                <!-- Schedule Session Trigger -->
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            <div class="card-title">Schedule Mentorship Session</div>
+                            <div class="card-subtitle">Create a structured session with agenda and meeting link</div>
+                        </div>
+                    </div>
+                    <form id="schedule-session-form" onsubmit="handleScheduleSession(event)">
+                        <div class="form-group">
+                            <label class="form-label">Mentor</label>
+                            <select id="session-mentor-select" class="form-control" required>
+                                <option value="">Select mentor...</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Student ID (UUID)</label>
+                            <input type="text" id="session-student-id" class="form-control" placeholder="Paste Student User ID" required>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Date &amp; Time</label>
+                                <input type="datetime-local" id="session-datetime" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Duration (Mins)</label>
+                                <input type="number" id="session-duration" class="form-control" value="45" min="15" max="180" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Meeting URL</label>
+                            <input type="url" id="session-link" class="form-control" placeholder="https://meet.google.com/xyz">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Agenda</label>
+                            <input type="text" id="session-agenda" class="form-control" placeholder="Roadmap Review &amp; System Architecture" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Schedule Session</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 6: ANALYTICS & REPORTS -->
+        <section id="tab-analytics" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Strategic Insights &amp; Analytics</h2>
+                    <p class="section-desc">Computed pipeline performance, skill gap mapping, and student development metrics.</p>
+                </div>
+            </div>
+
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-header"><span>Total Mentoring Hours</span></div>
+                    <div class="metric-value" id="analytics-mentoring-hours">0.0</div>
+                    <div class="metric-footer"><span>Completed guidance hours</span></div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header"><span>Pipeline Conversion</span></div>
+                    <div class="metric-value" id="analytics-conversion-rate">0.0%</div>
+                    <div class="metric-footer"><span>Applications accepted</span></div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-header"><span>Average Mentorship Rating</span></div>
+                    <div class="metric-value" id="analytics-avg-rating">5.0 ★</div>
+                    <div class="metric-footer"><span>Direct student feedback</span></div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.5rem;">
+                <div class="card">
+                    <div class="card-title">Opportunities by Type</div>
+                    <div id="analytics-opp-types" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">Loading data...</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-title">Applications by Student Segment</div>
+                    <div id="analytics-app-segments" style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                        <p style="color: var(--text-muted); font-size: 0.85rem;">Loading data...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- TAB 7: ORG SETTINGS -->
+        <section id="tab-settings" class="tab-content">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Organisation Profile &amp; Verification</h2>
+                    <p class="section-desc">Update your organisation profile, contact information, and verification status.</p>
+                </div>
+            </div>
+
+            <div class="card" style="max-width: 680px;">
+                <form id="org-settings-form" onsubmit="handleUpdateOrgSettings(event)">
+                    <div class="form-group">
+                        <label class="form-label">Organisation Name</label>
+                        <input type="text" id="settings-name" class="form-control" required>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Organisation Type</label>
+                            <select id="settings-type" class="form-control">
+                                <option value="school">School (Classes 5-10)</option>
+                                <option value="college">College / Junior College</option>
+                                <option value="university">University</option>
+                                <option value="company">Company / Enterprise</option>
+                                <option value="training_institution">Training Institution</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Industry Sector</label>
+                            <input type="text" id="settings-sector" class="form-control" placeholder="EdTech, AI, Software">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Contact Email</label>
+                            <input type="email" id="settings-email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input type="text" id="settings-phone" class="form-control">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Website URL</label>
+                        <input type="url" id="settings-website" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Description</label>
+                        <textarea id="settings-desc" class="form-control"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <!-- MODAL 1: REGISTER ORGANISATION -->
+    <div class="modal-overlay" id="register-org-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('register-org-modal')">&times;</button>
+            <h2 class="modal-title">Register New Organisation</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                Onboard your school, college, university, or company to publish opportunities and discover talent.
+            </p>
+            <form id="register-org-form" onsubmit="handleRegisterOrg(event)">
+                <div class="form-group">
+                    <label class="form-label">Organisation Name *</label>
+                    <input type="text" id="reg-org-name" class="form-control" placeholder="e.g. Acme Tech Labs" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Organisation Type</label>
+                        <select id="reg-org-type" class="form-control">
+                            <option value="company">Company</option>
+                            <option value="school">School</option>
+                            <option value="college">College</option>
+                            <option value="university">University</option>
+                            <option value="training_institution">Training Institution</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Industry Sector</label>
+                        <input type="text" id="reg-org-sector" class="form-control" placeholder="e.g. Artificial Intelligence">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Contact Email</label>
+                        <input type="email" id="reg-org-email" class="form-control" placeholder="contact@acme.com">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone</label>
+                        <input type="text" id="reg-org-phone" class="form-control" placeholder="+91 9876543210">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Website URL</label>
+                    <input type="url" id="reg-org-website" class="form-control" placeholder="https://acme.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description</label>
+                    <textarea id="reg-org-desc" class="form-control" placeholder="Briefly describe your organisation's focus and mission..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Register Organisation</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 2: CREATE OPPORTUNITY -->
+    <div class="modal-overlay" id="create-opp-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('create-opp-modal')">&times;</button>
+            <h2 class="modal-title">Create New Opportunity / Challenge</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                Publish a real-world project challenge, internship, or skill-building program.
+            </p>
+            <form id="create-opp-form" onsubmit="handleCreateOpp(event)">
+                <div class="form-group">
+                    <label class="form-label">Title *</label>
+                    <input type="text" id="opp-title" class="form-control" placeholder="e.g. AI Autonomous Agent Simulation Sprint" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Opportunity Type *</label>
+                        <select id="opp-type" class="form-control" required>
+                            <option value="project_challenge">Project Challenge</option>
+                            <option value="skill_programme">Skill Development Programme</option>
+                            <option value="internship">Internship &amp; Work Experience</option>
+                            <option value="workshop">Mentorship Cohort / Workshop</option>
+                            <option value="competition">Competition / Hackathon</option>
+                            <option value="learning_opportunity">Structured Learning Opportunity</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Location Type</label>
+                        <select id="opp-location-type" class="form-control">
+                            <option value="remote">Remote</option>
+                            <option value="hybrid">Hybrid</option>
+                            <option value="on_site">On-site</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Eligible Student Segments</label>
+                    <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                        <label class="checkbox-group"><input type="checkbox" id="seg-check-junior" value="junior" checked> Junior (5–8)</label>
+                        <label class="checkbox-group"><input type="checkbox" id="seg-check-school" value="school" checked> School (9–10)</label>
+                        <label class="checkbox-group"><input type="checkbox" id="seg-check-career" value="career" checked> Career (11–12)</label>
+                        <label class="checkbox-group"><input type="checkbox" id="seg-check-professional" value="professional" checked> Professional</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Required Skills (Comma separated)</label>
+                    <input type="text" id="opp-skills" class="form-control" placeholder="Python, Logic Deduction, Data Analysis">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label">Stipend or Reward</label>
+                        <input type="text" id="opp-reward" class="form-control" placeholder="e.g. Rs 10,000 / Merit Certificate">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Max Participants</label>
+                        <input type="number" id="opp-capacity" class="form-control" value="50" min="1" max="1000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Application Deadline</label>
+                    <input type="date" id="opp-deadline" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Detailed Description &amp; Requirements *</label>
+                    <textarea id="opp-desc" class="form-control" placeholder="Outline the challenge deliverables, evaluation criteria, and expectations..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Publish Opportunity</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL 3: REGISTER MENTOR -->
+    <div class="modal-overlay" id="register-mentor-modal">
+        <div class="modal-box">
+            <button class="modal-close" onclick="closeModal('register-mentor-modal')">&times;</button>
+            <h2 class="modal-title">Register Organisation Mentor</h2>
+            <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.25rem;">
+                Add an industry expert or academic guide to your organisation's mentorship roster.
+            </p>
+            <form id="register-mentor-form" onsubmit="handleRegisterMentor(event)">
+                <div class="form-group">
+                    <label class="form-label">Mentor Title / Role *</label>
+                    <input type="text" id="mentor-title" class="form-control" placeholder="e.g. Principal AI Architect" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Expertise Areas (Comma separated) *</label>
+                    <input type="text" id="mentor-areas" class="form-control" placeholder="Machine Learning, System Design, Career Mentorship" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Max Active Mentees</label>
+                    <input type="number" id="mentor-max-mentees" class="form-control" value="5" min="1" max="50">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Bio &amp; Background</label>
+                    <textarea id="mentor-bio" class="form-control" placeholder="Brief background of professional achievements..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%;">Register Mentor</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast-msg">
+        <i class="ph-fill ph-check-circle" style="color: #34d399; font-size: 1.25rem;"></i>
+        <span id="toast-text">Operation completed</span>
+    </div>
+
+    <script>
+        var currentOrgId = null;
+        var organizations = [];
+        var debounceTimer = null;
+
+        function getAuthHeader() {
+            var token = localStorage.getItem('token') || localStorage.getItem('accessToken');
+            return token ? { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
+        }
+
+        function showToast(text, isError) {
+            var toast = document.getElementById('toast-msg');
+            var txt = document.getElementById('toast-text');
+            txt.textContent = text;
+            toast.style.borderColor = isError ? 'rgba(244, 63, 94, 0.4)' : 'rgba(16, 185, 129, 0.4)';
+            toast.className = 'toast show';
+            setTimeout(function() {
+                toast.className = 'toast';
+            }, 3500);
+        }
+
+        function openModal(id) {
+            var el = document.getElementById(id);
+            if (el) el.classList.add('active');
+        }
+
+        function closeModal(id) {
+            var el = document.getElementById(id);
+            if (el) el.classList.remove('active');
+        }
+
+        function openRegisterOrgModal() { openModal('register-org-modal'); }
+        function openCreateOppModal() { openModal('create-opp-modal'); }
+        function openRegisterMentorModal() { openModal('register-mentor-modal'); }
+
+        function switchTab(tabId) {
+            var tabs = document.querySelectorAll('.tab-btn');
+            tabs.forEach(function(btn) { btn.classList.remove('active'); });
+            var contents = document.querySelectorAll('.tab-content');
+            contents.forEach(function(sec) { sec.classList.remove('active'); });
+
+            var targetSec = document.getElementById('tab-' + tabId);
+            if (targetSec) targetSec.classList.add('active');
+
+            // Set active button
+            tabs.forEach(function(btn) {
+                if (btn.getAttribute('onclick') && btn.getAttribute('onclick').indexOf(tabId) !== -1) {
+                    btn.classList.add('active');
+                }
+            });
+
+            // Trigger specific tab reloads
+            if (tabId === 'talent') loadTalent();
+            if (tabId === 'opportunities') loadOpportunities();
+            if (tabId === 'applications') loadApplications();
+            if (tabId === 'mentorship') loadMentors();
+            if (tabId === 'analytics') loadAnalytics();
+        }
+
+        // Initialize: Load My Organizations
+        async function initCapacityConnect() {
+            try {
+                var res = await fetch('/api/v1/organizations', { credentials: 'include', headers: getAuthHeader() });
+                if (res.ok) {
+                    var data = await res.json();
+                    organizations = data.data || [];
+                    populateOrgSwitcher();
+                } else {
+                    // Fallback to query all verified orgs
+                    var pubRes = await fetch('/api/v1/capacity-connect/organizations?verificationStatus=verified');
+                    if (pubRes.ok) {
+                        var pubData = await pubRes.json();
+                        organizations = pubData.data || [];
+                        populateOrgSwitcher();
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to load organisations:', err);
+            }
+        }
+
+        function populateOrgSwitcher() {
+            var switcher = document.getElementById('org-switcher');
+            switcher.innerHTML = '';
+
+            if (organizations.length === 0) {
+                switcher.innerHTML = '<option value="">No Organisation Found (Add New)</option>';
+                return;
+            }
+
+            organizations.forEach(function(org, idx) {
+                var opt = document.createElement('option');
+                opt.value = org.id;
+                opt.textContent = org.name + ' (' + (org.org_type || 'org') + ')';
+                switcher.appendChild(opt);
+            });
+
+            // Select first organization
+            currentOrgId = organizations[0].id;
+            switcher.value = currentOrgId;
+            displayActiveOrganization(organizations[0]);
+            loadDashboard();
+        }
+
+        function switchOrganization(orgId) {
+            if (!orgId) return;
+            currentOrgId = orgId;
+            var org = organizations.find(function(o) { return o.id === orgId; });
+            if (org) {
+                displayActiveOrganization(org);
+                loadDashboard();
+            }
+        }
+
+        function displayActiveOrganization(org) {
+            document.getElementById('org-name-display').innerHTML = `
+                ${escapeHtml(org.name)}
+                <span class="org-badge-type">${org.org_type || 'company'}</span>
+                <span class="org-badge-verified ${org.verification_status === 'verified' ? 'verified-badge' : 'pending-badge'}">
+                    <i class="ph ${org.verification_status === 'verified' ? 'ph-check-circle' : 'ph-clock'}"></i>
+                    ${org.verification_status === 'verified' ? 'Verified Partner' : 'Pending Verification'}
+                </span>
+            `;
+
+            document.getElementById('org-meta-sector').innerHTML = `<i class="ph ph-briefcase"></i> ${escapeHtml(org.industry_sector || 'General EdTech')}`;
+            document.getElementById('org-meta-email').innerHTML = `<i class="ph ph-envelope"></i> ${escapeHtml(org.contact_email || 'contact@dtv.com')}`;
+            document.getElementById('org-meta-website').innerHTML = `<i class="ph ph-globe"></i> ${escapeHtml(org.website || 'digitaltwinvrs.com')}`;
+
+            // Populate settings tab
+            document.getElementById('settings-name').value = org.name || '';
+            document.getElementById('settings-type').value = org.org_type || 'company';
+            document.getElementById('settings-sector').value = org.industry_sector || '';
+            document.getElementById('settings-email').value = org.contact_email || '';
+            document.getElementById('settings-phone').value = org.phone || '';
+            document.getElementById('settings-website').value = org.website || '';
+            document.getElementById('settings-desc').value = org.description || '';
+        }
+
+        // LOAD DASHBOARD METRICS
+        async function loadDashboard() {
+            if (!currentOrgId) return;
+            try {
+                var res = await fetch('/api/v1/capacity-connect/organizations/' + currentOrgId + '/dashboard', {
+                    credentials: 'include',
+                    headers: getAuthHeader()
+                });
+                if (res.ok) {
+                    var json = await res.json();
+                    var d = json.data || {};
+                    document.getElementById('metric-active-opps').textContent = d.activeOpportunities || 0;
+                    document.getElementById('metric-published-challenges').textContent = (d.publishedChallenges || 0) + ' Challenges';
+                    document.getElementById('metric-total-apps').textContent = d.totalApplications || 0;
+                    document.getElementById('metric-conversion-rate').textContent = (d.conversionRatePercentage || 0) + '% Acceptance';
+                    document.getElementById('metric-total-candidates').textContent = d.totalCandidates || 0;
+                    document.getElementById('metric-mentorship-sessions').textContent = d.mentorship?.totalSessions || 0;
+                    document.getElementById('metric-mentorship-rating').textContent = (d.mentorship?.averageRating || 5.0) + ' ★ Rating';
+
+                    // Render recent applications
+                    var recentDiv = document.getElementById('dash-recent-apps');
+                    if (d.recentApplications && d.recentApplications.length > 0) {
+                        recentDiv.innerHTML = d.recentApplications.map(function(app) {
+                            return `
+                                <div style="display:flex; justify-content:space-between; align-items:center; padding:0.6rem 0; border-bottom:1px solid rgba(255,255,255,0.05);">
+                                    <div>
+                                        <div style="font-weight:600; font-size:0.875rem;">${escapeHtml(app.student_name || 'Student')}</div>
+                                        <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(app.opportunity_title)}</div>
+                                    </div>
+                                    <span class="card-pill pill-blue">${escapeHtml(app.status)}</span>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        recentDiv.innerHTML = '<p style="font-size:0.85rem; color:var(--text-muted);">No applications received yet.</p>';
+                    }
+
+                    // Render skill distribution
+                    var skillDiv = document.getElementById('dash-skill-distribution');
+                    if (d.skillDistribution && d.skillDistribution.length > 0) {
+                        skillDiv.innerHTML = d.skillDistribution.map(function(s) {
+                            return `
+                                <div style="display:flex; justify-content:space-between; font-size:0.85rem;">
+                                    <span>${escapeHtml(s.skill)}</span>
+                                    <span style="font-weight:700; color:var(--accent-blue);">${s.count} candidates</span>
+                                </div>
+                            `;
+                        }).join('');
+                    } else {
+                        skillDiv.innerHTML = '<p style="font-size:0.85rem; color:var(--text-muted);">No applicant skill data available yet.</p>';
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to load dashboard metrics:', err);
+            }
+        }
+
+        // LOAD TALENT DISCOVERY
+        function debounceTalentSearch() {
+            clearTimeout(debounceTimer);
+            debounceTimer = setTimeout(loadTalent, 300);
+        }
+
+        async function loadTalent() {
+            if (!currentOrgId) return;
+            var search = document.getElementById('talent-search').value.trim();
+            var segment = document.getElementById('talent-filter-segment').value;
+            var skill = document.getElementById('talent-filter-skill').value;
+
+            var url = '/api/v1/capacity-connect/organizations/' + currentOrgId + '/talent?';
+            if (search) url += 'search=' + encodeURIComponent(search) + '&';
+            if (segment) url += 'segment=' + encodeURIComponent(segment) + '&';
+            if (skill) url += 'skills=' + encodeURIComponent(skill) + '&';
+
+            var grid = document.getElementById('talent-grid');
+            grid.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">Searching talent pool...</p>';
+
+            try {
+                var res = await fetch(url, { credentials: 'include', headers: getAuthHeader() });
+                if (res.ok) {
+                    var json = await res.json();
+                    var students = json.data?.students || [];
+
+                    if (students.length === 0) {
+                        grid.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">No students match the current filters.</p>';
+                        return;
+                    }
+
+                    grid.innerHTML = students.map(function(st) {
+                        var isMinorProtected = st.privacyProtected;
+                        var skillsBadges = (st.skills || []).slice(0, 4).map(function(sk) {
+                            return `<span class="tag-chip">${escapeHtml(sk.skillName)} (${escapeHtml(sk.proficiencyLevel)})</span>`;
+                        }).join('');
+
+                        return `
+                            <div class="card">
+                                <div class="card-header">
+                                    <div>
+                                        <div class="card-title">${escapeHtml(st.displayName)}</div>
+                                        <div class="card-subtitle">${escapeHtml(st.streamOrFocus || 'General')} • Class ${escapeHtml(st.academicClass || 'N/A')}</div>
+                                    </div>
+                                    <span class="card-pill pill-purple">${escapeHtml(st.studentSegment)}</span>
+                                </div>
+                                <div class="card-body">
+                                    <div style="font-weight:600; font-size:0.8rem; color:#93c5fd; margin-bottom:0.4rem;">
+                                        <i class="ph ph-compass"></i> Target: ${escapeHtml(st.targetCareerPath || 'Technology')}
+                                    </div>
+                                    <div class="tags-row" style="margin-bottom:0.5rem;">${skillsBadges || '<span class="tag-chip">Foundational Skills</span>'}</div>
+                                    ${isMinorProtected ? `
+                                        <div class="privacy-alert">
+                                            <i class="ph-bold ph-shield-check"></i>
+                                            <span>Minor Protection: Contact masked under DTV child privacy rules</span>
+                                        </div>
+                                    ` : `
+                                        <div style="font-size:0.8rem; color:var(--text-muted);"><i class="ph ph-envelope"></i> ${escapeHtml(st.email)}</div>
+                                    `}
+                                </div>
+                                <div class="card-footer" style="gap: 0.4rem;">
+                                    <span><i class="ph-fill ph-lightning" style="color:#fbbf24;"></i> ${st.xpPoints || 0} XP</span>
+                                    <div style="display: flex; gap: 0.35rem;">
+                                        <a href="/portfolio/${st.userId}" target="_blank" class="btn btn-secondary btn-sm">
+                                            <i class="ph ph-briefcase"></i> Portfolio
+                                        </a>
+                                        <button class="btn btn-secondary btn-sm" onclick="inviteStudentToOpp('${st.userId}')">
+                                            <i class="ph ph-paper-plane-tilt"></i> Invite
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            } catch (err) {
+                console.error('Failed to load talent:', err);
+                grid.innerHTML = '<p style="color:#f87171; font-size:0.9rem;">Unable to load talent pool.</p>';
+            }
+        }
+
+        // LOAD OPPORTUNITIES
+        async function loadOpportunities() {
+            if (!currentOrgId) return;
+            var type = document.getElementById('opp-filter-type').value;
+            var status = document.getElementById('opp-filter-status').value;
+
+            var url = '/api/v1/capacity-connect/opportunities?organizationId=' + currentOrgId + '&';
+            if (type) url += 'opportunityType=' + encodeURIComponent(type) + '&';
+            if (status) url += 'status=' + encodeURIComponent(status) + '&';
+
+            var grid = document.getElementById('opps-grid');
+            grid.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">Loading opportunities...</p>';
+
+            try {
+                var res = await fetch(url, { credentials: 'include', headers: getAuthHeader() });
+                if (res.ok) {
+                    var json = await res.json();
+                    var opps = json.data || [];
+
+                    if (opps.length === 0) {
+                        grid.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">No opportunities created yet. Click "Create Opportunity" to publish one.</p>';
+                        return;
+                    }
+
+                    grid.innerHTML = opps.map(function(o) {
+                        var segs = Array.isArray(o.eligibility_segments) ? o.eligibility_segments : JSON.parse(o.eligibility_segments || '[]');
+                        var segBadges = segs.map(function(s) {
+                            return `<span class="tag-chip">${s}</span>`;
+                        }).join(' ');
+
+                        return `
+                            <div class="card">
+                                <div class="card-header">
+                                    <div>
+                                        <div class="card-title">${escapeHtml(o.title)}</div>
+                                        <div class="card-subtitle">${escapeHtml(o.opportunity_type.replace('_', ' '))} • ${escapeHtml(o.location_type)}</div>
+                                    </div>
+                                    <span class="card-pill ${o.status === 'published' ? 'pill-green' : 'pill-amber'}">${escapeHtml(o.status)}</span>
+                                </div>
+                                <div class="card-body">
+                                    <p style="margin-bottom:0.65rem;">${escapeHtml(o.description.slice(0, 160))}...</p>
+                                    <div class="tags-row" style="margin-bottom:0.4rem;">
+                                        <span style="font-size:0.75rem; color:var(--text-muted);">Eligible:</span> ${segBadges}
+                                    </div>
+                                    <div style="font-size:0.8rem; color:#34d399; font-weight:600;">
+                                        <i class="ph ph-gift"></i> ${escapeHtml(o.stipend_or_reward || 'Recognition & Certificate')}
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+                                    <span><i class="ph ph-users"></i> ${o.applications_count || 0} / ${o.max_participants} applied</span>
+                                    <button class="btn btn-secondary btn-sm" onclick="filterAppsByOpp('${o.id}')">View Apps</button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            } catch (err) {
+                console.error('Failed to load opportunities:', err);
+            }
+        }
+
+        // LOAD APPLICATIONS
+        async function loadApplications(oppId) {
+            if (!currentOrgId) return;
+            var status = document.getElementById('apps-filter-status').value;
+            var url = '/api/v1/capacity-connect/organizations/' + currentOrgId + '/applications?';
+            if (oppId) url += 'opportunityId=' + encodeURIComponent(oppId) + '&';
+            if (status) url += 'status=' + encodeURIComponent(status) + '&';
+
+            var grid = document.getElementById('apps-grid');
+            grid.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">Loading applications...</p>';
+
+            try {
+                var res = await fetch(url, { credentials: 'include', headers: getAuthHeader() });
+                if (res.ok) {
+                    var json = await res.json();
+                    var apps = json.data || [];
+
+                    if (apps.length === 0) {
+                        grid.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">No applications match the current filter.</p>';
+                        return;
+                    }
+
+                    grid.innerHTML = apps.map(function(app) {
+                        var isMinor = app.isMinor;
+                        return `
+                            <div class="card">
+                                <div class="card-header">
+                                    <div>
+                                        <div class="card-title">${escapeHtml(app.student_name)}</div>
+                                        <div class="card-subtitle">Applied to: ${escapeHtml(app.opportunity_title)}</div>
+                                    </div>
+                                    <span class="card-pill pill-blue">${escapeHtml(app.status)}</span>
+                                </div>
+                                <div class="card-body">
+                                    <div style="font-size:0.825rem; margin-bottom:0.4rem;">
+                                        <strong>Segment:</strong> ${escapeHtml(app.student_segment || app.applicant_segment || 'N/A')}
+                                    </div>
+                                    <div style="font-size:0.825rem; margin-bottom:0.5rem; background:rgba(0,0,0,0.2); padding:0.5rem; border-radius:6px;">
+                                        <em>"${escapeHtml(app.cover_note || 'No cover note provided.')}"</em>
+                                    </div>
+                                    ${app.portfolio_link ? `
+                                        <div style="font-size:0.8rem; margin-bottom:0.4rem;">
+                                            <a href="${escapeHtml(app.portfolio_link)}" target="_blank" style="color:var(--accent-blue); text-decoration:none;">
+                                                <i class="ph ph-link"></i> View Portfolio Artifact
+                                            </a>
+                                        </div>
+                                    ` : ''}
+                                    ${isMinor ? `
+                                        <div class="privacy-alert">
+                                            <i class="ph-bold ph-shield-check"></i> Minor Protection: Contact masked
+                                        </div>
+                                    ` : ''}
+                                </div>
+                                <div class="card-footer" style="gap:0.4rem;">
+                                    <button class="btn btn-secondary btn-sm" onclick="updateAppStatus('${app.id}', 'reviewing')">Review</button>
+                                    <button class="btn btn-secondary btn-sm" style="color:#60a5fa;" onclick="updateAppStatus('${app.id}', 'shortlisted')">Shortlist</button>
+                                    <button class="btn btn-success btn-sm" onclick="updateAppStatus('${app.id}', 'accepted')">Accept</button>
+                                    <button class="btn btn-danger btn-sm" onclick="updateAppStatus('${app.id}', 'rejected')">Reject</button>
+                                </div>
+                            </div>
+                        `;
+                    }).join('');
+                }
+            } catch (err) {
+                console.error('Failed to load applications:', err);
+            }
+        }
+
+        async function updateAppStatus(appId, newStatus) {
+            if (!currentOrgId) return;
+            try {
+                var res = await fetch('/api/v1/capacity-connect/organizations/' + currentOrgId + '/applications/' + appId + '/status', {
+                    method: 'PUT',
+                    credentials: 'include',
+                    headers: getAuthHeader(),
+                    body: JSON.stringify({ status: newStatus, reviewerFeedback: 'Reviewed via Capacity Connect Portal' })
+                });
+                if (res.ok) {
+                    showToast('Application marked as ' + newStatus);
+                    loadApplications();
+                    loadDashboard();
+                } else {
+                    var err = await res.json();
+                    showToast(err.message || 'Status update failed', true);
+                }
+            } catch (err) {
+                showToast('Failed to update status', true);
+            }
+        }
+
+        function filterAppsByOpp(oppId) {
+            switchTab('applications');
+            loadApplications(oppId);
+        }
+
+        // LOAD MENTORS
+        async function loadMentors() {
+            if (!currentOrgId) return;
+            var listDiv = document.getElementById('mentors-list');
+            var selectMentor = document.getElementById('session-mentor-select');
+            listDiv.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">Loading mentors...</p>';
+            selectMentor.innerHTML = '<option value="">Select mentor...</option>';
+
+            try {
+                var res = await fetch('/api/v1/capacity-connect/organizations/' + currentOrgId + '/mentors', {
+                    credentials: 'include',
+                    headers: getAuthHeader()
+                });
+                if (res.ok) {
+                    var json = await res.json();
+                    var mentors = json.data || [];
+
+                    if (mentors.length === 0) {
+                        listDiv.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No mentors registered. Click "Add Mentor" above.</p>';
+                        return;
+                    }
+
+                    listDiv.innerHTML = mentors.map(function(m) {
+                        var areas = Array.isArray(m.expertise_areas) ? m.expertise_areas : JSON.parse(m.expertise_areas || '[]');
+                        return `
+                            <div style="padding:0.75rem; background:rgba(0,0,0,0.25); border-radius:8px; border:1px solid var(--border-glow);">
+                                <div style="font-weight:700; font-size:0.95rem;">${escapeHtml(m.mentor_name || 'Mentor')}</div>
+                                <div style="font-size:0.8rem; color:#93c5fd; margin-bottom:0.35rem;">${escapeHtml(m.title)}</div>
+                                <div class="tags-row">${areas.map(function(a) { return `<span class="tag-chip">${escapeHtml(a)}</span>`; }).join('')}</div>
+                            </div>
+                        `;
+                    }).join('');
+
+                    mentors.forEach(function(m) {
+                        var opt = document.createElement('option');
+                        opt.value = m.id;
+                        opt.textContent = (m.mentor_name || 'Mentor') + ' - ' + m.title;
+                        selectMentor.appendChild(opt);
+                    });
+                }
+            } catch (err) {
+                console.error('Failed to load mentors:', err);
+            }
+        }
+
+        // LOAD ANALYTICS
+        async function loadAnalytics() {
+            if (!currentOrgId) return;
+            try {
+                var res = await fetch('/api/v1/capacity-connect/organizations/' + currentOrgId + '/analytics', {
+                    credentials: 'include',
+                    headers: getAuthHeader()
+                });
+                if (res.ok) {
+                    var json = await res.json();
+                    var a = json.data || {};
+                    document.getElementById('analytics-mentoring-hours').textContent = (a.mentorshipImpact?.totalHours || 0) + ' hrs';
+                    document.getElementById('analytics-conversion-rate').textContent = (a.metrics?.conversionRatePercentage || 0) + '%';
+                    document.getElementById('analytics-avg-rating').textContent = (a.mentorshipImpact?.averageRating || 5.0) + ' ★';
+
+                    var oppTypesDiv = document.getElementById('analytics-opp-types');
+                    if (a.opportunitiesByType && a.opportunitiesByType.length > 0) {
+                        oppTypesDiv.innerHTML = a.opportunitiesByType.map(function(ot) {
+                            return `<div style="display:flex; justify-content:space-between; font-size:0.85rem;"><span>${escapeHtml(ot.type.replace('_', ' '))}</span><span style="font-weight:700;">${ot.count}</span></div>`;
+                        }).join('');
+                    } else {
+                        oppTypesDiv.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No opportunities created yet.</p>';
+                    }
+
+                    var appSegsDiv = document.getElementById('analytics-app-segments');
+                    if (a.applicationsBySegment && a.applicationsBySegment.length > 0) {
+                        appSegsDiv.innerHTML = a.applicationsBySegment.map(function(seg) {
+                            return `<div style="display:flex; justify-content:space-between; font-size:0.85rem;"><span>${escapeHtml(seg.segment)}</span><span style="font-weight:700;">${seg.count}</span></div>`;
+                        }).join('');
+                    } else {
+                        appSegsDiv.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No applications received yet.</p>';
+                    }
+                }
+            } catch (err) {
+                console.error('Failed to load analytics:', err);
+            }
+        }
+
+        // FORM HANDLERS
+        async function handleRegisterOrg(e) {
+            e.preventDefault();
+            var name = document.getElementById('reg-org-name').value.trim();
+            var orgType = document.getElementById('reg-org-type').value;
+            var sector = document.getElementById('reg-org-sector').value.trim();
+            var email = document.getElementById('reg-org-email').value.trim();
+            var phone = document.getElementById('reg-org-phone').value.trim();
+            var website = document.getElementById('reg-org-website').value.trim();
+            var desc = document.getElementById('reg-org-desc').value.trim();
+
+            try {
+                var res = await fetch('/api/v1/capacity-connect/organizations', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: getAuthHeader(),
+                    body: JSON.stringify({
+                        name: name,
+                        orgType: orgType,
+                        industrySector: sector || null,
+                        contactEmail: email || null,
+                        phone: phone || null,
+                        website: website || null,
+                        description: desc || null
+                    })
+                });
+
+                if (res.ok) {
+                    var json = await res.json();
+                    showToast('Organisation registered successfully!');
+                    closeModal('register-org-modal');
+                    organizations.unshift(json.data);
+                    populateOrgSwitcher();
+                } else {
+                    var err = await res.json();
+                    showToast(err.message || 'Registration failed', true);
+                }
+            } catch (err) {
+                showToast('Registration request failed', true);
+            }
+        }
+
+        async function handleCreateOpp(e) {
+            e.preventDefault();
+            if (!currentOrgId) return;
+
+            var title = document.getElementById('opp-title').value.trim();
+            var type = document.getElementById('opp-type').value;
+            var locType = document.getElementById('opp-location-type').value;
+            var reward = document.getElementById('opp-reward').value.trim();
+            var capacity = parseInt(document.getElementById('opp-capacity').value, 10) || 50;
+            var deadline = document.getElementById('opp-deadline').value;
+            var desc = document.getElementById('opp-desc').value.trim();
+
+            var skillsRaw = document.getElementById('opp-skills').value;
+            var skills = skillsRaw ? skillsRaw.split(',').map(function(s) { return s.trim(); }).filter(Boolean) : [];
+
+            var segments = [];
+            if (document.getElementById('seg-check-junior').checked) segments.push('junior');
+            if (document.getElementById('seg-check-school').checked) segments.push('school');
+            if (document.getElementById('seg-check-career').checked) segments.push('career');
+            if (document.getElementById('seg-check-professional').checked) segments.push('professional');
+
+            try {
+                var res = await fetch('/api/v1/capacity-connect/organizations/' + currentOrgId + '/opportunities', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: getAuthHeader(),
+                    body: JSON.stringify({
+                        title: title,
+                        opportunityType: type,
+                        locationType: locType,
+                        stipendOrReward: reward || null,
+                        maxParticipants: capacity,
+                        applicationDeadline: deadline ? new Date(deadline).toISOString() : null,
+                        requiredSkills: skills,
+                        eligibilitySegments: segments,
+                        description: desc,
+                        status: 'published'
+                    })
+                });
+
+                if (res.ok) {
+                    showToast('Opportunity published successfully!');
+                    closeModal('create-opp-modal');
+                    loadOpportunities();
+                    loadDashboard();
+                } else {
+                    var err = await res.json();
+                    showToast(err.message || 'Creation failed', true);
+                }
+            } catch (err) {
+                showToast('Failed to publish opportunity', true);
+            }
+        }
+
+        async function handleRegisterMentor(e) {
+            e.preventDefault();
+            if (!currentOrgId) return;
+
+            var title = document.getElementById('mentor-title').value.trim();
+            var areasRaw = document.getElementById('mentor-areas').value;
+            var maxMentees = parseInt(document.getElementById('mentor-max-mentees').value, 10) || 5;
+            var bio = document.getElementById('mentor-bio').value.trim();
+
+            var areas = areasRaw ? areasRaw.split(',').map(function(s) { return s.trim(); }).filter(Boolean) : [];
+
+            try {
+                var res = await fetch('/api/v1/capacity-connect/organizations/' + currentOrgId + '/mentors', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: getAuthHeader(),
+                    body: JSON.stringify({
+                        title: title,
+                        expertiseAreas: areas,
+                        maxMentees: maxMentees,
+                        bio: bio || null
+                    })
+                });
+
+                if (res.ok) {
+                    showToast('Mentor registered successfully!');
+                    closeModal('register-mentor-modal');
+                    loadMentors();
+                    loadDashboard();
+                } else {
+                    var err = await res.json();
+                    showToast(err.message || 'Mentor registration failed', true);
+                }
+            } catch (err) {
+                showToast('Failed to register mentor', true);
+            }
+        }
+
+        async function handleScheduleSession(e) {
+            e.preventDefault();
+            if (!currentOrgId) return;
+
+            var mentorId = document.getElementById('session-mentor-select').value;
+            var studentId = document.getElementById('session-student-id').value.trim();
+            var dt = document.getElementById('session-datetime').value;
+            var duration = parseInt(document.getElementById('session-duration').value, 10) || 45;
+            var link = document.getElementById('session-link').value.trim();
+            var agenda = document.getElementById('session-agenda').value.trim();
+
+            try {
+                var res = await fetch('/api/v1/capacity-connect/organizations/' + currentOrgId + '/mentorship/schedule', {
+                    method: 'POST',
+                    credentials: 'include',
+                    headers: getAuthHeader(),
+                    body: JSON.stringify({
+                        mentorId: mentorId,
+                        studentId: studentId,
+                        scheduledAt: new Date(dt).toISOString(),
+                        durationMinutes: duration,
+                        meetingLink: link || null,
+                        agenda: agenda
+                    })
+                });
+
+                if (res.ok) {
+                    showToast('Mentorship session scheduled successfully!');
+                    document.getElementById('schedule-session-form').reset();
+                    loadDashboard();
+                } else {
+                    var err = await res.json();
+                    showToast(err.message || 'Scheduling failed', true);
+                }
+            } catch (err) {
+                showToast('Failed to schedule session', true);
+            }
+        }
+
+        async function handleUpdateOrgSettings(e) {
+            e.preventDefault();
+            if (!currentOrgId) return;
+
+            var name = document.getElementById('settings-name').value.trim();
+            var type = document.getElementById('settings-type').value;
+            var sector = document.getElementById('settings-sector').value.trim();
+            var email = document.getElementById('settings-email').value.trim();
+            var phone = document.getElementById('settings-phone').value.trim();
+            var website = document.getElementById('settings-website').value.trim();
+            var desc = document.getElementById('settings-desc').value.trim();
+
+            try {
+                var res = await fetch('/api/v1/capacity-connect/organizations/' + currentOrgId, {
+                    method: 'PUT',
+                    credentials: 'include',
+                    headers: getAuthHeader(),
+                    body: JSON.stringify({
+                        name: name,
+                        orgType: type,
+                        industrySector: sector || null,
+                        contactEmail: email || null,
+                        phone: phone || null,
+                        website: website || null,
+                        description: desc || null
+                    })
+                });
+
+                if (res.ok) {
+                    var json = await res.json();
+                    showToast('Organisation settings updated!');
+                    var updated = json.data;
+                    displayActiveOrganization(updated);
+                } else {
+                    var err = await res.json();
+                    showToast(err.message || 'Update failed', true);
+                }
+            } catch (err) {
+                showToast('Failed to update organisation', true);
+            }
+        }
+
+        function inviteStudentToOpp(studentId) {
+            showToast('Invitation sent to candidate!');
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
+        // Initialize on DOM load
+        document.addEventListener('DOMContentLoaded', initCapacityConnect);
+    </script>
+</body>
+</html>
