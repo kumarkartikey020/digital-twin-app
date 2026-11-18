@@ -54,40 +54,62 @@ async function runAggregationForPeriod(period, startDate, endDate) {
     // 3. Fetch previous ranks to calculate trend
     const previousRanksMap = await leaderboardModel.getPreviousRanks(period);
 
-    // 4. Construct snapshot objects from real activity logs only
+    // 4. Construct snapshot objects from real activity logs only (with defensive deduplication)
     const snapshots = [];
+    const seenKeys = new Set();
 
     for (let i = 0; i < aggregates.length; i++) {
       const agg = aggregates[i];
-      const key = agg.user_id ? `user_${agg.user_id}` : `session_${agg.session_id}`;
-      const previousRank = previousRanksMap[key] || null;
+      const targetUserId = agg.user_id || null;
+      const targetSessionId = targetUserId ? null : (agg.session_id || null);
+
+      // Composite key matching database unique index:
+      // (COALESCE(user_id, '00000000-0000-0000-0000-000000000000'::uuid), COALESCE(session_id, 'none'), period)
+      const uKey = targetUserId || '00000000-0000-0000-0000-000000000000';
+      const sKey = targetSessionId || 'none';
+      const compositeKey = `${uKey}:::${sKey}:::${period}`;
+
+      if (seenKeys.has(compositeKey)) {
+        logInfo(`[Leaderboard Cron] Skipping duplicate aggregation record for key: ${compositeKey}`);
+        continue;
+      }
+      seenKeys.add(compositeKey);
+
+      const rankLookupKey = targetUserId ? `user_${targetUserId}` : `session_${targetSessionId}`;
+      const previousRank = previousRanksMap[rankLookupKey] || null;
 
       let displayName = 'Anonymous';
       let city = null;
 
-      if (agg.user_id && userDetailsMap[agg.user_id]) {
-        let fullName = userDetailsMap[agg.user_id].name || 'Student';
+      if (targetUserId && userDetailsMap[targetUserId]) {
+        let fullName = userDetailsMap[targetUserId].name || 'Student';
         let parts = fullName.split(' ');
         if (parts.length > 1) {
           displayName = `${parts[0]} ${parts[parts.length-1].charAt(0)}.`;
         } else {
           displayName = parts[0];
         }
-        city = userDetailsMap[agg.user_id].city;
-      } else if (agg.session_id) {
-        displayName = generateGuestName(agg.session_id);
+        city = userDetailsMap[targetUserId].city;
+      } else if (targetSessionId) {
+        displayName = generateGuestName(targetSessionId);
       }
 
       snapshots.push({
-        user_id: agg.user_id,
-        session_id: agg.session_id,
+        user_id: targetUserId,
+        session_id: targetSessionId,
         period: period,
         score: agg.total_score,
-        rank: i + 1,
+        rank: snapshots.length + 1,
         previous_rank: previousRank,
         display_name: displayName,
         city: city
       });
+    }
+
+    if (snapshots.length === 0) {
+      logInfo(`[Leaderboard Cron] No valid snapshots after deduplication for period ${period}. Clearing snapshot.`);
+      await leaderboardModel.clearSnapshot(period);
+      return;
     }
 
     // 5. Bulk Upsert real snapshots

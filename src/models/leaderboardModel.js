@@ -84,12 +84,13 @@ async function aggregateScores(startDate, endDate) {
   const query = `
     SELECT 
       user_id, 
-      session_id, 
+      CASE WHEN user_id IS NOT NULL THEN NULL ELSE session_id END as session_id, 
       SUM(points_awarded)::int as total_score,
       MIN(created_at) as first_action
     FROM user_activity_log
     WHERE 1=1 ${timeFilter}
-    GROUP BY user_id, session_id
+      AND (user_id IS NOT NULL OR (session_id IS NOT NULL AND TRIM(session_id) != ''))
+    GROUP BY user_id, (CASE WHEN user_id IS NOT NULL THEN NULL ELSE session_id END)
     ORDER BY total_score DESC, first_action ASC
   `;
   const res = await db.query(query, params);
@@ -122,18 +123,36 @@ async function getUserDetails(userIds) {
  */
 async function bulkUpsertSnapshots(snapshots) {
   // Snapshots is an array of objects: { user_id, session_id, period, score, rank, previous_rank, display_name, city }
-  if (snapshots.length === 0) return;
+  if (!snapshots || snapshots.length === 0) return;
+
+  // In-memory deduplication defensively protects against composite key collisions in the VALUES batch
+  const seenKeys = new Set();
+  const deduped = [];
+  for (const s of snapshots) {
+    const targetUserId = s.user_id || null;
+    const targetSessionId = targetUserId ? null : (s.session_id || null);
+    const uKey = targetUserId || '00000000-0000-0000-0000-000000000000';
+    const sKey = targetSessionId || 'none';
+    const key = `${uKey}:::${sKey}:::${s.period}`;
+    if (!seenKeys.has(key)) {
+      seenKeys.add(key);
+      deduped.push({
+        ...s,
+        user_id: targetUserId,
+        session_id: targetSessionId,
+        rank: deduped.length + 1
+      });
+    }
+  }
+
+  if (deduped.length === 0) return;
 
   const client = await db.pool.connect();
   try {
     await client.query('BEGIN');
     
-    // For simplicity, we could just delete all for the period and insert, 
-    // but upsert is better. Let's do DELETE + INSERT for simplicity since it's a cron job covering the entire board
-    // However, we want to retain previous_rank if not provided. Actually, the cron job will provide it.
-    
-    // It's safer to clear the snapshot for the period, then batch insert
-    const period = snapshots[0].period;
+    // Clear snapshot for the period, then batch insert
+    const period = deduped[0].period;
     await client.query('DELETE FROM leaderboard_snapshot WHERE period = $1', [period]);
 
     // Construct bulk insert query (values)
@@ -144,12 +163,22 @@ async function bulkUpsertSnapshots(snapshots) {
       VALUES 
     `;
     let i = 1;
-    snapshots.forEach((s, idx) => {
+    deduped.forEach((s, idx) => {
       queryStr += `($${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++}, $${i++})`;
-      if (idx < snapshots.length - 1) queryStr += ', ';
+      if (idx < deduped.length - 1) queryStr += ', ';
       
-      values.push(s.user_id || null, s.session_id || null, s.period, s.score, s.rank, s.previous_rank, s.display_name, s.city || null);
+      values.push(s.user_id, s.session_id, s.period, s.score, s.rank, s.previous_rank, s.display_name, s.city || null);
     });
+
+    queryStr += `
+      ON CONFLICT (COALESCE(user_id, '00000000-0000-0000-0000-000000000000'::uuid), COALESCE(session_id, 'none'), period)
+      DO UPDATE SET
+        score = EXCLUDED.score,
+        rank = EXCLUDED.rank,
+        previous_rank = EXCLUDED.previous_rank,
+        display_name = EXCLUDED.display_name,
+        city = EXCLUDED.city
+    `;
 
     await client.query(queryStr, values);
     
