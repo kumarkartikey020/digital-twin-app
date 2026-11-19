@@ -9,7 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/premium-theme.css">
+    <link rel="stylesheet" href="/css/dtv-student.css">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
+    <script src="/js/dtv-student-core.js"></script>
     <style>
         :root {
             --bg-dark: #080a0f;
@@ -662,28 +664,18 @@
 <body>
 
     <div class="container">
-        <!-- Top Navigation -->
-        <header class="top-nav">
-            <a href="/" class="brand-logo">
-                <img src="/img/dtv-logo.jpg" alt="DTV Logo">
-                <div class="brand-title">Digital<span>Twin Verse</span></div>
-                <span class="brand-badge">Student Portfolio</span>
-            </a>
-            <div class="nav-actions">
-                <button type="button" class="btn btn-secondary btn-sm" onclick="openEditPortfolioModal()" id="btn-edit-portfolio">
-                    <i class="ph ph-note-pencil"></i> Edit Bio
-                </button>
-                <button type="button" class="btn btn-primary btn-sm" onclick="openCreateProjectModal()" id="btn-add-project">
-                    <i class="ph-bold ph-plus"></i> Add Project
-                </button>
-                <a href="/student-dashboard" class="btn btn-secondary btn-sm">
-                    <i class="ph ph-student"></i> Dashboard
-                </a>
-                <a href="/capacity-connect" class="btn btn-secondary btn-sm">
-                    <i class="ph ph-buildings"></i> Capacity Connect
-                </a>
-            </div>
-        </header>
+        <!-- Universal Responsive Navigation Bar -->
+        <div id="dtv-nav-mount" class="dtv-nav-container"></div>
+
+        <!-- Portfolio Action Bar -->
+        <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-bottom: 1.25rem;">
+            <button type="button" class="btn btn-secondary btn-sm" onclick="openEditPortfolioModal()" id="btn-edit-portfolio">
+                <i class="ph ph-note-pencil"></i> Edit Bio
+            </button>
+            <button type="button" class="btn btn-primary btn-sm" onclick="openCreateProjectModal()" id="btn-add-project">
+                <i class="ph-bold ph-plus"></i> Add Project
+            </button>
+        </div>
 
         <!-- Hero Portfolio Card -->
         <section class="portfolio-hero" id="portfolio-hero">
@@ -1019,6 +1011,9 @@
         var isOwner = true;
 
         function getAuthHeader() {
+            if (window.DTV && DTV.Auth) {
+                return DTV.Auth.getAuthHeaders();
+            }
             var token = localStorage.getItem('token') || localStorage.getItem('accessToken');
             return token ? { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
         }
@@ -1123,6 +1118,10 @@
         }
 
         async function initPortfolio() {
+            if (window.DTV && DTV.UI) {
+                DTV.UI.renderSkeletonGrid('projects-container', 2, 'task');
+            }
+
             // Check if viewing a specific student from URL path e.g. /portfolio/:studentId
             var pathParts = window.location.pathname.split('/').filter(Boolean);
             var targetId = null;
@@ -1157,6 +1156,16 @@
             var meta = data.meta || {};
             var acad = data.academicProfile || {};
             var privacy = data.privacy || {};
+
+            // Mount Universal Responsive Navigation
+            var seg = acad.studentSegment || 'school';
+            var xp = meta.completionScore ? meta.completionScore * 10 : 0;
+            if (window.DTV && DTV.Nav) {
+                DTV.Nav.render('dtv-nav-mount', { activePage: 'portfolio', segment: seg, xpPoints: xp });
+            }
+            if (window.DTV && DTV.Privacy) {
+                DTV.Privacy.applyMinorSafeguards(seg, document);
+            }
 
             // Name & Badges
             document.getElementById('user-name-display').innerHTML = `
@@ -1211,8 +1220,18 @@
 
         function renderProjects(projects) {
             var container = document.getElementById('projects-container');
-            if (projects.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">No projects published yet. Click "Publish Project" to build your showcase!</p>';
+            if (!projects || projects.length === 0) {
+                if (window.DTV && DTV.UI) {
+                    DTV.UI.renderEmptyState('projects-container', {
+                        icon: 'ph-folder-open',
+                        title: 'No Projects Added Yet',
+                        description: 'Showcase your skills by adding your first project or completing a roadmap capstone.',
+                        actionLabel: '+ Add Your First Project',
+                        actionOnClick: 'openCreateProjectModal()'
+                    });
+                } else {
+                    container.innerHTML = '<p style="color:var(--text-muted); font-size:0.9rem;">No projects published yet. Click "Add Project" to build your showcase!</p>';
+                }
                 return;
             }
 

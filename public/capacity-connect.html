@@ -9,7 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/premium-theme.css">
+    <link rel="stylesheet" href="/css/dtv-student.css">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
+    <script src="/js/dtv-student-core.js"></script>
     <style>
         :root {
             --bg-dark: #080a0f;
@@ -1324,6 +1326,9 @@
         var debounceTimer = null;
 
         function getAuthHeader() {
+            if (window.DTV && DTV.Auth) {
+                return DTV.Auth.getAuthHeaders();
+            }
             var token = localStorage.getItem('token') || localStorage.getItem('accessToken');
             return token ? { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' } : { 'Content-Type': 'application/json' };
         }
