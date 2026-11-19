@@ -71,5 +71,25 @@ module.exports = async function globalSetup() {
       // Suppress missing table warnings on legacy payment webhooks
     }
   }
+  await testDb.query('ALTER TABLE users ADD COLUMN IF NOT EXISTS link_code text;');
+  await testDb.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS trial_expires_at TIMESTAMP WITH TIME ZONE DEFAULT (CURRENT_TIMESTAMP + interval '5 days');");
+  await testDb.query("ALTER TABLE users ADD COLUMN IF NOT EXISTS subscription_expires_at TIMESTAMP WITH TIME ZONE;");
+  await testDb.query(`
+    CREATE TABLE IF NOT EXISTS orders (
+      id SERIAL PRIMARY KEY,
+      user_id UUID REFERENCES users(id) ON DELETE CASCADE,
+      razorpay_order_id VARCHAR(255) UNIQUE,
+      razorpay_payment_id VARCHAR(255),
+      razorpay_signature VARCHAR(255),
+      plan_duration VARCHAR(50),
+      amount INTEGER NOT NULL,
+      status VARCHAR(50) DEFAULT 'created',
+      mobile_number VARCHAR(255),
+      proof_file_path TEXT,
+      user_name VARCHAR(255),
+      created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+      updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    );
+  `);
   await testDb.end();
 };

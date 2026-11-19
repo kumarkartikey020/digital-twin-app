@@ -9,19 +9,19 @@
   "routes": [
     {
       "src": "/api/(.*)",
-      "dest": "http://3.110.222.33/api/$1"
+      "dest": "https://api.digitaltwinvrs.com/api/$1"
     },
     {
       "src": "/parent(.*)",
-      "dest": "http://3.110.222.33/parent$1"
+      "dest": "https://api.digitaltwinvrs.com/parent$1"
     },
     {
       "src": "/dashboard(.*)",
-      "dest": "http://3.110.222.33/dashboard$1"
+      "dest": "https://api.digitaltwinvrs.com/dashboard$1"
     },
     {
       "src": "/uploads(.*)",
-      "dest": "http://3.110.222.33/uploads$1"
+      "dest": "https://api.digitaltwinvrs.com/uploads$1"
     },
     {
       "src": "/wheel(.*)",
@@ -87,7 +87,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://checkout.razorpay.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net data:; img-src 'self' data: https:; connect-src 'self' http://3.110.222.33 https://api.digitaltwinvrs.com https://www.google-analytics.com https://checkout.razorpay.com https://api.render.com; frame-src 'self' https://www.youtube.com https://checkout.razorpay.com; object-src 'none';"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://checkout.razorpay.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdn.jsdelivr.net; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net data:; img-src 'self' data: https:; connect-src 'self' https://api.digitaltwinvrs.com https://www.google-analytics.com https://checkout.razorpay.com https://api.render.com; frame-src 'self' https://www.youtube.com https://checkout.razorpay.com; object-src 'none';"
         }
       ]
     }
