@@ -851,12 +851,12 @@
             return await res.json();
         },
 
-        // Renderers
+        // Renderers - Clean, Restrained Swiss Editorial Architecture
         renderNextBestAction: function (containerId, action) {
             const el = document.getElementById(containerId);
             if (!el || !action) return;
 
-            const icon = action.actionCta?.icon || 'ph-sparkle';
+            const icon = action.actionCta?.icon || 'ph-arrow-right';
             const effort = action.estimatedEffortMinutes ? `${action.estimatedEffortMinutes} mins` : 'Flexible';
             const label = DTVUI.escapeHtml(action.actionCta?.label || 'Take Action');
             const url = DTVUI.escapeHtml(action.actionCta?.url || '#');
@@ -865,10 +865,8 @@
             el.innerHTML = `
                 <div class="dtv-nba-container">
                     <div class="dtv-nba-header">
-                        <span class="dtv-nba-tag">
-                            <span class="dtv-radar-dot"></span> Next Best Action
-                        </span>
-                        <span style="font-size:0.8rem; color:#475569; font-weight:700;">
+                        <span class="dtv-nba-tag">Recommended Next Step</span>
+                        <span class="dtv-nba-effort">
                             <i class="ph ph-clock"></i> ~${effort} effort
                         </span>
                     </div>
@@ -885,11 +883,11 @@
                         </div>
                     </div>
                     <div class="dtv-nba-action-row">
-                        <div style="font-size:0.825rem; color:#475569; font-weight:600;">
-                            <i class="ph ph-shield-check" style="color:#15803d;"></i> Real-Time Developmental Alignment
-                        </div>
+                        <span class="dtv-nba-note">
+                            Objective step toward milestone completion
+                        </span>
                         <a href="${url}" class="${btnClass}">
-                            <i class="ph ${icon}"></i> ${label}
+                            <span>${label}</span> <i class="ph ${icon}"></i>
                         </a>
                     </div>
                 </div>
@@ -906,22 +904,19 @@
 
             let skillsHtml = '';
             if (skills.length === 0) {
-                skillsHtml = '<p style="color:#475569; font-size:0.85rem; padding:0.5rem 0;">No skills logged yet. Complete quests or document projects.</p>';
+                skillsHtml = '<p style="color:#737373; font-size:0.875rem; padding:0.75rem 0;">No demonstrated skills logged yet. Complete quests or document projects.</p>';
             } else {
                 skillsHtml = skills.map(s => {
                     const prov = s.provenance_type || 'SELF_DECLARED';
                     const badgeClass = DTVIntelligence.getProvenanceBadgeClass(prov);
                     const label = DTVIntelligence.getProvenanceLabel(prov);
-                    const icon = DTVIntelligence.getProvenanceIcon(prov);
                     return `
-                        <div style="display:flex; align-items:center; justify-content:space-between; padding:0.65rem 0.5rem; border-bottom:1px solid #f1f5f9;">
-                            <div>
-                                <span style="font-weight:700; color:#0f172a; font-size:0.9rem;">${DTVUI.escapeHtml(s.skill_name)}</span>
-                                <span style="font-size:0.775rem; color:#475569; margin-left:0.4rem; text-transform:capitalize; font-weight:600;">(${DTVUI.escapeHtml(s.proficiency_level)})</span>
+                        <div class="dtv-skill-row">
+                            <div class="dtv-skill-info">
+                                <span class="dtv-skill-name">${DTVUI.escapeHtml(s.skill_name)}</span>
+                                <span class="dtv-skill-level">${DTVUI.escapeHtml(s.proficiency_level)}</span>
                             </div>
-                            <span class="dtv-prov-badge ${badgeClass}">
-                                <i class="ph ${icon}"></i> ${label}
-                            </span>
+                            <span class="dtv-prov-badge ${badgeClass}">${label}</span>
                         </div>
                     `;
                 }).join('');
@@ -929,28 +924,25 @@
 
             let gapsHtml = '';
             if (gaps.length === 0) {
-                gapsHtml = '<p style="color:#15803d; font-size:0.85rem; padding:0.5rem 0;"><i class="ph ph-check-circle"></i> All foundational skills currently cleared!</p>';
+                gapsHtml = '<p style="color:#15803D; font-size:0.875rem; padding:0.75rem 0;"><i class="ph ph-check-circle"></i> All foundational skills currently cleared.</p>';
             } else {
                 gapsHtml = gaps.map(g => {
                     const isClosed = g.status === 'closed';
-                    const priorityColor = g.priority === 'critical' ? '#b91c1c' : (g.priority === 'high' ? '#b45309' : '#0f172a');
+                    const statusClass = g.status === 'closed' ? 'dtv-gap-closed' : (g.priority === 'critical' ? 'dtv-gap-critical' : 'dtv-gap-open');
+                    const statusLabel = g.status.replace('_', ' ');
                     return `
-                        <div style="padding:0.75rem 0.5rem; border-bottom:1px solid #f1f5f9;">
-                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.25rem;">
-                                <span style="font-weight:700; color:#0f172a; font-size:0.9rem;">${DTVUI.escapeHtml(g.skill_name)}</span>
-                                <span style="font-size:0.7rem; font-weight:800; text-transform:uppercase; color:${priorityColor};">
-                                    ${DTVUI.escapeHtml(g.status.replace('_', ' '))}
-                                </span>
+                        <div class="dtv-gap-row">
+                            <div class="dtv-gap-head">
+                                <span class="dtv-gap-name">${DTVUI.escapeHtml(g.skill_name)}</span>
+                                <span class="dtv-gap-badge ${statusClass}">${DTVUI.escapeHtml(statusLabel)}</span>
                             </div>
-                            <p style="font-size:0.85rem; color:#334155; line-height:1.45; margin-bottom:0.4rem;">
-                                ${DTVUI.escapeHtml(g.identified_reason)}
-                            </p>
+                            <p class="dtv-gap-desc">${DTVUI.escapeHtml(g.identified_reason)}</p>
                             ${!isClosed && g.recommendedActivity ? `
-                            <div style="display:flex; align-items:center; justify-content:space-between; padding-top:0.35rem;">
-                                <span style="font-size:0.775rem; color:#c2410c; font-weight:600;">
-                                    <i class="ph ph-lightning"></i> ${DTVUI.escapeHtml(g.recommendedActivity.title)} (~${g.recommendedActivity.estimatedMinutes}m)
+                            <div class="dtv-gap-action">
+                                <span class="dtv-gap-rec">
+                                    Recommended: ${DTVUI.escapeHtml(g.recommendedActivity.title)} (~${g.recommendedActivity.estimatedMinutes}m)
                                 </span>
-                                <a href="#quests" class="dtv-btn dtv-btn-outline dtv-btn-sm" style="font-size:0.72rem; padding:0.2rem 0.6rem; min-height:30px;">Practice</a>
+                                <a href="#quests" class="dtv-btn dtv-btn-secondary dtv-btn-sm">Practice</a>
                             </div>` : ''}
                         </div>
                     `;
@@ -958,27 +950,22 @@
             }
 
             el.innerHTML = `
-                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem;">
-                    <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:1.5rem; box-shadow:0 1px 3px rgba(0,0,0,0.04);">
-                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid #e2e8f0;">
-                            <h4 style="font-family:'Outfit',sans-serif; font-size:1.05rem; font-weight:700; color:#0f172a;">
-                                <i class="ph ph-seal-check" style="color:#15803d;"></i> Demonstrated Skills (${skills.length})
-                            </h4>
+                <div class="dtv-skills-layout">
+                    <div class="dtv-skills-panel">
+                        <div class="dtv-panel-head">
+                            <h4 class="dtv-panel-title">Demonstrated Skills (${skills.length})</h4>
+                            <span class="dtv-panel-meta">Verified Competencies</span>
                         </div>
-                        <div style="max-height:360px; overflow-y:auto; padding-right:0.25rem;">
+                        <div class="dtv-panel-body">
                             ${skillsHtml}
                         </div>
                     </div>
-                    <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:1.5rem; box-shadow:0 1px 3px rgba(0,0,0,0.04);">
-                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid #e2e8f0;">
-                            <h4 style="font-family:'Outfit',sans-serif; font-size:1.05rem; font-weight:700; color:#0f172a;">
-                                <i class="ph ph-target" style="color:#ea580c;"></i> Target Skill Gaps
-                            </h4>
-                            <span style="font-size:0.775rem; color:#475569; font-weight:700;">
-                                ${summary.openGaps || 0} open / ${summary.totalTargetSkills || 0} total
-                            </span>
+                    <div class="dtv-skills-panel">
+                        <div class="dtv-panel-head">
+                            <h4 class="dtv-panel-title">Target Skill Gaps</h4>
+                            <span class="dtv-panel-meta">${summary.openGaps || 0} open of ${summary.totalTargetSkills || 0} total</span>
                         </div>
-                        <div style="max-height:360px; overflow-y:auto; padding-right:0.25rem;">
+                        <div class="dtv-panel-body">
                             ${gapsHtml}
                         </div>
                     </div>
@@ -991,7 +978,7 @@
             if (!el) return;
 
             if (!projects || projects.length === 0) {
-                el.innerHTML = '<p style="color:#475569; font-size:0.875rem;">All milestone projects are currently documented in your portfolio!</p>';
+                el.innerHTML = '<p style="color:#737373; font-size:0.875rem; padding:1rem 0;">All milestone projects are currently documented in your portfolio!</p>';
                 return;
             }
 
@@ -999,40 +986,26 @@
                 const tierClass = p.difficulty === 'beginner' 
                     ? 'dtv-tier-beginner' 
                     : (p.difficulty === 'advanced' ? 'dtv-tier-advanced' : 'dtv-tier-intermediate');
-                const techs = (p.technologies || []).map(t => `<span class="dtv-tech-chip">${DTVUI.escapeHtml(t)}</span>`).join(' ');
-                const skills = (p.skillsTargeted || []).join(' • ');
+                const techs = (p.technologies || []).map(t => `<span class="dtv-tech-tag">${DTVUI.escapeHtml(t)}</span>`).join(' ');
+                const skills = (p.skillsTargeted || []).join(' · ');
 
                 return `
-                    <div class="dtv-project-card">
-                        <div>
-                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.6rem;">
-                                <span class="dtv-project-tier ${tierClass}">${DTVUI.escapeHtml(p.difficulty)}</span>
-                                <span style="font-size:0.775rem; color:#475569; font-weight:700;">
-                                    <i class="ph ph-timer"></i> ~${p.estimatedHours} hrs
-                                </span>
-                            </div>
-                            <h4 style="font-family:'Outfit', sans-serif; font-size:1.1rem; font-weight:700; color:#0f172a; margin-bottom:0.3rem;">
-                                ${DTVUI.escapeHtml(p.title)}
-                            </h4>
-                            <p style="font-size:0.825rem; color:#c2410c; font-weight:700; margin-bottom:0.6rem;">
-                                ${DTVUI.escapeHtml(p.tagline || '')}
-                            </p>
-                            <p style="font-size:0.875rem; color:#334155; line-height:1.55; margin-bottom:0.85rem;">
-                                ${DTVUI.escapeHtml(p.description)}
-                            </p>
-                            <div style="margin-bottom:0.75rem;">
-                                ${techs}
-                            </div>
-                            <div style="font-size:0.8rem; color:#475569; margin-bottom:0.85rem; line-height:1.4;">
-                                <strong style="color:#0f172a;">Competencies:</strong> ${DTVUI.escapeHtml(skills)}
-                            </div>
+                    <div class="dtv-project-item">
+                        <div class="dtv-project-meta">
+                            <span class="dtv-project-tier ${tierClass}">${DTVUI.escapeHtml(p.difficulty)}</span>
+                            <span class="dtv-project-time"><i class="ph ph-clock"></i> ~${p.estimatedHours} hrs</span>
                         </div>
-                        <div style="display:flex; align-items:center; justify-content:space-between; padding-top:0.75rem; border-top:1px solid #e2e8f0;">
-                            <span style="font-size:0.75rem; color:#15803d; font-weight:700;">
-                                <i class="ph ph-shield-check"></i> Project-Verified Proof
-                            </span>
+                        <h4 class="dtv-project-title">${DTVUI.escapeHtml(p.title)}</h4>
+                        ${p.tagline ? `<p class="dtv-project-tagline">${DTVUI.escapeHtml(p.tagline)}</p>` : ''}
+                        <p class="dtv-project-desc">${DTVUI.escapeHtml(p.description)}</p>
+                        <div class="dtv-project-techs">${techs}</div>
+                        <div class="dtv-project-competencies">
+                            <strong>Target Competencies:</strong> ${DTVUI.escapeHtml(skills)}
+                        </div>
+                        <div class="dtv-project-foot">
+                            <span class="dtv-project-proof">Project-Verified Proof</span>
                             <a href="/student-portfolio.html#add-project?title=${encodeURIComponent(p.title)}" class="dtv-btn dtv-btn-primary dtv-btn-sm">
-                                <i class="ph ph-hammer"></i> Start Project
+                                Start Project →
                             </a>
                         </div>
                     </div>
@@ -1040,7 +1013,7 @@
             }).join('');
 
             el.innerHTML = `
-                <div class="dtv-project-grid">
+                <div class="dtv-projects-grid">
                     ${cardsHtml}
                 </div>
             `;
@@ -1053,27 +1026,22 @@
             const velocity = Math.min(100, Math.max(0, growthData.developmentalVelocity || 0));
             const metrics = growthData.metrics || {};
             const timeline = growthData.growthTimeline || [];
-            const deg = Math.round(velocity * 3.6);
 
             let timelineHtml = '';
             if (timeline.length === 0) {
-                timelineHtml = '<p style="color:#475569; font-size:0.85rem; padding:0.5rem 0;">Complete learning quests or add portfolio projects to see your growth timeline.</p>';
+                timelineHtml = '<p style="color:#737373; font-size:0.875rem; padding:0.75rem 0;">Complete learning quests or add portfolio projects to build your growth timeline.</p>';
             } else {
                 timelineHtml = timeline.map(evt => {
-                    const icon = evt.event_type === 'project' ? 'ph-code' : (evt.event_type === 'achievement' ? 'ph-trophy' : 'ph-lightning');
-                    const color = evt.event_type === 'project' ? '#15803d' : (evt.event_type === 'achievement' ? '#ea580c' : '#0f172a');
                     const timeStr = evt.timestamp ? new Date(evt.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
                     return `
-                        <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.6rem 0; border-bottom:1px solid #f1f5f9;">
-                            <div style="width:26px; height:26px; border-radius:6px; background:#f1f5f9; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                                <i class="ph ${icon}" style="color:${color}; font-size:0.9rem;"></i>
-                            </div>
-                            <div style="flex:1;">
-                                <div style="display:flex; align-items:center; justify-content:space-between;">
-                                    <span style="font-size:0.875rem; font-weight:700; color:#0f172a;">${DTVUI.escapeHtml(evt.title)}</span>
-                                    <span style="font-size:0.75rem; color:#475569; font-weight:600;">${timeStr}</span>
+                        <div class="dtv-timeline-item">
+                            <div class="dtv-timeline-dot"></div>
+                            <div class="dtv-timeline-content">
+                                <div class="dtv-timeline-header">
+                                    <span class="dtv-timeline-title">${DTVUI.escapeHtml(evt.title)}</span>
+                                    <span class="dtv-timeline-date">${timeStr}</span>
                                 </div>
-                                <span style="font-size:0.825rem; color:#334155; line-height:1.45;">${DTVUI.escapeHtml(evt.description)}</span>
+                                <p class="dtv-timeline-desc">${DTVUI.escapeHtml(evt.description)}</p>
                             </div>
                         </div>
                     `;
@@ -1081,46 +1049,42 @@
             }
 
             el.innerHTML = `
-                <div class="dtv-growth-card">
-                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
+                <div class="dtv-growth-block">
+                    <div class="dtv-growth-header">
                         <div>
-                            <h4 style="font-size:1.15rem; font-weight:700; color:#0f172a; font-family:'Outfit', sans-serif;">
-                                <i class="ph ph-chart-line-up" style="color:#ea580c;"></i> Developmental Velocity &amp; Momentum
-                            </h4>
-                            <p style="font-size:0.875rem; color:#475569; margin-top:0.2rem;">Empirically computed from learning, building, and verifying.</p>
+                            <h4 class="dtv-section-heading">Developmental Velocity &amp; Momentum</h4>
+                            <p class="dtv-section-sub">Empirically computed from learning, building, and verifying across your trajectory.</p>
                         </div>
                     </div>
-                    <div class="dtv-velocity-gauge-wrap">
-                        <div class="dtv-velocity-gauge" style="--velocity-deg: ${deg}deg;">
-                            <div class="dtv-velocity-inner">
-                                <span class="dtv-velocity-score">${velocity}</span>
-                                <span class="dtv-velocity-unit">Score</span>
+                    <div class="dtv-growth-stats-grid">
+                        <div class="dtv-growth-stat">
+                            <span class="dtv-growth-stat-label">Velocity Index</span>
+                            <div class="dtv-growth-stat-val">${velocity} <span style="font-size:0.9rem; font-weight:500; color:#737373;">/ 100</span></div>
+                            <div class="dtv-velocity-track">
+                                <div class="dtv-velocity-fill" style="width: ${velocity}%;"></div>
                             </div>
                         </div>
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; flex:1; margin-left:1.5rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:1.25rem;">
-                            <div>
-                                <span style="font-size:0.75rem; color:#475569; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Verified Skills</span>
-                                <div style="font-size:1.35rem; font-weight:800; color:#0f172a; margin-top:0.2rem;">${metrics.verifiedSkills || 0} / ${metrics.totalSkillsTracked || 0}</div>
-                            </div>
-                            <div>
-                                <span style="font-size:0.75rem; color:#475569; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Projects Built</span>
-                                <div style="font-size:1.35rem; font-weight:800; color:#ea580c; margin-top:0.2rem;">${metrics.projectsPublished || 0}</div>
-                            </div>
-                            <div>
-                                <span style="font-size:0.75rem; color:#475569; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Quests Completed</span>
-                                <div style="font-size:1.35rem; font-weight:800; color:#0f172a; margin-top:0.2rem;">${metrics.learningQuestsCompleted || 0}</div>
-                            </div>
-                            <div>
-                                <span style="font-size:0.75rem; color:#475569; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Roadmap Pace</span>
-                                <div style="font-size:1.35rem; font-weight:800; color:#ea580c; margin-top:0.2rem;">${metrics.roadmapProgress || 0}%</div>
-                            </div>
+                        <div class="dtv-growth-stat">
+                            <span class="dtv-growth-stat-label">Verified Skills</span>
+                            <div class="dtv-growth-stat-val">${metrics.verifiedSkills || 0} <span style="font-size:0.9rem; font-weight:500; color:#737373;">/ ${metrics.totalSkillsTracked || 0}</span></div>
+                            <span class="dtv-growth-stat-sub">Demonstrated &amp; Proven</span>
+                        </div>
+                        <div class="dtv-growth-stat">
+                            <span class="dtv-growth-stat-label">Projects Published</span>
+                            <div class="dtv-growth-stat-val">${metrics.projectsPublished || 0}</div>
+                            <span class="dtv-growth-stat-sub">Portfolio Items</span>
+                        </div>
+                        <div class="dtv-growth-stat">
+                            <span class="dtv-growth-stat-label">Roadmap Pace</span>
+                            <div class="dtv-growth-stat-val" style="color:#EA580C;">${metrics.roadmapProgress || 0}%</div>
+                            <span class="dtv-growth-stat-sub">Milestone Execution</span>
                         </div>
                     </div>
-                    <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #e2e8f0;">
-                        <h5 style="font-size:0.825rem; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.75rem;">
-                            Recent Verified Milestones
-                        </h5>
-                        ${timelineHtml}
+                    <div class="dtv-growth-timeline-wrap">
+                        <h5 class="dtv-timeline-heading">Recent Verified Milestones</h5>
+                        <div class="dtv-timeline-feed">
+                            ${timelineHtml}
+                        </div>
                     </div>
                 </div>
             `;
@@ -1136,33 +1100,29 @@
             modal.className = 'dtv-modal-overlay';
             modal.innerHTML = `
                 <div class="dtv-modal-content">
-                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
-                        <h3 style="font-family:'Outfit', sans-serif; font-size:1.35rem; font-weight:800; color:#0f172a;">
-                            <i class="ph ph-git-commit" style="color:#ea580c;"></i> Adapt Learning Roadmap
-                        </h3>
-                        <button type="button" style="background:#f1f5f9; border:1px solid #e2e8f0; border-radius:8px; color:#0f172a; cursor:pointer; width:34px; height:34px; display:flex; align-items:center; justify-content:center; font-size:1.15rem;" onclick="document.getElementById('${modalId}').remove()">
-                            <i class="ph ph-x"></i>
-                        </button>
+                    <div class="dtv-modal-header">
+                        <h3 class="dtv-modal-title">Adapt Learning Roadmap Pace</h3>
+                        <button type="button" class="dtv-modal-close" aria-label="Close" onclick="document.getElementById('${modalId}').remove()">&times;</button>
                     </div>
-                    <p style="font-size:0.9rem; color:#334155; line-height:1.55; margin-bottom:1.5rem;">
+                    <p class="dtv-modal-desc">
                         Explainable Roadmap Adaptation dynamically realigns milestone deadlines and challenge intensity based on your actual pace, without deleting your completed history.
                     </p>
                     <div style="margin-bottom:1.5rem;">
-                        <label style="font-size:0.8rem; font-weight:700; color:#0f172a; text-transform:uppercase; letter-spacing:0.04em; display:block; margin-bottom:0.5rem;">
+                        <label class="form-label" style="display:block; margin-bottom:0.5rem; font-weight:600; font-size:0.85rem; color:#171717;">
                             Adaptation Mode
                         </label>
-                        <select id="dtv-adapt-type-select" style="width:100%; background:#f8fafc; border:1px solid #cbd5e1; border-radius:8px; padding:0.75rem 1rem; color:#0f172a; font-size:0.925rem; outline:none;">
+                        <select id="dtv-adapt-type-select" class="form-select" style="width:100%; background:#ffffff; border:1px solid #D4D4D4; border-radius:6px; padding:0.65rem 0.85rem; color:#171717; font-size:0.875rem;">
                             <option value="velocity_realigned">Pace Realignment (Smooth schedule &amp; reinforce prerequisites)</option>
                             <option value="pace_accelerated">Accelerate Velocity (Elevate XP rewards &amp; advance challenge tier)</option>
                             <option value="skill_reinforced">Skill Reinforcement (Prioritize open foundational skill gaps)</option>
                         </select>
                     </div>
                     <div style="display:flex; align-items:center; justify-content:flex-end; gap:0.75rem;">
-                        <button type="button" class="dtv-btn dtv-btn-secondary" onclick="document.getElementById('${modalId}').remove()">
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('${modalId}').remove()">
                             Cancel
                         </button>
-                        <button type="button" id="dtv-confirm-adapt-btn" class="dtv-btn dtv-btn-primary">
-                            <i class="ph ph-arrows-clockwise"></i> Apply Adaptation
+                        <button type="button" id="dtv-confirm-adapt-btn" class="btn btn-primary">
+                            Apply Adaptation
                         </button>
                     </div>
                 </div>
@@ -1170,25 +1130,26 @@
             document.body.appendChild(modal);
 
             document.getElementById('dtv-confirm-adapt-btn').onclick = async function () {
+                const btn = this;
                 const type = document.getElementById('dtv-adapt-type-select').value;
-                this.disabled = true;
-                this.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Adapting...';
+                btn.disabled = true;
+                btn.innerHTML = 'Adapting...';
+
                 try {
                     const result = await DTVIntelligence.adaptRoadmap({
                         adaptationType: type,
                         reason: 'User-initiated adaptive realignment via student dashboard'
                     });
                     if (result && result.success) {
-                        DTVUI.showToast('Roadmap adapted successfully. Revision logged.', 'success');
                         modal.remove();
                         if (typeof onAdaptCallback === 'function') onAdaptCallback(result);
+                        if (window.showToast) window.showToast('Roadmap adapted successfully.');
                     } else {
-                        DTVUI.showToast('Roadmap pace adapted successfully (Preview Mode). Revision logged.', 'success');
                         modal.remove();
                         if (typeof onAdaptCallback === 'function') onAdaptCallback({ success: true, preview: true, adaptationType: type });
+                        if (window.showToast) window.showToast('Roadmap pace adapted successfully (Preview Mode).');
                     }
                 } catch (err) {
-                    DTVUI.showToast('Roadmap pace adapted successfully (Preview Mode). Revision logged.', 'success');
                     modal.remove();
                     if (typeof onAdaptCallback === 'function') onAdaptCallback({ success: true, preview: true, adaptationType: type });
                 }
