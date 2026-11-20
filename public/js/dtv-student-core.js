@@ -454,17 +454,17 @@
 
                     <!-- Desktop Navigation Links -->
                     <div class="dtv-nav-links">
-                        <a href="/student-dashboard" class="dtv-nav-link ${activePage === 'dashboard' ? 'active' : ''}">
-                            Dashboard
+                        <a href="/student-dashboard" class="dtv-nav-link ${activePage === 'home' || activePage === 'dashboard' ? 'active' : ''}">
+                            Home
                         </a>
-                        <a href="/student-dashboard#roadmap-section" class="dtv-nav-link ${activePage === 'roadmap' ? 'active' : ''}">
-                            Roadmap
+                        <a href="/student-dashboard#learning-section" class="dtv-nav-link ${activePage === 'learning' || activePage === 'roadmap' ? 'active' : ''}">
+                            My Learning
                         </a>
-                        <a href="/student-portfolio" class="dtv-nav-link ${activePage === 'portfolio' ? 'active' : ''}">
-                            Portfolio
+                        <a href="/student-portfolio" class="dtv-nav-link ${activePage === 'projects' || activePage === 'portfolio' ? 'active' : ''}">
+                            Projects
                         </a>
                         ${segment === SEGMENTS.JUNIOR ? '' : `
-                        <a href="/capacity-connect" class="dtv-nav-link ${activePage === 'connect' ? 'active' : ''}">
+                        <a href="/capacity-connect" class="dtv-nav-link ${activePage === 'opportunities' || activePage === 'connect' ? 'active' : ''}">
                             Opportunities
                         </a>`}
                     </div>
@@ -493,17 +493,17 @@
 
                 <!-- Mobile Drawer Navigation -->
                 <div class="dtv-mobile-drawer" id="dtv-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
-                    <a href="/student-dashboard" class="dtv-nav-link ${activePage === 'dashboard' ? 'active' : ''}">
-                        Dashboard
+                    <a href="/student-dashboard" class="dtv-nav-link ${activePage === 'home' || activePage === 'dashboard' ? 'active' : ''}">
+                        Home
                     </a>
-                    <a href="/student-dashboard#roadmap-section" class="dtv-nav-link ${activePage === 'roadmap' ? 'active' : ''}">
-                        Roadmap
+                    <a href="/student-dashboard#learning-section" class="dtv-nav-link ${activePage === 'learning' || activePage === 'roadmap' ? 'active' : ''}">
+                        My Learning
                     </a>
-                    <a href="/student-portfolio" class="dtv-nav-link ${activePage === 'portfolio' ? 'active' : ''}">
-                        Portfolio
+                    <a href="/student-portfolio" class="dtv-nav-link ${activePage === 'projects' || activePage === 'portfolio' ? 'active' : ''}">
+                        Projects
                     </a>
                     ${segment === SEGMENTS.JUNIOR ? '' : `
-                    <a href="/capacity-connect" class="dtv-nav-link ${activePage === 'connect' ? 'active' : ''}">
+                    <a href="/capacity-connect" class="dtv-nav-link ${activePage === 'opportunities' || activePage === 'connect' ? 'active' : ''}">
                         Opportunities
                     </a>`}
                     <div style="padding-top: 0.5rem; border-top: 1px solid var(--dtv-border); margin-top: 0.25rem;">
@@ -710,19 +710,22 @@
 
         getProvenanceBadgeClass: function (prov) {
             switch (prov) {
-                case 'ASSESSMENT_VERIFIED': return 'dtv-prov-assessment';
-                case 'PROJECT_VERIFIED': return 'dtv-prov-project';
-                case 'ACTIVITY_BASED': return 'dtv-prov-activity';
-                default: return 'dtv-prov-self';
+                case 'ASSESSMENT_VERIFIED':
+                case 'PROJECT_VERIFIED':
+                    return 'verified';
+                case 'ACTIVITY_BASED':
+                    return 'practiced';
+                default:
+                    return 'learning';
             }
         },
 
         getProvenanceLabel: function (prov) {
             switch (prov) {
-                case 'ASSESSMENT_VERIFIED': return 'Certified';
-                case 'PROJECT_VERIFIED': return 'Project Built';
-                case 'ACTIVITY_BASED': return 'Quest Completed';
-                default: return 'Self Declared';
+                case 'ASSESSMENT_VERIFIED': return 'Assessment cleared';
+                case 'PROJECT_VERIFIED': return 'Project verified';
+                case 'ACTIVITY_BASED': return 'Practiced';
+                default: return 'Learning';
             }
         },
 
@@ -730,8 +733,8 @@
             switch (prov) {
                 case 'ASSESSMENT_VERIFIED': return 'ph-seal-check';
                 case 'PROJECT_VERIFIED': return 'ph-check-circle';
-                case 'ACTIVITY_BASED': return 'ph-lightning';
-                default: return 'ph-user';
+                case 'ACTIVITY_BASED': return 'ph-check';
+                default: return 'ph-circle';
             }
         },
 
@@ -793,24 +796,26 @@
             const el = document.getElementById(containerId);
             if (!el || !action) return;
 
-            const effort = action.estimatedEffortMinutes ? `${action.estimatedEffortMinutes} mins` : '35 mins';
-            const label = DTVUI.escapeHtml(action.actionCta?.label || 'Take Action');
-            const url = DTVUI.escapeHtml(action.actionCta?.url || '#');
+            const effort = action.estimatedEffortMinutes ? `${action.estimatedEffortMinutes} minutes` : '25 minutes';
+            const label = DTVUI.escapeHtml(action.actionCta?.label || 'Start Learning');
+            const url = DTVUI.escapeHtml(action.actionCta?.url || '#quests');
 
             el.innerHTML = `
                 <div class="dtv-nba-container">
-                    <div class="dtv-nba-header">
-                        <span class="dtv-nba-tag">Recommended Next Step</span>
-                        <span class="dtv-nba-effort">~${effort}</span>
+                    <div>
+                        <div class="dtv-nba-header">
+                            <span class="dtv-nba-tag">Your Next Step</span>
+                            <span class="dtv-nba-effort">Time: ${effort}</span>
+                        </div>
+                        <h2 class="dtv-nba-what">${DTVUI.escapeHtml(action.what || 'Recommended Learning Activity')}</h2>
+                        <p class="dtv-nba-why">${DTVUI.escapeHtml(action.why || '')}</p>
+                        ${action.expectedOutcome ? `
+                        <div class="dtv-nba-rationale">
+                            <strong>Why you're doing this:</strong> ${DTVUI.escapeHtml(action.expectedOutcome)}
+                        </div>` : ''}
                     </div>
-                    <h2 class="dtv-nba-what">${DTVUI.escapeHtml(action.what || 'Recommended Action')}</h2>
-                    <p class="dtv-nba-why">${DTVUI.escapeHtml(action.why || '')}</p>
-                    ${action.expectedOutcome ? `
-                    <div class="dtv-nba-rationale">
-                        <strong>Expected Outcome:</strong> ${DTVUI.escapeHtml(action.expectedOutcome)}
-                    </div>` : ''}
                     <div class="dtv-nba-action-row">
-                        <span class="dtv-nba-note">${DTVUI.escapeHtml(action.goalOrSkillSupported || 'Advancing foundational competence')}</span>
+                        <span class="dtv-nba-note">${DTVUI.escapeHtml(action.goalOrSkillSupported || 'Core Competency')}</span>
                         <a href="${url}" class="btn btn-primary">
                             ${label} →
                         </a>
@@ -970,32 +975,10 @@
             el.innerHTML = `
                 <div class="dtv-growth-block">
                     <div class="dtv-growth-header">
-                        <h3 class="section-title">Activity &amp; Milestone History</h3>
-                        <p class="section-sub">Chronological timeline of verified learning and project achievements.</p>
+                        <h3 class="section-title">Learning History</h3>
+                        <p class="section-sub">A verified record of your completed milestones, quests, and showcase projects.</p>
                     </div>
-                    <div class="dtv-growth-stats-grid">
-                        <div class="dtv-growth-stat">
-                            <span class="dtv-growth-stat-label">Velocity Index</span>
-                            <div class="dtv-growth-stat-val">${velocity}</div>
-                            <span class="dtv-growth-stat-sub">Learning momentum</span>
-                        </div>
-                        <div class="dtv-growth-stat">
-                            <span class="dtv-growth-stat-label">Verified Skills</span>
-                            <div class="dtv-growth-stat-val">${metrics.verifiedSkills || 0}</div>
-                            <span class="dtv-growth-stat-sub">Proven competencies</span>
-                        </div>
-                        <div class="dtv-growth-stat">
-                            <span class="dtv-growth-stat-label">Projects Published</span>
-                            <div class="dtv-growth-stat-val">${metrics.projectsPublished || 0}</div>
-                            <span class="dtv-growth-stat-sub">Portfolio items</span>
-                        </div>
-                        <div class="dtv-growth-stat">
-                            <span class="dtv-growth-stat-label">Roadmap Progress</span>
-                            <div class="dtv-growth-stat-val">${metrics.roadmapProgress || 0}%</div>
-                            <span class="dtv-growth-stat-sub">Milestone execution</span>
-                        </div>
-                    </div>
-                    <div class="dtv-timeline-feed">
+                    <div class="dtv-growth-timeline">
                         ${timelineHtml}
                     </div>
                 </div>

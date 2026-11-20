@@ -1,0 +1,1524 @@
+/* ========================================================================
+   DIGITAL TWIN VERSE - STUDENT EXPERIENCE DESIGN SYSTEM
+   Premium Human-Designed Educational Platform Architecture
+   References: Linear / Notion / Apple / Modern EdTech Platforms
+   Strict Palette:
+     - DTV Orange: #EA580C (Accent only)
+     - White: #FFFFFF
+     - Warm White: #FAFAF9 (Page Canvas)
+     - Neutral Light: #F1F1EF
+     - Border Grey: #E5E5E5
+     - Primary Text: #171717
+     - Secondary Text: #525252
+     - Muted Text: #737373
+     - Success Green: #15803D (Verification checks only)
+======================================================================== */
+
+:root {
+    --dtv-white: #FFFFFF;
+    --dtv-warm-white: #FAFAF9;
+    --dtv-neutral-light: #F1F1EF;
+    --dtv-surface: #FFFFFF;
+    
+    --dtv-border: #E5E5E5;
+    --dtv-border-subtle: #EEEEEC;
+    --dtv-border-strong: #D4D4D2;
+    
+    --dtv-text-primary: #171717;
+    --dtv-text-secondary: #525252;
+    --dtv-text-muted: #737373;
+    --dtv-text-light: #8C8C8C;
+    
+    --dtv-orange: #EA580C;
+    --dtv-orange-hover: #C2410C;
+    --dtv-orange-subtle: #FFF7ED;
+    --dtv-orange-border: #FED7AA;
+    
+    --dtv-green: #15803D;
+    --dtv-green-subtle: #F0FDF4;
+    --dtv-green-border: #BBF7D0;
+    
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    
+    --radius-sm: 4px;
+    --radius-md: 6px;
+    --radius-lg: 8px;
+    
+    --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Base Reset & Setup */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    font-family: var(--font-sans);
+    background-color: var(--dtv-warm-white) !important;
+    color: var(--dtv-text-primary) !important;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+}
+
+/* Typography Defaults */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--dtv-text-primary);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.3;
+}
+
+h1 { font-size: 1.75rem; }
+h2 { font-size: 1.35rem; }
+h3 { font-size: 1.15rem; }
+h4 { font-size: 1rem; }
+
+p {
+    color: var(--dtv-text-secondary);
+    font-size: 0.9375rem;
+    line-height: 1.55;
+}
+
+a {
+    color: var(--dtv-orange);
+    text-decoration: none;
+    transition: color 0.15s ease;
+}
+
+a:hover {
+    color: var(--dtv-orange-hover);
+}
+
+/* Layout Container */
+.container, .dtv-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.5rem 1.5rem 4rem 1.5rem;
+}
+
+/* ========================================================================
+   1. NAVIGATION BAR (Clean, Compact, Minimal)
+======================================================================== */
+.dtv-nav-container {
+    width: 100%;
+    background: var(--dtv-white);
+    border-bottom: 1px solid var(--dtv-border);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.dtv-nav {
+    max-width: 1200px;
+    margin: 0 auto;
+    height: 56px;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dtv-nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    text-decoration: none;
+    color: var(--dtv-text-primary);
+}
+
+.dtv-nav-logo {
+    width: 28px;
+    height: 28px;
+    border-radius: var(--radius-sm);
+    object-fit: cover;
+}
+
+.dtv-nav-title {
+    font-size: 1rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--dtv-text-primary);
+}
+
+.dtv-nav-title span {
+    color: var(--dtv-orange);
+}
+
+.dtv-nav-links {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.dtv-nav-link {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--dtv-text-secondary);
+    text-decoration: none;
+    padding: 0.35rem 0;
+    position: relative;
+    transition: color 0.15s ease;
+}
+
+.dtv-nav-link:hover {
+    color: var(--dtv-text-primary);
+}
+
+.dtv-nav-link.active {
+    color: var(--dtv-orange);
+    font-weight: 600;
+}
+
+.dtv-nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.dtv-nav-stage-badge {
+    font-size: 0.775rem;
+    font-weight: 500;
+    color: var(--dtv-text-secondary);
+    background: var(--dtv-neutral-light);
+    border: 1px solid var(--dtv-border);
+    padding: 0.25rem 0.6rem;
+    border-radius: var(--radius-sm);
+}
+
+.dtv-nav-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--dtv-neutral-light);
+    border: 1px solid var(--dtv-border);
+    color: var(--dtv-text-primary);
+    font-size: 0.825rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dtv-nav-burger {
+    display: none;
+    background: transparent;
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-sm);
+    width: 34px;
+    height: 34px;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.15rem;
+    color: var(--dtv-text-primary);
+    cursor: pointer;
+}
+
+.dtv-mobile-drawer {
+    display: none;
+    background: var(--dtv-white);
+    border-bottom: 1px solid var(--dtv-border);
+    padding: 1rem 1.5rem;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.dtv-mobile-drawer.active {
+    display: flex;
+}
+
+/* ========================================================================
+   2. BUTTONS & UI CONTROLS
+======================================================================== */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: inherit;
+    font-size: 0.875rem;
+    font-weight: 500;
+    padding: 0.55rem 1.1rem;
+    border-radius: var(--radius-md);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+    white-space: nowrap;
+}
+
+.btn-primary {
+    background-color: var(--dtv-orange) !important;
+    color: var(--dtv-white) !important;
+    border-color: var(--dtv-orange) !important;
+}
+
+.btn-primary:hover {
+    background-color: var(--dtv-orange-hover) !important;
+    border-color: var(--dtv-orange-hover) !important;
+    color: var(--dtv-white) !important;
+}
+
+.btn-secondary {
+    background-color: var(--dtv-white) !important;
+    color: var(--dtv-text-primary) !important;
+    border-color: var(--dtv-border) !important;
+}
+
+.btn-secondary:hover {
+    background-color: var(--dtv-neutral-light) !important;
+    border-color: var(--dtv-border-strong) !important;
+    color: var(--dtv-text-primary) !important;
+}
+
+.btn-sm {
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8125rem;
+}
+
+.btn-link {
+    background: transparent;
+    border: none;
+    color: var(--dtv-orange);
+    padding: 0;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.btn-link:hover {
+    color: var(--dtv-orange-hover);
+    text-decoration: underline;
+}
+
+/* ========================================================================
+   3. FIRST SCREEN: WELCOME & STAGE SWITCHER
+======================================================================== */
+.student-welcome-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 1.25rem;
+    margin-bottom: 1.25rem;
+    border-bottom: 1px solid var(--dtv-border);
+}
+
+.welcome-copy h1 {
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.welcome-sub {
+    font-size: 0.9375rem;
+    color: var(--dtv-text-secondary);
+}
+
+.welcome-stage-control {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.stage-segmented-control {
+    display: inline-flex;
+    background: var(--dtv-neutral-light);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-md);
+    padding: 3px;
+    gap: 2px;
+}
+
+.stage-tab {
+    background: transparent;
+    border: none;
+    font-family: inherit;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--dtv-text-secondary);
+    padding: 0.35rem 0.75rem;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+
+.stage-tab:hover {
+    color: var(--dtv-text-primary);
+}
+
+.stage-tab.active {
+    background: var(--dtv-white);
+    color: var(--dtv-text-primary);
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+}
+
+/* ========================================================================
+   4. FIRST SCREEN: TWO-COLUMN HERO (Next Action + Progress Companion)
+======================================================================== */
+.first-screen-grid {
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 1.5rem;
+    margin-bottom: 2.75rem;
+    align-items: stretch;
+}
+
+/* Left / Primary: YOUR NEXT STEP */
+.dtv-nba-container {
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-left: 4px solid var(--dtv-orange);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    box-shadow: var(--shadow-subtle);
+}
+
+.dtv-nba-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.75rem;
+}
+
+.dtv-nba-tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--dtv-orange);
+}
+
+.dtv-nba-effort {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-muted);
+}
+
+.dtv-nba-what {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+    line-height: 1.35;
+    margin-bottom: 0.5rem;
+}
+
+.dtv-nba-why {
+    font-size: 0.9375rem;
+    color: var(--dtv-text-secondary);
+    line-height: 1.5;
+    margin-bottom: 0.85rem;
+}
+
+.dtv-nba-rationale {
+    font-size: 0.85rem;
+    color: var(--dtv-text-muted);
+    background: var(--dtv-neutral-light);
+    border: 1px solid var(--dtv-border-subtle);
+    border-radius: var(--radius-sm);
+    padding: 0.55rem 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.dtv-nba-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--dtv-border-subtle);
+    margin-top: auto;
+}
+
+.dtv-nba-note {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-muted);
+}
+
+/* Right / Companion: PROGRESS COMPANION */
+.progress-companion {
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    box-shadow: var(--shadow-subtle);
+}
+
+.progress-companion-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+}
+
+.progress-companion-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+}
+
+.progress-companion-badge {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--dtv-orange);
+}
+
+.progress-companion-track {
+    width: 100%;
+    height: 6px;
+    background: var(--dtv-neutral-light);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-companion-fill {
+    height: 100%;
+    background: var(--dtv-orange);
+    border-radius: 999px;
+    transition: width 0.3s ease;
+}
+
+.progress-companion-note {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-muted);
+    margin-bottom: 1.25rem;
+}
+
+.progress-details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding: 0.85rem 0;
+    border-top: 1px solid var(--dtv-border-subtle);
+    border-bottom: 1px solid var(--dtv-border-subtle);
+    margin-bottom: 1rem;
+}
+
+.progress-detail-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.85rem;
+}
+
+.progress-detail-label {
+    color: var(--dtv-text-secondary);
+}
+
+.progress-detail-val {
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+}
+
+.progress-companion-foot {
+    margin-top: auto;
+}
+
+.progress-link {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-secondary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    transition: color 0.15s ease;
+}
+
+.progress-link:hover {
+    color: var(--dtv-orange);
+}
+
+/* ========================================================================
+   5. SECTION 2: LEARNING ROADMAP
+======================================================================== */
+.dashboard-section {
+    margin-bottom: 2.75rem;
+}
+
+.section-head {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+    margin-bottom: 0.2rem;
+}
+
+.section-sub {
+    font-size: 0.875rem;
+    color: var(--dtv-text-secondary);
+}
+
+.roadmap-container {
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-subtle);
+}
+
+.roadmap-header-bar {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--dtv-border);
+    margin-bottom: 1.25rem;
+}
+
+.roadmap-goal-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+    margin-bottom: 0.25rem;
+}
+
+.roadmap-goal-sub {
+    font-size: 0.85rem;
+    color: var(--dtv-text-secondary);
+}
+
+.roadmap-progress-deck {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    background: var(--dtv-neutral-light);
+    border: 1px solid var(--dtv-border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.roadmap-progress-pct {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--dtv-orange);
+    line-height: 1;
+}
+
+.roadmap-progress-bar-wrap {
+    width: 100%;
+    height: 6px;
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.roadmap-progress-bar-fill {
+    height: 100%;
+    background: var(--dtv-orange);
+    border-radius: 999px;
+}
+
+/* 6-Month Timeline Tabs */
+.month-tabs-bar {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.25rem;
+    overflow-x: auto;
+    padding-bottom: 0.25rem;
+}
+
+.month-tab-btn {
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-md);
+    padding: 0.6rem 0.85rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+    flex: 1;
+    min-width: 110px;
+    text-align: left;
+}
+
+.month-tab-btn:hover {
+    background: var(--dtv-neutral-light);
+}
+
+.month-tab-btn.active {
+    border-color: var(--dtv-orange);
+    background: var(--dtv-orange-subtle);
+}
+
+.month-tab-title {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+    margin-bottom: 0.15rem;
+}
+
+.month-tab-btn.active .month-tab-title {
+    color: var(--dtv-orange);
+}
+
+.month-tab-progress {
+    font-size: 0.75rem;
+    color: var(--dtv-text-muted);
+}
+
+/* Active Milestone Overview */
+.milestone-card {
+    background: var(--dtv-warm-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.milestone-title-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-bottom: 0.4rem;
+}
+
+.milestone-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+}
+
+.milestone-obj {
+    font-size: 0.875rem;
+    color: var(--dtv-text-secondary);
+    margin-bottom: 0.5rem;
+    line-height: 1.45;
+}
+
+.milestone-outcome {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-muted);
+}
+
+/* Weekly Tasks Checklist Rows */
+.tasks-grid {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-md);
+    background: var(--dtv-white);
+    overflow: hidden;
+}
+
+.task-row {
+    padding: 0.85rem 1.15rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 1px solid var(--dtv-border);
+    transition: background 0.1s ease;
+}
+
+.task-row:last-child {
+    border-bottom: none;
+}
+
+.task-row:hover {
+    background: var(--dtv-warm-white);
+}
+
+.task-main {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    flex: 1;
+}
+
+.task-status-icon {
+    font-size: 1.15rem;
+    color: var(--dtv-border-strong);
+    margin-top: 0.15rem;
+    flex-shrink: 0;
+}
+
+.task-status-icon.completed {
+    color: var(--dtv-green);
+}
+
+.task-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+    margin-bottom: 0.15rem;
+}
+
+.task-desc {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-secondary);
+    line-height: 1.4;
+}
+
+.task-side {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
+.task-time {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-muted);
+}
+
+.task-completed-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-size: 0.8125rem;
+    font-weight: 500;
+    color: var(--dtv-green);
+}
+
+/* ========================================================================
+   6. SECTION 3: SKILLS MATRIX (Human & Natural)
+======================================================================== */
+.dtv-skills-layout {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.dtv-skills-panel {
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+}
+
+.dtv-panel-head {
+    padding: 1rem 1.25rem;
+    background: var(--dtv-warm-white);
+    border-bottom: 1px solid var(--dtv-border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.dtv-panel-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+}
+
+.dtv-panel-meta {
+    font-size: 0.775rem;
+    color: var(--dtv-text-muted);
+}
+
+.dtv-panel-body {
+    padding: 0.75rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.dtv-skill-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--dtv-border-subtle);
+}
+
+.dtv-skill-row:last-child {
+    border-bottom: none;
+}
+
+.dtv-skill-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.dtv-skill-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--dtv-text-primary);
+}
+
+.dtv-skill-level {
+    font-size: 0.75rem;
+    color: var(--dtv-text-muted);
+    text-transform: capitalize;
+}
+
+.dtv-prov-badge {
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.2rem 0.55rem;
+    border-radius: var(--radius-sm);
+    white-space: nowrap;
+}
+
+.dtv-prov-badge.learning {
+    background: var(--dtv-neutral-light);
+    color: var(--dtv-text-secondary);
+    border: 1px solid var(--dtv-border);
+}
+
+.dtv-prov-badge.practiced {
+    background: var(--dtv-neutral-light);
+    color: var(--dtv-text-primary);
+    border: 1px solid var(--dtv-border-strong);
+}
+
+.dtv-prov-badge.verified {
+    background: var(--dtv-green-subtle);
+    color: var(--dtv-green);
+    border: 1px solid var(--dtv-green-border);
+}
+
+/* Skill Gaps Rows */
+.dtv-gap-row {
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--dtv-border-subtle);
+}
+
+.dtv-gap-row:last-child {
+    border-bottom: none;
+}
+
+.dtv-gap-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.25rem;
+}
+
+.dtv-gap-name {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--dtv-text-primary);
+}
+
+.dtv-gap-badge {
+    font-size: 0.725rem;
+    font-weight: 500;
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-sm);
+    text-transform: capitalize;
+}
+
+.dtv-gap-badge.dtv-gap-critical {
+    background: #FEF2F2;
+    color: #B91C1C;
+    border: 1px solid #FECACA;
+}
+
+.dtv-gap-badge.dtv-gap-open {
+    background: var(--dtv-orange-subtle);
+    color: var(--dtv-orange);
+    border: 1px solid var(--dtv-orange-border);
+}
+
+.dtv-gap-badge.dtv-gap-closed {
+    background: var(--dtv-green-subtle);
+    color: var(--dtv-green);
+    border: 1px solid var(--dtv-green-border);
+}
+
+.dtv-gap-desc {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-secondary);
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+}
+
+.dtv-gap-action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+}
+
+.dtv-gap-rec {
+    font-size: 0.75rem;
+    color: var(--dtv-text-muted);
+}
+
+/* ========================================================================
+   7. SECTION 4: PROGRESSIVE PROJECTS (Editorial Gallery)
+======================================================================== */
+.dtv-projects-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.25rem;
+}
+
+.dtv-project-item {
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: var(--shadow-subtle);
+    transition: border-color 0.15s ease;
+}
+
+.dtv-project-item:hover {
+    border-color: var(--dtv-border-strong);
+}
+
+.dtv-project-meta {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin-bottom: 0.65rem;
+}
+
+.dtv-project-tier {
+    font-size: 0.725rem;
+    font-weight: 500;
+    color: var(--dtv-text-secondary);
+    background: var(--dtv-neutral-light);
+    border: 1px solid var(--dtv-border);
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-sm);
+}
+
+.dtv-project-time {
+    font-size: 0.775rem;
+    color: var(--dtv-text-muted);
+}
+
+.dtv-project-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+    line-height: 1.35;
+    margin-bottom: 0.45rem;
+}
+
+.dtv-project-desc {
+    font-size: 0.85rem;
+    color: var(--dtv-text-secondary);
+    line-height: 1.45;
+    margin-bottom: 0.85rem;
+}
+
+.dtv-project-techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-bottom: 1.15rem;
+}
+
+.dtv-tech-tag {
+    font-size: 0.725rem;
+    color: var(--dtv-text-secondary);
+    background: var(--dtv-neutral-light);
+    padding: 0.15rem 0.45rem;
+    border-radius: var(--radius-sm);
+}
+
+.dtv-project-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.85rem;
+    border-top: 1px solid var(--dtv-border-subtle);
+    margin-top: auto;
+}
+
+/* ========================================================================
+   8. SECTION 5: ACTIONABLE LEARNING ACTIVITIES (Clean Divided Rows)
+======================================================================== */
+.activities-grid {
+    display: flex;
+    flex-direction: column;
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-subtle);
+}
+
+.quest-card {
+    padding: 1rem 1.35rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    border-bottom: 1px solid var(--dtv-border);
+    transition: background 0.1s ease;
+}
+
+.quest-card:last-child {
+    border-bottom: none;
+}
+
+.quest-card:hover {
+    background: var(--dtv-warm-white);
+}
+
+.quest-main {
+    flex: 1;
+}
+
+.quest-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-bottom: 0.25rem;
+}
+
+.quest-cat {
+    font-size: 0.725rem;
+    font-weight: 500;
+    color: var(--dtv-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.quest-title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+    margin-bottom: 0.2rem;
+}
+
+.quest-desc {
+    font-size: 0.85rem;
+    color: var(--dtv-text-secondary);
+    line-height: 1.45;
+    margin-bottom: 0.3rem;
+}
+
+.quest-why {
+    font-size: 0.775rem;
+    color: var(--dtv-text-muted);
+}
+
+.quest-side {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    flex-shrink: 0;
+}
+
+.quest-duration {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-muted);
+}
+
+/* ========================================================================
+   9. SECTION 6: LEARNING HISTORY (Chronological Record)
+======================================================================== */
+.dtv-growth-block {
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-subtle);
+}
+
+.dtv-growth-header {
+    margin-bottom: 1.25rem;
+}
+
+.dtv-growth-timeline {
+    position: relative;
+    padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+}
+
+.dtv-growth-timeline::before {
+    content: '';
+    position: absolute;
+    top: 6px;
+    bottom: 6px;
+    left: 5px;
+    width: 2px;
+    background: var(--dtv-border);
+}
+
+.dtv-timeline-item {
+    position: relative;
+}
+
+.dtv-timeline-dot {
+    position: absolute;
+    top: 5px;
+    left: -1.5rem;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--dtv-white);
+    border: 2px solid var(--dtv-orange);
+}
+
+.dtv-timeline-content {
+    background: var(--dtv-warm-white);
+    border: 1px solid var(--dtv-border-subtle);
+    border-radius: var(--radius-md);
+    padding: 0.85rem 1.15rem;
+}
+
+.dtv-timeline-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 0.2rem;
+}
+
+.dtv-timeline-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+}
+
+.dtv-timeline-date {
+    font-size: 0.75rem;
+    color: var(--dtv-text-muted);
+}
+
+.dtv-timeline-desc {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-secondary);
+    line-height: 1.4;
+}
+
+/* ========================================================================
+   10. SECTION 7: OPPORTUNITIES & MENTORSHIP
+======================================================================== */
+.dtv-empty-opportunity-box {
+    background: var(--dtv-warm-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-lg);
+    padding: 2rem;
+    max-width: 680px;
+    margin: 1rem auto;
+    text-align: center;
+}
+
+.dtv-empty-title {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+    margin-bottom: 0.5rem;
+}
+
+.dtv-empty-desc {
+    font-size: 0.875rem;
+    color: var(--dtv-text-secondary);
+    line-height: 1.5;
+    margin-bottom: 1.25rem;
+}
+
+.dtv-prep-steps {
+    text-align: left;
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-md);
+    padding: 1rem 1.25rem;
+    margin-bottom: 1.25rem;
+}
+
+.dtv-prep-steps ol {
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.dtv-prep-steps li {
+    font-size: 0.85rem;
+    color: var(--dtv-text-secondary);
+    line-height: 1.4;
+}
+
+/* Opportunity Cards */
+.opp-card {
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-md);
+    padding: 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+}
+
+/* ========================================================================
+   11. MODALS & FORMS
+======================================================================== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.modal-overlay.active {
+    display: flex;
+}
+
+.modal-box {
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-lg);
+    width: 100%;
+    max-width: 540px;
+    padding: 2rem;
+    position: relative;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--dtv-text-muted);
+    cursor: pointer;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--dtv-text-primary);
+}
+
+.form-group {
+    margin-bottom: 1.25rem;
+}
+
+.form-label {
+    display: block;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--dtv-text-primary);
+    margin-bottom: 0.35rem;
+}
+
+.form-input, .form-select, .form-control {
+    width: 100%;
+    font-family: inherit;
+    font-size: 0.875rem;
+    color: var(--dtv-text-primary);
+    background: var(--dtv-white);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-md);
+    padding: 0.55rem 0.85rem;
+    transition: border-color 0.15s ease;
+}
+
+.form-input:focus, .form-select:focus, .form-control:focus {
+    outline: none;
+    border-color: var(--dtv-orange);
+}
+
+.chips-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+
+.chip-option {
+    font-size: 0.8125rem;
+    color: var(--dtv-text-secondary);
+    background: var(--dtv-neutral-light);
+    border: 1px solid var(--dtv-border);
+    border-radius: var(--radius-sm);
+    padding: 0.35rem 0.65rem;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.chip-option:hover {
+    color: var(--dtv-text-primary);
+    border-color: var(--dtv-border-strong);
+}
+
+.chip-option.selected {
+    background: var(--dtv-orange-subtle);
+    border-color: var(--dtv-orange);
+    color: var(--dtv-orange);
+    font-weight: 500;
+}
+
+/* Toast Notification */
+.toast {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: var(--dtv-text-primary);
+    color: var(--dtv-white);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-md);
+    font-size: 0.875rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none;
+    z-index: 1100;
+}
+
+.toast.active {
+    display: block;
+}
+
+/* ========================================================================
+   12. RESPONSIVE DESIGN (0px Overflow Guarantee Across All Viewports)
+======================================================================== */
+@media (max-width: 1024px) {
+    .container, .dtv-container {
+        padding: 1.25rem 1.25rem 3.5rem 1.25rem;
+    }
+    
+    .dtv-projects-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    .first-screen-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .student-welcome-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+    
+    .welcome-stage-control {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 768px) {
+    .dtv-nav-links {
+        display: none;
+    }
+    
+    .dtv-nav-burger {
+        display: inline-flex;
+    }
+    
+    .dtv-skills-layout {
+        grid-template-columns: 1fr;
+    }
+    
+    .section-head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+    }
+    
+    .roadmap-header-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .task-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .task-side {
+        width: 100%;
+        justify-content: space-between;
+    }
+    
+    .quest-card {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.85rem;
+    }
+    
+    .quest-side {
+        width: 100%;
+        justify-content: space-between;
+    }
+}
+
+@media (max-width: 640px) {
+    .dtv-projects-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .stage-segmented-control {
+        width: 100%;
+        overflow-x: auto;
+    }
+    
+    .stage-tab {
+        flex: 1;
+        text-align: center;
+        padding: 0.35rem 0.45rem;
+        font-size: 0.75rem;
+    }
+    
+    .welcome-copy h1 {
+        font-size: 1.35rem;
+    }
+    
+    .dtv-nba-action-row {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+    }
+    
+    .dtv-nba-action-row .btn {
+        width: 100%;
+        text-align: center;
+    }
+}
+
+@media (max-width: 360px) {
+    .container, .dtv-container {
+        padding: 1rem 0.75rem 3rem 0.75rem;
+    }
+    
+    .dtv-nav {
+        padding: 0 0.75rem;
+    }
+    
+    .dtv-nba-container, .progress-companion, .roadmap-container, .dtv-growth-block {
+        padding: 1.25rem 1rem;
+    }
+}

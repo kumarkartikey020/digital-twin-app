@@ -3,119 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Dashboard | Digital Twin Verse</title>
-    <meta name="description" content="Personalized student growth and development platform for Junior, School, Career, and Professional learners.">
+    <title>Student Learning Dashboard | Digital Twin Verse</title>
+    <meta name="description" content="Personalized student learning and developmental platform for Junior, School, Career, and College learners.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/dist/dtv-student.0c24f440.css?v=5e50c37583d80b72">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/dist/dtv-student.9b0e0e3c.css?v=effd482db30ad2ee">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
-    <script src="/dist/dtv-student-core.f23a7dfd.js?v=5e50c37583d80b72"></script>
+    <script src="/dist/dtv-student-core.26c62a3e.js?v=effd482db30ad2ee"></script>
 </head>
 <body>
 
     <!-- Minimal Top Navigation Bar -->
     <div id="dtv-nav-mount" class="dtv-nav-container"></div>
 
-    <div class="container">
-        <!-- Student Introduction -->
-        <section class="student-intro" id="hero-banner">
-            <div class="student-intro-text">
-                <h1 id="user-display-name">Welcome to Your Growth Journey</h1>
-                <p class="student-intro-sub" id="user-segment-tagline">Personalized learning trajectory across Junior, School, Career, and Professional stages.</p>
-                <!-- Hidden state helpers for metadata parity -->
+    <main class="container" role="main">
+        <!-- Student Welcome Section -->
+        <header class="student-welcome-header" id="hero-banner">
+            <div class="welcome-copy">
+                <h1 id="user-display-name">Welcome to Your Learning Journey</h1>
+                <p class="welcome-sub" id="user-segment-tagline">You're building your foundation in technology and creative problem solving.</p>
+                <!-- Hidden metadata helpers for script parity -->
                 <span id="pill-academic-class" style="display:none;"></span>
                 <span id="pill-stream-focus" style="display:none;"></span>
                 <span id="pill-career-goal" style="display:none;"></span>
             </div>
-            <div>
+            <div class="welcome-stage-control">
+                <div class="stage-segmented-control" role="tablist" aria-label="Learning Stages">
+                    <button type="button" class="stage-tab active" id="seg-tab-school" onclick="selectSegment('school')">School (9–10)</button>
+                    <button type="button" class="stage-tab" id="seg-tab-junior" onclick="selectSegment('junior')">Junior (5–8)</button>
+                    <button type="button" class="stage-tab" id="seg-tab-career" onclick="selectSegment('career')">Career (11–12)</button>
+                    <button type="button" class="stage-tab" id="seg-tab-professional" onclick="selectSegment('professional')">College / Pro</button>
+                </div>
                 <button type="button" class="btn btn-secondary btn-sm" onclick="openOnboardingModal()">
                     Customize Goals
                 </button>
             </div>
-        </section>
+        </header>
 
-        <!-- 4-Stage Segment Tabs -->
-        <section class="segment-nav">
-            <div class="segment-card" id="seg-tab-junior" onclick="selectSegment('junior')">
-                <div class="segment-head">
-                    <span class="segment-badge">DTV Junior</span>
-                    <span class="segment-audience">Classes 5–8</span>
-                </div>
-                <div class="segment-title">STEM &amp; Logic Explorer</div>
-                <div class="segment-desc">Visual logic, everyday science quests, and creative coding without syntax pressure.</div>
-            </div>
+        <!-- FIRST SCREEN: Two-Column Hero (Next Action + Progress Companion) -->
+        <section class="first-screen-grid" aria-label="Next Step and Progress Overview">
+            <!-- Left / Primary: YOUR NEXT STEP (The Most Important Section) -->
+            <div id="dtv-next-step-mount"></div>
 
-            <div class="segment-card" id="seg-tab-school" onclick="selectSegment('school')">
-                <div class="segment-head">
-                    <span class="segment-badge">DTV School</span>
-                    <span class="segment-audience">Classes 9–10</span>
-                </div>
-                <div class="segment-title">Stream &amp; Aptitude Navigator</div>
-                <div class="segment-desc">Stream selection (PCM, PCB, Commerce, Arts) and board prep balancing.</div>
-            </div>
-
-            <div class="segment-card" id="seg-tab-career" onclick="selectSegment('career')">
-                <div class="segment-head">
-                    <span class="segment-badge">DTV Career</span>
-                    <span class="segment-audience">Classes 11–12</span>
-                </div>
-                <div class="segment-title">Entrance &amp; College Launchpad</div>
-                <div class="segment-desc">Entrance exam diagnostics, college admissions, and academic profiling.</div>
-            </div>
-
-            <div class="segment-card" id="seg-tab-professional" onclick="selectSegment('professional')">
-                <div class="segment-head">
-                    <span class="segment-badge">DTV Professional</span>
-                    <span class="segment-audience">College Students</span>
-                </div>
-                <div class="segment-title">Placement &amp; Industry Builder</div>
-                <div class="segment-desc">Production REST APIs, system design sprints, ATS resumes, and internships.</div>
-            </div>
-        </section>
-
-        <!-- Progress Overview (Unified 4-Metric Bar) -->
-        <section class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-label">Milestone Progress</div>
-                <div class="kpi-val" id="kpi-progress-val">0%</div>
-                <div class="progress-bar-wrap">
-                    <div class="progress-bar-fill" id="kpi-progress-fill" style="width: 0%;"></div>
-                </div>
-                <div class="kpi-sub" id="kpi-progress-sub">0 of 4 segment quests completed</div>
-            </div>
-
-            <div class="kpi-card">
-                <div class="kpi-label">Skills Tracked</div>
-                <div class="kpi-val" id="kpi-skills-val">0</div>
-                <div class="kpi-sub">Verified through hands-on practice</div>
-            </div>
-
-            <div class="kpi-card">
-                <div class="kpi-label">Experience Points</div>
-                <div class="kpi-val" id="kpi-xp-val">0 XP</div>
-                <div class="kpi-sub">Objective task progress</div>
-            </div>
-
-            <div class="kpi-card">
-                <div class="kpi-label">Weekly Learning</div>
-                <div class="kpi-val" id="kpi-goal-val">5.0 hrs</div>
-                <div class="kpi-sub">Structured learning pace</div>
-            </div>
-        </section>
-
-        <!-- Next Action Spotlight (The Most Important Section) -->
-        <section id="dtv-next-step-mount"></section>
-
-        <!-- Structured Learning Roadmap -->
-        <section class="roadmap-container" id="roadmap-section">
-            <div class="roadmap-header-bar">
+            <!-- Right / Companion: PROGRESS OVERVIEW -->
+            <aside class="progress-companion" aria-label="Progress Summary">
                 <div>
-                    <h2 class="roadmap-goal-title" id="roadmap-primary-goal">Class 10 Stream Discovery &amp; Aptitude Audit</h2>
-                    <div class="roadmap-goal-sub">
-                        Target Path: <strong id="roadmap-target-career">Computer Science &amp; Engineering</strong> ·
-                        <span id="roadmap-segment-badge">DTV School</span>
+                    <div class="progress-companion-head">
+                        <h3 class="progress-companion-title">Your Progress</h3>
+                        <span class="progress-companion-badge" id="kpi-progress-val">25%</span>
                     </div>
+                    
+                    <div class="progress-companion-track">
+                        <div class="progress-companion-fill" id="kpi-progress-fill" style="width: 25%;"></div>
+                    </div>
+                    <p class="progress-companion-note" id="kpi-progress-sub">1 of 4 milestone tasks completed</p>
+
+                    <div class="progress-details-list">
+                        <div class="progress-detail-row">
+                            <span class="progress-detail-label">Current Milestone</span>
+                            <span class="progress-detail-val" id="progress-active-milestone">Month 1: Stream Baseline</span>
+                        </div>
+                        <div class="progress-detail-row">
+                            <span class="progress-detail-label">Skills Practiced</span>
+                            <span class="progress-detail-val"><span id="kpi-skills-val">6</span> verified</span>
+                        </div>
+                        <div class="progress-detail-row">
+                            <span class="progress-detail-label">Weekly Learning</span>
+                            <span class="progress-detail-val" id="kpi-goal-val">5.0 hrs</span>
+                        </div>
+                        <span id="kpi-xp-val" style="display:none;">120 XP</span>
+                    </div>
+                </div>
+
+                <div class="progress-companion-foot">
+                    <a href="#learning-section" class="progress-link">Explore learning journey ↓</a>
+                </div>
+            </aside>
+        </section>
+
+        <!-- SECTION 2: LEARNING ROADMAP -->
+        <section class="dashboard-section" id="learning-section" aria-label="Learning Roadmap">
+            <div class="section-head">
+                <div>
+                    <h2 class="section-title">My Learning Journey</h2>
+                    <p class="section-sub">Structured milestones from foundations to advanced project execution.</p>
                 </div>
                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
                     <button type="button" class="btn btn-secondary btn-sm" onclick="triggerAdaptRoadmapModal()">
@@ -127,80 +99,101 @@
                 </div>
             </div>
 
-            <!-- Overall Roadmap Progression Deck -->
-            <div class="roadmap-progress-deck">
-                <div class="roadmap-progress-pct" id="roadmap-overall-pct">0%</div>
-                <div style="flex: 1;">
-                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--dtv-text-secondary); margin-bottom: 0.35rem;">
-                        <span>Overall 6-Month Milestone Progression</span>
-                        <span id="roadmap-tasks-ratio">0 of 24 tasks completed</span>
-                    </div>
-                    <div class="roadmap-progress-bar-wrap">
-                        <div class="roadmap-progress-bar-fill" id="roadmap-overall-bar" style="width: 0%;"></div>
+            <div class="roadmap-container" id="roadmap-section">
+                <div class="roadmap-header-bar">
+                    <div>
+                        <h3 class="roadmap-goal-title" id="roadmap-primary-goal">Class 10 Stream Discovery &amp; Aptitude Audit</h3>
+                        <div class="roadmap-goal-sub">
+                            Target Path: <strong id="roadmap-target-career">Computer Science &amp; Engineering</strong> ·
+                            <span id="roadmap-segment-badge">DTV School</span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- 6-Month Navigator Tabs -->
-            <div class="month-tabs-bar" id="roadmap-month-tabs"></div>
-
-            <!-- Active Milestone Overview -->
-            <div class="milestone-card" id="milestone-card">
-                <div class="milestone-title-row">
-                    <div class="milestone-title" id="milestone-title">Month 1: Diagnostic Assessment &amp; Stream Baseline</div>
-                    <span id="milestone-progress-pill" style="font-size: 0.75rem; font-weight: 600; color: var(--dtv-orange);">0% Progress</span>
+                <!-- Overall Roadmap Progression Deck -->
+                <div class="roadmap-progress-deck">
+                    <div class="roadmap-progress-pct" id="roadmap-overall-pct">25%</div>
+                    <div style="flex: 1;">
+                        <div style="display: flex; justify-content: space-between; font-size: 0.8125rem; color: var(--dtv-text-secondary); margin-bottom: 0.35rem;">
+                            <span>Overall 6-Month Progression</span>
+                            <span id="roadmap-tasks-ratio">6 of 24 tasks completed</span>
+                        </div>
+                        <div class="roadmap-progress-bar-wrap">
+                            <div class="roadmap-progress-bar-fill" id="roadmap-overall-bar" style="width: 25%;"></div>
+                        </div>
+                    </div>
                 </div>
-                <p class="milestone-obj" id="milestone-objective">Map cognitive strengths across Science, Commerce, and Humanities with empirical tests.</p>
-                <div class="milestone-outcome">
-                    <strong>Expected Outcome:</strong> <span id="milestone-outcome-text">Personalized stream aptitude matrix eliminating peer pressure bias.</span>
-                </div>
-            </div>
 
-            <!-- Weekly Tasks (Clean Divided Checklist Rows) -->
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
-                <h3 class="section-title">Weekly Tasks</h3>
-                <span style="font-size: 0.8rem; color: var(--dtv-text-muted);" id="milestone-tasks-count">4 Tasks in this Milestone</span>
+                <!-- 6-Month Timeline Tabs -->
+                <div class="month-tabs-bar" id="roadmap-month-tabs"></div>
+
+                <!-- Active Milestone Overview -->
+                <div class="milestone-card" id="milestone-card">
+                    <div class="milestone-title-row">
+                        <div class="milestone-title" id="milestone-title">Month 1: Diagnostic Assessment &amp; Stream Baseline</div>
+                        <span id="milestone-progress-pill" style="font-size: 0.775rem; font-weight: 600; color: var(--dtv-orange);">25% Progress</span>
+                    </div>
+                    <p class="milestone-obj" id="milestone-objective">Map cognitive strengths across Science, Commerce, and Humanities with empirical tests.</p>
+                    <div class="milestone-outcome">
+                        <strong>Expected Outcome:</strong> <span id="milestone-outcome-text">Personalized stream aptitude matrix eliminating peer pressure bias.</span>
+                    </div>
+                </div>
+
+                <!-- Weekly Tasks (Clean Divided Checklist Rows) -->
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.65rem;">
+                    <h4 style="font-size: 0.9375rem; font-weight: 600;">Weekly Tasks</h4>
+                    <span style="font-size: 0.8125rem; color: var(--dtv-text-muted);" id="milestone-tasks-count">4 Tasks in this Milestone</span>
+                </div>
+                <div class="tasks-grid" id="roadmap-tasks-container"></div>
             </div>
-            <div class="tasks-grid" id="roadmap-tasks-container"></div>
         </section>
 
-        <!-- Skills & Competency Tracking -->
-        <section style="margin-top: 2rem;">
-            <h3 class="section-title">Skills &amp; Competency Tracking</h3>
-            <p class="section-sub">Demonstrated capabilities and targeted growth areas.</p>
+        <!-- SECTION 3: SKILLS & CAPABILITIES -->
+        <section class="dashboard-section" id="skills-section" aria-label="Skills & Capabilities">
+            <div class="section-head">
+                <div>
+                    <h2 class="section-title">Skills &amp; Capabilities</h2>
+                    <p class="section-sub">Demonstrated competencies and targeted growth areas.</p>
+                </div>
+            </div>
             <div id="p2-skill-gaps-mount"></div>
         </section>
 
-        <!-- Progressive Projects -->
-        <section id="p2-projects-section" style="margin-top: 2rem;">
-            <h3 class="section-title">Recommended Projects</h3>
-            <p class="section-sub">Practical projects to build and demonstrate your abilities.</p>
+        <!-- SECTION 4: RECOMMENDED PROJECTS -->
+        <section class="dashboard-section" id="projects-section" aria-label="Recommended Projects">
+            <div class="section-head">
+                <div>
+                    <h2 class="section-title">Recommended Projects</h2>
+                    <p class="section-sub">Hands-on projects to apply your skills and build your portfolio.</p>
+                </div>
+                <a href="/student-portfolio" class="btn btn-secondary btn-sm">View Portfolio →</a>
+            </div>
             <div id="p2-projects-mount"></div>
         </section>
 
-        <!-- Actionable Quests -->
-        <section id="quests" style="margin-top: 2rem;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+        <!-- SECTION 5: ACTIONABLE LEARNING ACTIVITIES -->
+        <section class="dashboard-section" id="quests" aria-label="Actionable Activities">
+            <div class="section-head">
                 <div>
-                    <h3 class="section-title">Actionable Quests</h3>
-                    <p class="section-sub">Bite-sized activities to develop foundational competencies.</p>
+                    <h2 class="section-title">Actionable Learning Activities</h2>
+                    <p class="section-sub">Bite-sized practical exercises to build foundational strength.</p>
                 </div>
-                <span style="font-size: 0.8rem; color: var(--dtv-text-muted);" id="quests-count-label">4 Activities Available</span>
+                <span style="font-size: 0.8125rem; color: var(--dtv-text-muted);" id="quests-count-label">4 Activities Available</span>
             </div>
             <div class="activities-grid" id="activities-container"></div>
         </section>
 
-        <!-- Growth History Timeline -->
-        <section id="p2-growth-section" style="margin-top: 2rem;">
+        <!-- SECTION 6: LEARNING HISTORY -->
+        <section class="dashboard-section" id="growth-section" aria-label="Learning History">
             <div id="p2-growth-mount"></div>
         </section>
 
-        <!-- Capacity Connect: Opportunities & Mentorship -->
-        <section class="dashboard-section" id="capacity-connect-section" style="margin-top: 2rem;">
+        <!-- SECTION 7: OPPORTUNITIES & MENTORSHIP -->
+        <section class="dashboard-section" id="capacity-connect-section" aria-label="Opportunities & Mentorship">
             <div class="section-head">
                 <div>
-                    <h3 class="section-title">Opportunities &amp; Mentorship</h3>
-                    <p class="section-sub">Real project challenges, academic workshops, and verified mentorship.</p>
+                    <h2 class="section-title">Opportunities &amp; Mentorship</h2>
+                    <p class="section-sub">Curated challenges, academic workshops, and verified mentorship.</p>
                 </div>
                 <div style="display: flex; gap: 0.5rem;">
                     <button type="button" class="btn btn-secondary btn-sm" onclick="openPrivacyConsentModal()">
@@ -250,21 +243,21 @@
                 <div id="student-my-mentor-container" style="display: flex; flex-direction: column; gap: 0.85rem;"></div>
             </div>
         </section>
-    </div>
+    </main>
 
     <!-- Modals -->
     <!-- Onboarding / Profile Customization Modal -->
-    <div class="modal-overlay" id="onboarding-modal">
+    <div class="modal-overlay" id="onboarding-modal" role="dialog" aria-modal="true" aria-label="Student Profile and Goals">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeOnboardingModal()">&times;</button>
-            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Student Profile &amp; Goals</h2>
-            <p style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem;">Student Profile &amp; Goals</h2>
+            <p style="font-size: 0.875rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
                 Select your academic level and learning targets to personalize your guidance.
             </p>
 
             <form id="onboarding-form" onsubmit="handleOnboardingSubmit(event)">
                 <div class="form-group">
-                    <label class="form-label">Academic Class / Level *</label>
+                    <label class="form-label" for="form-academic-class">Academic Class / Level *</label>
                     <select class="form-select" id="form-academic-class" required onchange="handleClassChange(this.value)">
                         <option value="" disabled selected>Select current grade/class</option>
                         <optgroup label="DTV Junior (Classes 5-8)">
@@ -291,12 +284,12 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Academic Stream / Primary Focus</label>
+                    <label class="form-label" for="form-stream-focus">Academic Stream / Primary Focus</label>
                     <input type="text" class="form-input" id="form-stream-focus" placeholder="e.g. Science PCM, Computer Science, Commerce">
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Target Career Direction</label>
+                    <label class="form-label" for="form-career-path">Target Career Direction</label>
                     <input type="text" class="form-input" id="form-career-path" placeholder="e.g. Robotics &amp; AI, Software Engineer, Aerospace">
                 </div>
 
@@ -324,7 +317,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Weekly Learning Commitment (Hours)</label>
+                    <label class="form-label" for="form-weekly-hours">Weekly Learning Commitment (Hours)</label>
                     <input type="number" class="form-input" id="form-weekly-hours" min="1" max="50" value="5">
                 </div>
 
@@ -339,22 +332,22 @@
     </div>
 
     <!-- Roadmap Customization Modal -->
-    <div class="modal-overlay" id="roadmap-goal-modal">
+    <div class="modal-overlay" id="roadmap-goal-modal" role="dialog" aria-modal="true" aria-label="Customize Roadmap">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeRoadmapGoalModal()">&times;</button>
-            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Customize 6-Month Roadmap</h2>
-            <p style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem;">Customize 6-Month Roadmap</h2>
+            <p style="font-size: 0.875rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
                 Select your primary goal and trajectory to calibrate your milestone schedule.
             </p>
 
             <form id="roadmap-goal-form" onsubmit="handleRoadmapGoalSubmit(event)">
                 <div class="form-group">
-                    <label class="form-label">Primary Goal *</label>
+                    <label class="form-label" for="form-roadmap-goal">Primary Goal *</label>
                     <select class="form-select" id="form-roadmap-goal" required></select>
                 </div>
 
                 <div class="form-group">
-                    <label class="form-label">Target Trajectory *</label>
+                    <label class="form-label" for="form-roadmap-career">Target Trajectory *</label>
                     <select class="form-select" id="form-roadmap-career" required></select>
                 </div>
 
@@ -379,21 +372,21 @@
     </div>
 
     <!-- Opportunity Application Modal -->
-    <div class="modal-overlay" id="apply-opportunity-modal">
+    <div class="modal-overlay" id="apply-opportunity-modal" role="dialog" aria-modal="true" aria-label="Submit Application">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeApplyModal()">&times;</button>
-            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Submit Application</h2>
-            <p style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;" id="apply-modal-opp-info">
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem;">Submit Application</h2>
+            <p style="font-size: 0.875rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;" id="apply-modal-opp-info">
                 Applying to opportunity...
             </p>
             <form id="apply-opp-form" onsubmit="handleApplySubmit(event)">
                 <input type="hidden" id="apply-opp-id">
                 <div class="form-group">
-                    <label class="form-label">Cover Note / Statement of Interest</label>
+                    <label class="form-label" for="apply-cover-note">Cover Note / Statement of Interest</label>
                     <textarea id="apply-cover-note" class="form-control" style="min-height: 85px;" placeholder="Briefly describe your interest and why you would like to participate..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Portfolio or Project Link (Optional)</label>
+                    <label class="form-label" for="apply-portfolio-link">Portfolio or Project Link (Optional)</label>
                     <input type="url" id="apply-portfolio-link" class="form-control" placeholder="https://github.com/... or project link">
                 </div>
                 <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem;">
@@ -405,11 +398,11 @@
     </div>
 
     <!-- Privacy Consent Modal -->
-    <div class="modal-overlay" id="privacy-consent-modal">
+    <div class="modal-overlay" id="privacy-consent-modal" role="dialog" aria-modal="true" aria-label="Privacy Settings">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closePrivacyConsentModal()">&times;</button>
-            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Privacy &amp; Guardian Consent</h2>
-            <p style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem;">Privacy &amp; Guardian Consent</h2>
+            <p style="font-size: 0.875rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
                 Under Digital Twin Verse guidelines, student contact details are protected and masked by default.
             </p>
             <form id="privacy-consent-form" onsubmit="handlePrivacyConsentSubmit(event)">
@@ -420,7 +413,7 @@
                     </label>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Parent / Guardian Email (Recommended for School Learners)</label>
+                    <label class="form-label" for="consent-parent-email">Parent / Guardian Email (Recommended for School Learners)</label>
                     <input type="email" id="consent-parent-email" class="form-control" placeholder="parent@example.com">
                 </div>
                 <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem;">
@@ -432,17 +425,17 @@
     </div>
 
     <!-- Mentorship Session Feedback Modal -->
-    <div class="modal-overlay" id="session-feedback-modal">
+    <div class="modal-overlay" id="session-feedback-modal" role="dialog" aria-modal="true" aria-label="Mentorship Feedback">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeFeedbackModal()">&times;</button>
-            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Mentorship Session Feedback</h2>
-            <p style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
+            <h2 style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.25rem;">Mentorship Session Feedback</h2>
+            <p style="font-size: 0.875rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
                 Rate your session and note down your key takeaways.
             </p>
             <form id="session-feedback-form" onsubmit="handleSessionFeedbackSubmit(event)">
                 <input type="hidden" id="feedback-session-id">
                 <div class="form-group">
-                    <label class="form-label">Rating *</label>
+                    <label class="form-label" for="feedback-rating">Rating *</label>
                     <select id="feedback-rating" class="form-control" required>
                         <option value="5">★★★★★ - Highly Insightful</option>
                         <option value="4">★★★★☆ - Helpful Guidance</option>
@@ -452,7 +445,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label class="form-label">Key Takeaways / Next Steps</label>
+                    <label class="form-label" for="feedback-notes">Key Takeaways / Next Steps</label>
                     <textarea id="feedback-notes" class="form-control" style="min-height: 80px;" placeholder="What actionable steps did you discuss?"></textarea>
                 </div>
                 <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem;">
@@ -464,7 +457,7 @@
     </div>
 
     <!-- Notification Toast -->
-    <div class="toast" id="toast-notif">
+    <div class="toast" id="toast-notif" role="status" aria-live="polite">
         <span id="toast-text">Action completed successfully.</span>
     </div>
 
@@ -557,19 +550,19 @@
             updateSegmentTabs(currentSegment);
             applySegmentCustomization(currentSegment);
 
-            // Intro text
+            // Welcome copy
             document.getElementById('user-display-name').textContent = 'Welcome back, ' + (prof.name || 'Learner');
             document.getElementById('user-segment-tagline').textContent = prof.segmentMeta.tagline + ' · ' + prof.segmentMeta.displayName;
 
-            // KPIs
+            // Progress companion
             document.getElementById('kpi-progress-val').textContent = metrics.progressPercentage + '%';
             document.getElementById('kpi-progress-fill').style.width = metrics.progressPercentage + '%';
-            document.getElementById('kpi-progress-sub').textContent = metrics.completedCount + ' of ' + metrics.totalActivities + ' segment quests completed';
+            document.getElementById('kpi-progress-sub').textContent = metrics.completedCount + ' of ' + metrics.totalActivities + ' milestone tasks completed';
             document.getElementById('kpi-skills-val').textContent = metrics.skillsCount;
             document.getElementById('kpi-xp-val').textContent = metrics.totalXp + ' XP';
             document.getElementById('kpi-goal-val').textContent = Number(metrics.weeklyGoalHours).toFixed(1) + ' hrs';
 
-            // Next Best Action (6-Part Contract)
+            // Next Best Action (The Most Important Section)
             if (window.DTV && DTV.Intelligence) {
                 var token = getAuthToken();
                 if (token) {
@@ -605,7 +598,7 @@
                 }
             }
 
-            // Quests
+            // Quests / Activities
             renderActivities(dash.activities);
         }
 
@@ -619,12 +612,12 @@
             }
 
             var meta = (window.DTV && DTV.Personalization && DTV.Personalization.SEGMENT_META[seg]) || {};
-            document.getElementById('user-display-name').textContent = 'Welcome, ' + (meta.displayName || 'Student');
-            document.getElementById('user-segment-tagline').textContent = meta.tagline || 'Personalized developmental trajectory across learning stages.';
+            document.getElementById('user-display-name').textContent = 'Good morning, ' + (meta.displayName ? meta.displayName.replace('DTV ', '') + ' Learner' : 'Alex');
+            document.getElementById('user-segment-tagline').textContent = meta.tagline || 'You\'re building your foundation in technology and creative problem solving.';
 
             document.getElementById('kpi-progress-val').textContent = '25%';
             document.getElementById('kpi-progress-fill').style.width = '25%';
-            document.getElementById('kpi-progress-sub').textContent = '1 of 4 segment quests completed';
+            document.getElementById('kpi-progress-sub').textContent = '1 of 4 milestone tasks completed';
             document.getElementById('kpi-skills-val').textContent = '6';
             document.getElementById('kpi-xp-val').textContent = '120 XP';
             document.getElementById('kpi-goal-val').textContent = '5.0 hrs';
@@ -646,7 +639,7 @@
                     category: 'Core Competency',
                     xp_reward: 80,
                     title: 'Python Algorithmic Foundations',
-                    description: 'Write foundational scripts to compute mathematical series and automate data tasks.',
+                    description: 'Write foundational scripts to compute mathematical series and automate practical data tasks.',
                     why_explanation_template: 'Builds an early technical advantage before senior secondary board curriculum begins.',
                     estimated_minutes: 45,
                     difficulty: 'Intermediate',
@@ -673,16 +666,28 @@
             seg = seg || currentSegment || 'school';
             if (!window.DTV || !DTV.Intelligence) return;
 
-            // 1. Next Best Action (6-Part Contract)
+            // 1. Next Best Action (The Most Important Section)
             DTV.Intelligence.renderNextBestAction('dtv-next-step-mount', {
                 actionCode: 'NEXT_STEP_' + seg.toUpperCase(),
-                what: seg === 'junior' ? 'Build Scratch Animation: Solar System Orbit' : (seg === 'career' ? 'Timed Entrance Mock Engine' : (seg === 'professional' ? 'Architect Scalable REST API with PostgreSQL' : 'Class 10 Stream Discovery & Aptitude Audit')),
-                why: seg === 'junior' ? 'Fun visual coding challenge tailored for Class 5-8 logic.' : (seg === 'career' ? 'High-yield mock exam sprint reinforcing problem solving under time constraints.' : (seg === 'professional' ? 'Production database challenge demonstrating clean data models.' : 'Critical milestone for Class 10 to establish empirical aptitude baseline before senior secondary.')),
-                goalOrSkillSupported: seg === 'junior' ? 'Visual Logic & Spatial Reasoning' : (seg === 'career' ? 'Entrance Exam Velocity' : (seg === 'professional' ? 'Backend & Cloud Systems' : 'Senior Secondary Stream Alignment')),
-                estimatedEffortMinutes: seg === 'junior' ? 25 : (seg === 'career' ? 45 : (seg === 'professional' ? 50 : 35)),
-                expectedOutcome: 'Promotes skill inventory from Self-Declared to Verified in your digital twin.',
+                what: seg === 'junior' 
+                    ? 'Build Scratch Animation: Solar System Orbit' 
+                    : (seg === 'career' 
+                        ? 'Timed Entrance Mock Practice Sprint' 
+                        : (seg === 'professional' 
+                            ? 'Architect Scalable REST API with PostgreSQL' 
+                            : 'Build your first Python decision-making program')),
+                why: seg === 'junior' 
+                    ? 'Create an interactive planetary model while learning how loops and coordinate geometry work.' 
+                    : (seg === 'career' 
+                        ? 'High-yield mock exam sprint reinforcing problem solving under realistic time constraints.' 
+                        : (seg === 'professional' 
+                            ? 'Production database challenge demonstrating clean data models and indexing.' 
+                            : 'Learn how programming logic works by solving a small practical problem.')),
+                goalOrSkillSupported: seg === 'junior' ? 'Logic & Conditions' : (seg === 'career' ? 'Problem Solving' : (seg === 'professional' ? 'Backend Systems' : 'Programming Logic')),
+                estimatedEffortMinutes: seg === 'junior' ? 25 : (seg === 'career' ? 45 : (seg === 'professional' ? 50 : 25)),
+                expectedOutcome: seg === 'junior' ? 'Visual understanding of loops.' : (seg === 'career' ? 'Speed and accuracy baseline.' : (seg === 'professional' ? 'Portfolio-ready API design.' : 'Hands-on understanding of if-else decision branching.')),
                 actionCta: {
-                    label: 'Start Challenge',
+                    label: 'Start Learning',
                     url: '#quests',
                     buttonClass: 'btn btn-primary'
                 }
@@ -718,27 +723,27 @@
             DTV.Intelligence.renderProjectRecommendations('p2-projects-mount', [
                 {
                     id: 'demo_proj_1',
-                    title: seg === 'junior' ? 'Interactive Maze Adventure' : (seg === 'career' ? 'Competitive Entrance Timed Mock Engine' : (seg === 'professional' ? 'Scalable E-Commerce REST API' : 'Empirical Stream Aptitude Calculator')),
-                    description: seg === 'junior' ? 'Build a keyboard-controlled maze game in Scratch featuring sprite animation, collision detection, and score tracking.' : (seg === 'career' ? 'Construct a timed testing dashboard with question-level latency analytics and weak-area heatmaps.' : (seg === 'professional' ? 'Architect a production-grade REST API with JWT authentication, connection pooling, and indexing.' : 'Design and implement a clean, documented showcase tool verifying real-world problem solving.')),
+                    title: seg === 'junior' ? 'Interactive Maze Adventure' : (seg === 'career' ? 'Competitive Entrance Timed Mock Engine' : (seg === 'professional' ? 'Scalable E-Commerce REST API' : 'Personal Decision Tree Program')),
+                    description: seg === 'junior' ? 'Build a keyboard-controlled maze game in Scratch featuring sprite animation, collision detection, and score tracking.' : (seg === 'career' ? 'Construct a timed testing dashboard with question-level latency analytics and weak-area heatmaps.' : (seg === 'professional' ? 'Architect a production-grade REST API with JWT authentication, connection pooling, and indexing.' : 'Build an interactive logic tool in Python that makes recommendations based on user input.')),
                     difficulty: 'Beginner',
-                    estimatedHours: 6,
-                    technologies: seg === 'junior' ? ['Scratch Block Logic', 'Computational Thinking'] : (seg === 'career' ? ['Python', 'Data Analytics'] : (seg === 'professional' ? ['Node.js', 'PostgreSQL', 'Express'] : ['Python', 'Algorithmic Logic'])),
-                    skillsTargeted: ['Problem Decomposition', 'Iterative Execution']
+                    estimatedHours: 4,
+                    technologies: seg === 'junior' ? ['Scratch Block Logic', 'Computational Thinking'] : (seg === 'career' ? ['Python', 'Data Analytics'] : (seg === 'professional' ? ['Node.js', 'PostgreSQL', 'Express'] : ['Python Logic', 'Conditions'])),
+                    skillsTargeted: ['Problem Solving', 'Structured Logic']
                 },
                 {
                     id: 'demo_proj_2',
                     title: seg === 'junior' ? 'Planetary Orbit & Gravity Simulator' : (seg === 'career' ? 'Full-Stack Study Habit Engine' : (seg === 'professional' ? 'Predictive ML Service & Dashboard' : 'Real-World Climate Data Visualizer')),
-                    description: seg === 'junior' ? 'Construct a visual solar system simulation modeling relative planet speeds and gravitational orbital patterns.' : (seg === 'career' ? 'Build an interactive roadmap tracking weekly study hours, topic coverage, and confidence levels.' : (seg === 'professional' ? 'Deploy a containerized machine learning inference service with automated performance monitoring.' : 'Analyze and visualize complex datasets or distributed workflows with persistent storage.')),
+                    description: seg === 'junior' ? 'Construct a visual solar system simulation modeling relative planet speeds and gravitational orbital patterns.' : (seg === 'career' ? 'Build an interactive roadmap tracking weekly study hours, topic coverage, and confidence levels.' : (seg === 'professional' ? 'Deploy a containerized machine learning inference service with automated performance monitoring.' : 'Analyze and visualize climate patterns using Python data libraries.')),
                     difficulty: 'Intermediate',
-                    estimatedHours: 10,
-                    technologies: seg === 'junior' ? ['Visual Simulation', 'Geometry'] : (seg === 'career' ? ['JavaScript', 'Chart.js'] : (seg === 'professional' ? ['FastAPI', 'Docker', 'Redis'] : ['Data Analysis', 'Web Architecture'])),
-                    skillsTargeted: ['Data Interpretation', 'System Design']
+                    estimatedHours: 8,
+                    technologies: seg === 'junior' ? ['Visual Simulation', 'Geometry'] : (seg === 'career' ? ['JavaScript', 'Chart.js'] : (seg === 'professional' ? ['FastAPI', 'Docker', 'Redis'] : ['Data Analysis', 'Web Charts'])),
+                    skillsTargeted: ['Data Interpretation', 'Analytical Thinking']
                 }
             ]);
 
-            // 4. Growth Velocity Preview
+            // 4. Growth Velocity / Learning History Preview
             DTV.Intelligence.renderGrowthVelocity('p2-growth-mount', {
-                developmentalVelocity: seg === 'junior' ? 72 : (seg === 'career' ? 68 : (seg === 'professional' ? 82 : 64)),
+                developmentalVelocity: 75,
                 metrics: {
                     totalSkillsTracked: 6,
                     verifiedSkills: 3,
@@ -747,14 +752,14 @@
                 },
                 growthTimeline: [
                     {
-                        title: 'Published Verified Showcase Project',
+                        title: 'Completed Diagnostic Assessment: STEM Strengths',
                         timestamp: new Date().toISOString(),
-                        description: 'Verified through code repository analysis.'
+                        description: 'Mapped foundational reasoning and mathematical logic with practical questions.'
                     },
                     {
-                        title: 'Completed Foundational Diagnostic Quest',
+                        title: 'Verified Skill: Python Foundations',
                         timestamp: new Date(Date.now() - 86400000).toISOString(),
-                        description: 'Cleared all interactive quiz checkpoints.'
+                        description: 'Demonstrated syntax proficiency through interactive coding exercises.'
                     }
                 ]
             });
@@ -765,7 +770,7 @@
             container.innerHTML = '';
 
             if (!activities || activities.length === 0) {
-                container.innerHTML = '<p style="color:var(--dtv-text-muted); text-align:center; padding:1.5rem;">All quests cleared for this stage.</p>';
+                container.innerHTML = '<p style="color:var(--dtv-text-muted); text-align:center; padding:1.5rem;">All learning activities cleared for this stage.</p>';
                 document.getElementById('quests-count-label').textContent = '0 Activities';
                 return;
             }
@@ -773,18 +778,17 @@
             document.getElementById('quests-count-label').textContent = activities.length + ' Activities Available';
 
             activities.forEach(function(act) {
-                var card = document.createElement('div');
-                card.className = 'quest-card';
+                var row = document.createElement('div');
+                row.className = 'quest-card';
 
                 var actionBtn = act.is_completed
-                    ? '<span class="task-completed-label"><i class="ph-bold ph-check"></i> Completed</span>'
-                    : `<button class="btn btn-primary btn-sm" onclick="completeQuest('${act.id}')">Complete Quest →</button>`;
+                    ? '<span class="task-completed-label"><i class="ph ph-check"></i> Completed</span>'
+                    : `<button class="btn btn-primary btn-sm" onclick="completeQuest('${act.id}')">Start Quest →</button>`;
 
-                card.innerHTML = `
+                row.innerHTML = `
                     <div class="quest-main">
                         <div class="quest-meta-row">
                             <span class="quest-cat">${escapeHtml(act.category)}</span>
-                            <span style="font-size: 0.775rem; color: var(--dtv-text-muted); font-weight: 500;">+${act.xp_reward} XP</span>
                         </div>
                         <h4 class="quest-title">${escapeHtml(act.title)}</h4>
                         <p class="quest-desc">${escapeHtml(act.description)}</p>
@@ -797,7 +801,7 @@
                         <div>${actionBtn}</div>
                     </div>
                 `;
-                container.appendChild(card);
+                container.appendChild(row);
             });
         }
 
@@ -955,12 +959,12 @@
                 row.className = 'task-row';
 
                 var actionBtn = isCompleted
-                    ? '<span class="task-completed-label"><i class="ph-bold ph-check"></i> Completed</span>'
+                    ? '<span class="task-completed-label"><i class="ph ph-check"></i> Completed</span>'
                     : `<button class="btn btn-secondary btn-sm" onclick="completeRoadmapTask('${t.id}')">Start Task →</button>`;
 
                 row.innerHTML = `
                     <div class="task-main">
-                        <i class="ph-bold ${isCompleted ? 'ph-check-circle task-status-icon completed' : 'ph-circle task-status-icon'}"></i>
+                        <i class="ph ${isCompleted ? 'ph-check-circle task-status-icon completed' : 'ph-circle task-status-icon'}"></i>
                         <div>
                             <div class="task-title">W${t.week_number}: ${escapeHtml(t.title)}</div>
                             <div class="task-desc">${escapeHtml(t.description)}</div>
@@ -1028,11 +1032,11 @@
         async function completeQuest(activityId) {
             var token = getAuthToken();
             if (!token) {
-                showToast('Milestone Completed (+50 XP in Preview Mode)');
+                showToast('Activity Completed in Preview Mode');
                 if (window.event && window.event.target) {
                     var btn = window.event.target.closest('button');
                     if (btn && btn.parentElement) {
-                        btn.parentElement.innerHTML = '<span class="task-completed-label"><i class="ph-bold ph-check"></i> Completed</span>';
+                        btn.parentElement.innerHTML = '<span class="task-completed-label"><i class="ph ph-check"></i> Completed</span>';
                     }
                 }
                 return;
@@ -1046,7 +1050,7 @@
                 });
                 var data = await res.json();
                 if (data.success) {
-                    showToast('Milestone Completed (+ ' + data.xpAwarded + ' XP)');
+                    showToast('Activity Completed');
                     fetchDashboard();
                 } else {
                     showToast(data.error || 'Completion failed');
@@ -1059,11 +1063,11 @@
         async function completeRoadmapTask(taskId) {
             var token = getAuthToken();
             if (!token) {
-                showToast('Roadmap Task Completed (+40 XP in Preview Mode)');
+                showToast('Roadmap Task Completed in Preview Mode');
                 if (window.event && window.event.target) {
                     var btn = window.event.target.closest('button');
                     if (btn && btn.parentElement) {
-                        btn.parentElement.innerHTML = '<span class="task-completed-label"><i class="ph-bold ph-check"></i> Completed</span>';
+                        btn.parentElement.innerHTML = '<span class="task-completed-label"><i class="ph ph-check"></i> Completed</span>';
                     }
                 }
                 return;
@@ -1077,8 +1081,10 @@
                 });
                 var data = await res.json();
                 if (data.success) {
-                    showToast('Task Completed (+ ' + data.xpAwarded + ' XP)');
+                    showToast('Task Completed');
                     fetchRoadmap();
+                } else {
+                    showToast(data.error || 'Completion failed');
                 }
             } catch (err) {
                 console.error(err);
@@ -1090,18 +1096,23 @@
             var container = document.getElementById('student-opps-container');
             if (!container) return;
 
-            // Compact informative empty state
+            // Genuinely helpful educational guidance empty state
             container.innerHTML = `
                 <div class="dtv-empty-opportunity-box">
-                    <h4 class="dtv-empty-title">No Matching Opportunities for this Learning Stage</h4>
+                    <h3 class="dtv-empty-title">Preparing for Real-World Opportunities</h3>
                     <p class="dtv-empty-desc">
-                        Opportunities on Capacity Connect are curated for specific academic levels and verified skill requirements. School learners focus on foundational development and project building rather than corporate recruiting.
+                        Digital Twin Verse connects learners with curated project challenges, skill competitions, and industry mentorship sessions. For School learners (Classes 9–10), the primary focus is building foundational competencies and creating verified portfolio projects.
                     </p>
-                    <div style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1rem;">
-                        <strong>What you can do meanwhile:</strong> Continue completing your roadmap milestones and documenting practical showcase projects. Your verified skills will automatically unlock future challenge opportunities.
+                    <div class="dtv-prep-steps">
+                        <strong style="display:block; font-size:0.875rem; color:var(--dtv-text-primary); margin-bottom:0.5rem;">How to prepare for upcoming opportunities:</strong>
+                        <ol>
+                            <li>Complete your Month 1–3 foundational roadmap tasks.</li>
+                            <li>Build 2 practical projects to demonstrate your abilities in your portfolio.</li>
+                            <li>Earn verified skills to unlock high-school competitions and mentorship sessions.</li>
+                        </ol>
                     </div>
-                    <a href="#roadmap-section" class="btn btn-secondary btn-sm">
-                        View Roadmap Milestones →
+                    <a href="#learning-section" class="btn btn-secondary btn-sm">
+                        View Learning Roadmap →
                     </a>
                 </div>
             `;
