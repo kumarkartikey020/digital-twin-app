@@ -868,7 +868,7 @@
                         <span class="dtv-nba-tag">
                             <span class="dtv-radar-dot"></span> Next Best Action
                         </span>
-                        <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">
+                        <span style="font-size:0.8rem; color:#475569; font-weight:700;">
                             <i class="ph ph-clock"></i> ~${effort} effort
                         </span>
                     </div>
@@ -885,8 +885,8 @@
                         </div>
                     </div>
                     <div class="dtv-nba-action-row">
-                        <div style="font-size:0.8rem; color:#64748b;">
-                            <i class="ph ph-shield-check" style="color:#10b981;"></i> Real-Time Developmental Alignment
+                        <div style="font-size:0.825rem; color:#475569; font-weight:600;">
+                            <i class="ph ph-shield-check" style="color:#15803d;"></i> Real-Time Developmental Alignment
                         </div>
                         <a href="${url}" class="${btnClass}">
                             <i class="ph ${icon}"></i> ${label}
@@ -906,7 +906,7 @@
 
             let skillsHtml = '';
             if (skills.length === 0) {
-                skillsHtml = '<p style="color:#64748b; font-size:0.85rem;">No skills logged yet. Complete quests or document projects.</p>';
+                skillsHtml = '<p style="color:#475569; font-size:0.85rem; padding:0.5rem 0;">No skills logged yet. Complete quests or document projects.</p>';
             } else {
                 skillsHtml = skills.map(s => {
                     const prov = s.provenance_type || 'SELF_DECLARED';
@@ -914,10 +914,10 @@
                     const label = DTVIntelligence.getProvenanceLabel(prov);
                     const icon = DTVIntelligence.getProvenanceIcon(prov);
                     return `
-                        <div style="display:flex; align-items:center; justify-content:space-between; padding:0.65rem 0.95rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:10px; margin-bottom:0.5rem;">
+                        <div style="display:flex; align-items:center; justify-content:space-between; padding:0.65rem 0.5rem; border-bottom:1px solid #f1f5f9;">
                             <div>
-                                <span style="font-weight:700; color:#0f172a; font-size:0.875rem;">${DTVUI.escapeHtml(s.skill_name)}</span>
-                                <span style="font-size:0.75rem; color:#64748b; margin-left:0.5rem; text-transform:capitalize;">(${DTVUI.escapeHtml(s.proficiency_level)})</span>
+                                <span style="font-weight:700; color:#0f172a; font-size:0.9rem;">${DTVUI.escapeHtml(s.skill_name)}</span>
+                                <span style="font-size:0.775rem; color:#475569; margin-left:0.4rem; text-transform:capitalize; font-weight:600;">(${DTVUI.escapeHtml(s.proficiency_level)})</span>
                             </div>
                             <span class="dtv-prov-badge ${badgeClass}">
                                 <i class="ph ${icon}"></i> ${label}
@@ -929,28 +929,28 @@
 
             let gapsHtml = '';
             if (gaps.length === 0) {
-                gapsHtml = '<p style="color:#15803d; font-size:0.85rem;"><i class="ph ph-check-circle"></i> All foundational skills currently cleared!</p>';
+                gapsHtml = '<p style="color:#15803d; font-size:0.85rem; padding:0.5rem 0;"><i class="ph ph-check-circle"></i> All foundational skills currently cleared!</p>';
             } else {
                 gapsHtml = gaps.map(g => {
                     const isClosed = g.status === 'closed';
-                    const priorityColor = g.priority === 'critical' ? '#b91c1c' : (g.priority === 'high' ? '#b45309' : '#1d4ed8');
+                    const priorityColor = g.priority === 'critical' ? '#b91c1c' : (g.priority === 'high' ? '#b45309' : '#0f172a');
                     return `
-                        <div style="padding:0.85rem 1rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; margin-bottom:0.65rem;">
-                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.35rem;">
+                        <div style="padding:0.75rem 0.5rem; border-bottom:1px solid #f1f5f9;">
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.25rem;">
                                 <span style="font-weight:700; color:#0f172a; font-size:0.9rem;">${DTVUI.escapeHtml(g.skill_name)}</span>
-                                <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:${priorityColor};">
+                                <span style="font-size:0.7rem; font-weight:800; text-transform:uppercase; color:${priorityColor};">
                                     ${DTVUI.escapeHtml(g.status.replace('_', ' '))}
                                 </span>
                             </div>
-                            <p style="font-size:0.825rem; color:#475569; line-height:1.45; margin-bottom:0.5rem;">
+                            <p style="font-size:0.85rem; color:#334155; line-height:1.45; margin-bottom:0.4rem;">
                                 ${DTVUI.escapeHtml(g.identified_reason)}
                             </p>
                             ${!isClosed && g.recommendedActivity ? `
-                            <div style="display:flex; align-items:center; justify-content:space-between; padding-top:0.45rem; border-top:1px solid #e2e8f0;">
-                                <span style="font-size:0.75rem; color:#1d4ed8; font-weight:600;">
+                            <div style="display:flex; align-items:center; justify-content:space-between; padding-top:0.35rem;">
+                                <span style="font-size:0.775rem; color:#c2410c; font-weight:600;">
                                     <i class="ph ph-lightning"></i> ${DTVUI.escapeHtml(g.recommendedActivity.title)} (~${g.recommendedActivity.estimatedMinutes}m)
                                 </span>
-                                <a href="#quests" class="dtv-btn dtv-btn-outline dtv-btn-sm" style="font-size:0.72rem; padding:0.2rem 0.5rem; min-height:30px;">Practice</a>
+                                <a href="#quests" class="dtv-btn dtv-btn-outline dtv-btn-sm" style="font-size:0.72rem; padding:0.2rem 0.6rem; min-height:30px;">Practice</a>
                             </div>` : ''}
                         </div>
                     `;
@@ -960,7 +960,7 @@
             el.innerHTML = `
                 <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.5rem;">
                     <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:1.5rem; box-shadow:0 1px 3px rgba(0,0,0,0.04);">
-                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid #e2e8f0;">
                             <h4 style="font-family:'Outfit',sans-serif; font-size:1.05rem; font-weight:700; color:#0f172a;">
                                 <i class="ph ph-seal-check" style="color:#15803d;"></i> Demonstrated Skills (${skills.length})
                             </h4>
@@ -970,11 +970,11 @@
                         </div>
                     </div>
                     <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:16px; padding:1.5rem; box-shadow:0 1px 3px rgba(0,0,0,0.04);">
-                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; padding-bottom:0.75rem; border-bottom:1px solid #e2e8f0;">
                             <h4 style="font-family:'Outfit',sans-serif; font-size:1.05rem; font-weight:700; color:#0f172a;">
                                 <i class="ph ph-target" style="color:#ea580c;"></i> Target Skill Gaps
                             </h4>
-                            <span style="font-size:0.75rem; color:#64748b; font-weight:600;">
+                            <span style="font-size:0.775rem; color:#475569; font-weight:700;">
                                 ${summary.openGaps || 0} open / ${summary.totalTargetSkills || 0} total
                             </span>
                         </div>
@@ -991,7 +991,7 @@
             if (!el) return;
 
             if (!projects || projects.length === 0) {
-                el.innerHTML = '<p style="color:#64748b; font-size:0.875rem;">All milestone projects are currently documented in your portfolio!</p>';
+                el.innerHTML = '<p style="color:#475569; font-size:0.875rem;">All milestone projects are currently documented in your portfolio!</p>';
                 return;
             }
 
@@ -1007,28 +1007,28 @@
                         <div>
                             <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.6rem;">
                                 <span class="dtv-project-tier ${tierClass}">${DTVUI.escapeHtml(p.difficulty)}</span>
-                                <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">
+                                <span style="font-size:0.775rem; color:#475569; font-weight:700;">
                                     <i class="ph ph-timer"></i> ~${p.estimatedHours} hrs
                                 </span>
                             </div>
-                            <h4 style="font-family:'Outfit', sans-serif; font-size:1.05rem; font-weight:700; color:#f8fafc; margin-bottom:0.3rem;">
+                            <h4 style="font-family:'Outfit', sans-serif; font-size:1.1rem; font-weight:700; color:#0f172a; margin-bottom:0.3rem;">
                                 ${DTVUI.escapeHtml(p.title)}
                             </h4>
-                            <p style="font-size:0.8rem; color:#e88c2a; font-weight:600; margin-bottom:0.6rem;">
+                            <p style="font-size:0.825rem; color:#c2410c; font-weight:700; margin-bottom:0.6rem;">
                                 ${DTVUI.escapeHtml(p.tagline || '')}
                             </p>
-                            <p style="font-size:0.825rem; color:#94a3b8; line-height:1.45; margin-bottom:0.85rem;">
+                            <p style="font-size:0.875rem; color:#334155; line-height:1.55; margin-bottom:0.85rem;">
                                 ${DTVUI.escapeHtml(p.description)}
                             </p>
                             <div style="margin-bottom:0.75rem;">
                                 ${techs}
                             </div>
-                            <div style="font-size:0.75rem; color:#64748b; margin-bottom:0.85rem;">
-                                <strong style="color:#94a3b8;">Competencies:</strong> ${DTVUI.escapeHtml(skills)}
+                            <div style="font-size:0.8rem; color:#475569; margin-bottom:0.85rem; line-height:1.4;">
+                                <strong style="color:#0f172a;">Competencies:</strong> ${DTVUI.escapeHtml(skills)}
                             </div>
                         </div>
-                        <div style="display:flex; align-items:center; justify-content:space-between; padding-top:0.75rem; border-top:1px solid rgba(255,255,255,0.06);">
-                            <span style="font-size:0.72rem; color:#10b981; font-weight:600;">
+                        <div style="display:flex; align-items:center; justify-content:space-between; padding-top:0.75rem; border-top:1px solid #e2e8f0;">
+                            <span style="font-size:0.75rem; color:#15803d; font-weight:700;">
                                 <i class="ph ph-shield-check"></i> Project-Verified Proof
                             </span>
                             <a href="/student-portfolio.html#add-project?title=${encodeURIComponent(p.title)}" class="dtv-btn dtv-btn-primary dtv-btn-sm">
@@ -1057,23 +1057,23 @@
 
             let timelineHtml = '';
             if (timeline.length === 0) {
-                timelineHtml = '<p style="color:#64748b; font-size:0.8rem;">Complete learning quests or add portfolio projects to see your growth timeline.</p>';
+                timelineHtml = '<p style="color:#475569; font-size:0.85rem; padding:0.5rem 0;">Complete learning quests or add portfolio projects to see your growth timeline.</p>';
             } else {
                 timelineHtml = timeline.map(evt => {
                     const icon = evt.event_type === 'project' ? 'ph-code' : (evt.event_type === 'achievement' ? 'ph-trophy' : 'ph-lightning');
-                    const color = evt.event_type === 'project' ? '#34d399' : (evt.event_type === 'achievement' ? '#fbbf24' : '#60a5fa');
+                    const color = evt.event_type === 'project' ? '#15803d' : (evt.event_type === 'achievement' ? '#ea580c' : '#0f172a');
                     const timeStr = evt.timestamp ? new Date(evt.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
                     return `
-                        <div style="display:flex; align-items:flex-start; gap:0.65rem; padding:0.5rem 0; border-bottom:1px solid rgba(255,255,255,0.04);">
-                            <div style="width:24px; height:24px; border-radius:6px; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
-                                <i class="ph ${icon}" style="color:${color}; font-size:0.85rem;"></i>
+                        <div style="display:flex; align-items:flex-start; gap:0.75rem; padding:0.6rem 0; border-bottom:1px solid #f1f5f9;">
+                            <div style="width:26px; height:26px; border-radius:6px; background:#f1f5f9; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                <i class="ph ${icon}" style="color:${color}; font-size:0.9rem;"></i>
                             </div>
                             <div style="flex:1;">
                                 <div style="display:flex; align-items:center; justify-content:space-between;">
-                                    <span style="font-size:0.85rem; font-weight:700; color:#0f172a;">${DTVUI.escapeHtml(evt.title)}</span>
-                                    <span style="font-size:0.75rem; color:#64748b;">${timeStr}</span>
+                                    <span style="font-size:0.875rem; font-weight:700; color:#0f172a;">${DTVUI.escapeHtml(evt.title)}</span>
+                                    <span style="font-size:0.75rem; color:#475569; font-weight:600;">${timeStr}</span>
                                 </div>
-                                <span style="font-size:0.8rem; color:#475569;">${DTVUI.escapeHtml(evt.description)}</span>
+                                <span style="font-size:0.825rem; color:#334155; line-height:1.45;">${DTVUI.escapeHtml(evt.description)}</span>
                             </div>
                         </div>
                     `;
@@ -1085,9 +1085,9 @@
                     <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1.25rem;">
                         <div>
                             <h4 style="font-size:1.15rem; font-weight:700; color:#0f172a; font-family:'Outfit', sans-serif;">
-                                <i class="ph ph-chart-line-up" style="color:#15803d;"></i> Developmental Velocity &amp; Momentum
+                                <i class="ph ph-chart-line-up" style="color:#ea580c;"></i> Developmental Velocity &amp; Momentum
                             </h4>
-                            <p style="font-size:0.85rem; color:#64748b; margin-top:0.2rem;">Empirically computed from learning, building, and verifying.</p>
+                            <p style="font-size:0.875rem; color:#475569; margin-top:0.2rem;">Empirically computed from learning, building, and verifying.</p>
                         </div>
                     </div>
                     <div class="dtv-velocity-gauge-wrap">
@@ -1097,27 +1097,27 @@
                                 <span class="dtv-velocity-unit">Score</span>
                             </div>
                         </div>
-                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.85rem; flex:1; margin-left:1.5rem;">
-                            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:0.85rem 1rem;">
-                                <span style="font-size:0.725rem; color:#64748b; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Verified Skills</span>
-                                <div style="font-size:1.25rem; font-weight:800; color:#15803d; margin-top:0.2rem;">${metrics.verifiedSkills || 0} / ${metrics.totalSkillsTracked || 0}</div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; flex:1; margin-left:1.5rem; background:#f8fafc; border:1px solid #e2e8f0; border-radius:14px; padding:1.25rem;">
+                            <div>
+                                <span style="font-size:0.75rem; color:#475569; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Verified Skills</span>
+                                <div style="font-size:1.35rem; font-weight:800; color:#0f172a; margin-top:0.2rem;">${metrics.verifiedSkills || 0} / ${metrics.totalSkillsTracked || 0}</div>
                             </div>
-                            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:0.85rem 1rem;">
-                                <span style="font-size:0.725rem; color:#64748b; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Projects Built</span>
-                                <div style="font-size:1.25rem; font-weight:800; color:#1d4ed8; margin-top:0.2rem;">${metrics.projectsPublished || 0}</div>
+                            <div>
+                                <span style="font-size:0.75rem; color:#475569; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Projects Built</span>
+                                <div style="font-size:1.35rem; font-weight:800; color:#ea580c; margin-top:0.2rem;">${metrics.projectsPublished || 0}</div>
                             </div>
-                            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:0.85rem 1rem;">
-                                <span style="font-size:0.725rem; color:#64748b; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Quests Completed</span>
-                                <div style="font-size:1.25rem; font-weight:800; color:#b45309; margin-top:0.2rem;">${metrics.learningQuestsCompleted || 0}</div>
+                            <div>
+                                <span style="font-size:0.75rem; color:#475569; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Quests Completed</span>
+                                <div style="font-size:1.35rem; font-weight:800; color:#0f172a; margin-top:0.2rem;">${metrics.learningQuestsCompleted || 0}</div>
                             </div>
-                            <div style="background:#f8fafc; border:1px solid #e2e8f0; border-radius:12px; padding:0.85rem 1rem;">
-                                <span style="font-size:0.725rem; color:#64748b; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Roadmap Pace</span>
-                                <div style="font-size:1.25rem; font-weight:800; color:#6d28d9; margin-top:0.2rem;">${metrics.roadmapProgress || 0}%</div>
+                            <div>
+                                <span style="font-size:0.75rem; color:#475569; font-weight:700; text-transform:uppercase; letter-spacing:0.04em;">Roadmap Pace</span>
+                                <div style="font-size:1.35rem; font-weight:800; color:#ea580c; margin-top:0.2rem;">${metrics.roadmapProgress || 0}%</div>
                             </div>
                         </div>
                     </div>
                     <div style="margin-top:1.5rem; padding-top:1rem; border-top:1px solid #e2e8f0;">
-                        <h5 style="font-size:0.825rem; font-weight:700; color:#64748b; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.75rem;">
+                        <h5 style="font-size:0.825rem; font-weight:700; color:#475569; text-transform:uppercase; letter-spacing:0.05em; margin-bottom:0.75rem;">
                             Recent Verified Milestones
                         </h5>
                         ${timelineHtml}
@@ -1140,11 +1140,11 @@
                         <h3 style="font-family:'Outfit', sans-serif; font-size:1.35rem; font-weight:800; color:#0f172a;">
                             <i class="ph ph-git-commit" style="color:#ea580c;"></i> Adapt Learning Roadmap
                         </h3>
-                        <button type="button" style="background:#f1f5f9; border:1px solid #e2e8f0; border-radius:8px; color:#64748b; cursor:pointer; width:34px; height:34px; display:flex; align-items:center; justify-content:center; font-size:1.15rem;" onclick="document.getElementById('${modalId}').remove()">
+                        <button type="button" style="background:#f1f5f9; border:1px solid #e2e8f0; border-radius:8px; color:#0f172a; cursor:pointer; width:34px; height:34px; display:flex; align-items:center; justify-content:center; font-size:1.15rem;" onclick="document.getElementById('${modalId}').remove()">
                             <i class="ph ph-x"></i>
                         </button>
                     </div>
-                    <p style="font-size:0.9rem; color:#475569; line-height:1.55; margin-bottom:1.5rem;">
+                    <p style="font-size:0.9rem; color:#334155; line-height:1.55; margin-bottom:1.5rem;">
                         Explainable Roadmap Adaptation dynamically realigns milestone deadlines and challenge intensity based on your actual pace, without deleting your completed history.
                     </p>
                     <div style="margin-bottom:1.5rem;">
