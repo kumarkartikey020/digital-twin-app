@@ -1118,6 +1118,9 @@
         }
 
         async function initPortfolio() {
+            if (window.DTV && DTV.Nav) {
+                DTV.Nav.render('dtv-nav-mount', { activePage: 'portfolio', segment: 'school', xpPoints: 0 });
+            }
             if (window.DTV && DTV.UI) {
                 DTV.UI.renderSkeletonGrid('projects-container', 2, 'task');
             }

@@ -1852,6 +1852,19 @@
         var activeRoadmapMonth = 1;
         var roadmapCatalog = null;
 
+        function escapeHtml(str) {
+            if (!str) return '';
+            if (window.DTV && DTV.UI && DTV.UI.escapeHtml) {
+                return DTV.UI.escapeHtml(str);
+            }
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         function getAuthToken() {
             if (window.DTV && DTV.Auth) {
                 var tok = DTV.Auth.getToken();
@@ -1879,6 +1892,9 @@
         }
 
         async function fetchDashboard() {
+            if (window.DTV && DTV.Nav) {
+                DTV.Nav.render('dtv-nav-mount', { activePage: 'dashboard', segment: currentSegment, xpPoints: 0 });
+            }
             if (window.DTV && DTV.UI) {
                 DTV.UI.renderSkeletonGrid('activities-container', 3, 'task');
                 DTV.UI.renderSkeletonGrid('recommendations-container', 2, 'default');
@@ -1909,12 +1925,8 @@
                 }
                 fetchRoadmap();
             } catch (err) {
-                console.error('Error fetching student dashboard:', err);
-                if (window.DTV && DTV.UI) {
-                    DTV.UI.renderErrorState('activities-container', 'Network error connecting to student intelligence services.', 'fetchDashboard');
-                } else {
-                    renderFallbackDemo();
-                }
+                console.warn('Backend API unavailable, rendering interactive preview demo:', err.message);
+                renderFallbackDemo();
                 fetchRoadmap();
             }
         }
