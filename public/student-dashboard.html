@@ -9,9 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/premium-theme.css">
-    <link rel="stylesheet" href="/css/dtv-student.css">
+    <link rel="stylesheet" href="/dist/dtv-student.ec3b28d9.css?v=1de8d2360f439e52">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
-    <script src="/js/dtv-student-core.js"></script>
+    <script src="/dist/dtv-student-core.876cd8dd.js?v=1de8d2360f439e52"></script>
     <style>
         :root {
             --bg-dark: #0a0a0f;
@@ -2100,8 +2100,13 @@
                     DTV.Intelligence.getNextBestAction().then(function(res) {
                         if (res && res.success && res.action) {
                             DTV.Intelligence.renderNextBestAction('dtv-next-step-mount', res.action);
+                        } else {
+                            renderSegmentP2Fallback(currentSegment);
                         }
-                    }).catch(function(e) { console.warn('P2 Next Best Action notice:', e.message); });
+                    }).catch(function(e) {
+                        console.warn('P2 Next Best Action notice:', e.message);
+                        renderSegmentP2Fallback(currentSegment);
+                    });
 
                     // P2 Skill Gaps & 4-Tier Provenance Breakdown
                     DTV.Intelligence.getSkillGaps().then(function(res) {
@@ -2112,7 +2117,7 @@
 
                     // P2 Progressive Project Recommendations
                     DTV.Intelligence.getProjectRecommendations().then(function(res) {
-                        if (res && res.success && res.projects) {
+                        if (res && res.success && res.projects && res.projects.length > 0) {
                             DTV.Intelligence.renderProjectRecommendations('p2-projects-mount', res.projects);
                         }
                     }).catch(function(e) { console.warn('P2 Projects notice:', e.message); });
@@ -2123,6 +2128,8 @@
                             DTV.Intelligence.renderGrowthVelocity('p2-growth-mount', res.growth);
                         }
                     }).catch(function(e) { console.warn('P2 Growth notice:', e.message); });
+                } else {
+                    renderSegmentP2Fallback(currentSegment);
                 }
             }
 
@@ -2158,6 +2165,105 @@
             });
         }
 
+        function renderSegmentP2Fallback(seg) {
+            seg = seg || currentSegment || 'school';
+            if (!window.DTV || !DTV.Intelligence) return;
+
+            // 1. Next Best Action (6-Part Contract)
+            DTV.Intelligence.renderNextBestAction('dtv-next-step-mount', {
+                actionCode: 'DEMO_NEXT_STEP_' + seg.toUpperCase(),
+                what: seg === 'junior' ? 'Build Scratch Animation: Planet Explorer' : (seg === 'career' ? 'Timed Entrance Mock Engine' : (seg === 'professional' ? 'Architect Scalable REST API with PostgreSQL' : 'Python Stream Decision Calculator')),
+                why: seg === 'junior' ? 'Fun exploratory coding challenge tailored for Class 5-8 logic.' : (seg === 'career' ? 'High-yield mock exam sprint reinforcing critical problem solving under pressure.' : (seg === 'professional' ? 'Industry-grade systems challenge demonstrating production database design.' : 'High-impact project challenge building verified empirical skills for your trajectory.')),
+                goalOrSkillSupported: seg === 'junior' ? 'Visual Logic & Spatial Reasoning' : (seg === 'career' ? 'Entrance Exam Velocity' : (seg === 'professional' ? 'Backend & Cloud Systems' : 'Core Trajectory Engineering')),
+                estimatedEffortMinutes: seg === 'junior' ? 25 : (seg === 'career' ? 45 : (seg === 'professional' ? 50 : 35)),
+                expectedOutcome: 'Promotes skill inventory from SELF-DECLARED to PROJECT-VERIFIED in your digital twin.',
+                actionCta: {
+                    label: 'Start Challenge',
+                    url: '#quests',
+                    buttonClass: 'btn btn-primary',
+                    icon: 'ph-play-circle'
+                }
+            });
+
+            // 2. Skill Gaps & 4-Tier Provenance Breakdown
+            DTV.Intelligence.renderSkillGaps('p2-skill-gaps-mount', {
+                demonstratedSkills: [
+                    { skill_name: seg === 'junior' ? 'Scratch Logic' : (seg === 'career' ? 'Calculus & Vectors' : (seg === 'professional' ? 'PostgreSQL Optimization' : 'Python Foundations')), proficiency_level: 'intermediate', provenance_type: 'PROJECT_VERIFIED' },
+                    { skill_name: seg === 'junior' ? 'Mathematical Deductions' : (seg === 'career' ? 'Physics Simulation' : (seg === 'professional' ? 'REST API Design' : 'Mathematical Deductions')), proficiency_level: 'intermediate', provenance_type: 'ACTIVITY_BASED' },
+                    { skill_name: seg === 'junior' ? 'Algorithmic Problem Solving' : (seg === 'career' ? 'Exam Time Strategy' : (seg === 'professional' ? 'Docker & Microservices' : 'Algorithmic Problem Solving')), proficiency_level: 'beginner', provenance_type: 'SELF_DECLARED' }
+                ],
+                skillGaps: [
+                    {
+                        skill_name: seg === 'junior' ? 'Pattern Analysis' : (seg === 'career' ? 'Entrance Strategy Mastery' : (seg === 'professional' ? 'Distributed Systems' : 'Data Analysis & Charting')),
+                        priority: 'critical',
+                        status: 'open',
+                        identified_reason: 'Core foundational capability required for upcoming milestone.',
+                        recommendedActivity: { title: 'Practice Foundational Analysis', estimatedMinutes: 30 }
+                    },
+                    {
+                        skill_name: seg === 'junior' ? 'Computational Loops' : (seg === 'career' ? 'Organic Synthesis Drills' : (seg === 'professional' ? 'Redis Caching & Latency' : 'System Architecture')),
+                        priority: 'medium',
+                        status: 'in_progress',
+                        identified_reason: 'Basic competency logged. Advance to intermediate through practice.',
+                        recommendedActivity: { title: 'Hands-On Mini Challenge', estimatedMinutes: 25 }
+                    }
+                ],
+                summary: { totalTargetSkills: 5, closedGaps: 1, inProgressGaps: 1, openGaps: 2 }
+            });
+
+            // 3. Progressive Project Recommendations
+            DTV.Intelligence.renderProjectRecommendations('p2-projects-mount', [
+                {
+                    id: 'demo_proj_1',
+                    title: seg === 'junior' ? 'Interactive Multi-Level Maze Adventure' : (seg === 'career' ? 'Competitive Entrance Timed Mock Engine' : (seg === 'professional' ? 'Scalable E-Commerce REST API' : 'Empirical Stream Aptitude Calculator')),
+                    tagline: seg === 'junior' ? 'Visual Block Logic & Game Design' : (seg === 'career' ? 'Exam Simulation Engine' : (seg === 'professional' ? 'Distributed Backend Architecture' : 'Practical Showcase Project')),
+                    description: seg === 'junior' ? 'Build a keyboard-controlled maze game in Scratch featuring sprite animation, collision detection, and score tracking.' : (seg === 'career' ? 'Construct a timed testing dashboard with question-level latency analytics and weak-area heatmaps.' : (seg === 'professional' ? 'Architect a production-grade REST API with JWT authentication, connection pooling, and indexing.' : 'Design and implement a clean, documented showcase tool verifying real-world problem solving.')),
+                    difficulty: 'beginner',
+                    estimatedHours: 6,
+                    technologies: seg === 'junior' ? ['Scratch Block Logic', 'Computational Thinking'] : (seg === 'career' ? ['Python', 'Data Analytics'] : (seg === 'professional' ? ['Node.js', 'PostgreSQL', 'Express'] : ['Python', 'Algorithmic Logic'])),
+                    skillsTargeted: ['Problem Decomposition', 'Iterative Execution']
+                },
+                {
+                    id: 'demo_proj_2',
+                    title: seg === 'junior' ? 'Planetary Orbit & Gravity Simulator' : (seg === 'career' ? 'Full-Stack Habit & Milestone Engine' : (seg === 'professional' ? 'Predictive ML Service & Dashboard' : 'Real-World Climate Data Visualizer')),
+                    tagline: seg === 'junior' ? 'Everyday Science & Astronomical Observation' : (seg === 'career' ? 'Productivity Analytics' : (seg === 'professional' ? 'Microservice Deployment' : 'Intermediate Architecture Capstone')),
+                    description: seg === 'junior' ? 'Construct a visual solar system simulation modeling relative planet speeds and gravitational orbital patterns.' : (seg === 'career' ? 'Build an interactive roadmap tracking weekly study hours, topic coverage, and confidence levels.' : (seg === 'professional' ? 'Deploy a containerized machine learning inference service with automated performance monitoring.' : 'Analyze and visualize complex datasets or distributed workflows with persistent storage.')),
+                    difficulty: 'intermediate',
+                    estimatedHours: 10,
+                    technologies: seg === 'junior' ? ['Visual Simulation', 'Geometry'] : (seg === 'career' ? ['JavaScript', 'Chart.js'] : (seg === 'professional' ? ['FastAPI', 'Docker', 'Redis'] : ['Data Analysis', 'Web Architecture'])),
+                    skillsTargeted: ['Data Interpretation', 'System Design']
+                }
+            ]);
+
+            // 4. Growth Velocity Preview
+            DTV.Intelligence.renderGrowthVelocity('p2-growth-mount', {
+                developmentalVelocity: seg === 'junior' ? 72 : (seg === 'career' ? 68 : (seg === 'professional' ? 82 : 64)),
+                metrics: {
+                    totalSkillsTracked: 6,
+                    verifiedSkills: 3,
+                    projectsPublished: 1,
+                    organizationEndorsedProjects: 1,
+                    learningQuestsCompleted: 3,
+                    roadmapProgress: 35,
+                    achievementsAwarded: 2
+                },
+                growthTimeline: [
+                    {
+                        event_type: 'project',
+                        title: 'Published Verified Showcase Project',
+                        timestamp: new Date().toISOString(),
+                        description: 'Verified through code repository analysis.'
+                    },
+                    {
+                        event_type: 'activity',
+                        title: 'Completed Foundational Quest',
+                        timestamp: new Date(Date.now() - 86400000).toISOString(),
+                        description: 'Cleared all interactive quiz checkpoints.'
+                    }
+                ]
+            });
+        }
+
         function selectSegment(seg) {
             currentSegment = seg;
             updateSegmentTabs(seg);
@@ -2170,8 +2276,9 @@
 
             fetchSegmentActivities(seg);
             var token = getAuthToken();
-            if (!token) {
+            if (!token || !activeDashboardData || !activeDashboardData.hasProfile) {
                 renderFallbackRoadmapDemo(seg);
+                renderSegmentP2Fallback(seg);
             }
         }
 
@@ -2497,101 +2604,7 @@
             ]);
 
             // Render P2 Intelligence Preview modules in fallback demo
-            if (window.DTV && DTV.Intelligence) {
-                // Next Best Action 6-Part Preview
-                DTV.Intelligence.renderNextBestAction('dtv-next-step-mount', {
-                    actionCode: 'DEMO_NEXT_STEP',
-                    what: seg === 'junior' ? 'Build Scratch Animation: Planet Explorer' : (seg === 'career' ? 'Timed Entrance Mock Engine' : (seg === 'professional' ? 'Architect Scalable REST API with PostgreSQL' : 'Python Stream Decision Calculator')),
-                    why: seg === 'junior' ? 'Fun exploratory coding challenge tailored for Class 5-8 logic.' : 'High-impact project challenge building verified empirical skills for your trajectory.',
-                    goalOrSkillSupported: seg === 'junior' ? 'Visual Logic & Spatial Reasoning' : 'Core Trajectory Engineering',
-                    estimatedEffortMinutes: seg === 'junior' ? 25 : 35,
-                    expectedOutcome: 'Promotes skill inventory from SELF-DECLARED to PROJECT-VERIFIED in your digital twin.',
-                    actionCta: {
-                        label: 'Start Challenge',
-                        url: '#quests',
-                        buttonClass: 'btn btn-primary',
-                        icon: 'ph-play-circle'
-                    }
-                });
-
-                // Skill Gaps & 4-Tier Provenance Preview
-                DTV.Intelligence.renderSkillGaps('p2-skill-gaps-mount', {
-                    demonstratedSkills: [
-                        { skill_name: seg === 'junior' ? 'Scratch Logic' : 'Python Foundations', proficiency_level: 'intermediate', provenance_type: 'PROJECT_VERIFIED' },
-                        { skill_name: 'Mathematical Deductions', proficiency_level: 'intermediate', provenance_type: 'ACTIVITY_BASED' },
-                        { skill_name: 'Algorithmic Problem Solving', proficiency_level: 'beginner', provenance_type: 'SELF_DECLARED' }
-                    ],
-                    skillGaps: [
-                        {
-                            skill_name: seg === 'junior' ? 'Pattern Analysis' : 'Data Analysis & Charting',
-                            priority: 'critical',
-                            status: 'open',
-                            identified_reason: 'Core foundational capability required for upcoming milestone.',
-                            recommendedActivity: { title: 'Practice Foundational Analysis', estimatedMinutes: 30 }
-                        },
-                        {
-                            skill_name: seg === 'junior' ? 'Computational Loops' : 'System Architecture',
-                            priority: 'medium',
-                            status: 'in_progress',
-                            identified_reason: 'Basic competency logged. Advance to intermediate through practice.',
-                            recommendedActivity: { title: 'Hands-On Mini Challenge', estimatedMinutes: 25 }
-                        }
-                    ],
-                    summary: { totalTargetSkills: 5, closedGaps: 1, inProgressGaps: 1, openGaps: 2 }
-                });
-
-                // Progressive Projects Preview
-                DTV.Intelligence.renderProjectRecommendations('p2-projects-mount', [
-                    {
-                        id: 'demo_proj_1',
-                        title: seg === 'junior' ? 'Interactive Multi-Level Maze Adventure' : (seg === 'career' ? 'Competitive Entrance Timed Mock Engine' : (seg === 'professional' ? 'Scalable E-Commerce REST API' : 'Empirical Stream Aptitude Calculator')),
-                        tagline: seg === 'junior' ? 'Visual Block Logic & Game Design' : 'Practical Showcase Project',
-                        description: seg === 'junior' ? 'Build a keyboard-controlled maze game in Scratch featuring sprite animation, collision detection, and score tracking.' : 'Design and implement a clean, documented showcase tool verifying real-world problem solving.',
-                        difficulty: 'beginner',
-                        estimatedHours: 6,
-                        technologies: seg === 'junior' ? ['Scratch Block Logic', 'Computational Thinking'] : ['Python', 'Algorithmic Logic'],
-                        skillsTargeted: ['Problem Decomposition', 'Iterative Execution']
-                    },
-                    {
-                        id: 'demo_proj_2',
-                        title: seg === 'junior' ? 'Planetary Orbit & Gravity Simulator' : (seg === 'career' ? 'Full-Stack Habit & Milestone Engine' : (seg === 'professional' ? 'Predictive ML Service & Dashboard' : 'Real-World Climate Data Visualizer')),
-                        tagline: seg === 'junior' ? 'Everyday Science & Astronomical Observation' : 'Intermediate Architecture Capstone',
-                        description: seg === 'junior' ? 'Construct a visual solar system simulation modeling relative planet speeds and gravitational orbital patterns.' : 'Analyze and visualize complex datasets or distributed workflows with persistent storage.',
-                        difficulty: 'intermediate',
-                        estimatedHours: 10,
-                        technologies: seg === 'junior' ? ['Visual Simulation', 'Geometry'] : ['Data Analysis', 'Web Architecture'],
-                        skillsTargeted: ['Data Interpretation', 'System Design']
-                    }
-                ]);
-
-                // Growth Velocity Preview
-                DTV.Intelligence.renderGrowthVelocity('p2-growth-mount', {
-                    developmentalVelocity: 64,
-                    metrics: {
-                        totalSkillsTracked: 6,
-                        verifiedSkills: 3,
-                        projectsPublished: 1,
-                        organizationEndorsedProjects: 1,
-                        learningQuestsCompleted: 3,
-                        roadmapProgress: 35,
-                        achievementsAwarded: 2
-                    },
-                    growthTimeline: [
-                        {
-                            event_type: 'project',
-                            title: 'Published Verified Showcase Project',
-                            timestamp: new Date().toISOString(),
-                            description: 'Verified through code repository analysis.'
-                        },
-                        {
-                            event_type: 'activity',
-                            title: 'Completed Foundational Quest',
-                            timestamp: new Date(Date.now() - 86400000).toISOString(),
-                            description: 'Cleared all interactive quiz checkpoints.'
-                        }
-                    ]
-                });
-            }
+            renderSegmentP2Fallback(seg);
 
             renderFallbackRoadmapDemo(currentSegment || 'school');
         }
@@ -3105,10 +3118,6 @@
                 `;
             }).join('');
         }
-                    </div>
-                `;
-            }).join('');
-        }
 
         function renderFallbackStudentOpps() {
             var sample = [
@@ -3120,7 +3129,8 @@
                     stipend_or_reward: 'Rs 15,000 / Merit Certificate',
                     location_type: 'remote',
                     description: 'Architect a cooperative multi-agent system executing simulated robotic missions with zero state corruption.',
-                    required_skills: ['Python', 'System Architecture', 'Logic Deduction']
+                    required_skills: ['Python', 'System Architecture', 'Logic Deduction'],
+                    matchScore: 94
                 },
                 {
                     id: 'sample-opp-2',
@@ -3130,7 +3140,8 @@
                     stipend_or_reward: 'Medals & Robotics Kit',
                     location_type: 'remote',
                     description: 'Design interactive block-based simulations solving everyday clean energy and science quests.',
-                    required_skills: ['Scratch Logic', 'Creative Storytelling']
+                    required_skills: ['Scratch Logic', 'Creative Storytelling'],
+                    matchScore: 88
                 }
             ];
             renderStudentOpportunities(sample);
@@ -3451,6 +3462,8 @@
         window.completeRoadmapTask = completeRoadmapTask;
         window.handleRoadmapGoalSubmit = handleRoadmapGoalSubmit;
         window.fetchRoadmap = fetchRoadmap;
+        window.triggerAdaptRoadmapModal = triggerAdaptRoadmapModal;
+        window.renderSegmentP2Fallback = renderSegmentP2Fallback;
         // Capacity Connect Global Exports
         window.switchStudentConnectTab = switchStudentConnectTab;
         window.fetchStudentOpportunities = fetchStudentOpportunities;

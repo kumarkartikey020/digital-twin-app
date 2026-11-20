@@ -111,6 +111,20 @@ htmlPaths.forEach(indexPath => {
             indexHtml = indexHtml.replace(/src="\/dist\/analytics\.js(\?[^"]*)?"/g, `src="${manifest['js/analytics.js']}?v=${buildVersion}"`);
             indexHtml = indexHtml.replace(/src="\/dist\/analytics\.[a-f0-9]+\.js(\?[^"]*)?"/g, `src="${manifest['js/analytics.js']}?v=${buildVersion}"`);
         }
+
+        // For dtv-student-core.js
+        if (manifest['js/dtv-student-core.js']) {
+            indexHtml = indexHtml.replace(/src="\/js\/dtv-student-core\.js(\?[^"]*)?"/g, `src="${manifest['js/dtv-student-core.js']}?v=${buildVersion}"`);
+            indexHtml = indexHtml.replace(/src="\/dist\/dtv-student-core\.js(\?[^"]*)?"/g, `src="${manifest['js/dtv-student-core.js']}?v=${buildVersion}"`);
+            indexHtml = indexHtml.replace(/src="\/dist\/dtv-student-core\.[a-f0-9]+\.js(\?[^"]*)?"/g, `src="${manifest['js/dtv-student-core.js']}?v=${buildVersion}"`);
+        }
+
+        // For dtv-student.css
+        if (manifest['css/dtv-student.css']) {
+            indexHtml = indexHtml.replace(/href="\/css\/dtv-student\.css(\?[^"]*)?"/g, `href="${manifest['css/dtv-student.css']}?v=${buildVersion}"`);
+            indexHtml = indexHtml.replace(/href="\/dist\/dtv-student\.css(\?[^"]*)?"/g, `href="${manifest['css/dtv-student.css']}?v=${buildVersion}"`);
+            indexHtml = indexHtml.replace(/href="\/dist\/dtv-student\.[a-f0-9]+\.css(\?[^"]*)?"/g, `href="${manifest['css/dtv-student.css']}?v=${buildVersion}"`);
+        }
         
         fs.writeFileSync(indexPath, indexHtml);
         console.log(`Updated ${path.basename(indexPath)} with hashed assets and cache buster ?v=${buildVersion}`);
