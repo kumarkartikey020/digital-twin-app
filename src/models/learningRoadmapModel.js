@@ -710,6 +710,22 @@ async function completeTask(userId, taskId, notes = '') {
          WHERE roadmap_id = $1 AND LOWER(skill_name) = LOWER($2)`,
         [task.roadmap_id, sk]
       );
+
+      // Promote in student_profile_skills to ACTIVITY_BASED if currently SELF_DECLARED
+      try {
+        const pRes = await client.query('SELECT id FROM student_intelligence_profiles WHERE user_id = $1', [userId]);
+        if (pRes.rows.length > 0) {
+          await client.query(
+            `UPDATE student_profile_skills
+             SET provenance_type = CASE WHEN provenance_type IN ('PROJECT_VERIFIED', 'ASSESSMENT_VERIFIED') THEN provenance_type ELSE 'ACTIVITY_BASED' END,
+                 verified = true,
+                 evidence_reference = $1,
+                 updated_at = now()
+             WHERE profile_id = $2 AND LOWER(skill_name) = LOWER($3)`,
+            [JSON.stringify({ task_id: task.id, task_title: task.title }), pRes.rows[0].id, sk]
+          );
+        }
+      } catch (e) {}
     }
 
     // 7. Award XP to Student Profile

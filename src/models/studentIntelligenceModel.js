@@ -90,7 +90,10 @@ async function getProfileByUserId(userId) {
       [profile.id]
     ),
     db.query(
-      `SELECT skill_name, proficiency_level, category, verified, created_at, updated_at 
+      `SELECT skill_name, proficiency_level, category, verified, 
+              COALESCE(provenance_type, 'SELF_DECLARED') AS provenance_type,
+              COALESCE(evidence_reference, '{}'::jsonb) AS evidence_reference,
+              created_at, updated_at 
        FROM student_profile_skills 
        WHERE profile_id = $1 
        ORDER BY created_at ASC`,
@@ -165,12 +168,19 @@ async function upsertProfile(userId, data) {
         const name = typeof item === 'string' ? item : item.name;
         const level = (typeof item === 'object' && item.level) ? item.level : 'beginner';
         const cat = (typeof item === 'object' && item.category) ? item.category : 'general';
+        const prov = (typeof item === 'object' && item.provenance_type) ? item.provenance_type : 'SELF_DECLARED';
+        const evidence = (typeof item === 'object' && item.evidence_reference) ? JSON.stringify(item.evidence_reference) : '{}';
         if (name && name.trim()) {
           await client.query(
-            `INSERT INTO student_profile_skills (profile_id, skill_name, proficiency_level, category)
-             VALUES ($1, $2, $3, $4)
-             ON CONFLICT (profile_id, skill_name) DO NOTHING`,
-            [profile.id, name.trim(), level, cat]
+            `INSERT INTO student_profile_skills (profile_id, skill_name, proficiency_level, category, provenance_type, evidence_reference)
+             VALUES ($1, $2, $3, $4, $5, $6)
+             ON CONFLICT (profile_id, skill_name) 
+             DO UPDATE SET 
+               proficiency_level = EXCLUDED.proficiency_level,
+               provenance_type = EXCLUDED.provenance_type,
+               evidence_reference = EXCLUDED.evidence_reference,
+               updated_at = now()`,
+            [profile.id, name.trim(), level, cat, prov, evidence]
           );
         }
       }

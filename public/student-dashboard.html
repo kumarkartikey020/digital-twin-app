@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,23 +9,48 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/premium-theme.css">
-    <link rel="stylesheet" href="/css/dtv-student.css">
+    <link rel="stylesheet" href="/dist/dtv-student.db51388d.css?v=258824fe9c18d60f">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
-    <script src="/js/dtv-student-core.js"></script>
+    <script src="/dist/dtv-student-core.0af51a57.js?v=258824fe9c18d60f"></script>
     <style>
         :root {
-            --bg-dark: #0a0a0f;
-            --bg-card: rgba(18, 18, 26, 0.75);
-            --bg-card-hover: rgba(28, 28, 40, 0.85);
-            --border-glow: rgba(255, 255, 255, 0.08);
-            --border-active: rgba(232, 140, 42, 0.4);
-            --accent-orange: #e88c2a;
-            --accent-purple: #8b5cf6;
-            --accent-blue: #3b82f6;
-            --accent-emerald: #10b981;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
+            /* DTV Signature Accent */
+            --accent-orange: #ea580c;
+            --accent-orange-hover: #c2410c;
+            --accent-orange-light: #fff7ed;
+            --accent-orange-border: rgba(234, 88, 12, 0.3);
+
+            /* Surfaces & Backgrounds */
+            --bg-dark: #f8fafc;
+            --bg-body: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #ffffff;
+            --bg-subtle: #f1f5f9;
+
+            /* Borders */
+            --border-glow: #e2e8f0;
+            --border-strong: #cbd5e1;
+            --border-active: #ea580c;
+
+            /* High-Contrast Accessible Typography */
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #475569;
+            --text-light: #ffffff;
+
+            /* Accessible Semantics */
+            --accent-emerald: #15803d;
+            --accent-blue: #1d4ed8;
+            --accent-purple: #6d28d9;
+            --accent-amber: #b45309;
+            --accent-rose: #b91c1c;
+
+            /* Shadows */
+            --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.05), 0 1px 2px -1px rgba(0, 0, 0, 0.04);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.06), 0 2px 4px -2px rgba(0, 0, 0, 0.04);
+            --shadow-lg: 0 10px 15px -3px rgba(15, 23, 42, 0.07), 0 4px 6px -4px rgba(15, 23, 42, 0.04);
+            --shadow-card: 0 2px 8px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.02);
+            --shadow-hover: 0 12px 24px -4px rgba(15, 23, 42, 0.08), 0 4px 8px -2px rgba(15, 23, 42, 0.04);
         }
 
         * {
@@ -36,20 +61,21 @@
         }
 
         body {
-            background-color: var(--bg-dark);
+            background-color: var(--bg-body);
             color: var(--text-primary);
             min-height: 100vh;
             background-image: 
-                radial-gradient(circle at 10% 20%, rgba(232, 140, 42, 0.08) 0%, transparent 40%),
-                radial-gradient(circle at 90% 80%, rgba(139, 92, 246, 0.08) 0%, transparent 40%);
+                radial-gradient(circle at 10% 10%, rgba(234, 88, 12, 0.03) 0%, transparent 40%),
+                radial-gradient(circle at 90% 90%, rgba(15, 23, 42, 0.02) 0%, transparent 40%);
             background-attachment: fixed;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         .container {
-            max-width: 1240px;
+            max-width: 1280px;
             margin: 0 auto;
-            padding: 1.5rem 1.25rem 4rem;
+            padding: 2.25rem 1.5rem 5rem;
         }
 
         /* Top Navigation Bar */
@@ -57,9 +83,11 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 1rem 0;
-            border-bottom: 1px solid var(--border-glow);
-            margin-bottom: 2rem;
+            padding: 0.85rem 1.25rem;
+            background: #0f172a;
+            border-radius: 16px;
+            margin-bottom: 2.25rem;
+            box-shadow: 0 8px 24px rgba(15, 23, 42, 0.12);
         }
 
         .brand-logo {
@@ -67,19 +95,19 @@
             align-items: center;
             gap: 0.75rem;
             text-decoration: none;
-            color: var(--text-primary);
+            color: #ffffff;
         }
 
         .brand-logo img {
-            width: 42px;
-            height: 42px;
+            width: 40px;
+            height: 40px;
             border-radius: 10px;
-            box-shadow: 0 0 15px rgba(232, 140, 42, 0.3);
+            box-shadow: 0 0 12px rgba(234, 88, 12, 0.4);
         }
 
         .brand-title {
             font-family: 'Outfit', sans-serif;
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             font-weight: 700;
         }
 
@@ -91,86 +119,108 @@
         .nav-actions {
             display: flex;
             align-items: center;
-            gap: 1rem;
+            gap: 0.85rem;
         }
 
         .xp-chip {
-            display: flex;
+            display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
-            background: rgba(232, 140, 42, 0.12);
-            border: 1px solid rgba(232, 140, 42, 0.3);
-            color: #fbbf24;
-            padding: 0.4rem 0.85rem;
+            gap: 0.35rem;
+            background: #ffffff;
+            border: 1px solid rgba(234, 88, 12, 0.4);
+            color: var(--accent-orange);
+            padding: 0.35rem 0.75rem;
             border-radius: 999px;
-            font-size: 0.85rem;
+            font-size: 0.825rem;
             font-weight: 700;
         }
 
+        /* Standardized Buttons */
         .btn {
             display: inline-flex;
             align-items: center;
+            justify-content: center;
             gap: 0.5rem;
-            padding: 0.55rem 1.1rem;
-            border-radius: 8px;
+            padding: 0.65rem 1.25rem;
+            border-radius: 10px;
             font-size: 0.875rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s ease;
             text-decoration: none;
-            border: none;
+            border: 1px solid transparent;
+            min-height: 44px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--accent-orange), #f59e0b);
-            color: #000;
+            background: var(--accent-orange);
+            color: #ffffff;
+            border-color: var(--accent-orange);
+            box-shadow: 0 2px 8px rgba(234, 88, 12, 0.25);
         }
 
         .btn-primary:hover {
+            background: var(--accent-orange-hover);
+            border-color: var(--accent-orange-hover);
             transform: translateY(-1px);
-            box-shadow: 0 4px 15px rgba(232, 140, 42, 0.3);
+            box-shadow: 0 4px 14px rgba(234, 88, 12, 0.35);
         }
 
         .btn-secondary {
-            background: rgba(255, 255, 255, 0.05);
+            background: #ffffff;
             color: var(--text-primary);
-            border: 1px solid var(--border-glow);
+            border: 1px solid var(--border-strong);
         }
 
         .btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+            background: #f8fafc;
+            border-color: #94a3b8;
         }
 
-        /* 4-Segment Selector Bar */
+        .btn-secondary.active {
+            background: var(--accent-orange-light);
+            border-color: var(--accent-orange);
+            color: var(--accent-orange);
+            font-weight: 700;
+        }
+
+        .btn-sm {
+            padding: 0.45rem 0.85rem;
+            font-size: 0.8rem;
+            min-height: 38px;
+            border-radius: 8px;
+        }
+
+        /* 4-Segment Selector Bar (Pristine White Cards with Generous Spacing) */
         .segment-nav {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1rem;
-            margin-bottom: 2.25rem;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.25rem;
+            margin-bottom: 3rem;
         }
 
         .segment-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
-            border: 1px solid var(--border-glow);
-            border-radius: 14px;
-            padding: 1.15rem;
+            background: #ffffff;
+            border: 1.5px solid var(--border-glow);
+            border-radius: 16px;
+            padding: 1.5rem;
             cursor: pointer;
-            transition: all 0.25s ease;
+            transition: all 0.22s ease;
             position: relative;
             overflow: hidden;
+            box-shadow: var(--shadow-card);
         }
 
         .segment-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
+            border-color: var(--border-strong);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .segment-card.active {
-            border-color: var(--theme-color, var(--accent-orange));
-            box-shadow: 0 0 25px rgba(var(--theme-rgb, 232, 140, 42), 0.2);
-            background: rgba(24, 24, 36, 0.9);
+            border-color: var(--accent-orange);
+            background: var(--accent-orange-light);
+            box-shadow: 0 8px 24px rgba(234, 88, 12, 0.12);
         }
 
         .segment-card.active::before {
@@ -179,15 +229,15 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 3px;
-            background: var(--theme-color, var(--accent-orange));
+            height: 4px;
+            background: var(--accent-orange);
         }
 
         .segment-head {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.65rem;
         }
 
         .segment-badge {
@@ -196,68 +246,80 @@
             gap: 0.35rem;
             font-size: 0.75rem;
             font-weight: 700;
-            padding: 0.25rem 0.6rem;
+            padding: 0.25rem 0.65rem;
             border-radius: 6px;
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--theme-color, #fff);
+            background: #f1f5f9;
+            color: var(--text-primary);
+        }
+
+        .segment-card.active .segment-badge {
+            background: #ffffff;
+            color: var(--accent-orange);
+            border: 1px solid rgba(234, 88, 12, 0.3);
         }
 
         .segment-audience {
             font-size: 0.75rem;
             color: var(--text-muted);
-            font-weight: 600;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
         }
 
         .segment-title {
-            font-size: 1.1rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.4rem;
         }
 
         .segment-desc {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            line-height: 1.4;
+            line-height: 1.5;
         }
 
-        /* Hero Profile Banner */
+        /* Hero Profile Banner (Clean Light Card) */
         .hero-banner {
-            background: linear-gradient(135deg, rgba(30, 27, 75, 0.4), rgba(20, 20, 30, 0.8));
+            background: #ffffff;
             border: 1px solid var(--border-glow);
-            border-radius: 16px;
-            padding: 1.75rem 2rem;
+            border-radius: 18px;
+            padding: 2rem 2.25rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 1.5rem;
-            margin-bottom: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-card);
         }
 
         .hero-info {
             display: flex;
             align-items: center;
-            gap: 1.25rem;
+            gap: 1.5rem;
         }
 
         .avatar-circle {
             width: 64px;
             height: 64px;
             border-radius: 16px;
-            background: linear-gradient(135deg, var(--accent-orange), var(--accent-purple));
+            background: linear-gradient(135deg, #ea580c, #f97316);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.75rem;
-            color: #fff;
-            box-shadow: 0 4px 20px rgba(232, 140, 42, 0.35);
+            font-weight: 800;
+            color: #ffffff;
+            box-shadow: 0 4px 16px rgba(234, 88, 12, 0.3);
         }
 
         .hero-text h1 {
-            font-size: 1.4rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.5rem;
             font-weight: 800;
+            color: var(--text-primary);
             margin-bottom: 0.25rem;
             display: flex;
             align-items: center;
@@ -266,55 +328,77 @@
 
         .hero-text p {
             color: var(--text-secondary);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
         }
 
         .hero-text .tags-row {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.4rem;
-            margin-top: 0.5rem;
+            gap: 0.5rem;
+            margin-top: 0.65rem;
         }
 
         .tag-pill {
-            font-size: 0.725rem;
-            padding: 0.2rem 0.55rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            padding: 0.25rem 0.65rem;
             border-radius: 6px;
-            background: rgba(255, 255, 255, 0.06);
-            color: #cbd5e1;
-            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: #f1f5f9;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-glow);
+        }
+
+        /* Status & Mode Pills */
+        .dtv-mode-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            background: var(--accent-orange-light);
+            color: var(--accent-orange);
+            border: 1px solid rgba(234, 88, 12, 0.3);
         }
 
         /* KPI Cards Grid */
         .kpi-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 2.25rem;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
         }
 
         .kpi-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(12px);
+            background: #ffffff;
             border: 1px solid var(--border-glow);
-            border-radius: 14px;
-            padding: 1.25rem;
+            border-radius: 16px;
+            padding: 1.6rem 1.75rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            box-shadow: var(--shadow-card);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .kpi-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .kpi-label {
-            font-size: 0.8rem;
-            font-weight: 600;
+            font-size: 0.775rem;
+            font-weight: 700;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.05em;
-            margin-bottom: 0.5rem;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.6rem;
         }
 
         .kpi-val {
-            font-size: 2rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.25rem;
             font-weight: 800;
             color: var(--text-primary);
             letter-spacing: -0.02em;
@@ -324,94 +408,105 @@
         }
 
         .kpi-sub {
-            font-size: 0.8rem;
+            font-size: 0.825rem;
             color: var(--text-secondary);
-            margin-top: 0.4rem;
+            margin-top: 0.5rem;
+            line-height: 1.4;
         }
 
         .progress-bar-wrap {
-            height: 6px;
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 3px;
+            height: 8px;
+            background: #f1f5f9;
+            border-radius: 4px;
             overflow: hidden;
-            margin-top: 0.75rem;
+            margin-top: 0.85rem;
         }
 
         .progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent-orange), var(--accent-emerald));
-            border-radius: 3px;
+            background: linear-gradient(90deg, #ea580c, #f97316);
+            border-radius: 4px;
             transition: width 0.4s ease;
         }
 
-        /* Spotlight Next Action */
+        /* Spotlight Next Action (Clean White Card) */
         .spotlight-card {
-            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.08));
-            border: 1px solid rgba(59, 130, 246, 0.3);
-            border-radius: 16px;
-            padding: 1.5rem 1.75rem;
-            margin-bottom: 2.5rem;
+            background: #ffffff;
+            border: 1.5px solid rgba(234, 88, 12, 0.4);
+            border-left: 6px solid var(--accent-orange);
+            border-radius: 18px;
+            padding: 1.85rem 2rem;
+            margin-bottom: 3.5rem;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 1.25rem;
+            gap: 1.5rem;
+            box-shadow: 0 4px 20px rgba(234, 88, 12, 0.08), var(--shadow-sm);
         }
 
         .spotlight-left {
-            max-width: 720px;
+            max-width: 760px;
         }
 
         .spotlight-tag {
             display: inline-flex;
             align-items: center;
-            gap: 0.35rem;
+            gap: 0.4rem;
             font-size: 0.75rem;
-            font-weight: 700;
-            color: #60a5fa;
+            font-weight: 800;
+            color: var(--accent-orange);
+            background: var(--accent-orange-light);
+            border: 1px solid rgba(234, 88, 12, 0.3);
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 0.4rem;
+            padding: 0.3rem 0.7rem;
+            border-radius: 999px;
+            margin-bottom: 0.6rem;
         }
 
         .spotlight-title {
-            font-size: 1.2rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
             font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.4rem;
+            color: var(--text-primary);
+            margin-bottom: 0.45rem;
         }
 
         .spotlight-desc {
-            font-size: 0.875rem;
+            font-size: 0.95rem;
             color: var(--text-secondary);
-            line-height: 1.5;
-            margin-bottom: 0.6rem;
+            line-height: 1.6;
+            margin-bottom: 0.85rem;
         }
 
         .why-box {
             display: flex;
             align-items: flex-start;
             gap: 0.5rem;
-            background: rgba(15, 23, 42, 0.6);
-            border-left: 3px solid #60a5fa;
-            padding: 0.6rem 0.85rem;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            color: #93c5fd;
-            line-height: 1.45;
+            background: #fff7ed;
+            border: 1px solid rgba(234, 88, 12, 0.25);
+            border-left: 3px solid var(--accent-orange);
+            padding: 0.65rem 0.95rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            color: #9a3412;
+            line-height: 1.5;
         }
 
-        /* Activities Section */
+        /* Activities & Quests Section */
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .section-title {
-            font-size: 1.25rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.35rem;
             font-weight: 800;
+            color: var(--text-primary);
             display: flex;
             align-items: center;
             gap: 0.6rem;
@@ -420,84 +515,93 @@
         .activities-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 3rem;
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
         }
 
         .quest-card {
-            background: var(--bg-card);
+            background: #ffffff;
             border: 1px solid var(--border-glow);
-            border-radius: 14px;
-            padding: 1.35rem;
+            border-radius: 16px;
+            padding: 1.6rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            transition: all 0.25s ease;
+            box-shadow: var(--shadow-card);
+            transition: all 0.22s ease;
         }
 
         .quest-card:hover {
-            border-color: rgba(255, 255, 255, 0.18);
+            border-color: var(--border-strong);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .quest-card.completed {
-            border-color: rgba(16, 185, 129, 0.3);
-            background: rgba(16, 185, 129, 0.03);
+            border-color: #86efac;
+            background: #f0fdf4;
         }
 
         .quest-meta-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 0.75rem;
+            margin-bottom: 0.85rem;
         }
 
         .quest-cat {
             font-size: 0.725rem;
             font-weight: 700;
             text-transform: uppercase;
-            padding: 0.2rem 0.5rem;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.06);
+            padding: 0.25rem 0.6rem;
+            border-radius: 6px;
+            background: #f1f5f9;
             color: var(--text-secondary);
         }
 
         .quest-reward {
-            font-size: 0.8rem;
+            font-size: 0.825rem;
             font-weight: 700;
-            color: #fbbf24;
+            color: #b45309;
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
             display: flex;
             align-items: center;
             gap: 0.25rem;
         }
 
         .quest-title {
-            font-size: 1.05rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.15rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.45rem;
         }
 
         .quest-desc {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            line-height: 1.45;
+            line-height: 1.55;
             margin-bottom: 1rem;
             flex-grow: 1;
         }
 
         .quest-why {
-            background: rgba(0, 0, 0, 0.25);
+            background: #fff7ed;
             border-radius: 8px;
-            padding: 0.6rem 0.75rem;
-            font-size: 0.785rem;
-            color: #94a3b8;
-            margin-bottom: 1.15rem;
-            border: 1px dashed rgba(255, 255, 255, 0.1);
+            padding: 0.65rem 0.85rem;
+            font-size: 0.825rem;
+            color: #9a3412;
+            margin-bottom: 1.25rem;
+            border: 1px solid rgba(234, 88, 12, 0.2);
+            border-left: 3px solid var(--accent-orange);
+            line-height: 1.5;
         }
 
         .quest-why strong {
-            color: #e2e8f0;
+            color: #7c2d12;
             display: block;
             margin-bottom: 0.2rem;
         }
@@ -506,56 +610,64 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 0.75rem;
+            padding-top: 0.85rem;
             border-top: 1px solid var(--border-glow);
         }
 
         .quest-duration {
-            font-size: 0.775rem;
+            font-size: 0.8rem;
             color: var(--text-muted);
             display: flex;
             align-items: center;
-            gap: 0.3rem;
+            gap: 0.35rem;
         }
 
         /* Recommendations Carousel / Grid */
         .recs-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.25rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3.5rem;
         }
 
         .rec-card {
-            background: var(--bg-card);
+            background: #ffffff;
             border: 1px solid var(--border-glow);
-            border-radius: 14px;
-            padding: 1.35rem;
+            border-radius: 16px;
+            padding: 1.6rem;
             position: relative;
+            box-shadow: var(--shadow-card);
+            transition: all 0.22s ease;
+        }
+
+        .rec-card:hover {
+            border-color: var(--border-strong);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .rec-match-pill {
             position: absolute;
-            top: 1.1rem;
-            right: 1.1rem;
+            top: 1.25rem;
+            right: 1.25rem;
             font-size: 0.75rem;
             font-weight: 800;
-            padding: 0.25rem 0.6rem;
+            padding: 0.25rem 0.65rem;
             border-radius: 999px;
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
         }
 
-        /* Dynamic Learning Roadmap Engine Styles (Milestone 2) */
+        /* Dynamic Learning Roadmap Engine (Milestone 2) */
         .roadmap-container {
-            background: var(--bg-card);
-            border: 1px solid rgba(232, 140, 42, 0.25);
-            border-radius: 18px;
-            padding: 1.75rem;
-            margin-bottom: 3rem;
+            background: #ffffff;
+            border: 1px solid var(--border-glow);
+            border-radius: 20px;
+            padding: 2.25rem;
+            margin-bottom: 3.5rem;
             position: relative;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--shadow-card);
         }
 
         .roadmap-header-bar {
@@ -563,8 +675,8 @@
             align-items: center;
             justify-content: space-between;
             flex-wrap: wrap;
-            gap: 1rem;
-            margin-bottom: 1.25rem;
+            gap: 1.25rem;
+            margin-bottom: 1.5rem;
         }
 
         .roadmap-badge-pill {
@@ -575,74 +687,76 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            background: rgba(232, 140, 42, 0.15);
+            background: var(--accent-orange-light);
             color: var(--accent-orange);
-            border: 1px solid rgba(232, 140, 42, 0.3);
+            border: 1px solid rgba(234, 88, 12, 0.3);
             padding: 0.3rem 0.75rem;
             border-radius: 999px;
         }
 
         .roadmap-goal-title {
-            font-size: 1.35rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.45rem;
             font-weight: 800;
-            color: #fff;
-            margin: 0.35rem 0;
+            color: var(--text-primary);
+            margin: 0.4rem 0;
         }
 
         .roadmap-goal-sub {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
         }
 
         .roadmap-progress-deck {
             display: flex;
             align-items: center;
-            gap: 1.25rem;
-            background: rgba(15, 23, 42, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 12px;
-            padding: 1rem 1.25rem;
-            margin-bottom: 1.5rem;
+            gap: 1.5rem;
+            background: #ffffff;
+            border: 1.5px solid var(--border-glow);
+            border-radius: 14px;
+            padding: 1.25rem 1.5rem;
+            margin-bottom: 1.75rem;
         }
 
         .roadmap-progress-pct {
-            font-size: 1.85rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.25rem;
             font-weight: 900;
             color: var(--accent-orange);
-            min-width: 75px;
+            min-width: 85px;
         }
 
         .roadmap-progress-bar-wrap {
             flex: 1;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.08);
-            border-radius: 4px;
+            height: 10px;
+            background: #e2e8f0;
+            border-radius: 5px;
             overflow: hidden;
         }
 
         .roadmap-progress-bar-fill {
             height: 100%;
-            background: linear-gradient(90deg, var(--accent-orange), var(--accent-emerald));
-            border-radius: 4px;
+            background: linear-gradient(90deg, #ea580c, #15803d);
+            border-radius: 5px;
             transition: width 0.5s ease;
         }
 
         .month-tabs-bar {
             display: flex;
-            gap: 0.5rem;
+            gap: 0.65rem;
             overflow-x: auto;
-            padding-bottom: 0.5rem;
-            margin-bottom: 1.5rem;
+            padding-bottom: 0.65rem;
+            margin-bottom: 1.75rem;
             scrollbar-width: thin;
         }
 
         .month-tab-btn {
             flex: 1;
-            min-width: 100px;
-            padding: 0.75rem 0.6rem;
-            background: rgba(255, 255, 255, 0.03);
+            min-width: 110px;
+            padding: 0.85rem 0.75rem;
+            background: #f8fafc;
             border: 1px solid var(--border-glow);
-            border-radius: 10px;
+            border-radius: 12px;
             text-align: center;
             cursor: pointer;
             transition: all 0.2s ease;
@@ -650,40 +764,39 @@
         }
 
         .month-tab-btn:hover {
-            border-color: rgba(232, 140, 42, 0.4);
-            background: rgba(232, 140, 42, 0.05);
+            border-color: var(--border-strong);
+            background: #ffffff;
         }
 
         .month-tab-btn.active {
-            background: linear-gradient(135deg, rgba(232, 140, 42, 0.2), rgba(139, 92, 246, 0.15));
+            background: var(--accent-orange-light);
             border-color: var(--accent-orange);
-            color: #fff;
-            box-shadow: 0 4px 12px rgba(232, 140, 42, 0.15);
+            color: var(--accent-orange);
+            box-shadow: 0 4px 12px rgba(234, 88, 12, 0.12);
         }
 
         .month-tab-title {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             font-weight: 700;
             display: block;
-            margin-bottom: 0.2rem;
+            margin-bottom: 0.25rem;
         }
 
         .month-tab-progress {
-            font-size: 0.7rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
         }
 
         .month-tab-btn.active .month-tab-progress {
-            color: #fbbf24;
+            color: var(--accent-orange);
             font-weight: 700;
         }
 
         .milestone-card {
-            background: rgba(15, 23, 42, 0.7);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 14px;
-            padding: 1.25rem 1.5rem;
-            margin-bottom: 1.5rem;
+            background: #ffffff;
+            border-bottom: 1.5px solid var(--border-glow);
+            padding: 0 0 1.5rem 0;
+            margin-bottom: 1.75rem;
         }
 
         .milestone-title-row {
@@ -692,235 +805,240 @@
             justify-content: space-between;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.6rem;
         }
 
         .milestone-title {
-            font-size: 1.15rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.25rem;
             font-weight: 800;
-            color: #fff;
+            color: var(--text-primary);
         }
 
         .milestone-obj {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
-            line-height: 1.45;
-            margin-bottom: 0.5rem;
+            line-height: 1.55;
+            margin-bottom: 0.65rem;
         }
 
         .milestone-outcome {
-            font-size: 0.8rem;
-            color: #93c5fd;
+            font-size: 0.85rem;
+            color: #9a3412;
             display: flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.45rem;
         }
 
         .tasks-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.1rem;
-            margin-bottom: 2rem;
+            gap: 1.25rem;
+            margin-bottom: 2.25rem;
         }
 
         .task-card {
-            background: rgba(255, 255, 255, 0.02);
+            background: #ffffff;
             border: 1px solid var(--border-glow);
-            border-radius: 12px;
-            padding: 1.2rem;
+            border-radius: 14px;
+            padding: 1.35rem;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             transition: all 0.2s ease;
+            box-shadow: var(--shadow-xs);
         }
 
         .task-card:hover {
-            border-color: rgba(255, 255, 255, 0.2);
+            border-color: var(--accent-orange);
             transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
         }
 
         .task-card.completed {
-            border-color: rgba(16, 185, 129, 0.4);
-            background: rgba(16, 185, 129, 0.04);
+            border-color: #86efac;
+            background: #f0fdf4;
         }
 
         .task-badge-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.75rem;
         }
 
         .task-type-badge {
-            font-size: 0.7rem;
+            font-size: 0.725rem;
             font-weight: 700;
             text-transform: uppercase;
-            padding: 0.2rem 0.5rem;
+            padding: 0.2rem 0.55rem;
             border-radius: 4px;
-            background: rgba(59, 130, 246, 0.15);
-            color: #60a5fa;
-            border: 1px solid rgba(59, 130, 246, 0.3);
+            background: #eff6ff;
+            color: #1d4ed8;
+            border: 1px solid #bfdbfe;
         }
 
         .task-type-badge.assignment {
-            background: rgba(168, 85, 247, 0.15);
-            color: #c084fc;
-            border-color: rgba(168, 85, 247, 0.3);
+            background: #f5f3ff;
+            color: #6d28d9;
+            border-color: #ddd6fe;
         }
 
         .task-type-badge.project {
-            background: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
-            border-color: rgba(245, 158, 11, 0.3);
+            background: #fffbeb;
+            color: #b45309;
+            border-color: #fde68a;
         }
 
         .task-xp-pill {
-            font-size: 0.75rem;
+            font-size: 0.775rem;
             font-weight: 800;
-            color: #fbbf24;
+            color: #b45309;
             display: flex;
             align-items: center;
-            gap: 0.2rem;
+            gap: 0.25rem;
         }
 
         .task-title {
-            font-size: 0.95rem;
+            font-family: 'Outfit', sans-serif;
+            font-size: 1.05rem;
             font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.4rem;
+            color: var(--text-primary);
+            margin-bottom: 0.45rem;
         }
 
         .task-desc {
-            font-size: 0.8rem;
+            font-size: 0.85rem;
             color: var(--text-secondary);
-            line-height: 1.4;
-            margin-bottom: 0.75rem;
+            line-height: 1.5;
+            margin-bottom: 0.85rem;
         }
 
         .task-skills-wrap {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.35rem;
-            margin-bottom: 0.75rem;
+            gap: 0.4rem;
+            margin-bottom: 0.85rem;
         }
 
         .task-skill-tag {
-            font-size: 0.7rem;
-            padding: 0.15rem 0.45rem;
+            font-size: 0.725rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.05);
+            background: #f1f5f9;
             color: var(--text-secondary);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border-glow);
         }
 
         .task-criteria-box {
-            font-size: 0.75rem;
-            color: #a7f3d0;
-            background: rgba(6, 78, 59, 0.2);
-            border-left: 2px solid #10b981;
-            padding: 0.4rem 0.6rem;
+            font-size: 0.775rem;
+            color: #15803d;
+            background: #f0fdf4;
+            border-left: 3px solid #15803d;
+            padding: 0.45rem 0.65rem;
             border-radius: 4px;
             margin-bottom: 1rem;
-            line-height: 1.35;
+            line-height: 1.4;
         }
 
         .task-footer {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-top: 0.6rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 0.75rem;
+            border-top: 1px solid var(--border-glow);
         }
 
         .gaps-panel {
-            background: rgba(15, 23, 42, 0.4);
-            border: 1px solid var(--border-glow);
-            border-radius: 14px;
-            padding: 1.35rem;
+            background: #ffffff;
+            border-top: 1.5px solid var(--border-glow);
+            padding-top: 1.75rem;
+            margin-top: 1.75rem;
         }
 
         .gaps-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1rem;
+            margin-bottom: 1.25rem;
         }
 
         .gaps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 1rem;
+            gap: 1.25rem;
         }
 
         .gap-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.07);
-            border-radius: 10px;
-            padding: 1rem;
+            background: #ffffff;
+            border: 1px solid var(--border-glow);
+            border-radius: 12px;
+            padding: 1.15rem;
+            box-shadow: var(--shadow-xs);
         }
 
         .gap-card.priority-critical {
-            border-left: 3px solid #ef4444;
+            border-left: 4px solid #b91c1c;
         }
 
         .gap-card.priority-high {
-            border-left: 3px solid #f59e0b;
+            border-left: 4px solid #b45309;
         }
 
         .gap-card.priority-low, .gap-card.priority-medium {
-            border-left: 3px solid #3b82f6;
+            border-left: 4px solid #1d4ed8;
         }
 
         .gap-title-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.45rem;
         }
 
         .gap-name {
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-primary);
         }
 
         .gap-status-pill {
-            font-size: 0.65rem;
+            font-size: 0.7rem;
             font-weight: 800;
             text-transform: uppercase;
-            padding: 0.15rem 0.45rem;
+            padding: 0.2rem 0.5rem;
             border-radius: 4px;
         }
 
         .gap-status-open {
-            background: rgba(239, 68, 68, 0.15);
-            color: #f87171;
+            background: #fef2f2;
+            color: #b91c1c;
         }
 
         .gap-status-in_progress {
-            background: rgba(245, 158, 11, 0.15);
-            color: #fbbf24;
+            background: #fffbeb;
+            color: #b45309;
         }
 
         .gap-status-closed {
-            background: rgba(16, 185, 129, 0.15);
-            color: #34d399;
+            background: #f0fdf4;
+            color: #15803d;
         }
 
-        /* Modal Overlay */
+        /* Modal Overlay & High-Contrast Forms */
         .modal-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100vw;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(8px);
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(6px);
             display: none;
             align-items: center;
             justify-content: center;
             z-index: 10000;
-            padding: 1rem;
+            padding: 1.5rem;
         }
 
         .modal-overlay.active {
@@ -928,85 +1046,105 @@
         }
 
         .modal-box {
-            background: #12121a;
-            border: 1px solid rgba(232, 140, 42, 0.3);
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
-            border-radius: 16px;
+            background: #ffffff;
+            border: 1px solid var(--border-glow);
+            box-shadow: var(--shadow-lg);
+            border-radius: 18px;
             width: 100%;
             max-width: 620px;
             max-height: 90vh;
             overflow-y: auto;
-            padding: 2rem;
+            padding: 2.25rem;
             position: relative;
+            color: var(--text-primary);
         }
 
         .modal-close {
             position: absolute;
-            top: 1.25rem;
-            right: 1.25rem;
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 1.5rem;
+            top: 1.35rem;
+            right: 1.35rem;
+            background: #f1f5f9;
+            border: 1px solid var(--border-glow);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-size: 1.35rem;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .modal-close:hover {
+            background: #e2e8f0;
+            color: var(--text-primary);
         }
 
         .form-group {
-            margin-bottom: 1.25rem;
+            margin-bottom: 1.35rem;
         }
 
         .form-label {
             display: block;
-            font-size: 0.85rem;
+            font-size: 0.875rem;
             font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 0.4rem;
-        }
-
-        .form-input, .form-select {
-            width: 100%;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-glow);
-            border-radius: 8px;
-            padding: 0.7rem 0.9rem;
             color: var(--text-primary);
-            font-size: 0.9rem;
-            outline: none;
-            transition: border-color 0.2s;
+            margin-bottom: 0.45rem;
         }
 
-        .form-input:focus, .form-select:focus {
-            border-color: var(--accent-orange);
+        .form-input, .form-select, select.form-control, textarea.form-control, input.form-control {
+            width: 100%;
+            background: #f8fafc !important;
+            border: 1px solid var(--border-strong) !important;
+            border-radius: 8px;
+            padding: 0.75rem 1rem;
+            color: var(--text-primary) !important;
+            font-size: 0.925rem;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            min-height: 44px;
+        }
+
+        .form-input:focus, .form-select:focus, select.form-control:focus, textarea.form-control:focus, input.form-control:focus {
+            border-color: var(--accent-orange) !important;
+            box-shadow: 0 0 0 3px rgba(234, 88, 12, 0.15) !important;
         }
 
         .chips-cloud {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
-            margin-top: 0.4rem;
+            margin-top: 0.5rem;
         }
 
         .chip-option {
-            padding: 0.4rem 0.8rem;
+            padding: 0.45rem 0.85rem;
             border-radius: 8px;
-            font-size: 0.8rem;
+            font-size: 0.825rem;
             font-weight: 600;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.05);
+            background: #f1f5f9;
             border: 1px solid var(--border-glow);
             color: var(--text-secondary);
             user-select: none;
             transition: all 0.2s;
+            min-height: 40px;
+            display: inline-flex;
+            align-items: center;
         }
 
         .chip-option:hover {
-            border-color: rgba(255, 255, 255, 0.2);
+            border-color: var(--border-strong);
+            background: #e2e8f0;
         }
 
         .chip-option.selected {
-            background: rgba(232, 140, 42, 0.15);
+            background: var(--accent-orange-light);
             border-color: var(--accent-orange);
-            color: #fbbf24;
+            color: var(--accent-orange);
+            font-weight: 700;
         }
 
         /* Toast notification */
@@ -1014,17 +1152,18 @@
             position: fixed;
             bottom: 2rem;
             right: 2rem;
-            background: #181824;
-            border: 1px solid var(--accent-emerald);
-            color: #fff;
+            background: #0f172a;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            color: #ffffff;
             padding: 0.85rem 1.4rem;
             border-radius: 10px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            box-shadow: var(--shadow-lg);
             display: none;
             align-items: center;
-            gap: 0.6rem;
+            gap: 0.65rem;
             z-index: 10001;
             font-size: 0.9rem;
+            font-weight: 600;
             animation: slideUp 0.3s ease;
         }
 
@@ -1036,9 +1175,10 @@
             from { transform: translateY(20px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
+
         /* ═══════════════════════════════════════════════════════
            RESPONSIVE DESIGN & ACCESSIBILITY MEDIA QUERIES
-           Mobile (360px, 390px), Tablet (768px), Laptop (1024px), Desktop (1440px)
+           Mobile (320px, 360px, 390px, 430px), Tablet (768px), Laptop (1024px), Desktop (1440px), Widescreen (1920px)
         ═══════════════════════════════════════════════════════ */
 
         /* Base touch targets for mobile accessibility */
@@ -1049,8 +1189,8 @@
         /* Large screens (>= 1440px) */
         @media (min-width: 1440px) {
             .container {
-                max-width: 1380px;
-                padding: 2rem 2rem 5rem;
+                max-width: 1400px;
+                padding: 2.5rem 2rem 5rem;
             }
             .segment-nav {
                 grid-template-columns: repeat(4, 1fr);
@@ -1079,7 +1219,7 @@
         /* Tablets (768px to 1023px) */
         @media (min-width: 768px) and (max-width: 1023px) {
             .container {
-                padding: 1.25rem 1.25rem 3rem;
+                padding: 1.5rem 1.25rem 3.5rem;
             }
             .segment-nav {
                 grid-template-columns: repeat(2, 1fr);
@@ -1094,25 +1234,25 @@
                 grid-template-columns: repeat(2, 1fr);
             }
             .hero-banner {
-                padding: 1.5rem;
+                padding: 1.75rem;
             }
         }
 
-        /* Mobile Screens (<= 767px: 360px, 390px, etc.) */
+        /* Mobile Screens (<= 767px: 320px, 360px, 390px, 430px) */
         @media (max-width: 767px) {
             body {
                 overflow-x: hidden;
             }
             .container {
-                padding: 1rem 0.75rem 3rem;
+                padding: 1.25rem 1rem 3.5rem;
                 overflow-x: hidden;
             }
             .top-nav {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 0.85rem;
-                padding-bottom: 0.85rem;
-                margin-bottom: 1.25rem;
+                padding: 0.85rem 1rem;
+                margin-bottom: 1.5rem;
             }
             .nav-actions {
                 width: 100%;
@@ -1134,38 +1274,38 @@
             }
             .segment-nav {
                 grid-template-columns: 1fr;
-                gap: 0.75rem;
-                margin-bottom: 1.5rem;
+                gap: 0.85rem;
+                margin-bottom: 2rem;
             }
             .segment-card {
-                padding: 1rem;
+                padding: 1.25rem;
             }
             .hero-banner {
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 1.25rem 1rem;
-                gap: 1rem;
-                margin-bottom: 1.5rem;
+                padding: 1.5rem 1.25rem;
+                gap: 1.25rem;
+                margin-bottom: 2rem;
             }
             .hero-info {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 0.75rem;
+                gap: 1rem;
             }
             .avatar-circle {
-                width: 52px;
-                height: 52px;
-                font-size: 1.4rem;
+                width: 54px;
+                height: 54px;
+                font-size: 1.5rem;
             }
             .hero-text h1 {
-                font-size: 1.15rem;
+                font-size: 1.25rem;
                 flex-wrap: wrap;
             }
             .hero-text p {
-                font-size: 0.825rem;
+                font-size: 0.875rem;
             }
             .tags-row {
-                gap: 0.3rem;
+                gap: 0.4rem;
             }
             .hero-banner .btn {
                 width: 100%;
@@ -1173,27 +1313,27 @@
             }
             .kpi-grid {
                 grid-template-columns: 1fr;
-                gap: 0.85rem;
-                margin-bottom: 1.75rem;
+                gap: 1rem;
+                margin-bottom: 2.25rem;
             }
             .kpi-card {
-                padding: 1rem;
+                padding: 1.25rem;
             }
             .kpi-val {
-                font-size: 1.65rem;
+                font-size: 1.85rem;
             }
             .spotlight-card {
                 flex-direction: column;
                 align-items: flex-start;
-                padding: 1.25rem 1rem;
+                padding: 1.35rem 1.25rem;
                 gap: 1rem;
-                margin-bottom: 2rem;
+                margin-bottom: 2.25rem;
             }
             .spotlight-left {
                 width: 100%;
             }
             .spotlight-title {
-                font-size: 1.05rem;
+                font-size: 1.15rem;
             }
             .spotlight-card .btn {
                 width: 100%;
@@ -1201,17 +1341,17 @@
             }
             .activities-grid, .recs-grid {
                 grid-template-columns: 1fr;
-                gap: 1rem;
-                margin-bottom: 2rem;
+                gap: 1.25rem;
+                margin-bottom: 2.25rem;
             }
             /* Roadmap responsive mobile styles */
             .roadmap-container {
-                padding: 1.1rem;
+                padding: 1.35rem 1.15rem;
             }
             .roadmap-header-bar {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 0.75rem;
+                gap: 0.85rem;
             }
             .roadmap-header-bar .btn {
                 width: 100%;
@@ -1220,8 +1360,8 @@
             .roadmap-progress-deck {
                 flex-direction: column;
                 align-items: flex-start;
-                gap: 0.6rem;
-                padding: 0.85rem 1rem;
+                gap: 0.75rem;
+                padding: 1rem;
             }
             .roadmap-progress-bar-wrap {
                 width: 100%;
@@ -1231,48 +1371,48 @@
                 gap: 1rem;
             }
             .month-tab-btn {
-                min-width: 85px;
-                padding: 0.6rem 0.4rem;
+                min-width: 90px;
+                padding: 0.65rem 0.5rem;
             }
             .quest-card, .rec-card {
-                padding: 1.1rem;
+                padding: 1.25rem;
             }
             .quest-title {
-                font-size: 0.95rem;
+                font-size: 1.05rem;
             }
             .quest-footer {
                 flex-direction: column;
                 align-items: stretch;
-                gap: 0.75rem;
+                gap: 0.85rem;
             }
             .quest-footer .btn {
                 width: 100%;
                 justify-content: center;
             }
             .modal-box {
-                padding: 1.25rem 1rem;
+                padding: 1.5rem 1.25rem;
                 max-width: 94vw;
                 max-height: 88vh;
                 margin: 0.5rem;
-                border-radius: 12px;
+                border-radius: 14px;
             }
             .modal-close {
-                top: 0.75rem;
-                right: 0.75rem;
+                top: 0.85rem;
+                right: 0.85rem;
             }
             .chips-cloud {
                 gap: 0.4rem;
             }
             .chip-option {
-                font-size: 0.75rem;
-                padding: 0.4rem 0.65rem;
+                font-size: 0.775rem;
+                padding: 0.4rem 0.7rem;
             }
             .toast {
                 left: 1rem;
                 right: 1rem;
                 bottom: 1rem;
-                font-size: 0.825rem;
-                padding: 0.75rem 1rem;
+                font-size: 0.85rem;
+                padding: 0.85rem 1.15rem;
             }
         }
     </style>
@@ -1286,7 +1426,7 @@
         <!-- 4-Segment Selection & Exploration Tabs -->
         <section class="segment-nav">
             <!-- 1. DTV Junior -->
-            <div class="segment-card" id="seg-tab-junior" style="--theme-color: #10b981; --theme-rgb: 16, 185, 129;" onclick="selectSegment('junior')">
+            <div class="segment-card" id="seg-tab-junior" onclick="selectSegment('junior')">
                 <div class="segment-head">
                     <span class="segment-badge"><i class="ph-bold ph-compass"></i> DTV Junior</span>
                     <span class="segment-audience">Classes 5–8</span>
@@ -1296,7 +1436,7 @@
             </div>
 
             <!-- 2. DTV School -->
-            <div class="segment-card" id="seg-tab-school" style="--theme-color: #3b82f6; --theme-rgb: 59, 130, 246;" onclick="selectSegment('school')">
+            <div class="segment-card" id="seg-tab-school" onclick="selectSegment('school')">
                 <div class="segment-head">
                     <span class="segment-badge"><i class="ph-bold ph-navigation-arrow"></i> DTV School</span>
                     <span class="segment-audience">Classes 9–10</span>
@@ -1306,7 +1446,7 @@
             </div>
 
             <!-- 3. DTV Career -->
-            <div class="segment-card" id="seg-tab-career" style="--theme-color: #8b5cf6; --theme-rgb: 139, 92, 246;" onclick="selectSegment('career')">
+            <div class="segment-card" id="seg-tab-career" onclick="selectSegment('career')">
                 <div class="segment-head">
                     <span class="segment-badge"><i class="ph-bold ph-rocket-launch"></i> DTV Career</span>
                     <span class="segment-audience">Classes 11–12</span>
@@ -1316,7 +1456,7 @@
             </div>
 
             <!-- 4. DTV Professional -->
-            <div class="segment-card" id="seg-tab-professional" style="--theme-color: #f59e0b; --theme-rgb: 245, 158, 11;" onclick="selectSegment('professional')">
+            <div class="segment-card" id="seg-tab-professional" onclick="selectSegment('professional')">
                 <div class="segment-head">
                     <span class="segment-badge"><i class="ph-bold ph-briefcase"></i> DTV Professional</span>
                     <span class="segment-audience">College Students</span>
@@ -1331,6 +1471,9 @@
             <div class="hero-info">
                 <div class="avatar-circle" id="user-avatar-initials">S</div>
                 <div class="hero-text">
+                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.35rem;">
+                        <span class="dtv-mode-pill"><i class="ph-bold ph-sparkle"></i> AI Growth Engine Active</span>
+                    </div>
                     <h1 id="user-display-name">Welcome to Your Student Ecosystem</h1>
                     <p id="user-segment-tagline">Loading your personalized intelligence profile...</p>
                     <div class="tags-row" id="user-tags-row">
@@ -1340,7 +1483,7 @@
                     </div>
                 </div>
             </div>
-            <div>
+            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
                 <button type="button" class="btn btn-primary" onclick="openOnboardingModal()">
                     <i class="ph-bold ph-sliders"></i> Customize My Twin
                 </button>
@@ -1413,11 +1556,14 @@
                     </span>
                     <h2 class="roadmap-goal-title" id="roadmap-primary-goal">Class 10 Stream Discovery &amp; Aptitude Audit</h2>
                     <div class="roadmap-goal-sub">
-                        Target Path: <strong id="roadmap-target-career" style="color: #fff;">Computer Science &amp; Engineering</strong> ·
-                        <span id="roadmap-segment-badge" style="color: #60a5fa;">DTV School</span>
+                        Target Path: <strong id="roadmap-target-career" style="color: #0f172a;">Computer Science &amp; Engineering</strong> ·
+                        <span id="roadmap-segment-badge" style="color: var(--accent-orange); font-weight: 600;">DTV School</span>
                     </div>
                 </div>
-                <div>
+                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                    <button type="button" class="btn btn-secondary" onclick="triggerAdaptRoadmapModal()" style="font-size: 0.8rem; padding: 0.5rem 1rem;">
+                        <i class="ph-bold ph-git-commit" style="color: var(--accent-orange);"></i> Adapt Roadmap Pace
+                    </button>
                     <button type="button" class="btn btn-secondary" onclick="openRoadmapGoalModal()" style="font-size: 0.8rem; padding: 0.5rem 1rem;">
                         <i class="ph-bold ph-sliders-horizontal"></i> Customize Goals &amp; Roadmap
                     </button>
@@ -1451,7 +1597,7 @@
                 </div>
                 <p class="milestone-obj" id="milestone-objective">Map cognitive strengths across Science, Commerce, and Humanities with empirical tests.</p>
                 <div class="milestone-outcome">
-                    <i class="ph-bold ph-trophy" style="color: #fbbf24;"></i>
+                    <i class="ph-bold ph-trophy" style="color: var(--accent-orange);"></i>
                     <span><strong>Expected Outcome:</strong> <span id="milestone-outcome-text">Personalized stream aptitude matrix eliminating peer pressure bias.</span></span>
                 </div>
             </div>
@@ -1459,7 +1605,7 @@
             <!-- Weekly Actionable Tasks for Selected Month -->
             <div class="section-header" style="margin-bottom: 1rem;">
                 <div class="section-title" style="font-size: 1.05rem;">
-                    <i class="ph-bold ph-list-checks" style="color: var(--accent-emerald);"></i>
+                    <i class="ph-bold ph-list-checks" style="color: var(--accent-orange);"></i>
                     Weekly Milestones &amp; Actionables
                 </div>
                 <span style="font-size: 0.8rem; color: var(--text-muted);" id="milestone-tasks-count">4 Tasks in this Milestone</span>
@@ -1472,7 +1618,7 @@
             <div class="gaps-panel">
                 <div class="gaps-header">
                     <div class="section-title" style="font-size: 1rem;">
-                        <i class="ph-bold ph-crosshair-simple" style="color: #f87171;"></i>
+                        <i class="ph-bold ph-crosshair-simple" style="color: var(--accent-orange);"></i>
                         Skill Gap Analysis &amp; Competency Tracking
                     </div>
                     <span style="font-size: 0.775rem; color: var(--text-muted);" id="skill-gaps-count">5 Identified Priorities</span>
@@ -1480,11 +1626,13 @@
                 <div class="gaps-grid" id="skill-gaps-container">
                     <!-- Dynamically rendered skill gaps -->
                 </div>
+                <!-- 4-Tier Provenance & Skill Gap Matrix (P2) -->
+                <div id="p2-skill-gaps-mount" style="margin-top: 1.5rem;"></div>
             </div>
         </section>
 
         <!-- Curated Quests & Learning Activities -->
-        <section>
+        <section id="quests">
             <div class="section-header">
                 <div class="section-title">
                     <i class="ph-bold ph-tree-structure" style="color: var(--accent-orange);"></i>
@@ -1497,11 +1645,28 @@
             </div>
         </section>
 
+        <!-- Progressive Project Showcases & Verified Difficulty Tiers (P2) -->
+        <section id="p2-projects-section" style="margin-top: 2rem;">
+            <div class="section-header">
+                <div class="section-title">
+                    <i class="ph-bold ph-hammer" style="color: var(--accent-orange);"></i>
+                    Progressive Project Showcases
+                </div>
+                <span style="font-size: 0.85rem; color: var(--text-muted);">Segment-Curated Difficulty Tiers &amp; Practical Portfolio Builders</span>
+            </div>
+            <div id="p2-projects-mount"></div>
+        </section>
+
+        <!-- Developmental Velocity & Momentum Engine (P2) -->
+        <section id="p2-growth-section" style="margin-top: 2rem;">
+            <div id="p2-growth-mount"></div>
+        </section>
+
         <!-- Personalized Recommendations with Explicit Reasons -->
         <section>
             <div class="section-header">
                 <div class="section-title">
-                    <i class="ph-bold ph-sparkle" style="color: var(--accent-purple);"></i>
+                    <i class="ph-bold ph-sparkle" style="color: var(--accent-orange);"></i>
                     Personalized AI Recommendations
                 </div>
                 <span style="font-size: 0.85rem; color: var(--text-muted);">Transparent Explainable Guidance</span>
@@ -1516,7 +1681,7 @@
             <div class="section-head" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
                 <div>
                     <div class="section-title" style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700;">
-                        <i class="ph-bold ph-buildings" style="color: var(--accent-blue);"></i>
+                        <i class="ph-bold ph-buildings" style="color: var(--accent-orange);"></i>
                         Capacity Connect: Industry Challenges &amp; Opportunities
                     </div>
                     <span style="font-size: 0.85rem; color: var(--text-muted);">Real-world project challenges, skill programmes, and mentorship from verified institutions</span>
@@ -1547,7 +1712,7 @@
             <!-- View 1: Explore Opportunities -->
             <div id="student-view-opps">
                 <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap;">
-                    <select id="student-opp-type-filter" class="form-control" style="max-width: 260px; background: rgba(0,0,0,0.4); border: 1px solid var(--border-glow); color: #fff; padding: 0.5rem; border-radius: 8px;" onchange="fetchStudentOpportunities()">
+                    <select id="student-opp-type-filter" class="form-control" style="max-width: 260px; background: #ffffff; border: 1.5px solid var(--border-strong); color: #0f172a; padding: 0.5rem; border-radius: 8px;" onchange="fetchStudentOpportunities()">
                         <option value="">All Opportunity Types</option>
                         <option value="project_challenge">Project Challenges</option>
                         <option value="skill_programme">Skill Programmes</option>
@@ -1581,7 +1746,7 @@
     <div class="modal-overlay" id="onboarding-modal">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeOnboardingModal()">&times;</button>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">
+            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #0f172a;">
                 <i class="ph-bold ph-user-circle-gear" style="color: var(--accent-orange);"></i> Student Intelligence Setup
             </h2>
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
@@ -1678,7 +1843,7 @@
     <div class="modal-overlay" id="roadmap-goal-modal">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeRoadmapGoalModal()">&times;</button>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">
+            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #0f172a;">
                 <i class="ph-bold ph-compass-tool" style="color: var(--accent-orange);"></i> Customize 6-Month Roadmap
             </h2>
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
@@ -1719,9 +1884,9 @@
                 </div>
 
                 <!-- 5. AI Synthesis Toggle -->
-                <div class="form-group" style="background: rgba(139, 92, 246, 0.08); border: 1px solid rgba(139, 92, 246, 0.25); border-radius: 10px; padding: 0.85rem 1rem;">
-                    <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; margin: 0; font-size: 0.85rem; color: #fff;">
-                        <input type="checkbox" id="form-roadmap-use-ai" checked style="width: 16px; height: 16px; accent-color: var(--accent-purple);">
+                <div class="form-group" style="background: #fff7ed; border: 1px solid rgba(234, 88, 12, 0.25); border-radius: 10px; padding: 0.85rem 1rem;">
+                    <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; margin: 0; font-size: 0.85rem; color: #0f172a;">
+                        <input type="checkbox" id="form-roadmap-use-ai" checked style="width: 16px; height: 16px; accent-color: var(--accent-orange);">
                         <span><strong>Enable AI Dynamic Synthesis</strong> (Deep personalization with deterministic safety fallback)</span>
                     </label>
                 </div>
@@ -1740,8 +1905,8 @@
     <div class="modal-overlay" id="apply-opportunity-modal">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeApplyModal()">&times;</button>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">
-                <i class="ph-bold ph-paper-plane-tilt" style="color: var(--accent-blue);"></i> Submit Application
+            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #0f172a;">
+                <i class="ph-bold ph-paper-plane-tilt" style="color: var(--accent-orange);"></i> Submit Application
             </h2>
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;" id="apply-modal-opp-info">
                 Applying to opportunity...
@@ -1752,13 +1917,13 @@
                     <label style="display:block; font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">
                         Cover Note &amp; Motivation
                     </label>
-                    <textarea id="apply-cover-note" class="form-control" style="width:100%; min-height:90px; background:rgba(0,0,0,0.4); border:1px solid var(--border-glow); color:#fff; padding:0.65rem; border-radius:8px;" placeholder="Briefly describe your interest, relevant skills, and why you are excited for this opportunity..."></textarea>
+                    <textarea id="apply-cover-note" class="form-control" style="width:100%; min-height:90px; background:#ffffff; border:1.5px solid var(--border-strong); color:#0f172a; padding:0.65rem; border-radius:8px;" placeholder="Briefly describe your interest, relevant skills, and why you are excited for this opportunity..."></textarea>
                 </div>
                 <div class="form-group" style="margin-bottom: 1.25rem;">
                     <label style="display:block; font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">
                         Portfolio / Project Link (Optional)
                     </label>
-                    <input type="url" id="apply-portfolio-link" class="form-control" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid var(--border-glow); color:#fff; padding:0.65rem; border-radius:8px;" placeholder="https://github.com/my-project or portfolio link">
+                    <input type="url" id="apply-portfolio-link" class="form-control" style="width:100%; background:#ffffff; border:1.5px solid var(--border-strong); color:#0f172a; padding:0.65rem; border-radius:8px;" placeholder="https://github.com/my-project or portfolio link">
                 </div>
                 <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
                     <button type="button" class="btn btn-secondary" onclick="closeApplyModal()">Cancel</button>
@@ -1772,14 +1937,14 @@
     <div class="modal-overlay" id="privacy-consent-modal">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closePrivacyConsentModal()">&times;</button>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">
-                <i class="ph-bold ph-shield-check" style="color: var(--accent-emerald);"></i> Minor Privacy &amp; Consent
+            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #0f172a;">
+                <i class="ph-bold ph-shield-check" style="color: var(--accent-orange);"></i> Minor Privacy &amp; Consent
             </h2>
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
                 Under Digital Twin Verse Minor Protection guidelines, sensitive contact details (email and phone) for school learners are masked by default across talent exploration.
             </p>
             <form id="privacy-consent-form" onsubmit="handlePrivacyConsentSubmit(event)">
-                <div style="margin-bottom: 1.25rem; background: rgba(0,0,0,0.3); padding: 1rem; border-radius: 10px; border: 1px solid var(--border-glow);">
+                <div style="margin-bottom: 1.25rem; background: #fff7ed; padding: 1rem; border-radius: 10px; border: 1px solid rgba(234, 88, 12, 0.25);">
                     <label style="display: flex; align-items: flex-start; gap: 0.65rem; cursor: pointer; font-size: 0.85rem; color: var(--text-primary);">
                         <input type="checkbox" id="consent-checkbox" style="margin-top: 0.2rem;">
                         <span>Grant verified institutions permission to view contact details for mentorship and opportunity selections.</span>
@@ -1789,7 +1954,7 @@
                     <label style="display:block; font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">
                         Parent / Guardian Verification Email (Recommended for Minors)
                     </label>
-                    <input type="email" id="consent-parent-email" class="form-control" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid var(--border-glow); color:#fff; padding:0.65rem; border-radius:8px;" placeholder="parent@example.com">
+                    <input type="email" id="consent-parent-email" class="form-control" style="width:100%; background:#ffffff; border:1.5px solid var(--border-strong); color:#0f172a; padding:0.65rem; border-radius:8px;" placeholder="parent@example.com">
                 </div>
                 <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
                     <button type="button" class="btn btn-secondary" onclick="closePrivacyConsentModal()">Close</button>
@@ -1803,8 +1968,8 @@
     <div class="modal-overlay" id="session-feedback-modal">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeFeedbackModal()">&times;</button>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #fff;">
-                <i class="ph-bold ph-star" style="color: #fbbf24;"></i> Mentorship Feedback
+            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #0f172a;">
+                <i class="ph-bold ph-star" style="color: var(--accent-orange);"></i> Mentorship Feedback
             </h2>
             <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
                 Rate your mentorship session and share reflections on your guidance progress.
@@ -1815,7 +1980,7 @@
                     <label style="display:block; font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">
                         Rating (1 to 5 Stars) *
                     </label>
-                    <select id="feedback-rating" class="form-control" style="width:100%; background:rgba(0,0,0,0.4); border:1px solid var(--border-glow); color:#fff; padding:0.65rem; border-radius:8px;" required>
+                    <select id="feedback-rating" class="form-control" style="width:100%; background:#ffffff; border:1.5px solid var(--border-strong); color:#0f172a; padding:0.65rem; border-radius:8px;" required>
                         <option value="5">★★★★★ - Excellent &amp; Highly Insightful</option>
                         <option value="4">★★★★☆ - Very Good &amp; Helpful</option>
                         <option value="3">★★★☆☆ - Average Guidance</option>
@@ -1827,7 +1992,7 @@
                     <label style="display:block; font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">
                         Key Takeaways / Feedback Notes
                     </label>
-                    <textarea id="feedback-notes" class="form-control" style="width:100%; min-height:80px; background:rgba(0,0,0,0.4); border:1px solid var(--border-glow); color:#fff; padding:0.65rem; border-radius:8px;" placeholder="What actionable steps did you align on with your mentor?"></textarea>
+                    <textarea id="feedback-notes" class="form-control" style="width:100%; min-height:80px; background:#ffffff; border:1.5px solid var(--border-strong); color:#0f172a; padding:0.65rem; border-radius:8px;" placeholder="What actionable steps did you align on with your mentor?"></textarea>
                 </div>
                 <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
                     <button type="button" class="btn btn-secondary" onclick="closeFeedbackModal()">Cancel</button>
@@ -2065,10 +2230,50 @@
             document.getElementById('kpi-xp-val').textContent = metrics.totalXp + ' XP';
             document.getElementById('kpi-goal-val').textContent = Number(metrics.weeklyGoalHours).toFixed(1) + ' hrs';
 
-            // Dynamic Next Step
+            // Dynamic Next Step (P1 Baseline)
             if (window.DTV && DTV.Personalization) {
                 var nextStep = DTV.Personalization.computeNextStep(dash, activeRoadmapData);
                 renderNextStep(nextStep);
+            }
+
+            // P2 Student Intelligence Engine: Next Best Action (6-Part Contract)
+            if (window.DTV && DTV.Intelligence) {
+                var token = getAuthToken();
+                if (token) {
+                    DTV.Intelligence.getNextBestAction().then(function(res) {
+                        if (res && res.success && res.action) {
+                            DTV.Intelligence.renderNextBestAction('dtv-next-step-mount', res.action);
+                        } else {
+                            renderSegmentP2Fallback(currentSegment);
+                        }
+                    }).catch(function(e) {
+                        console.warn('P2 Next Best Action notice:', e.message);
+                        renderSegmentP2Fallback(currentSegment);
+                    });
+
+                    // P2 Skill Gaps & 4-Tier Provenance Breakdown
+                    DTV.Intelligence.getSkillGaps().then(function(res) {
+                        if (res && res.success && res.data) {
+                            DTV.Intelligence.renderSkillGaps('p2-skill-gaps-mount', res.data);
+                        }
+                    }).catch(function(e) { console.warn('P2 Skill Gaps notice:', e.message); });
+
+                    // P2 Progressive Project Recommendations
+                    DTV.Intelligence.getProjectRecommendations().then(function(res) {
+                        if (res && res.success && res.projects && res.projects.length > 0) {
+                            DTV.Intelligence.renderProjectRecommendations('p2-projects-mount', res.projects);
+                        }
+                    }).catch(function(e) { console.warn('P2 Projects notice:', e.message); });
+
+                    // P2 Developmental Velocity & Momentum
+                    DTV.Intelligence.getGrowthMetrics().then(function(res) {
+                        if (res && res.success && res.growth) {
+                            DTV.Intelligence.renderGrowthVelocity('p2-growth-mount', res.growth);
+                        }
+                    }).catch(function(e) { console.warn('P2 Growth notice:', e.message); });
+                } else {
+                    renderSegmentP2Fallback(currentSegment);
+                }
             }
 
             // Quests
@@ -2078,11 +2283,127 @@
             renderRecommendations(dash.recommendations);
         }
 
+        function triggerAdaptRoadmapModal() {
+            if (window.DTV && DTV.Intelligence) {
+                DTV.Intelligence.showAdaptRoadmapModal(activeRoadmapData, function(result) {
+                    fetchRoadmap();
+                    if (window.DTV && DTV.Intelligence) {
+                        DTV.Intelligence.getGrowthMetrics().then(function (growthRes) {
+                            if (growthRes && growthRes.success && growthRes.growth) {
+                                DTV.Intelligence.renderGrowthVelocity('p2-growth-mount', growthRes.growth);
+                            }
+                        }).catch(function() {});
+                    }
+                });
+            } else {
+                alert('Roadmap adaptation is available when connected to the Student Intelligence Engine.');
+            }
+        }
+
         function updateSegmentTabs(seg) {
             var tabs = ['junior', 'school', 'career', 'professional'];
             tabs.forEach(function(t) {
                 var el = document.getElementById('seg-tab-' + t);
                 if (el) el.classList.toggle('active', t === seg);
+            });
+        }
+
+        function renderSegmentP2Fallback(seg) {
+            seg = seg || currentSegment || 'school';
+            if (!window.DTV || !DTV.Intelligence) return;
+
+            // 1. Next Best Action (6-Part Contract)
+            DTV.Intelligence.renderNextBestAction('dtv-next-step-mount', {
+                actionCode: 'DEMO_NEXT_STEP_' + seg.toUpperCase(),
+                what: seg === 'junior' ? 'Build Scratch Animation: Planet Explorer' : (seg === 'career' ? 'Timed Entrance Mock Engine' : (seg === 'professional' ? 'Architect Scalable REST API with PostgreSQL' : 'Python Stream Decision Calculator')),
+                why: seg === 'junior' ? 'Fun exploratory coding challenge tailored for Class 5-8 logic.' : (seg === 'career' ? 'High-yield mock exam sprint reinforcing critical problem solving under pressure.' : (seg === 'professional' ? 'Industry-grade systems challenge demonstrating production database design.' : 'High-impact project challenge building verified empirical skills for your trajectory.')),
+                goalOrSkillSupported: seg === 'junior' ? 'Visual Logic & Spatial Reasoning' : (seg === 'career' ? 'Entrance Exam Velocity' : (seg === 'professional' ? 'Backend & Cloud Systems' : 'Core Trajectory Engineering')),
+                estimatedEffortMinutes: seg === 'junior' ? 25 : (seg === 'career' ? 45 : (seg === 'professional' ? 50 : 35)),
+                expectedOutcome: 'Promotes skill inventory from SELF-DECLARED to PROJECT-VERIFIED in your digital twin.',
+                actionCta: {
+                    label: 'Start Challenge',
+                    url: '#quests',
+                    buttonClass: 'btn btn-primary',
+                    icon: 'ph-play-circle'
+                }
+            });
+
+            // 2. Skill Gaps & 4-Tier Provenance Breakdown
+            DTV.Intelligence.renderSkillGaps('p2-skill-gaps-mount', {
+                demonstratedSkills: [
+                    { skill_name: seg === 'junior' ? 'Scratch Logic' : (seg === 'career' ? 'Calculus & Vectors' : (seg === 'professional' ? 'PostgreSQL Optimization' : 'Python Foundations')), proficiency_level: 'intermediate', provenance_type: 'PROJECT_VERIFIED' },
+                    { skill_name: seg === 'junior' ? 'Mathematical Deductions' : (seg === 'career' ? 'Physics Simulation' : (seg === 'professional' ? 'REST API Design' : 'Mathematical Deductions')), proficiency_level: 'intermediate', provenance_type: 'ACTIVITY_BASED' },
+                    { skill_name: seg === 'junior' ? 'Algorithmic Problem Solving' : (seg === 'career' ? 'Exam Time Strategy' : (seg === 'professional' ? 'Docker & Microservices' : 'Algorithmic Problem Solving')), proficiency_level: 'beginner', provenance_type: 'SELF_DECLARED' }
+                ],
+                skillGaps: [
+                    {
+                        skill_name: seg === 'junior' ? 'Pattern Analysis' : (seg === 'career' ? 'Entrance Strategy Mastery' : (seg === 'professional' ? 'Distributed Systems' : 'Data Analysis & Charting')),
+                        priority: 'critical',
+                        status: 'open',
+                        identified_reason: 'Core foundational capability required for upcoming milestone.',
+                        recommendedActivity: { title: 'Practice Foundational Analysis', estimatedMinutes: 30 }
+                    },
+                    {
+                        skill_name: seg === 'junior' ? 'Computational Loops' : (seg === 'career' ? 'Organic Synthesis Drills' : (seg === 'professional' ? 'Redis Caching & Latency' : 'System Architecture')),
+                        priority: 'medium',
+                        status: 'in_progress',
+                        identified_reason: 'Basic competency logged. Advance to intermediate through practice.',
+                        recommendedActivity: { title: 'Hands-On Mini Challenge', estimatedMinutes: 25 }
+                    }
+                ],
+                summary: { totalTargetSkills: 5, closedGaps: 1, inProgressGaps: 1, openGaps: 2 }
+            });
+
+            // 3. Progressive Project Recommendations
+            DTV.Intelligence.renderProjectRecommendations('p2-projects-mount', [
+                {
+                    id: 'demo_proj_1',
+                    title: seg === 'junior' ? 'Interactive Multi-Level Maze Adventure' : (seg === 'career' ? 'Competitive Entrance Timed Mock Engine' : (seg === 'professional' ? 'Scalable E-Commerce REST API' : 'Empirical Stream Aptitude Calculator')),
+                    tagline: seg === 'junior' ? 'Visual Block Logic & Game Design' : (seg === 'career' ? 'Exam Simulation Engine' : (seg === 'professional' ? 'Distributed Backend Architecture' : 'Practical Showcase Project')),
+                    description: seg === 'junior' ? 'Build a keyboard-controlled maze game in Scratch featuring sprite animation, collision detection, and score tracking.' : (seg === 'career' ? 'Construct a timed testing dashboard with question-level latency analytics and weak-area heatmaps.' : (seg === 'professional' ? 'Architect a production-grade REST API with JWT authentication, connection pooling, and indexing.' : 'Design and implement a clean, documented showcase tool verifying real-world problem solving.')),
+                    difficulty: 'beginner',
+                    estimatedHours: 6,
+                    technologies: seg === 'junior' ? ['Scratch Block Logic', 'Computational Thinking'] : (seg === 'career' ? ['Python', 'Data Analytics'] : (seg === 'professional' ? ['Node.js', 'PostgreSQL', 'Express'] : ['Python', 'Algorithmic Logic'])),
+                    skillsTargeted: ['Problem Decomposition', 'Iterative Execution']
+                },
+                {
+                    id: 'demo_proj_2',
+                    title: seg === 'junior' ? 'Planetary Orbit & Gravity Simulator' : (seg === 'career' ? 'Full-Stack Habit & Milestone Engine' : (seg === 'professional' ? 'Predictive ML Service & Dashboard' : 'Real-World Climate Data Visualizer')),
+                    tagline: seg === 'junior' ? 'Everyday Science & Astronomical Observation' : (seg === 'career' ? 'Productivity Analytics' : (seg === 'professional' ? 'Microservice Deployment' : 'Intermediate Architecture Capstone')),
+                    description: seg === 'junior' ? 'Construct a visual solar system simulation modeling relative planet speeds and gravitational orbital patterns.' : (seg === 'career' ? 'Build an interactive roadmap tracking weekly study hours, topic coverage, and confidence levels.' : (seg === 'professional' ? 'Deploy a containerized machine learning inference service with automated performance monitoring.' : 'Analyze and visualize complex datasets or distributed workflows with persistent storage.')),
+                    difficulty: 'intermediate',
+                    estimatedHours: 10,
+                    technologies: seg === 'junior' ? ['Visual Simulation', 'Geometry'] : (seg === 'career' ? ['JavaScript', 'Chart.js'] : (seg === 'professional' ? ['FastAPI', 'Docker', 'Redis'] : ['Data Analysis', 'Web Architecture'])),
+                    skillsTargeted: ['Data Interpretation', 'System Design']
+                }
+            ]);
+
+            // 4. Growth Velocity Preview
+            DTV.Intelligence.renderGrowthVelocity('p2-growth-mount', {
+                developmentalVelocity: seg === 'junior' ? 72 : (seg === 'career' ? 68 : (seg === 'professional' ? 82 : 64)),
+                metrics: {
+                    totalSkillsTracked: 6,
+                    verifiedSkills: 3,
+                    projectsPublished: 1,
+                    organizationEndorsedProjects: 1,
+                    learningQuestsCompleted: 3,
+                    roadmapProgress: 35,
+                    achievementsAwarded: 2
+                },
+                growthTimeline: [
+                    {
+                        event_type: 'project',
+                        title: 'Published Verified Showcase Project',
+                        timestamp: new Date().toISOString(),
+                        description: 'Verified through code repository analysis.'
+                    },
+                    {
+                        event_type: 'activity',
+                        title: 'Completed Foundational Quest',
+                        timestamp: new Date(Date.now() - 86400000).toISOString(),
+                        description: 'Cleared all interactive quiz checkpoints.'
+                    }
+                ]
             });
         }
 
@@ -2098,8 +2419,9 @@
 
             fetchSegmentActivities(seg);
             var token = getAuthToken();
-            if (!token) {
+            if (!token || !activeDashboardData || !activeDashboardData.hasProfile) {
                 renderFallbackRoadmapDemo(seg);
+                renderSegmentP2Fallback(seg);
             }
         }
 
@@ -2198,10 +2520,10 @@
                     <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-orange); font-weight: 700; margin-bottom: 0.4rem;">
                         ${r.item_type.replace('_', ' ')}
                     </div>
-                    <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: #fff;">${r.title}</h3>
+                    <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: #0f172a;">${r.title}</h3>
                     <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.45; margin-bottom: 1rem;">${r.description}</p>
                     <div class="why-box">
-                        <i class="ph-bold ph-brain" style="font-size: 1.1rem; flex-shrink: 0; color: #c084fc;"></i>
+                        <i class="ph-bold ph-brain" style="font-size: 1.1rem; flex-shrink: 0; color: var(--accent-orange);"></i>
                         <span><strong>Rationale:</strong> ${r.reason_text}</span>
                     </div>
                 `;
@@ -2212,7 +2534,27 @@
         async function completeQuest(activityId) {
             var token = getAuthToken();
             if (!token) {
-                showToast('🔒 Please sign in to record your verified progress.');
+                // In preview / demo mode, simulate completion with immediate UI feedback
+                showToast('🌟 Milestone Quest Completed! +50 XP awarded (Preview Mode)');
+                var xpVal = document.getElementById('kpi-xp-val');
+                if (xpVal) {
+                    var cur = parseInt(xpVal.textContent) || 0;
+                    xpVal.textContent = (cur + 50) + ' XP';
+                }
+                var globalXp = document.getElementById('dtv-global-xp');
+                if (globalXp) {
+                    var curGlobal = parseInt(globalXp.textContent) || 0;
+                    globalXp.textContent = (curGlobal + 50) + ' XP';
+                }
+                if (window.event && window.event.target) {
+                    var btn = window.event.target.closest('button');
+                    if (btn) {
+                        btn.innerHTML = '<i class="ph-bold ph-check"></i> Completed';
+                        btn.classList.remove('btn-primary');
+                        btn.classList.add('btn-secondary');
+                        btn.disabled = true;
+                    }
+                }
                 return;
             }
 
@@ -2424,6 +2766,9 @@
                 }
             ]);
 
+            // Render P2 Intelligence Preview modules in fallback demo
+            renderSegmentP2Fallback(seg);
+
             renderFallbackRoadmapDemo(currentSegment || 'school');
         }
 
@@ -2590,7 +2935,7 @@
                         <span class="gap-status-pill ${statusClass}">${statusLabel}</span>
                     </div>
                     <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.4rem;">
-                        Current: <strong style="color: #fff;">${g.current_proficiency}</strong> → Target: <strong style="color: #60a5fa;">${g.target_proficiency}</strong>
+                        Current: <strong style="color: #0f172a;">${g.current_proficiency}</strong> → Target: <strong style="color: var(--accent-orange);">${g.target_proficiency}</strong>
                     </div>
                     <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.35; margin: 0;">
                         ${g.identified_reason || 'Identified as key developmental priority.'}
@@ -2610,7 +2955,24 @@
         async function completeRoadmapTask(taskId) {
             var token = getAuthToken();
             if (!token) {
-                showToast('🔒 Please sign in to record your verified roadmap progress.');
+                // In preview / demo mode, simulate completion with immediate UI feedback
+                showToast('🌟 Roadmap Milestone Completed! +40 XP awarded (Preview Mode)');
+                var xpVal = document.getElementById('kpi-xp-val');
+                if (xpVal) {
+                    var cur = parseInt(xpVal.textContent) || 0;
+                    xpVal.textContent = (cur + 40) + ' XP';
+                }
+                var globalXp = document.getElementById('dtv-global-xp');
+                if (globalXp) {
+                    var curGlobal = parseInt(globalXp.textContent) || 0;
+                    globalXp.textContent = (curGlobal + 40) + ' XP';
+                }
+                if (window.event && window.event.target) {
+                    var btn = window.event.target.closest('button');
+                    if (btn && btn.parentElement) {
+                        btn.parentElement.innerHTML = '<span style="color: #15803d; font-weight: 700; font-size: 0.8rem;"><i class="ph-bold ph-check-circle"></i> Completed</span>';
+                    }
+                }
                 return;
             }
 
@@ -2845,6 +3207,16 @@
             if (typeFilter) url += 'opportunityType=' + encodeURIComponent(typeFilter) + '&';
 
             try {
+                // Try P2 opportunity matching with affinity scores first
+                if (window.DTV && DTV.Intelligence && getAuthToken()) {
+                    var matchRes = await DTV.Intelligence.getMatchedOpportunities();
+                    if (matchRes && matchRes.success && matchRes.opportunities && matchRes.opportunities.length > 0) {
+                        cachedStudentOpps = matchRes.opportunities;
+                        renderStudentOpportunities(cachedStudentOpps);
+                        return;
+                    }
+                }
+
                 var res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + getAuthToken() } });
                 if (res.ok) {
                     var json = await res.json();
@@ -2876,36 +3248,49 @@
             }
 
             container.innerHTML = opps.map(function(o) {
-                var skills = Array.isArray(o.required_skills) ? o.required_skills : JSON.parse(o.required_skills || '[]');
+                var skills = Array.isArray(o.required_skills) ? o.required_skills : (Array.isArray(o.requiredSkills) ? o.requiredSkills : JSON.parse(o.required_skills || '[]'));
                 var skillsBadges = skills.slice(0, 3).map(function(s) {
                     return `<span class="tag-pill" style="font-size:0.75rem;">${escapeHtml(s)}</span>`;
                 }).join(' ');
 
+                var oppType = o.opportunity_type || o.opportunityType || 'project';
+                var stipendReward = o.stipend_or_reward || o.stipendOrReward || 'Merit Certificate';
+                var orgName = o.organization_name || o.organizationName || 'Verified Institution';
+                var locType = o.location_type || o.locationType || 'remote';
+                var matchBadge = (typeof o.matchScore === 'number') ? `
+                    <span class="dtv-prov-badge dtv-prov-project" style="font-size:0.7rem;">
+                        <i class="ph ph-target"></i> ${o.matchScore}% Match
+                    </span>
+                ` : '';
+
                 return `
                     <div class="quest-card" style="border:1px solid var(--border-glow); border-radius:12px; padding:1.25rem; background:var(--bg-card); display:flex; flex-direction:column; justify-content:space-between; gap:0.75rem;">
                         <div>
-                            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.4rem;">
-                                <span class="tag-pill" style="background:rgba(59,130,246,0.15); color:#93c5fd; border:1px solid rgba(59,130,246,0.3); font-size:0.75rem;">
-                                    ${escapeHtml((o.opportunity_type || 'project').replace('_', ' ').toUpperCase())}
-                                </span>
-                                <span style="font-size:0.75rem; color:#34d399; font-weight:700;">
-                                    ${escapeHtml(o.stipend_or_reward || 'Merit Certificate')}
+                            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.4rem; gap:0.5rem; flex-wrap:wrap;">
+                                <div style="display:flex; gap:0.35rem; align-items:center;">
+                                    <span class="tag-pill" style="background:#fff7ed; color:#9a3412; border:1px solid rgba(234,88,12,0.25); font-size:0.75rem; font-weight:700;">
+                                        ${escapeHtml(oppType.replace('_', ' ').toUpperCase())}
+                                    </span>
+                                    ${matchBadge}
+                                </div>
+                                <span style="font-size:0.75rem; color:#15803d; font-weight:700;">
+                                    ${escapeHtml(stipendReward)}
                                 </span>
                             </div>
-                            <h3 style="font-size:1.05rem; font-weight:700; color:#fff; margin-bottom:0.25rem;">${escapeHtml(o.title)}</h3>
+                            <h3 style="font-size:1.05rem; font-weight:700; color:var(--text-primary); margin-bottom:0.25rem;">${escapeHtml(o.title)}</h3>
                             <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">
-                                <i class="ph ph-buildings"></i> ${escapeHtml(o.organization_name || 'Verified Institution')}
+                                <i class="ph ph-buildings"></i> ${escapeHtml(orgName)}
                             </div>
                             <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.4; margin-bottom:0.65rem;">
-                                ${escapeHtml(o.description.slice(0, 140))}...
+                                ${escapeHtml((o.description || '').slice(0, 140))}...
                             </p>
                             <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">${skillsBadges}</div>
                         </div>
                         <div style="border-top:1px solid var(--border-glow); padding-top:0.75rem; display:flex; justify-content:space-between; align-items:center;">
                             <span style="font-size:0.75rem; color:var(--text-muted);">
-                                <i class="ph ph-map-pin"></i> ${escapeHtml(o.location_type || 'remote')}
+                                <i class="ph ph-map-pin"></i> ${escapeHtml(locType)}
                             </span>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="openApplyModal('${o.id}', '${escapeHtml(o.title)}', '${escapeHtml(o.organization_name || 'Institution')}')">
+                            <button type="button" class="btn btn-primary btn-sm" onclick="openApplyModal('${o.id}', '${escapeHtml(o.title)}', '${escapeHtml(orgName)}')">
                                 <i class="ph-bold ph-paper-plane-tilt"></i> Apply Now
                             </button>
                         </div>
@@ -2924,7 +3309,8 @@
                     stipend_or_reward: 'Rs 15,000 / Merit Certificate',
                     location_type: 'remote',
                     description: 'Architect a cooperative multi-agent system executing simulated robotic missions with zero state corruption.',
-                    required_skills: ['Python', 'System Architecture', 'Logic Deduction']
+                    required_skills: ['Python', 'System Architecture', 'Logic Deduction'],
+                    matchScore: 94
                 },
                 {
                     id: 'sample-opp-2',
@@ -2934,7 +3320,8 @@
                     stipend_or_reward: 'Medals & Robotics Kit',
                     location_type: 'remote',
                     description: 'Design interactive block-based simulations solving everyday clean energy and science quests.',
-                    required_skills: ['Scratch Logic', 'Creative Storytelling']
+                    required_skills: ['Scratch Logic', 'Creative Storytelling'],
+                    matchScore: 88
                 }
             ];
             renderStudentOpportunities(sample);
@@ -3036,12 +3423,12 @@
 
             container.innerHTML = apps.map(function(app) {
                 var statusColors = {
-                    submitted: 'rgba(59,130,246,0.15); color:#93c5fd;',
-                    reviewing: 'rgba(245,158,11,0.15); color:#fcd34d;',
-                    shortlisted: 'rgba(139,92,246,0.15); color:#d8b4fe;',
-                    accepted: 'rgba(16,185,129,0.15); color:#6ee7b7;',
-                    rejected: 'rgba(244,63,94,0.15); color:#fda4af;',
-                    withdrawn: 'rgba(100,116,139,0.15); color:#94a3b8;'
+                    submitted: 'background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe;',
+                    reviewing: 'background:#fffbeb; color:#b45309; border:1px solid #fde68a;',
+                    shortlisted: 'background:#f5f3ff; color:#6d28d9; border:1px solid #ddd6fe;',
+                    accepted: 'background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0;',
+                    rejected: 'background:#fef2f2; color:#b91c1c; border:1px solid #fecaca;',
+                    withdrawn: 'background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;'
                 };
                 var canWithdraw = ['submitted', 'reviewing'].includes(app.status);
 
@@ -3049,15 +3436,15 @@
                     <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:12px; padding:1rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
                         <div>
                             <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
-                                <span style="font-weight:700; font-size:0.95rem; color:#fff;">${escapeHtml(app.opportunity_title)}</span>
-                                <span class="tag-pill" style="background:${statusColors[app.status] || 'rgba(255,255,255,0.05)'}; font-size:0.75rem; text-transform:uppercase;">
+                                <span style="font-weight:700; font-size:0.95rem; color:var(--text-primary);">${escapeHtml(app.opportunity_title)}</span>
+                                <span class="tag-pill" style="${statusColors[app.status] || 'background:#f1f5f9; color:#334155;'} font-size:0.75rem; text-transform:uppercase; font-weight:700;">
                                     ${escapeHtml(app.status)}
                                 </span>
                             </div>
                             <div style="font-size:0.8rem; color:var(--text-muted);">
                                 ${escapeHtml(app.organization_name)} • Submitted: ${new Date(app.submitted_at).toLocaleDateString()}
                             </div>
-                            ${app.reviewer_feedback ? `<div style="font-size:0.8rem; color:#38bdf8; margin-top:0.35rem;">Feedback: "${escapeHtml(app.reviewer_feedback)}"</div>` : ''}
+                            ${app.reviewer_feedback ? `<div style="font-size:0.8rem; color:#0369a1; margin-top:0.35rem; font-weight:500;">Feedback: "${escapeHtml(app.reviewer_feedback)}"</div>` : ''}
                         </div>
                         <div>
                             ${canWithdraw ? `
@@ -3131,12 +3518,12 @@
                 return `
                     <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:12px; padding:1rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
                         <div>
-                            <div style="font-weight:700; font-size:0.95rem; color:#fff;">${escapeHtml(s.agenda)}</div>
-                            <div style="font-size:0.8rem; color:#93c5fd;">
+                            <div style="font-weight:700; font-size:0.95rem; color:var(--text-primary);">${escapeHtml(s.agenda)}</div>
+                            <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.2rem;">
                                 <i class="ph ph-user"></i> Mentor: ${escapeHtml(s.mentor_name)} (${escapeHtml(s.mentor_title)}) • ${escapeHtml(s.organization_name)}
                             </div>
                             <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">
-                                <i class="ph ph-calendar"></i> ${dt} (${s.duration_minutes} mins) • Status: <strong style="color:#34d399;">${escapeHtml(s.status)}</strong>
+                                <i class="ph ph-calendar"></i> ${dt} (${s.duration_minutes} mins) • Status: <strong style="color:#15803d;">${escapeHtml(s.status)}</strong>
                             </div>
                         </div>
                         <div style="display:flex; gap:0.5rem; align-items:center;">
@@ -3255,6 +3642,8 @@
         window.completeRoadmapTask = completeRoadmapTask;
         window.handleRoadmapGoalSubmit = handleRoadmapGoalSubmit;
         window.fetchRoadmap = fetchRoadmap;
+        window.triggerAdaptRoadmapModal = triggerAdaptRoadmapModal;
+        window.renderSegmentP2Fallback = renderSegmentP2Fallback;
         // Capacity Connect Global Exports
         window.switchStudentConnectTab = switchStudentConnectTab;
         window.fetchStudentOpportunities = fetchStudentOpportunities;
@@ -3270,6 +3659,25 @@
         window.openPrivacyConsentModal = openPrivacyConsentModal;
         window.closePrivacyConsentModal = closePrivacyConsentModal;
         window.handlePrivacyConsentSubmit = handlePrivacyConsentSubmit;
+
+        // Global Modal Keyboard & Backdrop Accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeOnboardingModal();
+                closeRoadmapGoalModal();
+                closeApplyModal();
+                closePrivacyConsentModal();
+                closeFeedbackModal();
+            }
+        });
+
+        document.querySelectorAll('.modal-overlay').forEach(function(modal) {
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        });
 
         // Initialize on DOM load
         document.addEventListener('DOMContentLoaded', function() {

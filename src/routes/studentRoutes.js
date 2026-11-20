@@ -107,4 +107,25 @@ router.get('/activities', studentIntelligenceController.getActivities);
  */
 router.post('/activities/:id/complete', validate(completeActivitySchema), studentIntelligenceController.completeActivity);
 
+// =============================================================================
+// P2: STUDENT INTELLIGENCE & ADAPTIVE GROWTH ENGINE ROUTES
+// =============================================================================
+
+const adaptRoadmapSchema = Joi.object({
+  body: Joi.object({
+    reason: Joi.string().max(255).optional(),
+    adaptationType: Joi.string().valid(
+      'velocity_realigned', 'milestone_adjusted', 'skill_reinforced', 'goal_updated', 'pace_accelerated'
+    ).optional()
+  }).optional()
+});
+
+router.get('/intelligence/profile', studentIntelligenceController.getHolisticProfile);
+router.get('/intelligence/skill-gaps', studentIntelligenceController.getSkillGaps);
+router.post('/intelligence/roadmap/adapt', validate(adaptRoadmapSchema), studentIntelligenceController.adaptRoadmap);
+router.get('/intelligence/next-action', studentIntelligenceController.getNextBestAction);
+router.get('/intelligence/project-recommendations', studentIntelligenceController.getProjectRecommendations);
+router.get('/intelligence/growth-metrics', studentIntelligenceController.getGrowthIntelligence);
+router.get('/intelligence/matched-opportunities', studentIntelligenceController.getMatchedOpportunities);
+
 module.exports = router;
