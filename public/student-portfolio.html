@@ -9,23 +9,24 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/premium-theme.css">
-    <link rel="stylesheet" href="/dist/dtv-student.ec3b28d9.css?v=1de8d2360f439e52">
+    <link rel="stylesheet" href="/dist/dtv-student.07967f3c.css?v=41306257d949be4b">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
-    <script src="/dist/dtv-student-core.876cd8dd.js?v=1de8d2360f439e52"></script>
+    <script src="/dist/dtv-student-core.45303345.js?v=41306257d949be4b"></script>
     <style>
         :root {
-            --bg-dark: #080a0f;
-            --bg-card: rgba(17, 24, 39, 0.85);
-            --bg-card-hover: rgba(31, 41, 55, 0.95);
-            --border-glow: rgba(255, 255, 255, 0.08);
-            --border-active: rgba(139, 92, 246, 0.45);
-            --accent-purple: #8b5cf6;
-            --accent-blue: #3b82f6;
-            --accent-emerald: #10b981;
-            --accent-amber: #f59e0b;
-            --accent-rose: #f43f5e;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #ffffff;
+            --border-glow: #e2e8f0;
+            --border-active: #ea580c;
+            --accent-orange: #ea580c;
+            --accent-purple: #ea580c;
+            --accent-blue: #1d4ed8;
+            --accent-emerald: #15803d;
+            --accent-amber: #b45309;
+            --accent-rose: #b91c1c;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
             --text-muted: #64748b;
         }
 
@@ -40,11 +41,9 @@
             background-color: var(--bg-dark);
             color: var(--text-primary);
             min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.09) 0%, transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.09) 0%, transparent 45%);
-            background-attachment: fixed;
+            background-image: none;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         .container {
@@ -1052,14 +1051,24 @@
             openModal('edit-portfolio-modal');
         }
 
-        function openCreateProjectModal() {
+        function openCreateProjectModal(prefillTitle) {
             document.getElementById('create-project-form').reset();
             document.getElementById('proj-edit-id').value = '';
+            if (prefillTitle) {
+                var titleEl = document.getElementById('proj-title');
+                if (titleEl) {
+                    titleEl.value = prefillTitle;
+                }
+            }
             var mUrl = document.getElementById('proj-media-url');
             if (mUrl) mUrl.value = '';
             var st = document.getElementById('proj-upload-status');
             if (st) { st.style.display = 'none'; st.innerHTML = ''; }
             openModal('create-project-modal');
+            if (prefillTitle) {
+                var descEl = document.getElementById('proj-desc');
+                if (descEl) descEl.focus();
+            }
         }
 
         async function handleProjectFileUpload(e) {
@@ -1601,7 +1610,39 @@
                 .replace(/'/g, '&#039;');
         }
 
-        document.addEventListener('DOMContentLoaded', initPortfolio);
+        function handleUrlHashActions() {
+            var hash = window.location.hash || '';
+            if (hash.startsWith('#add-project')) {
+                var queryIdx = hash.indexOf('?');
+                var title = '';
+                if (queryIdx !== -1) {
+                    var params = new URLSearchParams(hash.substring(queryIdx + 1));
+                    title = params.get('title') || '';
+                }
+                switchPortfolioTab('projects');
+                setTimeout(function() {
+                    openCreateProjectModal(title);
+                }, 150);
+            }
+        }
+
+        window.switchPortfolioTab = switchPortfolioTab;
+        window.switchTab = switchPortfolioTab;
+        window.openCreateProjectModal = openCreateProjectModal;
+
+        // Global Modal Keyboard Accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal('edit-portfolio-modal');
+                closeModal('create-project-modal');
+                closeModal('add-cert-modal');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initPortfolio();
+            handleUrlHashActions();
+        });
     </script>
 </body>
 </html>
