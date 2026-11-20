@@ -1296,11 +1296,18 @@
             } else {
                 sc.innerHTML = skills.map(function(s) {
                     var lvlColor = s.proficiency_level === 'advanced' ? '#34d399' : (s.proficiency_level === 'intermediate' ? '#60a5fa' : '#a78bfa');
+                    var prov = s.provenance_type || (s.verified ? 'ASSESSMENT_VERIFIED' : 'SELF_DECLARED');
+                    var badgeClass = (window.DTV && DTV.Intelligence) ? DTV.Intelligence.getProvenanceBadgeClass(prov) : 'dtv-prov-self';
+                    var provLabel = (window.DTV && DTV.Intelligence) ? DTV.Intelligence.getProvenanceLabel(prov) : 'Self Declared';
+                    var provIcon = (window.DTV && DTV.Intelligence) ? DTV.Intelligence.getProvenanceIcon(prov) : 'ph-user';
+
                     return `
-                        <div style="background:var(--bg-card); border:1px solid var(--border-glow); padding:0.6rem 0.9rem; border-radius:10px; display:inline-flex; align-items:center; gap:0.5rem; font-size:0.85rem;">
+                        <div style="background:var(--bg-card); border:1px solid var(--border-glow); padding:0.6rem 0.9rem; border-radius:10px; display:inline-flex; align-items:center; gap:0.5rem; font-size:0.85rem; margin-right:0.5rem; margin-bottom:0.5rem;">
                             <span style="font-weight:700; color:#fff;">${escapeHtml(s.skill_name)}</span>
                             <span style="font-size:0.75rem; color:${lvlColor}; text-transform:capitalize;">• ${escapeHtml(s.proficiency_level)}</span>
-                            ${s.verified ? '<i class="ph-fill ph-check-circle" style="color:#34d399; font-size:0.85rem;" title="Verified Skill"></i>' : ''}
+                            <span class="dtv-prov-badge ${badgeClass}" style="font-size:0.68rem; padding:0.15rem 0.45rem;">
+                                <i class="ph ${provIcon}"></i> ${provLabel}
+                            </span>
                         </div>
                     `;
                 }).join('');

@@ -689,3 +689,312 @@
         bottom: 1rem;
     }
 }
+
+/* =========================================================================
+   7. P2 STUDENT INTELLIGENCE & ADAPTIVE GROWTH ENGINE COMPONENTS
+   ========================================================================= */
+
+/* 4-Tier Skill Provenance Badges */
+.dtv-prov-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.22rem 0.6rem;
+    border-radius: 6px;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.dtv-prov-self {
+    background: rgba(148, 163, 184, 0.12);
+    border: 1px solid rgba(148, 163, 184, 0.28);
+    color: #94a3b8;
+}
+
+.dtv-prov-activity {
+    background: rgba(59, 130, 246, 0.14);
+    border: 1px solid rgba(59, 130, 246, 0.35);
+    color: #60a5fa;
+}
+
+.dtv-prov-project {
+    background: rgba(16, 185, 129, 0.14);
+    border: 1px solid rgba(16, 185, 129, 0.35);
+    color: #34d399;
+}
+
+.dtv-prov-assessment {
+    background: rgba(139, 92, 246, 0.16);
+    border: 1px solid rgba(139, 92, 246, 0.4);
+    color: #c084fc;
+}
+
+/* Next Best Action 6-Part Card */
+.dtv-nba-container {
+    background: linear-gradient(135deg, rgba(232, 140, 42, 0.1) 0%, rgba(139, 92, 246, 0.08) 50%, rgba(18, 18, 26, 0.9) 100%);
+    border: 1px solid rgba(232, 140, 42, 0.3);
+    border-radius: 18px;
+    padding: 1.75rem;
+    margin-bottom: 2.25rem;
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.45);
+    position: relative;
+    overflow: hidden;
+}
+
+.dtv-nba-container::before {
+    content: '';
+    position: absolute;
+    top: -40px;
+    right: -40px;
+    width: 140px;
+    height: 140px;
+    background: radial-gradient(circle, rgba(232, 140, 42, 0.25) 0%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+}
+
+.dtv-nba-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.85rem;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.dtv-nba-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #fbbf24;
+    background: rgba(251, 191, 36, 0.12);
+    border: 1px solid rgba(251, 191, 36, 0.3);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+}
+
+.dtv-radar-dot {
+    width: 7px;
+    height: 7px;
+    background-color: #fbbf24;
+    border-radius: 50%;
+    box-shadow: 0 0 8px #fbbf24;
+    animation: dtvRadarPulse 1.8s infinite;
+}
+
+@keyframes dtvRadarPulse {
+    0% { transform: scale(0.95); opacity: 0.8; }
+    50% { transform: scale(1.3); opacity: 1; }
+    100% { transform: scale(0.95); opacity: 0.8; }
+}
+
+.dtv-nba-what {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #f8fafc;
+    margin-bottom: 0.45rem;
+    line-height: 1.3;
+}
+
+.dtv-nba-why {
+    font-size: 0.925rem;
+    color: #94a3b8;
+    line-height: 1.55;
+    margin-bottom: 1.35rem;
+}
+
+.dtv-nba-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.85rem;
+    margin-bottom: 1.35rem;
+}
+
+.dtv-nba-field {
+    background: rgba(255, 255, 255, 0.035);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 12px;
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+}
+
+.dtv-nba-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #64748b;
+    letter-spacing: 0.04em;
+}
+
+.dtv-nba-val {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #f1f5f9;
+}
+
+.dtv-nba-action-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding-top: 0.5rem;
+}
+
+/* Progressive Projects Grid */
+.dtv-project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+}
+
+.dtv-project-card {
+    background: rgba(18, 18, 26, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.35rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.dtv-project-card:hover {
+    transform: translateY(-3px);
+    border-color: rgba(232, 140, 42, 0.4);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.4);
+}
+
+.dtv-project-tier {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 0.2rem 0.55rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+.dtv-tier-beginner {
+    background: rgba(16, 185, 129, 0.12);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+}
+
+.dtv-tier-intermediate {
+    background: rgba(59, 130, 246, 0.12);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+    color: #60a5fa;
+}
+
+.dtv-tier-advanced {
+    background: rgba(139, 92, 246, 0.15);
+    border: 1px solid rgba(139, 92, 246, 0.35);
+    color: #c084fc;
+}
+
+.dtv-tech-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-size: 0.72rem;
+    padding: 0.2rem 0.5rem;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    color: #cbd5e1;
+}
+
+/* Growth Velocity & Momentum Widget */
+.dtv-growth-card {
+    background: rgba(18, 18, 26, 0.75);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 1.35rem;
+}
+
+.dtv-velocity-gauge-wrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 0;
+}
+
+.dtv-velocity-gauge {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: conic-gradient(#10b981 var(--velocity-deg, 0deg), rgba(255, 255, 255, 0.06) 0deg);
+    position: relative;
+}
+
+.dtv-velocity-inner {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: #12121a;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dtv-velocity-score {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: #f8fafc;
+    line-height: 1;
+}
+
+.dtv-velocity-unit {
+    font-size: 0.65rem;
+    font-weight: 700;
+    color: #94a3b8;
+    text-transform: uppercase;
+}
+
+/* Modal styling */
+.dtv-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    padding: 1rem;
+    animation: dtvFadeIn 0.2s ease-out;
+}
+
+.dtv-modal-content {
+    background: #161622;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 18px;
+    max-width: 520px;
+    width: 100%;
+    padding: 1.75rem;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    position: relative;
+}
+

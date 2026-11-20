@@ -760,6 +760,440 @@
         }
     };
 
+    // =========================================================================
+    // 6. STUDENT INTELLIGENCE & ADAPTIVE GROWTH ENGINE (P2)
+    // =========================================================================
+    const DTVIntelligence = {
+        PROVENANCE: {
+            SELF_DECLARED: 'SELF_DECLARED',
+            ACTIVITY_BASED: 'ACTIVITY_BASED',
+            PROJECT_VERIFIED: 'PROJECT_VERIFIED',
+            ASSESSMENT_VERIFIED: 'ASSESSMENT_VERIFIED'
+        },
+
+        getProvenanceBadgeClass: function (prov) {
+            switch (prov) {
+                case 'ASSESSMENT_VERIFIED': return 'dtv-prov-assessment';
+                case 'PROJECT_VERIFIED': return 'dtv-prov-project';
+                case 'ACTIVITY_BASED': return 'dtv-prov-activity';
+                default: return 'dtv-prov-self';
+            }
+        },
+
+        getProvenanceLabel: function (prov) {
+            switch (prov) {
+                case 'ASSESSMENT_VERIFIED': return 'Certified';
+                case 'PROJECT_VERIFIED': return 'Project Built';
+                case 'ACTIVITY_BASED': return 'Quest Completed';
+                default: return 'Self Declared';
+            }
+        },
+
+        getProvenanceIcon: function (prov) {
+            switch (prov) {
+                case 'ASSESSMENT_VERIFIED': return 'ph-seal-check';
+                case 'PROJECT_VERIFIED': return 'ph-check-circle';
+                case 'ACTIVITY_BASED': return 'ph-lightning';
+                default: return 'ph-user';
+            }
+        },
+
+        // API Client
+        getHolisticProfile: async function () {
+            const res = await fetch('/api/v1/student/intelligence/profile', {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        getSkillGaps: async function (params) {
+            const query = params ? '?' + new URLSearchParams(params).toString() : '';
+            const res = await fetch('/api/v1/student/intelligence/skill-gaps' + query, {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        adaptRoadmap: async function (data) {
+            const res = await fetch('/api/v1/student/intelligence/roadmap/adapt', {
+                method: 'POST',
+                headers: DTVAuth.getAuthHeaders(),
+                body: JSON.stringify(data || {})
+            });
+            return await res.json();
+        },
+
+        getNextBestAction: async function () {
+            const res = await fetch('/api/v1/student/intelligence/next-action', {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        getProjectRecommendations: async function () {
+            const res = await fetch('/api/v1/student/intelligence/project-recommendations', {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        getGrowthMetrics: async function () {
+            const res = await fetch('/api/v1/student/intelligence/growth-metrics', {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        getMatchedOpportunities: async function () {
+            const res = await fetch('/api/v1/student/intelligence/matched-opportunities', {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        // Renderers
+        renderNextBestAction: function (containerId, action) {
+            const el = document.getElementById(containerId);
+            if (!el || !action) return;
+
+            const icon = action.actionCta?.icon || 'ph-sparkle';
+            const effort = action.estimatedEffortMinutes ? `${action.estimatedEffortMinutes} mins` : 'Flexible';
+            const label = DTVUI.escapeHtml(action.actionCta?.label || 'Take Action');
+            const url = DTVUI.escapeHtml(action.actionCta?.url || '#');
+            const btnClass = action.actionCta?.buttonClass || 'dtv-btn dtv-btn-primary';
+
+            el.innerHTML = `
+                <div class="dtv-nba-container">
+                    <div class="dtv-nba-header">
+                        <span class="dtv-nba-tag">
+                            <span class="dtv-radar-dot"></span> Next Best Action
+                        </span>
+                        <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">
+                            <i class="ph ph-clock"></i> ~${effort} effort
+                        </span>
+                    </div>
+                    <h3 class="dtv-nba-what">${DTVUI.escapeHtml(action.what || 'Recommended Action')}</h3>
+                    <p class="dtv-nba-why">${DTVUI.escapeHtml(action.why || '')}</p>
+                    <div class="dtv-nba-grid">
+                        <div class="dtv-nba-field">
+                            <span class="dtv-nba-label">Competency Supported</span>
+                            <span class="dtv-nba-val">${DTVUI.escapeHtml(action.goalOrSkillSupported || 'Trajectory Growth')}</span>
+                        </div>
+                        <div class="dtv-nba-field">
+                            <span class="dtv-nba-label">Expected Outcome</span>
+                            <span class="dtv-nba-val">${DTVUI.escapeHtml(action.expectedOutcome || 'Advance developmental trajectory')}</span>
+                        </div>
+                    </div>
+                    <div class="dtv-nba-action-row">
+                        <div style="font-size:0.8rem; color:#64748b;">
+                            <i class="ph ph-shield-check" style="color:#10b981;"></i> Real-Time Developmental Alignment
+                        </div>
+                        <a href="${url}" class="${btnClass}">
+                            <i class="ph ${icon}"></i> ${label}
+                        </a>
+                    </div>
+                </div>
+            `;
+        },
+
+        renderSkillGaps: function (containerId, gapsData) {
+            const el = document.getElementById(containerId);
+            if (!el || !gapsData) return;
+
+            const skills = gapsData.demonstratedSkills || [];
+            const gaps = gapsData.skillGaps || [];
+            const summary = gapsData.summary || {};
+
+            let skillsHtml = '';
+            if (skills.length === 0) {
+                skillsHtml = '<p style="color:#64748b; font-size:0.85rem;">No skills logged yet. Complete quests or document projects.</p>';
+            } else {
+                skillsHtml = skills.map(s => {
+                    const prov = s.provenance_type || 'SELF_DECLARED';
+                    const badgeClass = DTVIntelligence.getProvenanceBadgeClass(prov);
+                    const label = DTVIntelligence.getProvenanceLabel(prov);
+                    const icon = DTVIntelligence.getProvenanceIcon(prov);
+                    return `
+                        <div style="display:flex; align-items:center; justify-content:space-between; padding:0.6rem 0.85rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; margin-bottom:0.5rem;">
+                            <div>
+                                <span style="font-weight:600; color:#f1f5f9; font-size:0.875rem;">${DTVUI.escapeHtml(s.skill_name)}</span>
+                                <span style="font-size:0.75rem; color:#94a3b8; margin-left:0.5rem; text-transform:capitalize;">(${DTVUI.escapeHtml(s.proficiency_level)})</span>
+                            </div>
+                            <span class="dtv-prov-badge ${badgeClass}">
+                                <i class="ph ${icon}"></i> ${label}
+                            </span>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            let gapsHtml = '';
+            if (gaps.length === 0) {
+                gapsHtml = '<p style="color:#10b981; font-size:0.85rem;"><i class="ph ph-check-circle"></i> All foundational skills currently cleared!</p>';
+            } else {
+                gapsHtml = gaps.map(g => {
+                    const isClosed = g.status === 'closed';
+                    const priorityColor = g.priority === 'critical' ? '#ef4444' : (g.priority === 'high' ? '#f59e0b' : '#3b82f6');
+                    return `
+                        <div style="padding:0.85rem; background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:12px; margin-bottom:0.65rem;">
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.35rem;">
+                                <span style="font-weight:700; color:#f8fafc; font-size:0.9rem;">${DTVUI.escapeHtml(g.skill_name)}</span>
+                                <span style="font-size:0.7rem; font-weight:700; text-transform:uppercase; color:${priorityColor};">
+                                    ${DTVUI.escapeHtml(g.status.replace('_', ' '))}
+                                </span>
+                            </div>
+                            <p style="font-size:0.8rem; color:#94a3b8; line-height:1.4; margin-bottom:0.5rem;">
+                                ${DTVUI.escapeHtml(g.identified_reason)}
+                            </p>
+                            ${!isClosed && g.recommendedActivity ? `
+                            <div style="display:flex; align-items:center; justify-content:space-between; padding-top:0.35rem; border-top:1px solid rgba(255,255,255,0.05);">
+                                <span style="font-size:0.75rem; color:#60a5fa; font-weight:600;">
+                                    <i class="ph ph-lightning"></i> ${DTVUI.escapeHtml(g.recommendedActivity.title)} (~${g.recommendedActivity.estimatedMinutes}m)
+                                </span>
+                                <a href="#quests" class="dtv-btn dtv-btn-outline dtv-btn-sm" style="font-size:0.72rem; padding:0.2rem 0.5rem;">Practice</a>
+                            </div>` : ''}
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            el.innerHTML = `
+                <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:1.25rem;">
+                    <div style="background:rgba(18,18,26,0.75); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:1.25rem;">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+                            <h4 style="font-size:1rem; font-weight:700; color:#f8fafc;">
+                                <i class="ph ph-seal-check" style="color:#10b981;"></i> Demonstrated Skills (${skills.length})
+                            </h4>
+                        </div>
+                        <div style="max-height:360px; overflow-y:auto; padding-right:0.25rem;">
+                            ${skillsHtml}
+                        </div>
+                    </div>
+                    <div style="background:rgba(18,18,26,0.75); border:1px solid rgba(255,255,255,0.08); border-radius:16px; padding:1.25rem;">
+                        <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+                            <h4 style="font-size:1rem; font-weight:700; color:#f8fafc;">
+                                <i class="ph ph-target" style="color:#e88c2a;"></i> Target Skill Gaps
+                            </h4>
+                            <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">
+                                ${summary.openGaps || 0} open / ${summary.totalTargetSkills || 0} total
+                            </span>
+                        </div>
+                        <div style="max-height:360px; overflow-y:auto; padding-right:0.25rem;">
+                            ${gapsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        },
+
+        renderProjectRecommendations: function (containerId, projects) {
+            const el = document.getElementById(containerId);
+            if (!el) return;
+
+            if (!projects || projects.length === 0) {
+                el.innerHTML = '<p style="color:#64748b; font-size:0.875rem;">All milestone projects are currently documented in your portfolio!</p>';
+                return;
+            }
+
+            const cardsHtml = projects.map(p => {
+                const tierClass = p.difficulty === 'beginner' 
+                    ? 'dtv-tier-beginner' 
+                    : (p.difficulty === 'advanced' ? 'dtv-tier-advanced' : 'dtv-tier-intermediate');
+                const techs = (p.technologies || []).map(t => `<span class="dtv-tech-chip">${DTVUI.escapeHtml(t)}</span>`).join(' ');
+                const skills = (p.skillsTargeted || []).join(' • ');
+
+                return `
+                    <div class="dtv-project-card">
+                        <div>
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:0.6rem;">
+                                <span class="dtv-project-tier ${tierClass}">${DTVUI.escapeHtml(p.difficulty)}</span>
+                                <span style="font-size:0.75rem; color:#94a3b8; font-weight:600;">
+                                    <i class="ph ph-timer"></i> ~${p.estimatedHours} hrs
+                                </span>
+                            </div>
+                            <h4 style="font-family:'Outfit', sans-serif; font-size:1.05rem; font-weight:700; color:#f8fafc; margin-bottom:0.3rem;">
+                                ${DTVUI.escapeHtml(p.title)}
+                            </h4>
+                            <p style="font-size:0.8rem; color:#e88c2a; font-weight:600; margin-bottom:0.6rem;">
+                                ${DTVUI.escapeHtml(p.tagline || '')}
+                            </p>
+                            <p style="font-size:0.825rem; color:#94a3b8; line-height:1.45; margin-bottom:0.85rem;">
+                                ${DTVUI.escapeHtml(p.description)}
+                            </p>
+                            <div style="margin-bottom:0.75rem;">
+                                ${techs}
+                            </div>
+                            <div style="font-size:0.75rem; color:#64748b; margin-bottom:0.85rem;">
+                                <strong style="color:#94a3b8;">Competencies:</strong> ${DTVUI.escapeHtml(skills)}
+                            </div>
+                        </div>
+                        <div style="display:flex; align-items:center; justify-content:space-between; padding-top:0.75rem; border-top:1px solid rgba(255,255,255,0.06);">
+                            <span style="font-size:0.72rem; color:#10b981; font-weight:600;">
+                                <i class="ph ph-shield-check"></i> Project-Verified Proof
+                            </span>
+                            <a href="/student-portfolio.html#add-project?title=${encodeURIComponent(p.title)}" class="dtv-btn dtv-btn-primary dtv-btn-sm">
+                                <i class="ph ph-hammer"></i> Start Project
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            el.innerHTML = `
+                <div class="dtv-project-grid">
+                    ${cardsHtml}
+                </div>
+            `;
+        },
+
+        renderGrowthVelocity: function (containerId, growthData) {
+            const el = document.getElementById(containerId);
+            if (!el || !growthData) return;
+
+            const velocity = Math.min(100, Math.max(0, growthData.developmentalVelocity || 0));
+            const metrics = growthData.metrics || {};
+            const timeline = growthData.growthTimeline || [];
+            const deg = Math.round(velocity * 3.6);
+
+            let timelineHtml = '';
+            if (timeline.length === 0) {
+                timelineHtml = '<p style="color:#64748b; font-size:0.8rem;">Complete learning quests or add portfolio projects to see your growth timeline.</p>';
+            } else {
+                timelineHtml = timeline.map(evt => {
+                    const icon = evt.event_type === 'project' ? 'ph-code' : (evt.event_type === 'achievement' ? 'ph-trophy' : 'ph-lightning');
+                    const color = evt.event_type === 'project' ? '#34d399' : (evt.event_type === 'achievement' ? '#fbbf24' : '#60a5fa');
+                    const timeStr = evt.timestamp ? new Date(evt.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+                    return `
+                        <div style="display:flex; align-items:flex-start; gap:0.65rem; padding:0.5rem 0; border-bottom:1px solid rgba(255,255,255,0.04);">
+                            <div style="width:24px; height:24px; border-radius:6px; background:rgba(255,255,255,0.05); display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                                <i class="ph ${icon}" style="color:${color}; font-size:0.85rem;"></i>
+                            </div>
+                            <div style="flex:1;">
+                                <div style="display:flex; align-items:center; justify-content:space-between;">
+                                    <span style="font-size:0.825rem; font-weight:600; color:#f1f5f9;">${DTVUI.escapeHtml(evt.title)}</span>
+                                    <span style="font-size:0.7rem; color:#64748b;">${timeStr}</span>
+                                </div>
+                                <span style="font-size:0.75rem; color:#94a3b8;">${DTVUI.escapeHtml(evt.description)}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            el.innerHTML = `
+                <div class="dtv-growth-card">
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+                        <div>
+                            <h4 style="font-size:1.05rem; font-weight:700; color:#f8fafc; font-family:'Outfit', sans-serif;">
+                                <i class="ph ph-chart-line-up" style="color:#10b981;"></i> Developmental Velocity & Momentum
+                            </h4>
+                            <p style="font-size:0.8rem; color:#94a3b8;">Empirically computed from learning, building, and verifying.</p>
+                        </div>
+                    </div>
+                    <div class="dtv-velocity-gauge-wrap">
+                        <div class="dtv-velocity-gauge" style="--velocity-deg: ${deg}deg;">
+                            <div class="dtv-velocity-inner">
+                                <span class="dtv-velocity-score">${velocity}</span>
+                                <span class="dtv-velocity-unit">Score</span>
+                            </div>
+                        </div>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.65rem; flex:1; margin-left:1.5rem;">
+                            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:0.65rem 0.85rem;">
+                                <span style="font-size:0.7rem; color:#64748b; font-weight:700; text-transform:uppercase;">Verified Skills</span>
+                                <div style="font-size:1.1rem; font-weight:700; color:#34d399;">${metrics.verifiedSkills || 0} / ${metrics.totalSkillsTracked || 0}</div>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:0.65rem 0.85rem;">
+                                <span style="font-size:0.7rem; color:#64748b; font-weight:700; text-transform:uppercase;">Projects Built</span>
+                                <div style="font-size:1.1rem; font-weight:700; color:#60a5fa;">${metrics.projectsPublished || 0}</div>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:0.65rem 0.85rem;">
+                                <span style="font-size:0.7rem; color:#64748b; font-weight:700; text-transform:uppercase;">Quests Completed</span>
+                                <div style="font-size:1.1rem; font-weight:700; color:#fbbf24;">${metrics.learningQuestsCompleted || 0}</div>
+                            </div>
+                            <div style="background:rgba(255,255,255,0.03); border:1px solid rgba(255,255,255,0.06); border-radius:10px; padding:0.65rem 0.85rem;">
+                                <span style="font-size:0.7rem; color:#64748b; font-weight:700; text-transform:uppercase;">Roadmap Pace</span>
+                                <div style="font-size:1.1rem; font-weight:700; color:#c084fc;">${metrics.roadmapProgress || 0}%</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top:1.25rem;">
+                        <h5 style="font-size:0.825rem; font-weight:700; color:#94a3b8; text-transform:uppercase; letter-spacing:0.04em; margin-bottom:0.5rem;">
+                            Recent Verified Milestones
+                        </h5>
+                        ${timelineHtml}
+                    </div>
+                </div>
+            `;
+        },
+
+        showAdaptRoadmapModal: function (currentRoadmap, onAdaptCallback) {
+            const modalId = 'dtv-adapt-roadmap-modal';
+            let existing = document.getElementById(modalId);
+            if (existing) existing.remove();
+
+            const modal = document.createElement('div');
+            modal.id = modalId;
+            modal.className = 'dtv-modal-overlay';
+            modal.innerHTML = `
+                <div class="dtv-modal-content">
+                    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+                        <h3 style="font-family:'Outfit', sans-serif; font-size:1.25rem; font-weight:700; color:#f8fafc;">
+                            <i class="ph ph-git-commit" style="color:#e88c2a;"></i> Adapt Learning Roadmap
+                        </h3>
+                        <button type="button" style="background:none; border:none; color:#94a3b8; cursor:pointer; font-size:1.2rem;" onclick="document.getElementById('${modalId}').remove()">
+                            <i class="ph ph-x"></i>
+                        </button>
+                    </div>
+                    <p style="font-size:0.875rem; color:#94a3b8; line-height:1.5; margin-bottom:1.25rem;">
+                        Explainable Roadmap Adaptation dynamically realigns milestone deadlines and challenge intensity based on your actual pace, without deleting your completed history.
+                    </p>
+                    <div style="margin-bottom:1.25rem;">
+                        <label style="font-size:0.75rem; font-weight:700; color:#cbd5e1; text-transform:uppercase; display:block; margin-bottom:0.4rem;">
+                            Adaptation Mode
+                        </label>
+                        <select id="dtv-adapt-type-select" style="width:100%; background:#1e1e2d; border:1px solid rgba(255,255,255,0.12); border-radius:8px; padding:0.6rem 0.85rem; color:#f8fafc; font-size:0.875rem;">
+                            <option value="velocity_realigned">Pace Realignment (Smooth schedule & reinforce prerequisites)</option>
+                            <option value="pace_accelerated">Accelerate Velocity (Elevate XP rewards & advance challenge tier)</option>
+                            <option value="skill_reinforced">Skill Reinforcement (Prioritize open foundational skill gaps)</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; align-items:center; justify-content:flex-end; gap:0.75rem;">
+                        <button type="button" class="dtv-btn dtv-btn-secondary" onclick="document.getElementById('${modalId}').remove()">
+                            Cancel
+                        </button>
+                        <button type="button" id="dtv-confirm-adapt-btn" class="dtv-btn dtv-btn-primary">
+                            <i class="ph ph-arrows-clockwise"></i> Apply Adaptation
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            document.getElementById('dtv-confirm-adapt-btn').onclick = async function () {
+                const type = document.getElementById('dtv-adapt-type-select').value;
+                this.disabled = true;
+                this.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Adapting...';
+                try {
+                    const result = await DTVIntelligence.adaptRoadmap({
+                        adaptationType: type,
+                        reason: 'User-initiated adaptive realignment via student dashboard'
+                    });
+                    if (result && result.success) {
+                        DTVUI.showToast('Roadmap adapted successfully. Revision logged.', 'success');
+                        modal.remove();
+                        if (typeof onAdaptCallback === 'function') onAdaptCallback(result);
+                    } else {
+                        DTVUI.showToast(result.message || 'Adaptation could not be completed', 'error');
+                        modal.remove();
+                    }
+                } catch (err) {
+                    DTVUI.showToast(err.message || 'Adaptation failed', 'error');
+                    modal.remove();
+                }
+            };
+        }
+    };
+
     // Exported unified module
     return {
         Auth: DTVAuth,
@@ -769,6 +1203,7 @@
             SEGMENT_META: SEGMENT_META,
             computeNextStep: computeNextStep
         },
+        Intelligence: DTVIntelligence,
         Nav: DTVNav,
         UI: DTVUI,
         Privacy: DTVMinorPrivacy

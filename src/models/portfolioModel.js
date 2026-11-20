@@ -491,6 +491,32 @@ async function createProject(studentId, {
     await db.query(`UPDATE student_portfolios SET featured_project_id = $1 WHERE user_id = $2`, [project.id, studentId]);
   }
 
+  // Promote project technologies to PROJECT_VERIFIED skills in student intelligence profile
+  try {
+    const profileRes = await db.query('SELECT id FROM student_intelligence_profiles WHERE user_id = $1', [studentId]);
+    if (profileRes.rows.length > 0) {
+      const profileId = profileRes.rows[0].id;
+      const techList = Array.isArray(technologies) ? technologies : [];
+      for (const tech of techList) {
+        const cleanTech = String(tech).trim();
+        if (!cleanTech) continue;
+        await db.query(
+          `INSERT INTO student_profile_skills (profile_id, skill_name, proficiency_level, category, verified, provenance_type, evidence_reference)
+           VALUES ($1, $2, 'intermediate', 'technical', true, 'PROJECT_VERIFIED', $3)
+           ON CONFLICT (profile_id, skill_name) 
+           DO UPDATE SET 
+             provenance_type = CASE WHEN student_profile_skills.provenance_type = 'ASSESSMENT_VERIFIED' THEN 'ASSESSMENT_VERIFIED' ELSE 'PROJECT_VERIFIED' END,
+             verified = true,
+             evidence_reference = $3,
+             updated_at = now()`,
+          [profileId, cleanTech, JSON.stringify({ project_id: project.id, title: project.title })]
+        );
+      }
+    }
+  } catch (err) {
+    // Non-blocking skill promotion
+  }
+
   // Trigger achievement evaluation
   await evaluateAndAwardAchievements(studentId);
 
@@ -639,7 +665,33 @@ async function verifyProjectByOrg(projectId, organizationId) {
   if (result.rows.length === 0) {
     throw new ApiError(404, 'Project not found.');
   }
-  return result.rows[0];
+  const project = result.rows[0];
+
+  // Promote verified project technologies to ASSESSMENT_VERIFIED
+  try {
+    const profileRes = await db.query('SELECT id FROM student_intelligence_profiles WHERE user_id = $1', [project.student_id]);
+    if (profileRes.rows.length > 0) {
+      const profileId = profileRes.rows[0].id;
+      const techList = Array.isArray(project.technologies) ? project.technologies : [];
+      for (const tech of techList) {
+        const cleanTech = String(tech).trim();
+        if (!cleanTech) continue;
+        await db.query(
+          `UPDATE student_profile_skills 
+           SET provenance_type = 'ASSESSMENT_VERIFIED',
+               verified = true,
+               evidence_reference = jsonb_set(COALESCE(evidence_reference, '{}'::jsonb), '{org_verified_by}', $1::jsonb),
+               updated_at = now()
+           WHERE profile_id = $2 AND LOWER(skill_name) = LOWER($3)`,
+          [JSON.stringify(organizationId), profileId, cleanTech]
+        );
+      }
+    }
+  } catch (e) {
+    // Non-blocking promotion notice
+  }
+
+  return project;
 }
 
 // 5. CERTIFICATIONS CRUD

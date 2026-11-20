@@ -1,6 +1,7 @@
 const asyncHandler = require('../utils/asyncHandler');
 const ApiError = require('../utils/apiError');
 const studentIntelligenceModel = require('../models/studentIntelligenceModel');
+const studentIntelligenceService = require('../services/studentIntelligenceService');
 
 /**
  * GET /api/v1/student/profile
@@ -177,6 +178,99 @@ const completeActivity = asyncHandler(async function(req, res) {
   });
 });
 
+/**
+ * P2: GET /api/v1/student/intelligence/profile
+ * Holistic student intelligence profile aggregating skills provenance, roadmap, and portfolio
+ */
+const getHolisticProfile = asyncHandler(async function(req, res) {
+  const userId = req.user.id;
+  const data = await studentIntelligenceService.getHolisticStudentProfile(userId);
+  res.json({
+    success: true,
+    data
+  });
+});
+
+/**
+ * P2: GET /api/v1/student/intelligence/skill-gaps
+ * Empirical skill gap analysis with 4-tier provenance tracking
+ */
+const getSkillGaps = asyncHandler(async function(req, res) {
+  const userId = req.user.id;
+  const data = await studentIntelligenceService.evaluateSkillGaps(userId, req.query);
+  res.json({
+    success: true,
+    data
+  });
+});
+
+/**
+ * P2: POST /api/v1/student/intelligence/roadmap/adapt
+ * Adapt student learning roadmap with explainable audit trail
+ */
+const adaptRoadmap = asyncHandler(async function(req, res) {
+  const userId = req.user.id;
+  const data = await studentIntelligenceService.adaptRoadmap(userId, req.body || {});
+  res.json({
+    success: true,
+    data
+  });
+});
+
+/**
+ * P2: GET /api/v1/student/intelligence/next-action
+ * Structured next best action with 6-part contract
+ */
+const getNextBestAction = asyncHandler(async function(req, res) {
+  const userId = req.user.id;
+  const action = await studentIntelligenceService.computeNextBestAction(userId);
+  res.json({
+    success: true,
+    action
+  });
+});
+
+/**
+ * P2: GET /api/v1/student/intelligence/project-recommendations
+ * Progressive project recommendations matching segment, skills, and goals
+ */
+const getProjectRecommendations = asyncHandler(async function(req, res) {
+  const userId = req.user.id;
+  const projects = await studentIntelligenceService.getProjectRecommendations(userId);
+  res.json({
+    success: true,
+    count: projects.length,
+    projects
+  });
+});
+
+/**
+ * P2: GET /api/v1/student/intelligence/growth-metrics
+ * Meaningful developmental momentum and verified growth timeline
+ */
+const getGrowthIntelligence = asyncHandler(async function(req, res) {
+  const userId = req.user.id;
+  const growth = await studentIntelligenceService.computeGrowthIntelligence(userId);
+  res.json({
+    success: true,
+    growth
+  });
+});
+
+/**
+ * P2: GET /api/v1/student/intelligence/matched-opportunities
+ * Capacity Connect opportunity matching with affinity scores & minor safety
+ */
+const getMatchedOpportunities = asyncHandler(async function(req, res) {
+  const userId = req.user.id;
+  const opportunities = await studentIntelligenceService.getMatchedOpportunities(userId);
+  res.json({
+    success: true,
+    count: opportunities.length,
+    opportunities
+  });
+});
+
 module.exports = {
   getProfile,
   saveOnboarding,
@@ -184,5 +278,13 @@ module.exports = {
   getDashboard,
   getRecommendations,
   getActivities,
-  completeActivity
+  completeActivity,
+  // P2 Endpoints
+  getHolisticProfile,
+  getSkillGaps,
+  adaptRoadmap,
+  getNextBestAction,
+  getProjectRecommendations,
+  getGrowthIntelligence,
+  getMatchedOpportunities
 };
