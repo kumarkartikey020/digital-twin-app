@@ -23,7 +23,7 @@ function hashFile(filePath) {
     return hash;
 }
 
-const assets = ['app.js', 'ux-engine.js', 'css/main.css', 'js/data/careers.js', 'js/analytics.js'];
+const assets = ['app.js', 'ux-engine.js', 'css/main.css', 'js/data/careers.js', 'js/analytics.js', 'js/dtv-student-core.js', 'css/dtv-student.css'];
 const manifest = {};
 
 assets.forEach(asset => {

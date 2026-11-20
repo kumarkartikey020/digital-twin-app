@@ -9,7 +9,9 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/premium-theme.css">
+    <link rel="stylesheet" href="/css/dtv-student.css">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
+    <script src="/js/dtv-student-core.js"></script>
     <style>
         :root {
             --bg-dark: #0a0a0f;
@@ -1278,31 +1280,8 @@
 <body>
 
     <div class="container">
-        <!-- Top Navigation -->
-        <header class="top-nav">
-            <a href="/" class="brand-logo">
-                <img src="/img/dtv-logo.jpg" alt="DTV Logo">
-                <div class="brand-title">Digital<span>Twin Verse</span></div>
-            </a>
-            <div class="nav-actions">
-                <div class="xp-chip">
-                    <i class="ph-fill ph-lightning"></i>
-                    <span id="nav-xp-points">0 XP</span>
-                </div>
-                <button type="button" class="btn btn-secondary" onclick="openOnboardingModal()">
-                    <i class="ph ph-gear"></i> Edit Focus
-                </button>
-                <a href="/student-portfolio" class="btn btn-secondary">
-                    <i class="ph ph-briefcase"></i> My Portfolio
-                </a>
-                <a href="/capacity-connect" class="btn btn-secondary">
-                    <i class="ph ph-buildings"></i> Capacity Connect
-                </a>
-                <a href="/" class="btn btn-secondary">
-                    <i class="ph ph-house"></i> Home
-                </a>
-            </div>
-        </header>
+        <!-- Universal Responsive Navigation Bar -->
+        <div id="dtv-nav-mount" class="dtv-nav-container"></div>
 
         <!-- 4-Segment Selection & Exploration Tabs -->
         <section class="segment-nav">
@@ -1402,8 +1381,11 @@
             </div>
         </section>
 
-        <!-- Spotlight Next Meaningful Quest -->
-        <section class="spotlight-card" id="spotlight-card">
+        <!-- Dynamic Spotlight: YOUR NEXT STEP (Personalized Holistic Guidance Engine) -->
+        <section id="dtv-next-step-mount"></section>
+
+        <!-- Spotlight Next Meaningful Quest (Preserved as fallback) -->
+        <section class="spotlight-card" id="spotlight-card" style="display: none;">
             <div class="spotlight-left">
                 <div class="spotlight-tag">
                     <i class="ph-fill ph-target"></i> Next Meaningful Action
@@ -1870,7 +1852,24 @@
         var activeRoadmapMonth = 1;
         var roadmapCatalog = null;
 
+        function escapeHtml(str) {
+            if (!str) return '';
+            if (window.DTV && DTV.UI && DTV.UI.escapeHtml) {
+                return DTV.UI.escapeHtml(str);
+            }
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+
         function getAuthToken() {
+            if (window.DTV && DTV.Auth) {
+                var tok = DTV.Auth.getToken();
+                if (tok) return tok;
+            }
             try {
                 // Check sessionStorage first (from app.js)
                 var raw = sessionStorage.getItem('dt_appdata_v3');
@@ -1893,6 +1892,14 @@
         }
 
         async function fetchDashboard() {
+            if (window.DTV && DTV.Nav) {
+                DTV.Nav.render('dtv-nav-mount', { activePage: 'dashboard', segment: currentSegment, xpPoints: 0 });
+            }
+            if (window.DTV && DTV.UI) {
+                DTV.UI.renderSkeletonGrid('activities-container', 3, 'task');
+                DTV.UI.renderSkeletonGrid('recommendations-container', 2, 'default');
+            }
+
             var token = getAuthToken();
             var headers = { 'Accept': 'application/json' };
             if (token) headers['Authorization'] = 'Bearer ' + token;
@@ -1918,9 +1925,109 @@
                 }
                 fetchRoadmap();
             } catch (err) {
-                console.error('Error fetching student dashboard:', err);
+                console.warn('Backend API unavailable, rendering interactive preview demo:', err.message);
                 renderFallbackDemo();
                 fetchRoadmap();
+            }
+        }
+
+        function renderNextStep(step) {
+            var mount = document.getElementById('dtv-next-step-mount');
+            if (!mount || !step) return;
+
+            var actionHtml = '';
+            if (step.actionType === 'modal') {
+                actionHtml = '<button type="button" class="btn btn-primary" onclick="' + (step.target === 'onboarding-modal' ? 'openOnboardingModal()' : 'openRoadmapGoalModal()') + '">' +
+                    '<i class="ph-bold ' + (step.icon || 'ph-arrow-right') + '"></i> ' + escapeHtml(step.actionLabel) +
+                '</button>';
+            } else if (step.actionType === 'quest') {
+                actionHtml = '<button type="button" class="btn btn-primary" onclick="completeQuest(\'' + step.target + '\')">' +
+                    '<i class="ph-bold ph-check-circle"></i> ' + escapeHtml(step.actionLabel) +
+                '</button>';
+            } else if (step.actionType === 'task') {
+                actionHtml = '<button type="button" class="btn btn-primary" onclick="completeRoadmapTask(\'' + step.target + '\')">' +
+                    '<i class="ph-bold ph-check-square"></i> ' + escapeHtml(step.actionLabel) +
+                '</button>';
+            } else {
+                actionHtml = '<a href="' + step.target + '" class="btn btn-primary">' +
+                    '<i class="ph-bold ' + (step.icon || 'ph-arrow-right') + '"></i> ' + escapeHtml(step.actionLabel) +
+                '</a>';
+            }
+
+            mount.innerHTML = `
+                <div class="dtv-next-step-card" style="--step-accent: ${step.color || '#e88c2a'};">
+                    <div class="dtv-next-step-header">
+                        <div class="dtv-next-step-badge">
+                            <span class="dtv-pulse-dot"></span>
+                            <span>${escapeHtml(step.badge || 'YOUR NEXT STEP')}</span>
+                        </div>
+                    </div>
+                    <div class="dtv-next-step-content">
+                        <div class="dtv-next-step-text">
+                            <h3 class="dtv-next-step-title">${escapeHtml(step.title)}</h3>
+                            <p class="dtv-next-step-desc">${escapeHtml(step.description)}</p>
+                            <div class="dtv-next-step-why">
+                                <i class="ph-bold ph-lightbulb"></i>
+                                <span>${escapeHtml(step.whyReason)}</span>
+                            </div>
+                        </div>
+                        <div class="dtv-next-step-actions">
+                            ${actionHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function applySegmentCustomization(seg) {
+            var meta = (window.DTV && DTV.Personalization && DTV.Personalization.SEGMENT_META[seg]) || {
+                displayName: 'DTV Student',
+                themeColor: '#e88c2a',
+                targetAudience: 'All Learners',
+                tagline: 'Personalized development ecosystem'
+            };
+
+            document.documentElement.style.setProperty('--accent-orange', meta.themeColor);
+            var avatarEl = document.getElementById('user-avatar-initials');
+            if (avatarEl) {
+                avatarEl.style.boxShadow = '0 4px 20px ' + (meta.themeColor || '#e88c2a') + '55';
+            }
+
+            var b2bSection = document.getElementById('capacity-connect-section');
+            if (b2bSection) {
+                if (seg === 'junior') {
+                    b2bSection.style.display = 'none';
+                } else if (seg === 'school') {
+                    b2bSection.style.display = 'block';
+                    var titleEl = b2bSection.querySelector('.section-title');
+                    if (titleEl) {
+                        titleEl.innerHTML = '<i class="ph-bold ph-trophy" style="color: #3b82f6;"></i> Youth Challenges &amp; STEM Workshops';
+                    }
+                    var subEl = b2bSection.querySelector('.section-head span');
+                    if (subEl) {
+                        subEl.textContent = 'Explore academic competitions, robotics clubs, and foundational STEM workshops';
+                    }
+                } else if (seg === 'career') {
+                    b2bSection.style.display = 'block';
+                    var titleEl = b2bSection.querySelector('.section-title');
+                    if (titleEl) {
+                        titleEl.innerHTML = '<i class="ph-bold ph-rocket" style="color: #8b5cf6;"></i> Pre-College Hackathons &amp; Academic Challenges';
+                    }
+                    var subEl = b2bSection.querySelector('.section-head span');
+                    if (subEl) {
+                        subEl.textContent = 'Stand out in college admissions with verified project sprints and academic challenges';
+                    }
+                } else {
+                    b2bSection.style.display = 'block';
+                    var titleEl = b2bSection.querySelector('.section-title');
+                    if (titleEl) {
+                        titleEl.innerHTML = '<i class="ph-bold ph-buildings" style="color: #f59e0b;"></i> Capacity Connect: Industry Challenges &amp; Internships';
+                    }
+                    var subEl = b2bSection.querySelector('.section-head span');
+                    if (subEl) {
+                        subEl.textContent = 'Real-world project challenges, corporate internships, and mentorship from verified industry partners';
+                    }
+                }
             }
         }
 
@@ -1929,8 +2036,16 @@
             var metrics = dash.metrics;
             currentSegment = prof.segment;
 
+            // Mount Universal Navigation
+            if (window.DTV && DTV.Nav) {
+                DTV.Nav.render('dtv-nav-mount', { activePage: 'dashboard', segment: currentSegment, xpPoints: metrics.totalXp });
+            }
+
             // Update Segment tabs
             updateSegmentTabs(currentSegment);
+
+            // Apply segment tailoring
+            applySegmentCustomization(currentSegment);
 
             // Hero
             document.getElementById('user-avatar-initials').textContent = (prof.name || 'S').charAt(0).toUpperCase();
@@ -1941,7 +2056,8 @@
             document.getElementById('pill-career-goal').textContent = 'Target: ' + prof.targetCareerPath;
 
             // KPIs
-            document.getElementById('nav-xp-points').textContent = metrics.totalXp + ' XP';
+            var navXp = document.getElementById('nav-xp-points');
+            if (navXp) navXp.textContent = metrics.totalXp + ' XP';
             document.getElementById('kpi-progress-val').textContent = metrics.progressPercentage + '%';
             document.getElementById('kpi-progress-fill').style.width = metrics.progressPercentage + '%';
             document.getElementById('kpi-progress-sub').textContent = metrics.completedCount + ' of ' + metrics.totalActivities + ' segment quests completed';
@@ -1949,15 +2065,10 @@
             document.getElementById('kpi-xp-val').textContent = metrics.totalXp + ' XP';
             document.getElementById('kpi-goal-val').textContent = Number(metrics.weeklyGoalHours).toFixed(1) + ' hrs';
 
-            // Next spotlight activity
-            if (dash.nextActivity) {
-                activeSpotlightActivity = dash.nextActivity;
-                document.getElementById('spotlight-card').style.display = 'flex';
-                document.getElementById('spotlight-title').textContent = dash.nextActivity.title;
-                document.getElementById('spotlight-desc').textContent = dash.nextActivity.description;
-                document.getElementById('spotlight-why-text').textContent = 'Why recommended: ' + dash.nextActivity.whyReason;
-            } else {
-                document.getElementById('spotlight-card').style.display = 'none';
+            // Dynamic Next Step
+            if (window.DTV && DTV.Personalization) {
+                var nextStep = DTV.Personalization.computeNextStep(dash, activeRoadmapData);
+                renderNextStep(nextStep);
             }
 
             // Quests
@@ -1978,6 +2089,13 @@
         function selectSegment(seg) {
             currentSegment = seg;
             updateSegmentTabs(seg);
+            applySegmentCustomization(seg);
+
+            if (window.DTV && DTV.Nav) {
+                var xp = activeDashboardData && activeDashboardData.metrics ? activeDashboardData.metrics.totalXp : 0;
+                DTV.Nav.render('dtv-nav-mount', { activePage: 'dashboard', segment: seg, xpPoints: xp });
+            }
+
             fetchSegmentActivities(seg);
             var token = getAuthToken();
             if (!token) {
@@ -2004,6 +2122,23 @@
         function renderActivities(activities) {
             var container = document.getElementById('activities-container');
             container.innerHTML = '';
+
+            if (!activities || activities.length === 0) {
+                if (window.DTV && DTV.UI) {
+                    DTV.UI.renderEmptyState('activities-container', {
+                        icon: 'ph-compass',
+                        title: 'All Quests Cleared for this Segment!',
+                        description: 'You have completed all active developmental quests for this stage. Customize your focus or explore roadmap milestones to unlock more.',
+                        actionLabel: 'Customize Focus',
+                        actionOnClick: 'openOnboardingModal()'
+                    });
+                } else {
+                    container.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:2rem;">No activities available yet.</p>';
+                }
+                document.getElementById('quests-count-label').textContent = '0 Activities Available';
+                return;
+            }
+
             document.getElementById('quests-count-label').textContent = activities.length + ' Activities Available';
 
             activities.forEach(function(act) {
@@ -2041,6 +2176,19 @@
         function renderRecommendations(recs) {
             var container = document.getElementById('recommendations-container');
             container.innerHTML = '';
+
+            if (!recs || recs.length === 0) {
+                if (window.DTV && DTV.UI) {
+                    DTV.UI.renderEmptyState('recommendations-container', {
+                        icon: 'ph-sparkle',
+                        title: 'Recommendations Loading',
+                        description: 'Your Digital Twin is processing your completed quests to generate personalized skill recommendations.'
+                    });
+                } else {
+                    container.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:2rem;">No recommendations generated yet.</p>';
+                }
+                return;
+            }
 
             recs.forEach(function(r) {
                 var card = document.createElement('div');
@@ -2194,13 +2342,34 @@
         }
 
         function renderFallbackDemo() {
-            // Default interactive preview state
-            updateSegmentTabs('school');
-            document.getElementById('user-display-name').textContent = 'Student Intelligence Preview';
-            document.getElementById('user-segment-tagline').textContent = 'Empirical guidance across Junior, School, Career, and Professional stages.';
-            document.getElementById('pill-academic-class').textContent = 'Class 10';
-            document.getElementById('pill-stream-focus').textContent = 'Focus: Stream Navigator';
-            document.getElementById('pill-career-goal').textContent = 'Target: Computer Science & AI';
+            var seg = currentSegment || 'school';
+            updateSegmentTabs(seg);
+            applySegmentCustomization(seg);
+
+            if (window.DTV && DTV.Nav) {
+                DTV.Nav.render('dtv-nav-mount', { activePage: 'dashboard', segment: seg, xpPoints: 120 });
+            }
+
+            var meta = (window.DTV && DTV.Personalization && DTV.Personalization.SEGMENT_META[seg]) || {};
+            document.getElementById('user-display-name').textContent = 'Student Intelligence Preview (' + (meta.displayName || 'DTV') + ')';
+            document.getElementById('user-segment-tagline').textContent = meta.tagline || 'Empirical guidance across Junior, School, Career, and Professional stages.';
+            document.getElementById('pill-academic-class').textContent = 'Level: ' + (meta.targetAudience || 'Active');
+            document.getElementById('pill-stream-focus').textContent = 'Focus: ' + (meta.focusPillars ? meta.focusPillars[0] : 'Exploratory');
+            document.getElementById('pill-career-goal').textContent = 'Target: Technology & Innovation';
+
+            // Next Step in demo mode
+            if (window.DTV && DTV.Personalization) {
+                var mockDash = {
+                    hasProfile: true,
+                    profile: { segment: seg, academicClass: meta.targetAudience, interests: ['Coding', 'Science'] },
+                    metrics: { totalXp: 120, progressPercentage: 25, completedCount: 1, totalActivities: 4, weeklyGoalHours: 5, skillsCount: 3 },
+                    activities: [
+                        { id: 'demo_1', title: meta.focusPillars ? meta.focusPillars[0] : 'Core Skill Sprint', description: 'Interactive learning milestone tailored to ' + (meta.displayName || 'your level') + '.', whyReason: 'Builds foundational empirical competence in your track.', is_completed: false }
+                    ]
+                };
+                var step = DTV.Personalization.computeNextStep(mockDash, null);
+                renderNextStep(step);
+            }
 
             renderActivities([
                 {
@@ -2694,7 +2863,15 @@
             if (!container) return;
 
             if (opps.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No active opportunities match your segment currently. Check back soon!</p>';
+                if (window.DTV && DTV.UI) {
+                    DTV.UI.renderEmptyState('student-opps-container', {
+                        icon: 'ph-buildings',
+                        title: 'No Matching Opportunities Found',
+                        description: 'Check back soon as partner institutions add verified projects and challenges for your track.'
+                    });
+                } else {
+                    container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No active opportunities match your segment currently. Check back soon!</p>';
+                }
                 return;
             }
 
