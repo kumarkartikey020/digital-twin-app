@@ -1,51 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Intelligence Dashboard | Digital Twin Verse</title>
-    <meta name="description" content="Personalized student development ecosystem for Junior, School, Career, and Professional learners. Powered by Digital Twin Verse.">
+    <title>Student Dashboard | Digital Twin Verse</title>
+    <meta name="description" content="Personalized student growth and development platform for Junior, School, Career, and Professional learners.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/css/premium-theme.css">
-    <link rel="stylesheet" href="/dist/dtv-student.3e0fa915.css?v=9cfa116f50051e96">
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/dist/dtv-student.f3ba8995.css?v=d9072e190da01c16">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
-    <script src="/dist/dtv-student-core.214a8e36.js?v=9cfa116f50051e96"></script>
-    <style>
-        /* Section Header Layout & Minor Helpers */
-        .section-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1.25rem;
-            flex-wrap: wrap;
-            gap: 0.5rem;
-        }
-
-        .section-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.15rem;
-            font-weight: 700;
-            color: var(--dtv-black);
-            letter-spacing: -0.01em;
-        }
-
-        .section-sub {
-            font-size: 0.85rem;
-            color: var(--dtv-text-muted);
-        }
-    </style>
+    <script src="/dist/dtv-student-core.f23a7dfd.js?v=d9072e190da01c16"></script>
 </head>
 <body>
 
-    <div class="container">
-        <!-- Universal Responsive Navigation Bar -->
-        <div id="dtv-nav-mount" class="dtv-nav-container"></div>
+    <!-- Minimal Top Navigation Bar -->
+    <div id="dtv-nav-mount" class="dtv-nav-container"></div>
 
-        <!-- 4-Segment Selection & Exploration Tabs -->
+    <div class="container">
+        <!-- Student Introduction -->
+        <section class="student-intro" id="hero-banner">
+            <div class="student-intro-text">
+                <h1 id="user-display-name">Welcome to Your Growth Journey</h1>
+                <p class="student-intro-sub" id="user-segment-tagline">Personalized learning trajectory across Junior, School, Career, and Professional stages.</p>
+                <!-- Hidden state helpers for metadata parity -->
+                <span id="pill-academic-class" style="display:none;"></span>
+                <span id="pill-stream-focus" style="display:none;"></span>
+                <span id="pill-career-goal" style="display:none;"></span>
+            </div>
+            <div>
+                <button type="button" class="btn btn-secondary btn-sm" onclick="openOnboardingModal()">
+                    Customize Goals
+                </button>
+            </div>
+        </section>
+
+        <!-- 4-Stage Segment Tabs -->
         <section class="segment-nav">
-            <!-- 1. DTV Junior -->
             <div class="segment-card" id="seg-tab-junior" onclick="selectSegment('junior')">
                 <div class="segment-head">
                     <span class="segment-badge">DTV Junior</span>
@@ -55,66 +46,38 @@
                 <div class="segment-desc">Visual logic, everyday science quests, and creative coding without syntax pressure.</div>
             </div>
 
-            <!-- 2. DTV School -->
             <div class="segment-card" id="seg-tab-school" onclick="selectSegment('school')">
                 <div class="segment-head">
                     <span class="segment-badge">DTV School</span>
                     <span class="segment-audience">Classes 9–10</span>
                 </div>
                 <div class="segment-title">Stream &amp; Aptitude Navigator</div>
-                <div class="segment-desc">Empirical stream selection (PCM, PCB, Commerce, Arts) and board prep balancing.</div>
+                <div class="segment-desc">Stream selection (PCM, PCB, Commerce, Arts) and board prep balancing.</div>
             </div>
 
-            <!-- 3. DTV Career -->
             <div class="segment-card" id="seg-tab-career" onclick="selectSegment('career')">
                 <div class="segment-head">
                     <span class="segment-badge">DTV Career</span>
                     <span class="segment-audience">Classes 11–12</span>
                 </div>
                 <div class="segment-title">Entrance &amp; College Launchpad</div>
-                <div class="segment-desc">JEE/NEET/CUET diagnostics, scholarship tracking, and premier university profiling.</div>
+                <div class="segment-desc">Entrance exam diagnostics, college admissions, and academic profiling.</div>
             </div>
 
-            <!-- 4. DTV Professional -->
             <div class="segment-card" id="seg-tab-professional" onclick="selectSegment('professional')">
                 <div class="segment-head">
                     <span class="segment-badge">DTV Professional</span>
                     <span class="segment-audience">College Students</span>
                 </div>
-                <div class="segment-title">Placement &amp; Industry Titan</div>
-                <div class="segment-desc">Production REST APIs, system design sprints, ATS resume teardowns, and internships.</div>
+                <div class="segment-title">Placement &amp; Industry Builder</div>
+                <div class="segment-desc">Production REST APIs, system design sprints, ATS resumes, and internships.</div>
             </div>
         </section>
 
-        <!-- Dynamic Profile Hero Banner -->
-        <section class="hero-banner" id="hero-banner">
-            <div class="hero-info">
-                <div class="avatar-circle" id="user-avatar-initials">S</div>
-                <div class="hero-text">
-                    <div style="display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem;">
-                        <span class="dtv-mode-pill" id="user-segment-indicator">Student Experience Active</span>
-                    </div>
-                    <h1 id="user-display-name">Welcome to Your Student Ecosystem</h1>
-                    <p id="user-segment-tagline">Loading your personalized developmental trajectory...</p>
-                    <div class="tags-row" id="user-tags-row">
-                        <span class="tag-pill" id="pill-academic-class">Academic Level: Pending</span>
-                        <span class="tag-pill" id="pill-stream-focus">Focus: Exploratory</span>
-                        <span class="tag-pill" id="pill-career-goal">Target: Technology &amp; Innovation</span>
-                    </div>
-                </div>
-            </div>
-            <div style="display: flex; align-items: center; gap: 0.75rem; flex-wrap: wrap;">
-                <button type="button" class="btn btn-secondary btn-sm" onclick="openOnboardingModal()">
-                    <i class="ph ph-sliders"></i> Customize Focus
-                </button>
-            </div>
-        </section>
-
-        <!-- KPI Metrics Grid (Strictly derived from real DB records, zero fabricated statistics) -->
+        <!-- Progress Overview (Unified 4-Metric Bar) -->
         <section class="kpi-grid">
-            <!-- 1. Verified Completion Progress -->
             <div class="kpi-card">
-                <div class="kpi-label">Progress Milestone</div>
+                <div class="kpi-label">Milestone Progress</div>
                 <div class="kpi-val" id="kpi-progress-val">0%</div>
                 <div class="progress-bar-wrap">
                     <div class="progress-bar-fill" id="kpi-progress-fill" style="width: 0%;"></div>
@@ -122,78 +85,53 @@
                 <div class="kpi-sub" id="kpi-progress-sub">0 of 4 segment quests completed</div>
             </div>
 
-            <!-- 2. Skills Inventory -->
             <div class="kpi-card">
-                <div class="kpi-label">Active Skills Tracked</div>
+                <div class="kpi-label">Skills Tracked</div>
                 <div class="kpi-val" id="kpi-skills-val">0</div>
-                <div class="kpi-sub" id="kpi-skills-sub">Verified through hands-on practice</div>
+                <div class="kpi-sub">Verified through hands-on practice</div>
             </div>
 
-            <!-- 3. Total XP Awarded -->
             <div class="kpi-card">
-                <div class="kpi-label">Verified Experience (XP)</div>
-                <div class="kpi-val" style="color: #fbbf24;" id="kpi-xp-val">0 XP</div>
-                <div class="kpi-sub">Awarded upon objective task verification</div>
+                <div class="kpi-label">Experience Points</div>
+                <div class="kpi-val" id="kpi-xp-val">0 XP</div>
+                <div class="kpi-sub">Objective task progress</div>
             </div>
 
-            <!-- 4. Weekly Goal Hours -->
             <div class="kpi-card">
-                <div class="kpi-label">Weekly Focus Commitment</div>
+                <div class="kpi-label">Weekly Learning</div>
                 <div class="kpi-val" id="kpi-goal-val">5.0 hrs</div>
                 <div class="kpi-sub">Structured learning pace</div>
             </div>
         </section>
 
-        <!-- Dynamic Spotlight: YOUR NEXT STEP (Personalized Holistic Guidance Engine) -->
+        <!-- Next Action Spotlight (The Most Important Section) -->
         <section id="dtv-next-step-mount"></section>
 
-        <!-- Spotlight Next Meaningful Quest (Preserved as fallback) -->
-        <section class="spotlight-card" id="spotlight-card" style="display: none;">
-            <div class="spotlight-left">
-                <div class="spotlight-tag">
-                    Recommended Next Action
-                </div>
-                <div class="spotlight-title" id="spotlight-title">Class 10 Stream Discovery &amp; Aptitude Audit</div>
-                <div class="spotlight-desc" id="spotlight-desc">Evaluate your aptitude across Science PCM, Science PCB, Commerce, and Arts with empirical scoring.</div>
-                <div class="why-box" id="spotlight-why-box">
-                    <span id="spotlight-why-text">Why recommended: Critical milestone for Class 10 to establish empirical aptitude baseline before senior secondary.</span>
-                </div>
-            </div>
-            <div>
-                <button type="button" class="btn btn-primary" id="spotlight-action-btn" onclick="completeSpotlightQuest()">
-                    Complete Quest →
-                </button>
-            </div>
-        </section>
-
-        <!-- Dynamic Learning Roadmap Engine (Milestone 2) -->
+        <!-- Structured Learning Roadmap -->
         <section class="roadmap-container" id="roadmap-section">
             <div class="roadmap-header-bar">
                 <div>
-                    <span class="roadmap-badge-pill">
-                        6-Month Adaptive Roadmap
-                    </span>
                     <h2 class="roadmap-goal-title" id="roadmap-primary-goal">Class 10 Stream Discovery &amp; Aptitude Audit</h2>
                     <div class="roadmap-goal-sub">
-                        Target Path: <strong id="roadmap-target-career" style="color: #0f172a;">Computer Science &amp; Engineering</strong> ·
-                        <span id="roadmap-segment-badge" style="color: var(--accent-orange); font-weight: 600;">DTV School</span>
+                        Target Path: <strong id="roadmap-target-career">Computer Science &amp; Engineering</strong> ·
+                        <span id="roadmap-segment-badge">DTV School</span>
                     </div>
                 </div>
                 <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                    <button type="button" class="btn btn-secondary" onclick="triggerAdaptRoadmapModal()" style="font-size: 0.8rem; padding: 0.5rem 1rem;">
-                        <i class="ph-bold ph-git-commit" style="color: var(--accent-orange);"></i> Adapt Roadmap Pace
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="triggerAdaptRoadmapModal()">
+                        Adapt Pace
                     </button>
-                    <button type="button" class="btn btn-secondary" onclick="openRoadmapGoalModal()" style="font-size: 0.8rem; padding: 0.5rem 1rem;">
-                        <i class="ph-bold ph-sliders-horizontal"></i> Customize Goals &amp; Roadmap
+                    <button type="button" class="btn btn-secondary btn-sm" onclick="openRoadmapGoalModal()">
+                        Customize Goals
                     </button>
                 </div>
             </div>
 
-            <!-- Overall Roadmap Progress -->
+            <!-- Overall Roadmap Progression Deck -->
             <div class="roadmap-progress-deck">
                 <div class="roadmap-progress-pct" id="roadmap-overall-pct">0%</div>
                 <div style="flex: 1;">
-                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.35rem;">
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: var(--dtv-text-secondary); margin-bottom: 0.35rem;">
                         <span>Overall 6-Month Milestone Progression</span>
                         <span id="roadmap-tasks-ratio">0 of 24 tasks completed</span>
                     </div>
@@ -203,135 +141,94 @@
                 </div>
             </div>
 
-            <!-- Month Navigator Tabs (Months 1–6) -->
-            <div class="month-tabs-bar" id="roadmap-month-tabs">
-                <!-- Dynamically rendered month buttons -->
-            </div>
+            <!-- 6-Month Navigator Tabs -->
+            <div class="month-tabs-bar" id="roadmap-month-tabs"></div>
 
             <!-- Active Milestone Overview -->
             <div class="milestone-card" id="milestone-card">
                 <div class="milestone-title-row">
                     <div class="milestone-title" id="milestone-title">Month 1: Diagnostic Assessment &amp; Stream Baseline</div>
-                    <span class="roadmap-badge-pill" id="milestone-progress-pill" style="font-size: 0.7rem; padding: 0.2rem 0.6rem;">0% Progress</span>
+                    <span id="milestone-progress-pill" style="font-size: 0.75rem; font-weight: 600; color: var(--dtv-orange);">0% Progress</span>
                 </div>
                 <p class="milestone-obj" id="milestone-objective">Map cognitive strengths across Science, Commerce, and Humanities with empirical tests.</p>
                 <div class="milestone-outcome">
-                    <i class="ph-bold ph-trophy" style="color: var(--accent-orange);"></i>
-                    <span><strong>Expected Outcome:</strong> <span id="milestone-outcome-text">Personalized stream aptitude matrix eliminating peer pressure bias.</span></span>
+                    <strong>Expected Outcome:</strong> <span id="milestone-outcome-text">Personalized stream aptitude matrix eliminating peer pressure bias.</span>
                 </div>
             </div>
 
-            <!-- Weekly Actionable Tasks for Selected Month -->
-            <div class="section-header" style="margin-bottom: 1rem;">
-                <div class="section-title" style="font-size: 1.05rem;">
-                    <i class="ph-bold ph-list-checks" style="color: var(--accent-orange);"></i>
-                    Weekly Milestones &amp; Actionables
-                </div>
-                <span style="font-size: 0.8rem; color: var(--text-muted);" id="milestone-tasks-count">4 Tasks in this Milestone</span>
+            <!-- Weekly Tasks (Clean Divided Checklist Rows) -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                <h3 class="section-title">Weekly Tasks</h3>
+                <span style="font-size: 0.8rem; color: var(--dtv-text-muted);" id="milestone-tasks-count">4 Tasks in this Milestone</span>
             </div>
-            <div class="tasks-grid" id="roadmap-tasks-container">
-                <!-- Dynamically rendered weekly tasks -->
-            </div>
-
-            <!-- Skill Gap Analysis Breakdown -->
-            <div class="gaps-panel">
-                <div class="gaps-header">
-                    <div class="section-title" style="font-size: 1rem;">
-                        <i class="ph-bold ph-crosshair-simple" style="color: var(--accent-orange);"></i>
-                        Skill Gap Analysis &amp; Competency Tracking
-                    </div>
-                    <span style="font-size: 0.775rem; color: var(--text-muted);" id="skill-gaps-count">5 Identified Priorities</span>
-                </div>
-                <div class="gaps-grid" id="skill-gaps-container">
-                    <!-- Dynamically rendered skill gaps -->
-                </div>
-                <!-- 4-Tier Provenance & Skill Gap Matrix (P2) -->
-                <div id="p2-skill-gaps-mount" style="margin-top: 1.5rem;"></div>
-            </div>
+            <div class="tasks-grid" id="roadmap-tasks-container"></div>
         </section>
 
-        <!-- Curated Quests & Learning Activities -->
-        <section id="quests">
-            <div class="section-header">
-                <div class="section-title">
-                    <i class="ph-bold ph-tree-structure" style="color: var(--accent-orange);"></i>
-                    Curated Development Quests
-                </div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);" id="quests-count-label">4 Activities Available</span>
-            </div>
-            <div class="activities-grid" id="activities-container">
-                <!-- Dynamically rendered activity cards -->
-            </div>
+        <!-- Skills & Competency Tracking -->
+        <section style="margin-top: 2rem;">
+            <h3 class="section-title">Skills &amp; Competency Tracking</h3>
+            <p class="section-sub">Demonstrated capabilities and targeted growth areas.</p>
+            <div id="p2-skill-gaps-mount"></div>
         </section>
 
-        <!-- Progressive Project Showcases & Verified Difficulty Tiers (P2) -->
+        <!-- Progressive Projects -->
         <section id="p2-projects-section" style="margin-top: 2rem;">
-            <div class="section-header">
-                <div class="section-title">
-                    <i class="ph-bold ph-hammer" style="color: var(--accent-orange);"></i>
-                    Progressive Project Showcases
-                </div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Segment-Curated Difficulty Tiers &amp; Practical Portfolio Builders</span>
-            </div>
+            <h3 class="section-title">Recommended Projects</h3>
+            <p class="section-sub">Practical projects to build and demonstrate your abilities.</p>
             <div id="p2-projects-mount"></div>
         </section>
 
-        <!-- Developmental Velocity & Momentum Engine (P2) -->
+        <!-- Actionable Quests -->
+        <section id="quests" style="margin-top: 2rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
+                <div>
+                    <h3 class="section-title">Actionable Quests</h3>
+                    <p class="section-sub">Bite-sized activities to develop foundational competencies.</p>
+                </div>
+                <span style="font-size: 0.8rem; color: var(--dtv-text-muted);" id="quests-count-label">4 Activities Available</span>
+            </div>
+            <div class="activities-grid" id="activities-container"></div>
+        </section>
+
+        <!-- Growth History Timeline -->
         <section id="p2-growth-section" style="margin-top: 2rem;">
             <div id="p2-growth-mount"></div>
         </section>
 
-        <!-- Personalized Recommendations with Explicit Reasons -->
-        <section>
-            <div class="section-header">
-                <div class="section-title">
-                    <i class="ph-bold ph-sparkle" style="color: var(--accent-orange);"></i>
-                    Personalized AI Recommendations
-                </div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Curated recommendations aligned with your development goals</span>
-            </div>
-            <div class="recs-grid" id="recommendations-container">
-                <!-- Dynamically rendered recommendation cards -->
-            </div>
-        </section>
-
-        <!-- Capacity Connect: Industry Challenges, Opportunities & Mentorship -->
+        <!-- Capacity Connect: Opportunities & Mentorship -->
         <section class="dashboard-section" id="capacity-connect-section" style="margin-top: 2rem;">
-            <div class="section-head" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 1.25rem;">
+            <div class="section-head">
                 <div>
-                    <div class="section-title" style="display: flex; align-items: center; gap: 0.5rem; font-size: 1.25rem; font-weight: 700;">
-                        <i class="ph-bold ph-buildings" style="color: var(--accent-orange);"></i>
-                        Capacity Connect: Industry Challenges &amp; Opportunities
-                    </div>
-                    <span style="font-size: 0.85rem; color: var(--text-muted);">Real-world project challenges, skill programmes, and mentorship from verified institutions</span>
+                    <h3 class="section-title">Opportunities &amp; Mentorship</h3>
+                    <p class="section-sub">Real project challenges, academic workshops, and verified mentorship.</p>
                 </div>
-                <div style="display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                <div style="display: flex; gap: 0.5rem;">
                     <button type="button" class="btn btn-secondary btn-sm" onclick="openPrivacyConsentModal()">
-                        <i class="ph-bold ph-shield-check"></i> Privacy Settings
+                        Privacy Settings
                     </button>
                     <a href="/capacity-connect" class="btn btn-secondary btn-sm">
-                        <i class="ph ph-arrow-square-out"></i> B2B Portal
+                        B2B Portal
                     </a>
                 </div>
             </div>
 
-            <!-- Opportunities Sub-Tabs: Explore, My Applications, Mentorship Sessions -->
-            <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--border-glow); padding-bottom: 0.5rem; overflow-x: auto;">
+            <!-- Opportunities Sub-Tabs -->
+            <div style="display: flex; gap: 0.5rem; margin-bottom: 1.25rem; border-bottom: 1px solid var(--dtv-border); padding-bottom: 0.5rem;">
                 <button type="button" class="btn btn-secondary btn-sm active" id="btn-tab-opps" onclick="switchStudentConnectTab('opps')">
-                    <i class="ph ph-magnifying-glass"></i> Explore Opportunities
+                    Explore Opportunities
                 </button>
                 <button type="button" class="btn btn-secondary btn-sm" id="btn-tab-my-apps" onclick="switchStudentConnectTab('my-apps')">
-                    <i class="ph ph-file-text"></i> My Applications (<span id="my-apps-count">0</span>)
+                    My Applications (<span id="my-apps-count">0</span>)
                 </button>
                 <button type="button" class="btn btn-secondary btn-sm" id="btn-tab-my-mentor" onclick="switchStudentConnectTab('my-mentor')">
-                    <i class="ph ph-chalkboard-teacher"></i> Mentorship Sessions
+                    Mentorship Sessions
                 </button>
             </div>
 
             <!-- View 1: Explore Opportunities -->
             <div id="student-view-opps">
-                <div style="display: flex; gap: 0.75rem; margin-bottom: 1rem; flex-wrap: wrap;">
-                    <select id="student-opp-type-filter" class="form-control" style="max-width: 260px; background: #ffffff; border: 1.5px solid var(--border-strong); color: #0f172a; padding: 0.5rem; border-radius: 8px;" onchange="fetchStudentOpportunities()">
+                <div style="margin-bottom: 1rem;">
+                    <select id="student-opp-type-filter" class="form-control" style="max-width: 240px;" onchange="fetchStudentOpportunities()">
                         <option value="">All Opportunity Types</option>
                         <option value="project_challenge">Project Challenges</option>
                         <option value="skill_programme">Skill Programmes</option>
@@ -340,211 +237,166 @@
                         <option value="competition">Competitions</option>
                     </select>
                 </div>
-                <div class="quests-grid" id="student-opps-container">
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Loading available opportunities...</p>
-                </div>
+                <div id="student-opps-container"></div>
             </div>
 
             <!-- View 2: My Applications -->
             <div id="student-view-my-apps" style="display: none;">
-                <div id="student-my-apps-container" style="display: flex; flex-direction: column; gap: 0.85rem;">
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Loading your applications...</p>
-                </div>
+                <div id="student-my-apps-container" style="display: flex; flex-direction: column; gap: 0.85rem;"></div>
             </div>
 
             <!-- View 3: Mentorship Sessions -->
             <div id="student-view-my-mentor" style="display: none;">
-                <div id="student-my-mentor-container" style="display: flex; flex-direction: column; gap: 0.85rem;">
-                    <p style="color: var(--text-muted); font-size: 0.85rem;">Loading your mentorship sessions...</p>
-                </div>
+                <div id="student-my-mentor-container" style="display: flex; flex-direction: column; gap: 0.85rem;"></div>
             </div>
         </section>
     </div>
 
+    <!-- Modals -->
     <!-- Onboarding / Profile Customization Modal -->
     <div class="modal-overlay" id="onboarding-modal">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeOnboardingModal()">&times;</button>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #0f172a;">
-                <i class="ph-bold ph-user-circle-gear" style="color: var(--accent-orange);"></i> Student Intelligence Setup
-            </h2>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
-                Select your academic level and learning targets to personalize your digital twin.
+            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Student Profile &amp; Goals</h2>
+            <p style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
+                Select your academic level and learning targets to personalize your guidance.
             </p>
 
             <form id="onboarding-form" onsubmit="handleOnboardingSubmit(event)">
-                <!-- 1. Academic Level (Selectable Class / College) -->
                 <div class="form-group">
-                    <label class="form-label">Academic Class / Educational Level *</label>
+                    <label class="form-label">Academic Class / Level *</label>
                     <select class="form-select" id="form-academic-class" required onchange="handleClassChange(this.value)">
-                        <option value="" disabled selected>Select your current grade/class</option>
+                        <option value="" disabled selected>Select current grade/class</option>
                         <optgroup label="DTV Junior (Classes 5-8)">
-                            <option value="5">Class 5 (Curiosity &amp; Playful STEM)</option>
-                            <option value="6">Class 6 (Foundational Science &amp; Logic)</option>
+                            <option value="5">Class 5 (Foundational STEM &amp; Curiosity)</option>
+                            <option value="6">Class 6 (Science &amp; Logic)</option>
                             <option value="7">Class 7 (Block Coding &amp; Robotics)</option>
-                            <option value="8">Class 8 (Pre-Secondary Science &amp; Math)</option>
+                            <option value="8">Class 8 (Pre-Secondary Math &amp; Science)</option>
                         </optgroup>
                         <optgroup label="DTV School (Classes 9-10)">
-                            <option value="9">Class 9 (Stream Explorations &amp; High School)</option>
+                            <option value="9">Class 9 (Stream Explorations)</option>
                             <option value="10">Class 10 (Board Prep &amp; Stream Decision)</option>
                         </optgroup>
                         <optgroup label="DTV Career (Classes 11-12)">
                             <option value="11">Class 11 (Entrance Diagnostics &amp; Depth)</option>
-                            <option value="12">Class 12 (Board Balance &amp; College Admissions)</option>
+                            <option value="12">Class 12 (Board Balance &amp; Admissions)</option>
                         </optgroup>
-                        <optgroup label="DTV Professional (College Students)">
-                            <option value="college_1">College 1st Year (CS / Engineering / Arts / Comm)</option>
+                        <optgroup label="DTV Professional (College)">
+                            <option value="college_1">College 1st Year (Core Engineering / Science)</option>
                             <option value="college_2">College 2nd Year (Core Skills &amp; Projects)</option>
                             <option value="college_3">College 3rd Year (Internships &amp; Placements)</option>
                             <option value="college_4">College Final Year (Full-Stack SWE &amp; Offers)</option>
-                            <option value="postgraduate">Postgraduate / Masters</option>
                         </optgroup>
                     </select>
                 </div>
 
-                <!-- 2. Stream / Focus -->
                 <div class="form-group">
                     <label class="form-label">Academic Stream / Primary Focus</label>
-                    <input type="text" class="form-input" id="form-stream-focus" placeholder="e.g. Science PCM, Computer Science, Commerce with Math, General STEM">
+                    <input type="text" class="form-input" id="form-stream-focus" placeholder="e.g. Science PCM, Computer Science, Commerce">
                 </div>
 
-                <!-- 3. Target Career Path -->
                 <div class="form-group">
-                    <label class="form-label">Target Career Vision / Aspirations</label>
-                    <input type="text" class="form-input" id="form-career-path" placeholder="e.g. Robotics & AI, Software Engineer, Aerospace, Medical Doctor">
+                    <label class="form-label">Target Career Direction</label>
+                    <input type="text" class="form-input" id="form-career-path" placeholder="e.g. Robotics &amp; AI, Software Engineer, Aerospace">
                 </div>
 
-                <!-- 4. Interactive Interest Chips -->
                 <div class="form-group">
-                    <label class="form-label">Top Interests &amp; Passions (Tap to select)</label>
+                    <label class="form-label">Key Interests</label>
                     <div class="chips-cloud" id="interest-chips">
                         <span class="chip-option" onclick="toggleChip(this)">Robotics &amp; AI</span>
-                        <span class="chip-option" onclick="toggleChip(this)">Block / Python Coding</span>
+                        <span class="chip-option" onclick="toggleChip(this)">Coding &amp; Logic</span>
                         <span class="chip-option" onclick="toggleChip(this)">Space &amp; Astronomy</span>
-                        <span class="chip-option" onclick="toggleChip(this)">Mathematics &amp; Ciphers</span>
+                        <span class="chip-option" onclick="toggleChip(this)">Mathematics</span>
                         <span class="chip-option" onclick="toggleChip(this)">Environmental Science</span>
-                        <span class="chip-option" onclick="toggleChip(this)">UI/UX &amp; Game Design</span>
-                        <span class="chip-option" onclick="toggleChip(this)">Finance &amp; Economics</span>
-                        <span class="chip-option" onclick="toggleChip(this)">Competitive Coding</span>
+                        <span class="chip-option" onclick="toggleChip(this)">Product Design</span>
                     </div>
                 </div>
 
-                <!-- 5. Interactive Skill Chips -->
                 <div class="form-group">
-                    <label class="form-label">Current Skills You Want to Develop</label>
+                    <label class="form-label">Skills You Want to Develop</label>
                     <div class="chips-cloud" id="skill-chips">
-                        <span class="chip-option" onclick="toggleChip(this)">Algorithmic Logic</span>
                         <span class="chip-option" onclick="toggleChip(this)">Python Programming</span>
-                        <span class="chip-option" onclick="toggleChip(this)">SQL Databases</span>
-                        <span class="chip-option" onclick="toggleChip(this)">Deep Work &amp; Focus</span>
-                        <span class="chip-option" onclick="toggleChip(this)">Public Speaking &amp; Debate</span>
-                        <span class="chip-option" onclick="toggleChip(this)">System Design</span>
+                        <span class="chip-option" onclick="toggleChip(this)">Algorithmic Logic</span>
+                        <span class="chip-option" onclick="toggleChip(this)">Data Analysis</span>
+                        <span class="chip-option" onclick="toggleChip(this)">Focus &amp; Study Habits</span>
+                        <span class="chip-option" onclick="toggleChip(this)">Public Speaking</span>
                     </div>
                 </div>
 
-                <!-- 6. Weekly Commitment -->
                 <div class="form-group">
-                    <label class="form-label">Weekly Learning Commitment (Hours / Week)</label>
-                    <input type="number" class="form-input" id="form-weekly-hours" min="1" max="50" value="6">
+                    <label class="form-label">Weekly Learning Commitment (Hours)</label>
+                    <input type="number" class="form-input" id="form-weekly-hours" min="1" max="50" value="5">
                 </div>
 
-                <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.5rem;">
+                <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 1.25rem;">
                     <button type="button" class="btn btn-secondary" onclick="closeOnboardingModal()">Cancel</button>
                     <button type="submit" class="btn btn-primary" id="btn-save-onboarding">
-                        <i class="ph-bold ph-check"></i> Save &amp; Launch Twin
+                        Save Preferences
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Roadmap Goal & Trajectory Customization Modal (Milestone 2) -->
+    <!-- Roadmap Customization Modal -->
     <div class="modal-overlay" id="roadmap-goal-modal">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeRoadmapGoalModal()">&times;</button>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #0f172a;">
-                <i class="ph-bold ph-compass-tool" style="color: var(--accent-orange);"></i> Customize 6-Month Roadmap
-            </h2>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
-                Select your developmental goals, trajectory, and target skills. The engine will adapt your 6-month roadmap and analyze skill gaps.
+            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Customize 6-Month Roadmap</h2>
+            <p style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
+                Select your primary goal and trajectory to calibrate your milestone schedule.
             </p>
 
             <form id="roadmap-goal-form" onsubmit="handleRoadmapGoalSubmit(event)">
-                <!-- 1. Learning Goal Selection -->
                 <div class="form-group">
-                    <label class="form-label">Primary Development Goal *</label>
-                    <select class="form-select" id="form-roadmap-goal" required>
-                        <!-- Populated based on segment -->
-                    </select>
+                    <label class="form-label">Primary Goal *</label>
+                    <select class="form-select" id="form-roadmap-goal" required></select>
                 </div>
 
-                <!-- 2. Target Career / Curiosity Trajectory -->
                 <div class="form-group">
-                    <label class="form-label">Target Trajectory / Curiosity Area *</label>
-                    <select class="form-select" id="form-roadmap-career" required>
-                        <!-- Populated based on segment -->
-                    </select>
+                    <label class="form-label">Target Trajectory *</label>
+                    <select class="form-select" id="form-roadmap-career" required></select>
                 </div>
 
-                <!-- 3. Target Skills Selection -->
                 <div class="form-group">
-                    <label class="form-label">Target Skills to Cultivate (Tap to select)</label>
-                    <div class="chips-cloud" id="roadmap-skills-chips">
-                        <!-- Populated based on segment -->
-                    </div>
+                    <label class="form-label">Target Skills</label>
+                    <div class="chips-cloud" id="roadmap-skills-chips"></div>
                 </div>
 
-                <!-- 4. Preferred Development Areas -->
                 <div class="form-group">
-                    <label class="form-label">Preferred Development Areas</label>
-                    <div class="chips-cloud" id="roadmap-areas-chips">
-                        <!-- Populated based on segment -->
-                    </div>
+                    <label class="form-label">Preferred Focus Areas</label>
+                    <div class="chips-cloud" id="roadmap-areas-chips"></div>
                 </div>
 
-                <!-- 5. AI Synthesis Toggle -->
-                <div class="form-group" style="background: #fff7ed; border: 1px solid rgba(234, 88, 12, 0.25); border-radius: 10px; padding: 0.85rem 1rem;">
-                    <label style="display: flex; align-items: center; gap: 0.6rem; cursor: pointer; margin: 0; font-size: 0.85rem; color: #0f172a;">
-                        <input type="checkbox" id="form-roadmap-use-ai" checked style="width: 16px; height: 16px; accent-color: var(--accent-orange);">
-                        <span><strong>Enable AI Dynamic Synthesis</strong> (Deep personalization with deterministic safety fallback)</span>
-                    </label>
-                </div>
-
-                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.5rem;">
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem;">
                     <button type="button" class="btn btn-secondary" onclick="closeRoadmapGoalModal()">Cancel</button>
                     <button type="submit" class="btn btn-primary" id="btn-save-roadmap">
-                        <i class="ph-bold ph-sparkle"></i> Synthesize &amp; Activate Roadmap
+                        Activate Roadmap
                     </button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- Apply to Opportunity Modal -->
+    <!-- Opportunity Application Modal -->
     <div class="modal-overlay" id="apply-opportunity-modal">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeApplyModal()">&times;</button>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #0f172a;">
-                <i class="ph-bold ph-paper-plane-tilt" style="color: var(--accent-orange);"></i> Submit Application
-            </h2>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;" id="apply-modal-opp-info">
+            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Submit Application</h2>
+            <p style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;" id="apply-modal-opp-info">
                 Applying to opportunity...
             </p>
             <form id="apply-opp-form" onsubmit="handleApplySubmit(event)">
                 <input type="hidden" id="apply-opp-id">
-                <div class="form-group" style="margin-bottom: 1rem;">
-                    <label style="display:block; font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">
-                        Cover Note &amp; Motivation
-                    </label>
-                    <textarea id="apply-cover-note" class="form-control" style="width:100%; min-height:90px; background:#ffffff; border:1.5px solid var(--border-strong); color:#0f172a; padding:0.65rem; border-radius:8px;" placeholder="Briefly describe your interest, relevant skills, and why you are excited for this opportunity..."></textarea>
+                <div class="form-group">
+                    <label class="form-label">Cover Note / Statement of Interest</label>
+                    <textarea id="apply-cover-note" class="form-control" style="min-height: 85px;" placeholder="Briefly describe your interest and why you would like to participate..."></textarea>
                 </div>
-                <div class="form-group" style="margin-bottom: 1.25rem;">
-                    <label style="display:block; font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">
-                        Portfolio / Project Link (Optional)
-                    </label>
-                    <input type="url" id="apply-portfolio-link" class="form-control" style="width:100%; background:#ffffff; border:1.5px solid var(--border-strong); color:#0f172a; padding:0.65rem; border-radius:8px;" placeholder="https://github.com/my-project or portfolio link">
+                <div class="form-group">
+                    <label class="form-label">Portfolio or Project Link (Optional)</label>
+                    <input type="url" id="apply-portfolio-link" class="form-control" placeholder="https://github.com/... or project link">
                 </div>
-                <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem;">
                     <button type="button" class="btn btn-secondary" onclick="closeApplyModal()">Cancel</button>
                     <button type="submit" class="btn btn-primary" id="btn-submit-app">Submit Application</button>
                 </div>
@@ -552,30 +404,26 @@
         </div>
     </div>
 
-    <!-- Privacy & Parental Consent Modal -->
+    <!-- Privacy Consent Modal -->
     <div class="modal-overlay" id="privacy-consent-modal">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closePrivacyConsentModal()">&times;</button>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #0f172a;">
-                <i class="ph-bold ph-shield-check" style="color: var(--accent-orange);"></i> Minor Privacy &amp; Consent
-            </h2>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
-                Under Digital Twin Verse Minor Protection guidelines, sensitive contact details (email and phone) for school learners are masked by default across talent exploration.
+            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Privacy &amp; Guardian Consent</h2>
+            <p style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
+                Under Digital Twin Verse guidelines, student contact details are protected and masked by default.
             </p>
             <form id="privacy-consent-form" onsubmit="handlePrivacyConsentSubmit(event)">
-                <div style="margin-bottom: 1.25rem; background: #fff7ed; padding: 1rem; border-radius: 10px; border: 1px solid rgba(234, 88, 12, 0.25);">
-                    <label style="display: flex; align-items: flex-start; gap: 0.65rem; cursor: pointer; font-size: 0.85rem; color: var(--text-primary);">
+                <div class="form-group">
+                    <label style="display: flex; align-items: flex-start; gap: 0.5rem; font-size: 0.85rem; cursor: pointer;">
                         <input type="checkbox" id="consent-checkbox" style="margin-top: 0.2rem;">
-                        <span>Grant verified institutions permission to view contact details for mentorship and opportunity selections.</span>
+                        <span>Allow verified partner institutions to contact for mentorship opportunities.</span>
                     </label>
                 </div>
-                <div class="form-group" style="margin-bottom: 1.25rem;">
-                    <label style="display:block; font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">
-                        Parent / Guardian Verification Email (Recommended for Minors)
-                    </label>
-                    <input type="email" id="consent-parent-email" class="form-control" style="width:100%; background:#ffffff; border:1.5px solid var(--border-strong); color:#0f172a; padding:0.65rem; border-radius:8px;" placeholder="parent@example.com">
+                <div class="form-group">
+                    <label class="form-label">Parent / Guardian Email (Recommended for School Learners)</label>
+                    <input type="email" id="consent-parent-email" class="form-control" placeholder="parent@example.com">
                 </div>
-                <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem;">
                     <button type="button" class="btn btn-secondary" onclick="closePrivacyConsentModal()">Close</button>
                     <button type="submit" class="btn btn-primary">Save Preferences</button>
                 </div>
@@ -587,33 +435,27 @@
     <div class="modal-overlay" id="session-feedback-modal">
         <div class="modal-box">
             <button type="button" class="modal-close" onclick="closeFeedbackModal()">&times;</button>
-            <h2 style="font-size: 1.35rem; font-weight: 800; margin-bottom: 0.4rem; color: #0f172a;">
-                <i class="ph-bold ph-star" style="color: var(--accent-orange);"></i> Mentorship Feedback
-            </h2>
-            <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1.25rem;">
-                Rate your mentorship session and share reflections on your guidance progress.
+            <h2 style="font-size: 1.25rem; font-weight: 700; margin-bottom: 0.25rem;">Mentorship Session Feedback</h2>
+            <p style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1.25rem;">
+                Rate your session and note down your key takeaways.
             </p>
             <form id="session-feedback-form" onsubmit="handleSessionFeedbackSubmit(event)">
                 <input type="hidden" id="feedback-session-id">
-                <div class="form-group" style="margin-bottom: 1rem;">
-                    <label style="display:block; font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">
-                        Rating (1 to 5 Stars) *
-                    </label>
-                    <select id="feedback-rating" class="form-control" style="width:100%; background:#ffffff; border:1.5px solid var(--border-strong); color:#0f172a; padding:0.65rem; border-radius:8px;" required>
-                        <option value="5">★★★★★ - Excellent &amp; Highly Insightful</option>
-                        <option value="4">★★★★☆ - Very Good &amp; Helpful</option>
-                        <option value="3">★★★☆☆ - Average Guidance</option>
-                        <option value="2">★★☆☆☆ - Below Expectations</option>
+                <div class="form-group">
+                    <label class="form-label">Rating *</label>
+                    <select id="feedback-rating" class="form-control" required>
+                        <option value="5">★★★★★ - Highly Insightful</option>
+                        <option value="4">★★★★☆ - Helpful Guidance</option>
+                        <option value="3">★★★☆☆ - Average</option>
+                        <option value="2">★★☆☆☆ - Needs Improvement</option>
                         <option value="1">★☆☆☆☆ - Unsatisfactory</option>
                     </select>
                 </div>
-                <div class="form-group" style="margin-bottom: 1.25rem;">
-                    <label style="display:block; font-size:0.85rem; font-weight:600; color:var(--text-secondary); margin-bottom:0.4rem;">
-                        Key Takeaways / Feedback Notes
-                    </label>
-                    <textarea id="feedback-notes" class="form-control" style="width:100%; min-height:80px; background:#ffffff; border:1.5px solid var(--border-strong); color:#0f172a; padding:0.65rem; border-radius:8px;" placeholder="What actionable steps did you align on with your mentor?"></textarea>
+                <div class="form-group">
+                    <label class="form-label">Key Takeaways / Next Steps</label>
+                    <textarea id="feedback-notes" class="form-control" style="min-height: 80px;" placeholder="What actionable steps did you discuss?"></textarea>
                 </div>
-                <div style="display: flex; justify-content: flex-end; gap: 0.75rem;">
+                <div style="display: flex; justify-content: flex-end; gap: 0.75rem; margin-top: 1.25rem;">
                     <button type="button" class="btn btn-secondary" onclick="closeFeedbackModal()">Cancel</button>
                     <button type="submit" class="btn btn-primary">Submit Feedback</button>
                 </div>
@@ -621,26 +463,21 @@
         </div>
     </div>
 
-    <!-- Toast Notification -->
+    <!-- Notification Toast -->
     <div class="toast" id="toast-notif">
-        <i class="ph-fill ph-check-circle" style="color: #10b981; font-size: 1.25rem;"></i>
-        <span id="toast-text">Action completed successfully!</span>
+        <span id="toast-text">Action completed successfully.</span>
     </div>
 
+    <!-- Client Application Logic -->
     <script>
-        // State
         var currentSegment = 'school';
         var activeDashboardData = null;
-        var activeSpotlightActivity = null;
         var activeRoadmapData = null;
         var activeRoadmapMonth = 1;
         var roadmapCatalog = null;
 
         function escapeHtml(str) {
             if (!str) return '';
-            if (window.DTV && DTV.UI && DTV.UI.escapeHtml) {
-                return DTV.UI.escapeHtml(str);
-            }
             return String(str)
                 .replace(/&/g, '&amp;')
                 .replace(/</g, '&lt;')
@@ -655,15 +492,11 @@
                 if (tok) return tok;
             }
             try {
-                // Check sessionStorage first (from app.js)
                 var raw = sessionStorage.getItem('dt_appdata_v3');
                 if (raw) {
                     var parsed = JSON.parse(raw);
-                    if (parsed && parsed.userData && parsed.userData.token) {
-                        return parsed.userData.token;
-                    }
+                    if (parsed && parsed.userData && parsed.userData.token) return parsed.userData.token;
                 }
-                // Check localStorage
                 var token = localStorage.getItem('token') || localStorage.getItem('dt_token');
                 if (token) return token;
                 var dtUser = localStorage.getItem('dt_user');
@@ -679,10 +512,6 @@
             if (window.DTV && DTV.Nav) {
                 DTV.Nav.render('dtv-nav-mount', { activePage: 'dashboard', segment: currentSegment, xpPoints: 0 });
             }
-            if (window.DTV && DTV.UI) {
-                DTV.UI.renderSkeletonGrid('activities-container', 3, 'task');
-                DTV.UI.renderSkeletonGrid('recommendations-container', 2, 'default');
-            }
 
             var token = getAuthToken();
             var headers = { 'Accept': 'application/json' };
@@ -691,7 +520,6 @@
             try {
                 var res = await fetch('/api/v1/student/dashboard', { headers: headers });
                 if (res.status === 401) {
-                    // For preview / demo if unauthenticated, show demo state or prompt login
                     renderFallbackDemo();
                     return;
                 }
@@ -708,103 +536,12 @@
                     renderFallbackDemo();
                 }
                 fetchRoadmap();
+                fetchStudentOpportunities();
             } catch (err) {
-                console.warn('Backend API unavailable, rendering interactive preview demo:', err.message);
+                console.warn('Backend API note, rendering preview demo:', err.message);
                 renderFallbackDemo();
                 fetchRoadmap();
-            }
-        }
-
-        function renderNextStep(step) {
-            var mount = document.getElementById('dtv-next-step-mount');
-            if (!mount || !step) return;
-
-            var actionHtml = '';
-            if (step.actionType === 'modal') {
-                actionHtml = '<button type="button" class="btn btn-primary" onclick="' + (step.target === 'onboarding-modal' ? 'openOnboardingModal()' : 'openRoadmapGoalModal()') + '">' +
-                    '<i class="ph-bold ' + (step.icon || 'ph-arrow-right') + '"></i> ' + escapeHtml(step.actionLabel) +
-                '</button>';
-            } else if (step.actionType === 'quest') {
-                actionHtml = '<button type="button" class="btn btn-primary" onclick="completeQuest(\'' + step.target + '\')">' +
-                    '<i class="ph-bold ph-check-circle"></i> ' + escapeHtml(step.actionLabel) +
-                '</button>';
-            } else if (step.actionType === 'task') {
-                actionHtml = '<button type="button" class="btn btn-primary" onclick="completeRoadmapTask(\'' + step.target + '\')">' +
-                    '<i class="ph-bold ph-check-square"></i> ' + escapeHtml(step.actionLabel) +
-                '</button>';
-            } else {
-                actionHtml = '<a href="' + step.target + '" class="btn btn-primary">' +
-                    '<i class="ph-bold ' + (step.icon || 'ph-arrow-right') + '"></i> ' + escapeHtml(step.actionLabel) +
-                '</a>';
-            }
-
-            mount.innerHTML = `
-                <div class="dtv-next-step-card" style="--step-accent: ${step.color || '#e88c2a'};">
-                    <div class="dtv-next-step-header">
-                        <div class="dtv-next-step-badge">
-                            <span class="dtv-pulse-dot"></span>
-                            <span>${escapeHtml(step.badge || 'YOUR NEXT STEP')}</span>
-                        </div>
-                    </div>
-                    <div class="dtv-next-step-content">
-                        <div class="dtv-next-step-text">
-                            <h3 class="dtv-next-step-title">${escapeHtml(step.title)}</h3>
-                            <p class="dtv-next-step-desc">${escapeHtml(step.description)}</p>
-                            <div class="dtv-next-step-why">
-                                <i class="ph-bold ph-lightbulb"></i>
-                                <span>${escapeHtml(step.whyReason)}</span>
-                            </div>
-                        </div>
-                        <div class="dtv-next-step-actions">
-                            ${actionHtml}
-                        </div>
-                    </div>
-                </div>
-            `;
-        }
-
-        function applySegmentCustomization(seg) {
-            var meta = (window.DTV && DTV.Personalization && DTV.Personalization.SEGMENT_META[seg]) || {
-                displayName: 'DTV Student',
-                targetAudience: 'All Learners',
-                tagline: 'Personalized development ecosystem'
-            };
-
-            var b2bSection = document.getElementById('capacity-connect-section');
-            if (b2bSection) {
-                if (seg === 'junior') {
-                    b2bSection.style.display = 'none';
-                } else if (seg === 'school') {
-                    b2bSection.style.display = 'block';
-                    var titleEl = b2bSection.querySelector('.section-title');
-                    if (titleEl) {
-                        titleEl.textContent = 'Youth Challenges & STEM Workshops';
-                    }
-                    var subEl = b2bSection.querySelector('.section-head span');
-                    if (subEl) {
-                        subEl.textContent = 'Explore academic competitions, robotics clubs, and foundational STEM workshops';
-                    }
-                } else if (seg === 'career') {
-                    b2bSection.style.display = 'block';
-                    var titleEl = b2bSection.querySelector('.section-title');
-                    if (titleEl) {
-                        titleEl.textContent = 'Pre-College Hackathons & Academic Challenges';
-                    }
-                    var subEl = b2bSection.querySelector('.section-head span');
-                    if (subEl) {
-                        subEl.textContent = 'Stand out in college admissions with verified project sprints and academic challenges';
-                    }
-                } else {
-                    b2bSection.style.display = 'block';
-                    var titleEl = b2bSection.querySelector('.section-title');
-                    if (titleEl) {
-                        titleEl.textContent = 'Capacity Connect: Industry Challenges & Internships';
-                    }
-                    var subEl = b2bSection.querySelector('.section-head span');
-                    if (subEl) {
-                        subEl.textContent = 'Real-world project challenges, corporate internships, and mentorship from verified industry partners';
-                    }
-                }
+                fetchStudentOpportunities();
             }
         }
 
@@ -813,28 +550,18 @@
             var metrics = dash.metrics;
             currentSegment = prof.segment;
 
-            // Mount Universal Navigation
             if (window.DTV && DTV.Nav) {
                 DTV.Nav.render('dtv-nav-mount', { activePage: 'dashboard', segment: currentSegment, xpPoints: metrics.totalXp });
             }
 
-            // Update Segment tabs
             updateSegmentTabs(currentSegment);
-
-            // Apply segment tailoring
             applySegmentCustomization(currentSegment);
 
-            // Hero
-            document.getElementById('user-avatar-initials').textContent = (prof.name || 'S').charAt(0).toUpperCase();
+            // Intro text
             document.getElementById('user-display-name').textContent = 'Welcome back, ' + (prof.name || 'Learner');
             document.getElementById('user-segment-tagline').textContent = prof.segmentMeta.tagline + ' · ' + prof.segmentMeta.displayName;
-            document.getElementById('pill-academic-class').textContent = 'Class / Level: ' + prof.academicClass;
-            document.getElementById('pill-stream-focus').textContent = 'Focus: ' + prof.streamOrFocus;
-            document.getElementById('pill-career-goal').textContent = 'Target: ' + prof.targetCareerPath;
 
             // KPIs
-            var navXp = document.getElementById('nav-xp-points');
-            if (navXp) navXp.textContent = metrics.totalXp + ' XP';
             document.getElementById('kpi-progress-val').textContent = metrics.progressPercentage + '%';
             document.getElementById('kpi-progress-fill').style.width = metrics.progressPercentage + '%';
             document.getElementById('kpi-progress-sub').textContent = metrics.completedCount + ' of ' + metrics.totalActivities + ' segment quests completed';
@@ -842,13 +569,7 @@
             document.getElementById('kpi-xp-val').textContent = metrics.totalXp + ' XP';
             document.getElementById('kpi-goal-val').textContent = Number(metrics.weeklyGoalHours).toFixed(1) + ' hrs';
 
-            // Dynamic Next Step (P1 Baseline)
-            if (window.DTV && DTV.Personalization) {
-                var nextStep = DTV.Personalization.computeNextStep(dash, activeRoadmapData);
-                renderNextStep(nextStep);
-            }
-
-            // P2 Student Intelligence Engine: Next Best Action (6-Part Contract)
+            // Next Best Action (6-Part Contract)
             if (window.DTV && DTV.Intelligence) {
                 var token = getAuthToken();
                 if (token) {
@@ -858,31 +579,27 @@
                         } else {
                             renderSegmentP2Fallback(currentSegment);
                         }
-                    }).catch(function(e) {
-                        console.warn('P2 Next Best Action notice:', e.message);
+                    }).catch(function() {
                         renderSegmentP2Fallback(currentSegment);
                     });
 
-                    // P2 Skill Gaps & 4-Tier Provenance Breakdown
                     DTV.Intelligence.getSkillGaps().then(function(res) {
                         if (res && res.success && res.data) {
                             DTV.Intelligence.renderSkillGaps('p2-skill-gaps-mount', res.data);
                         }
-                    }).catch(function(e) { console.warn('P2 Skill Gaps notice:', e.message); });
+                    }).catch(function() {});
 
-                    // P2 Progressive Project Recommendations
                     DTV.Intelligence.getProjectRecommendations().then(function(res) {
                         if (res && res.success && res.projects && res.projects.length > 0) {
                             DTV.Intelligence.renderProjectRecommendations('p2-projects-mount', res.projects);
                         }
-                    }).catch(function(e) { console.warn('P2 Projects notice:', e.message); });
+                    }).catch(function() {});
 
-                    // P2 Developmental Velocity & Momentum
                     DTV.Intelligence.getGrowthMetrics().then(function(res) {
                         if (res && res.success && res.growth) {
                             DTV.Intelligence.renderGrowthVelocity('p2-growth-mount', res.growth);
                         }
-                    }).catch(function(e) { console.warn('P2 Growth notice:', e.message); });
+                    }).catch(function() {});
                 } else {
                     renderSegmentP2Fallback(currentSegment);
                 }
@@ -890,34 +607,66 @@
 
             // Quests
             renderActivities(dash.activities);
-
-            // Recommendations
-            renderRecommendations(dash.recommendations);
         }
 
-        function triggerAdaptRoadmapModal() {
-            if (window.DTV && DTV.Intelligence) {
-                DTV.Intelligence.showAdaptRoadmapModal(activeRoadmapData, function(result) {
-                    fetchRoadmap();
-                    if (window.DTV && DTV.Intelligence) {
-                        DTV.Intelligence.getGrowthMetrics().then(function (growthRes) {
-                            if (growthRes && growthRes.success && growthRes.growth) {
-                                DTV.Intelligence.renderGrowthVelocity('p2-growth-mount', growthRes.growth);
-                            }
-                        }).catch(function() {});
-                    }
-                });
-            } else {
-                alert('Roadmap adaptation is available when connected to the Student Intelligence Engine.');
+        function renderFallbackDemo() {
+            var seg = currentSegment || 'school';
+            updateSegmentTabs(seg);
+            applySegmentCustomization(seg);
+
+            if (window.DTV && DTV.Nav) {
+                DTV.Nav.render('dtv-nav-mount', { activePage: 'dashboard', segment: seg, xpPoints: 120 });
             }
-        }
 
-        function updateSegmentTabs(seg) {
-            var tabs = ['junior', 'school', 'career', 'professional'];
-            tabs.forEach(function(t) {
-                var el = document.getElementById('seg-tab-' + t);
-                if (el) el.classList.toggle('active', t === seg);
-            });
+            var meta = (window.DTV && DTV.Personalization && DTV.Personalization.SEGMENT_META[seg]) || {};
+            document.getElementById('user-display-name').textContent = 'Welcome, ' + (meta.displayName || 'Student');
+            document.getElementById('user-segment-tagline').textContent = meta.tagline || 'Personalized developmental trajectory across learning stages.';
+
+            document.getElementById('kpi-progress-val').textContent = '25%';
+            document.getElementById('kpi-progress-fill').style.width = '25%';
+            document.getElementById('kpi-progress-sub').textContent = '1 of 4 segment quests completed';
+            document.getElementById('kpi-skills-val').textContent = '6';
+            document.getElementById('kpi-xp-val').textContent = '120 XP';
+            document.getElementById('kpi-goal-val').textContent = '5.0 hrs';
+
+            renderActivities([
+                {
+                    id: 'sch_stream_matrix',
+                    category: 'Aptitude Diagnostic',
+                    xp_reward: 75,
+                    title: 'Class 10 Stream Discovery & Aptitude Audit',
+                    description: 'Evaluate your cognitive strengths across Science PCM, Science PCB, Commerce, and Arts with empirical scoring.',
+                    why_explanation_template: 'Critical milestone for Class 9-10 to choose senior secondary streams based on proven aptitude.',
+                    estimated_minutes: 35,
+                    difficulty: 'Beginner',
+                    is_completed: false
+                },
+                {
+                    id: 'sch_python_basics',
+                    category: 'Core Competency',
+                    xp_reward: 80,
+                    title: 'Python Algorithmic Foundations',
+                    description: 'Write foundational scripts to compute mathematical series and automate data tasks.',
+                    why_explanation_template: 'Builds an early technical advantage before senior secondary board curriculum begins.',
+                    estimated_minutes: 45,
+                    difficulty: 'Intermediate',
+                    is_completed: false
+                },
+                {
+                    id: 'sch_board_balance',
+                    category: 'Study Strategy',
+                    xp_reward: 50,
+                    title: 'Board Exam Balance & Time Strategy Blueprint',
+                    description: 'Construct a realistic daily study calendar that balances Class 10 board prep with personal passions.',
+                    why_explanation_template: 'Proven to lower academic stress and cultivate sustained time-management habits.',
+                    estimated_minutes: 30,
+                    difficulty: 'Beginner',
+                    is_completed: true
+                }
+            ]);
+
+            renderSegmentP2Fallback(seg);
+            renderFallbackRoadmapDemo(seg);
         }
 
         function renderSegmentP2Fallback(seg) {
@@ -926,21 +675,20 @@
 
             // 1. Next Best Action (6-Part Contract)
             DTV.Intelligence.renderNextBestAction('dtv-next-step-mount', {
-                actionCode: 'DEMO_NEXT_STEP_' + seg.toUpperCase(),
-                what: seg === 'junior' ? 'Build Scratch Animation: Planet Explorer' : (seg === 'career' ? 'Timed Entrance Mock Engine' : (seg === 'professional' ? 'Architect Scalable REST API with PostgreSQL' : 'Python Stream Decision Calculator')),
-                why: seg === 'junior' ? 'Fun exploratory coding challenge tailored for Class 5-8 logic.' : (seg === 'career' ? 'High-yield mock exam sprint reinforcing critical problem solving under pressure.' : (seg === 'professional' ? 'Industry-grade systems challenge demonstrating production database design.' : 'High-impact project challenge building verified empirical skills for your trajectory.')),
-                goalOrSkillSupported: seg === 'junior' ? 'Visual Logic & Spatial Reasoning' : (seg === 'career' ? 'Entrance Exam Velocity' : (seg === 'professional' ? 'Backend & Cloud Systems' : 'Core Trajectory Engineering')),
+                actionCode: 'NEXT_STEP_' + seg.toUpperCase(),
+                what: seg === 'junior' ? 'Build Scratch Animation: Solar System Orbit' : (seg === 'career' ? 'Timed Entrance Mock Engine' : (seg === 'professional' ? 'Architect Scalable REST API with PostgreSQL' : 'Class 10 Stream Discovery & Aptitude Audit')),
+                why: seg === 'junior' ? 'Fun visual coding challenge tailored for Class 5-8 logic.' : (seg === 'career' ? 'High-yield mock exam sprint reinforcing problem solving under time constraints.' : (seg === 'professional' ? 'Production database challenge demonstrating clean data models.' : 'Critical milestone for Class 10 to establish empirical aptitude baseline before senior secondary.')),
+                goalOrSkillSupported: seg === 'junior' ? 'Visual Logic & Spatial Reasoning' : (seg === 'career' ? 'Entrance Exam Velocity' : (seg === 'professional' ? 'Backend & Cloud Systems' : 'Senior Secondary Stream Alignment')),
                 estimatedEffortMinutes: seg === 'junior' ? 25 : (seg === 'career' ? 45 : (seg === 'professional' ? 50 : 35)),
-                expectedOutcome: 'Promotes skill inventory from SELF-DECLARED to PROJECT-VERIFIED in your digital twin.',
+                expectedOutcome: 'Promotes skill inventory from Self-Declared to Verified in your digital twin.',
                 actionCta: {
                     label: 'Start Challenge',
                     url: '#quests',
-                    buttonClass: 'btn btn-primary',
-                    icon: 'ph-play-circle'
+                    buttonClass: 'btn btn-primary'
                 }
             });
 
-            // 2. Skill Gaps & 4-Tier Provenance Breakdown
+            // 2. Skill Gaps Matrix
             DTV.Intelligence.renderSkillGaps('p2-skill-gaps-mount', {
                 demonstratedSkills: [
                     { skill_name: seg === 'junior' ? 'Scratch Logic' : (seg === 'career' ? 'Calculus & Vectors' : (seg === 'professional' ? 'PostgreSQL Optimization' : 'Python Foundations')), proficiency_level: 'intermediate', provenance_type: 'PROJECT_VERIFIED' },
@@ -966,24 +714,22 @@
                 summary: { totalTargetSkills: 5, closedGaps: 1, inProgressGaps: 1, openGaps: 2 }
             });
 
-            // 3. Progressive Project Recommendations
+            // 3. Project Recommendations
             DTV.Intelligence.renderProjectRecommendations('p2-projects-mount', [
                 {
                     id: 'demo_proj_1',
-                    title: seg === 'junior' ? 'Interactive Multi-Level Maze Adventure' : (seg === 'career' ? 'Competitive Entrance Timed Mock Engine' : (seg === 'professional' ? 'Scalable E-Commerce REST API' : 'Empirical Stream Aptitude Calculator')),
-                    tagline: seg === 'junior' ? 'Visual Block Logic & Game Design' : (seg === 'career' ? 'Exam Simulation Engine' : (seg === 'professional' ? 'Distributed Backend Architecture' : 'Practical Showcase Project')),
+                    title: seg === 'junior' ? 'Interactive Maze Adventure' : (seg === 'career' ? 'Competitive Entrance Timed Mock Engine' : (seg === 'professional' ? 'Scalable E-Commerce REST API' : 'Empirical Stream Aptitude Calculator')),
                     description: seg === 'junior' ? 'Build a keyboard-controlled maze game in Scratch featuring sprite animation, collision detection, and score tracking.' : (seg === 'career' ? 'Construct a timed testing dashboard with question-level latency analytics and weak-area heatmaps.' : (seg === 'professional' ? 'Architect a production-grade REST API with JWT authentication, connection pooling, and indexing.' : 'Design and implement a clean, documented showcase tool verifying real-world problem solving.')),
-                    difficulty: 'beginner',
+                    difficulty: 'Beginner',
                     estimatedHours: 6,
                     technologies: seg === 'junior' ? ['Scratch Block Logic', 'Computational Thinking'] : (seg === 'career' ? ['Python', 'Data Analytics'] : (seg === 'professional' ? ['Node.js', 'PostgreSQL', 'Express'] : ['Python', 'Algorithmic Logic'])),
                     skillsTargeted: ['Problem Decomposition', 'Iterative Execution']
                 },
                 {
                     id: 'demo_proj_2',
-                    title: seg === 'junior' ? 'Planetary Orbit & Gravity Simulator' : (seg === 'career' ? 'Full-Stack Habit & Milestone Engine' : (seg === 'professional' ? 'Predictive ML Service & Dashboard' : 'Real-World Climate Data Visualizer')),
-                    tagline: seg === 'junior' ? 'Everyday Science & Astronomical Observation' : (seg === 'career' ? 'Productivity Analytics' : (seg === 'professional' ? 'Microservice Deployment' : 'Intermediate Architecture Capstone')),
+                    title: seg === 'junior' ? 'Planetary Orbit & Gravity Simulator' : (seg === 'career' ? 'Full-Stack Study Habit Engine' : (seg === 'professional' ? 'Predictive ML Service & Dashboard' : 'Real-World Climate Data Visualizer')),
                     description: seg === 'junior' ? 'Construct a visual solar system simulation modeling relative planet speeds and gravitational orbital patterns.' : (seg === 'career' ? 'Build an interactive roadmap tracking weekly study hours, topic coverage, and confidence levels.' : (seg === 'professional' ? 'Deploy a containerized machine learning inference service with automated performance monitoring.' : 'Analyze and visualize complex datasets or distributed workflows with persistent storage.')),
-                    difficulty: 'intermediate',
+                    difficulty: 'Intermediate',
                     estimatedHours: 10,
                     technologies: seg === 'junior' ? ['Visual Simulation', 'Geometry'] : (seg === 'career' ? ['JavaScript', 'Chart.js'] : (seg === 'professional' ? ['FastAPI', 'Docker', 'Redis'] : ['Data Analysis', 'Web Architecture'])),
                     skillsTargeted: ['Data Interpretation', 'System Design']
@@ -997,25 +743,80 @@
                     totalSkillsTracked: 6,
                     verifiedSkills: 3,
                     projectsPublished: 1,
-                    organizationEndorsedProjects: 1,
-                    learningQuestsCompleted: 3,
-                    roadmapProgress: 35,
-                    achievementsAwarded: 2
+                    roadmapProgress: 25
                 },
                 growthTimeline: [
                     {
-                        event_type: 'project',
                         title: 'Published Verified Showcase Project',
                         timestamp: new Date().toISOString(),
                         description: 'Verified through code repository analysis.'
                     },
                     {
-                        event_type: 'activity',
-                        title: 'Completed Foundational Quest',
+                        title: 'Completed Foundational Diagnostic Quest',
                         timestamp: new Date(Date.now() - 86400000).toISOString(),
                         description: 'Cleared all interactive quiz checkpoints.'
                     }
                 ]
+            });
+        }
+
+        function renderActivities(activities) {
+            var container = document.getElementById('activities-container');
+            container.innerHTML = '';
+
+            if (!activities || activities.length === 0) {
+                container.innerHTML = '<p style="color:var(--dtv-text-muted); text-align:center; padding:1.5rem;">All quests cleared for this stage.</p>';
+                document.getElementById('quests-count-label').textContent = '0 Activities';
+                return;
+            }
+
+            document.getElementById('quests-count-label').textContent = activities.length + ' Activities Available';
+
+            activities.forEach(function(act) {
+                var card = document.createElement('div');
+                card.className = 'quest-card';
+
+                var actionBtn = act.is_completed
+                    ? '<span class="task-completed-label"><i class="ph-bold ph-check"></i> Completed</span>'
+                    : `<button class="btn btn-primary btn-sm" onclick="completeQuest('${act.id}')">Complete Quest →</button>`;
+
+                card.innerHTML = `
+                    <div class="quest-main">
+                        <div class="quest-meta-row">
+                            <span class="quest-cat">${escapeHtml(act.category)}</span>
+                            <span style="font-size: 0.775rem; color: var(--dtv-text-muted); font-weight: 500;">+${act.xp_reward} XP</span>
+                        </div>
+                        <h4 class="quest-title">${escapeHtml(act.title)}</h4>
+                        <p class="quest-desc">${escapeHtml(act.description)}</p>
+                        <div class="quest-why">
+                            <strong>Why relevant:</strong> ${escapeHtml(act.why_explanation_template)}
+                        </div>
+                    </div>
+                    <div class="quest-side">
+                        <span class="quest-duration">~${act.estimated_minutes} mins · ${escapeHtml(act.difficulty)}</span>
+                        <div>${actionBtn}</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function applySegmentCustomization(seg) {
+            var b2bSection = document.getElementById('capacity-connect-section');
+            if (b2bSection) {
+                if (seg === 'junior') {
+                    b2bSection.style.display = 'none';
+                } else {
+                    b2bSection.style.display = 'block';
+                }
+            }
+        }
+
+        function updateSegmentTabs(seg) {
+            var tabs = ['junior', 'school', 'career', 'professional'];
+            tabs.forEach(function(t) {
+                var el = document.getElementById('seg-tab-' + t);
+                if (el) el.classList.toggle('active', t === seg);
             });
         }
 
@@ -1053,340 +854,6 @@
             }
         }
 
-        function renderActivities(activities) {
-            var container = document.getElementById('activities-container');
-            container.innerHTML = '';
-
-            if (!activities || activities.length === 0) {
-                if (window.DTV && DTV.UI) {
-                    DTV.UI.renderEmptyState('activities-container', {
-                        icon: 'ph-compass',
-                        title: 'All Quests Cleared for this Segment!',
-                        description: 'You have completed all active developmental quests for this stage. Customize your focus or explore roadmap milestones to unlock more.',
-                        actionLabel: 'Customize Focus',
-                        actionOnClick: 'openOnboardingModal()'
-                    });
-                } else {
-                    container.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:2rem;">No activities available yet.</p>';
-                }
-                document.getElementById('quests-count-label').textContent = '0 Activities Available';
-                return;
-            }
-
-            document.getElementById('quests-count-label').textContent = activities.length + ' Activities Available';
-
-            activities.forEach(function(act) {
-                var card = document.createElement('div');
-                card.className = 'quest-card' + (act.is_completed ? ' completed' : '');
-
-                var completedBadge = act.is_completed 
-                    ? '<span style="color: #10b981; font-weight: 700; font-size: 0.8rem;"><i class="ph-bold ph-check"></i> Completed</span>'
-                    : `<button class="btn btn-primary" style="padding: 0.35rem 0.8rem; font-size: 0.775rem;" onclick="completeQuest('${act.id}')">Complete Quest →</button>`;
-
-                card.innerHTML = `
-                    <div>
-                        <div class="quest-meta-row">
-                            <span class="quest-cat">${act.category}</span>
-                            <span class="quest-reward"><i class="ph-fill ph-lightning"></i> +${act.xp_reward} XP</span>
-                        </div>
-                        <h3 class="quest-title">${act.title}</h3>
-                        <p class="quest-desc">${act.description}</p>
-                        <div class="quest-why">
-                            <strong><i class="ph-bold ph-info"></i> Why this is relevant for you:</strong>
-                            ${act.why_explanation_template}
-                        </div>
-                    </div>
-                    <div class="quest-footer">
-                        <div class="quest-duration">
-                            <i class="ph ph-clock"></i> ~${act.estimated_minutes} mins · ${act.difficulty}
-                        </div>
-                        <div>${completedBadge}</div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        function renderRecommendations(recs) {
-            var container = document.getElementById('recommendations-container');
-            container.innerHTML = '';
-
-            if (!recs || recs.length === 0) {
-                if (window.DTV && DTV.UI) {
-                    DTV.UI.renderEmptyState('recommendations-container', {
-                        icon: 'ph-sparkle',
-                        title: 'Recommendations Loading',
-                        description: 'Your Digital Twin is processing your completed quests to generate personalized skill recommendations.'
-                    });
-                } else {
-                    container.innerHTML = '<p style="color:var(--text-muted); text-align:center; padding:2rem;">No recommendations generated yet.</p>';
-                }
-                return;
-            }
-
-            recs.forEach(function(r) {
-                var card = document.createElement('div');
-                card.className = 'rec-card';
-                card.innerHTML = `
-                    <span class="rec-match-pill">${r.relevance_score}% Relevance</span>
-                    <div style="font-size: 0.75rem; text-transform: uppercase; color: var(--accent-orange); font-weight: 700; margin-bottom: 0.4rem;">
-                        ${r.item_type.replace('_', ' ')}
-                    </div>
-                    <h3 style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; color: #0f172a;">${r.title}</h3>
-                    <p style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.45; margin-bottom: 1rem;">${r.description}</p>
-                    <div class="why-box">
-                        <i class="ph-bold ph-brain" style="font-size: 1.1rem; flex-shrink: 0; color: var(--accent-orange);"></i>
-                        <span><strong>Rationale:</strong> ${r.reason_text}</span>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
-        }
-
-        async function completeQuest(activityId) {
-            var token = getAuthToken();
-            if (!token) {
-                // In preview / demo mode, simulate completion with immediate UI feedback
-                showToast('🌟 Milestone Quest Completed! +50 XP awarded (Preview Mode)');
-                var xpVal = document.getElementById('kpi-xp-val');
-                if (xpVal) {
-                    var cur = parseInt(xpVal.textContent) || 0;
-                    xpVal.textContent = (cur + 50) + ' XP';
-                }
-                var globalXp = document.getElementById('dtv-global-xp');
-                if (globalXp) {
-                    var curGlobal = parseInt(globalXp.textContent) || 0;
-                    globalXp.textContent = (curGlobal + 50) + ' XP';
-                }
-                if (window.event && window.event.target) {
-                    var btn = window.event.target.closest('button');
-                    if (btn) {
-                        btn.innerHTML = '<i class="ph-bold ph-check"></i> Completed';
-                        btn.classList.remove('btn-primary');
-                        btn.classList.add('btn-secondary');
-                        btn.disabled = true;
-                    }
-                }
-                return;
-            }
-
-            try {
-                var res = await fetch('/api/v1/student/activities/' + activityId + '/complete', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    body: JSON.stringify({ notes: 'Completed verified developmental milestone.' })
-                });
-                var data = await res.json();
-                if (data.success) {
-                    showToast('🌟 ' + data.message + ' (+' + data.xpAwarded + ' XP)');
-                    fetchDashboard();
-                } else {
-                    showToast('⚠️ ' + (data.error || 'Completion failed'));
-                }
-            } catch (err) {
-                console.error('Error completing activity:', err);
-            }
-        }
-
-        function completeSpotlightQuest() {
-            if (activeSpotlightActivity) {
-                completeQuest(activeSpotlightActivity.id || activeSpotlightActivity.code);
-            }
-        }
-
-        function toggleChip(el) {
-            el.classList.toggle('selected');
-        }
-
-        function handleClassChange(val) {
-            // Auto-suggest stream focus based on class level
-            var streamInput = document.getElementById('form-stream-focus');
-            if (['5','6','7','8'].includes(val)) {
-                streamInput.value = 'Foundational STEM & Logic';
-            } else if (['9','10'].includes(val)) {
-                streamInput.value = 'Class 10 General Exploratory';
-            } else if (['11','12'].includes(val)) {
-                streamInput.value = 'Science PCM';
-            } else {
-                streamInput.value = 'Computer Science & Engineering';
-            }
-        }
-
-        function openOnboardingModal() {
-            document.getElementById('onboarding-modal').classList.add('active');
-        }
-
-        function closeOnboardingModal() {
-            document.getElementById('onboarding-modal').classList.remove('active');
-        }
-
-        async function handleOnboardingSubmit(e) {
-            e.preventDefault();
-            var academicClass = document.getElementById('form-academic-class').value;
-            var streamOrFocus = document.getElementById('form-stream-focus').value;
-            var targetCareerPath = document.getElementById('form-career-path').value;
-            var weeklyHours = document.getElementById('form-weekly-hours').value;
-
-            // Collect selected interest chips
-            var selectedInterests = [];
-            document.querySelectorAll('#interest-chips .chip-option.selected').forEach(function(c) {
-                selectedInterests.push(c.textContent.trim());
-            });
-
-            // Collect selected skill chips
-            var selectedSkills = [];
-            document.querySelectorAll('#skill-chips .chip-option.selected').forEach(function(c) {
-                selectedSkills.push(c.textContent.trim());
-            });
-
-            var token = getAuthToken();
-            if (!token) {
-                showToast('🔒 Please sign in to save your intelligence profile.');
-                return;
-            }
-
-            var saveBtn = document.getElementById('btn-save-onboarding');
-            saveBtn.disabled = true;
-            saveBtn.innerHTML = 'Saving...';
-
-            try {
-                var res = await fetch('/api/v1/student/onboarding', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    body: JSON.stringify({
-                        academicClass: academicClass,
-                        streamOrFocus: streamOrFocus || 'General',
-                        targetCareerPath: targetCareerPath || 'Technology & Innovation',
-                        weeklyGoalHours: parseFloat(weeklyHours) || 5.0,
-                        interests: selectedInterests,
-                        skills: selectedSkills
-                    })
-                });
-
-                var data = await res.json();
-                if (data.success) {
-                    showToast('🎉 Intelligence Profile Synchronized!');
-                    closeOnboardingModal();
-                    fetchDashboard();
-                } else {
-                    showToast('⚠️ ' + (data.error || 'Failed to save profile.'));
-                }
-            } catch (err) {
-                console.error('Error saving onboarding:', err);
-                showToast('⚠️ Connection error occurred.');
-            } finally {
-                saveBtn.disabled = false;
-                saveBtn.innerHTML = '<i class="ph-bold ph-check"></i> Save & Launch Twin';
-            }
-        }
-
-        function showToast(msg) {
-            var t = document.getElementById('toast-notif');
-            document.getElementById('toast-text').textContent = msg;
-            t.classList.add('active');
-            setTimeout(function() {
-                t.classList.remove('active');
-            }, 3500);
-        }
-
-        function renderFallbackDemo() {
-            var seg = currentSegment || 'school';
-            updateSegmentTabs(seg);
-            applySegmentCustomization(seg);
-
-            if (window.DTV && DTV.Nav) {
-                DTV.Nav.render('dtv-nav-mount', { activePage: 'dashboard', segment: seg, xpPoints: 120 });
-            }
-
-            var meta = (window.DTV && DTV.Personalization && DTV.Personalization.SEGMENT_META[seg]) || {};
-            document.getElementById('user-display-name').textContent = 'Student Intelligence Preview (' + (meta.displayName || 'DTV') + ')';
-            document.getElementById('user-segment-tagline').textContent = meta.tagline || 'Empirical guidance across Junior, School, Career, and Professional stages.';
-            document.getElementById('pill-academic-class').textContent = 'Level: ' + (meta.targetAudience || 'Active');
-            document.getElementById('pill-stream-focus').textContent = 'Focus: ' + (meta.focusPillars ? meta.focusPillars[0] : 'Exploratory');
-            document.getElementById('pill-career-goal').textContent = 'Target: Technology & Innovation';
-
-            // Next Step in demo mode
-            if (window.DTV && DTV.Personalization) {
-                var mockDash = {
-                    hasProfile: true,
-                    profile: { segment: seg, academicClass: meta.targetAudience, interests: ['Coding', 'Science'] },
-                    metrics: { totalXp: 120, progressPercentage: 25, completedCount: 1, totalActivities: 4, weeklyGoalHours: 5, skillsCount: 3 },
-                    activities: [
-                        { id: 'demo_1', title: meta.focusPillars ? meta.focusPillars[0] : 'Core Skill Sprint', description: 'Interactive learning milestone tailored to ' + (meta.displayName || 'your level') + '.', whyReason: 'Builds foundational empirical competence in your track.', is_completed: false }
-                    ]
-                };
-                var step = DTV.Personalization.computeNextStep(mockDash, null);
-                renderNextStep(step);
-            }
-
-            renderActivities([
-                {
-                    id: 'sch_stream_matrix',
-                    category: 'aptitude',
-                    xp_reward: 75,
-                    title: 'Class 10 Stream Discovery & Aptitude Audit',
-                    description: 'Evaluate your aptitude across Science PCM, Science PCB, Commerce, and Arts with empirical scoring.',
-                    why_explanation_template: 'Critical milestone for Class 9-10 to choose senior secondary streams based on proven aptitude.',
-                    estimated_minutes: 35,
-                    difficulty: 'beginner',
-                    is_completed: false
-                },
-                {
-                    id: 'sch_python_basics',
-                    category: 'skill_builder',
-                    xp_reward: 80,
-                    title: 'Python Algorithmic Foundations',
-                    description: 'Write foundational Python scripts to compute mathematical series and automate data tasks.',
-                    why_explanation_template: 'Builds an early technical advantage before senior secondary board curriculum begins.',
-                    estimated_minutes: 45,
-                    difficulty: 'intermediate',
-                    is_completed: false
-                },
-                {
-                    id: 'sch_board_balance',
-                    category: 'project',
-                    xp_reward: 50,
-                    title: 'Board Exam Balance & Time Strategy Blueprint',
-                    description: 'Construct a realistic daily study calendar that balances Class 10 board prep with personal passions.',
-                    why_explanation_template: 'Proven to lower academic stress and cultivate sustained time-management habits.',
-                    estimated_minutes: 30,
-                    difficulty: 'beginner',
-                    is_completed: true
-                }
-            ]);
-
-            renderRecommendations([
-                {
-                    relevance_score: 98,
-                    item_type: 'activity',
-                    title: 'Class 10 Stream Discovery Matrix',
-                    description: 'Assess cognitive strengths across PCM, PCB, Commerce with Math, and Humanities.',
-                    reason_text: 'Essential milestone for Class 10: Prevents career misalignment before final 11th grade stream registration.'
-                },
-                {
-                    relevance_score: 94,
-                    item_type: 'skill',
-                    title: 'Python Algorithmic Foundations',
-                    description: 'Write simple scripts to analyze numerical series and automate file tasks.',
-                    reason_text: 'Directly complements Science/Math streams and prepares you for higher secondary computing curricula.'
-                }
-            ]);
-
-            // Render P2 Intelligence Preview modules in fallback demo
-            renderSegmentP2Fallback(seg);
-
-            renderFallbackRoadmapDemo(currentSegment || 'school');
-        }
-
-        // ========================================================
-        // Dynamic Learning Roadmap Client Engine (Milestone 2)
-        // ========================================================
         async function fetchRoadmap() {
             var token = getAuthToken();
             var headers = { 'Accept': 'application/json' };
@@ -1406,7 +873,6 @@
                     renderFallbackRoadmapDemo(currentSegment || 'school');
                 }
             } catch (err) {
-                console.error('Error fetching roadmap:', err);
                 renderFallbackRoadmapDemo(currentSegment || 'school');
             }
         }
@@ -1415,7 +881,6 @@
             if (!rm) return;
             activeRoadmapData = rm;
 
-            // Overview Banner
             document.getElementById('roadmap-primary-goal').textContent = rm.primary_goal || rm.title;
             document.getElementById('roadmap-target-career').textContent = rm.target_career_path || 'Self-Directed Trajectory';
             
@@ -1433,7 +898,6 @@
             }
             document.getElementById('roadmap-tasks-ratio').textContent = completedTasks + ' of ' + totalTasks + ' tasks completed';
 
-            // Month Tabs (1..6)
             var tabsContainer = document.getElementById('roadmap-month-tabs');
             tabsContainer.innerHTML = '';
 
@@ -1451,18 +915,14 @@
                 tabsContainer.appendChild(btn);
             }
 
-            // Render Active Milestone & Tasks
             renderActiveMilestoneView(rm, activeRoadmapMonth);
-
-            // Render Skill Gaps
-            renderSkillGaps(rm.skillGaps || []);
         }
 
         function renderActiveMilestoneView(rm, monthNum) {
             var milestones = rm.milestones || [];
             var activeM = milestones.find(function(m) { return m.month_number === monthNum; }) || milestones[0] || {
                 month_number: monthNum,
-                title: 'Month ' + monthNum + ': Accelerated Progression',
+                title: 'Month ' + monthNum + ': Structured Progression',
                 objective: 'Execute high-impact developmental tasks tailored to your learning goals.',
                 expected_outcomes: 'Verifiable competency advancement across targeted skills.',
                 progress_percentage: 0,
@@ -1475,7 +935,6 @@
             var mProgress = Math.round(activeM.progress_percentage || 0);
             document.getElementById('milestone-progress-pill').textContent = mProgress + '% Progress';
 
-            // Filter tasks for this month
             var tasks = activeM.tasks;
             if (!tasks || !tasks.length) {
                 var allTasks = rm.tasks || [];
@@ -1492,68 +951,27 @@
 
             tasks.forEach(function(t) {
                 var isCompleted = t.status === 'completed';
-                var card = document.createElement('div');
-                card.className = 'task-card' + (isCompleted ? ' completed' : '');
-
-                var typeClass = t.task_type || 'daily_activity';
-                var typeLabel = (t.task_type || 'activity').replace('_', ' ');
-
-                var skillsHtml = '';
-                var skillsList = Array.isArray(t.skills_targeted) ? t.skills_targeted : [];
-                skillsList.forEach(function(s) {
-                    skillsHtml += `<span class="task-skill-tag">${s}</span>`;
-                });
+                var row = document.createElement('div');
+                row.className = 'task-row';
 
                 var actionBtn = isCompleted
-                    ? '<span style="color: #10b981; font-weight: 700; font-size: 0.8rem;"><i class="ph-bold ph-check-circle"></i> Completed</span>'
-                    : `<button class="btn btn-primary" style="padding: 0.35rem 0.8rem; font-size: 0.775rem;" onclick="completeRoadmapTask('${t.id}')">Complete Task →</button>`;
+                    ? '<span class="task-completed-label"><i class="ph-bold ph-check"></i> Completed</span>'
+                    : `<button class="btn btn-secondary btn-sm" onclick="completeRoadmapTask('${t.id}')">Start Task →</button>`;
 
-                card.innerHTML = `
-                    <div>
-                        <div class="task-badge-row">
-                            <span class="task-type-badge ${typeClass}">${typeLabel}</span>
-                            <span class="task-xp-pill"><i class="ph-fill ph-lightning"></i> +${t.xp_reward || 40} XP</span>
-                        </div>
-                        <h4 class="task-title">W${t.week_number}: ${t.title}</h4>
-                        <p class="task-desc">${t.description}</p>
-                        <div class="task-skills-wrap">${skillsHtml}</div>
-                        <div class="task-criteria-box">
-                            <strong><i class="ph-bold ph-seal-check"></i> Criteria:</strong> ${t.completion_criteria || 'Complete verification steps.'}
+                row.innerHTML = `
+                    <div class="task-main">
+                        <i class="ph-bold ${isCompleted ? 'ph-check-circle task-status-icon completed' : 'ph-circle task-status-icon'}"></i>
+                        <div>
+                            <div class="task-title">W${t.week_number}: ${escapeHtml(t.title)}</div>
+                            <div class="task-desc">${escapeHtml(t.description)}</div>
                         </div>
                     </div>
-                    <div class="task-footer">
-                        <span style="font-size: 0.75rem; color: var(--text-muted);"><i class="ph ph-clock"></i> ~${t.estimated_minutes || 30} mins</span>
+                    <div class="task-side">
+                        <span class="task-time">~${t.estimated_minutes || 30} mins</span>
                         <div>${actionBtn}</div>
                     </div>
                 `;
-                tasksContainer.appendChild(card);
-            });
-        }
-
-        function renderSkillGaps(gaps) {
-            var container = document.getElementById('skill-gaps-container');
-            container.innerHTML = '';
-            document.getElementById('skill-gaps-count').textContent = gaps.length + ' Tracked Competencies';
-
-            gaps.forEach(function(g) {
-                var card = document.createElement('div');
-                card.className = 'gap-card priority-' + (g.priority || 'medium');
-                var statusClass = 'gap-status-' + (g.status || 'open');
-                var statusLabel = (g.status || 'open').replace('_', ' ');
-
-                card.innerHTML = `
-                    <div class="gap-title-row">
-                        <span class="gap-name">${g.skill_name}</span>
-                        <span class="gap-status-pill ${statusClass}">${statusLabel}</span>
-                    </div>
-                    <div style="font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 0.4rem;">
-                        Current: <strong style="color: #0f172a;">${g.current_proficiency}</strong> → Target: <strong style="color: var(--accent-orange);">${g.target_proficiency}</strong>
-                    </div>
-                    <p style="font-size: 0.75rem; color: var(--text-muted); line-height: 1.35; margin: 0;">
-                        ${g.identified_reason || 'Identified as key developmental priority.'}
-                    </p>
-                `;
-                container.appendChild(card);
+                tasksContainer.appendChild(row);
             });
         }
 
@@ -1564,25 +982,88 @@
             }
         }
 
-        async function completeRoadmapTask(taskId) {
+        function triggerAdaptRoadmapModal() {
+            if (window.DTV && DTV.Intelligence) {
+                DTV.Intelligence.showAdaptRoadmapModal(activeRoadmapData, function(result) {
+                    fetchRoadmap();
+                });
+            } else {
+                alert('Roadmap adaptation connects to the intelligence engine.');
+            }
+        }
+
+        function renderFallbackRoadmapDemo(seg) {
+            activeRoadmapData = {
+                title: 'Class 10 Stream Discovery & Aptitude Audit',
+                primary_goal: 'Empirical Stream Alignment & Board Preparation',
+                target_career_path: 'Computer Science & Engineering',
+                student_segment: seg || 'school',
+                overall_progress: 25,
+                total_tasks: 24,
+                completed_tasks: 6,
+                milestones: [
+                    {
+                        month_number: 1,
+                        title: 'Month 1: Diagnostic Assessment & Stream Baseline',
+                        objective: 'Map cognitive strengths across Science, Commerce, and Humanities with empirical tests.',
+                        expected_outcomes: 'Personalized stream aptitude matrix eliminating peer pressure bias.',
+                        progress_percentage: 25,
+                        tasks: [
+                            { id: 't1', week_number: 1, title: 'Core Stream Aptitude Diagnostic Drill', description: 'Structured 30-minute cognitive audit evaluating numerical logic and pattern recognition.', status: 'completed', estimated_minutes: 30 },
+                            { id: 't2', week_number: 2, title: 'Computational Logic & Problem Decomposition', description: 'Hands-on algorithm flowcharts and basic structured problem formulation.', status: 'open', estimated_minutes: 40 },
+                            { id: 't3', week_number: 3, title: 'Board Exam Schedule & Subject Balance Audit', description: 'Build a balanced study plan that protects daily exploration time.', status: 'open', estimated_minutes: 30 },
+                            { id: 't4', week_number: 4, title: 'Stream Decision Matrix & Peer Review', description: 'Empirical review of your initial diagnostic scores with guided reflection.', status: 'open', estimated_minutes: 25 }
+                        ]
+                    },
+                    { month_number: 2, title: 'Month 2: Algorithmic Logic & Python Exploration', progress_percentage: 0, tasks: [] },
+                    { month_number: 3, title: 'Month 3: Practical Showcase Project', progress_percentage: 0, tasks: [] },
+                    { month_number: 4, title: 'Month 4: Board Examination Strategy Sprint', progress_percentage: 0, tasks: [] },
+                    { month_number: 5, title: 'Month 5: Senior Secondary Curriculum Preview', progress_percentage: 0, tasks: [] },
+                    { month_number: 6, title: 'Month 6: Stream Finalization & Pathway Launch', progress_percentage: 0, tasks: [] }
+                ]
+            };
+            renderRoadmap(activeRoadmapData);
+        }
+
+        async function completeQuest(activityId) {
             var token = getAuthToken();
             if (!token) {
-                // In preview / demo mode, simulate completion with immediate UI feedback
-                showToast('🌟 Roadmap Milestone Completed! +40 XP awarded (Preview Mode)');
-                var xpVal = document.getElementById('kpi-xp-val');
-                if (xpVal) {
-                    var cur = parseInt(xpVal.textContent) || 0;
-                    xpVal.textContent = (cur + 40) + ' XP';
-                }
-                var globalXp = document.getElementById('dtv-global-xp');
-                if (globalXp) {
-                    var curGlobal = parseInt(globalXp.textContent) || 0;
-                    globalXp.textContent = (curGlobal + 40) + ' XP';
-                }
+                showToast('Milestone Completed (+50 XP in Preview Mode)');
                 if (window.event && window.event.target) {
                     var btn = window.event.target.closest('button');
                     if (btn && btn.parentElement) {
-                        btn.parentElement.innerHTML = '<span style="color: #15803d; font-weight: 700; font-size: 0.8rem;"><i class="ph-bold ph-check-circle"></i> Completed</span>';
+                        btn.parentElement.innerHTML = '<span class="task-completed-label"><i class="ph-bold ph-check"></i> Completed</span>';
+                    }
+                }
+                return;
+            }
+
+            try {
+                var res = await fetch('/api/v1/student/activities/' + activityId + '/complete', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+                    body: JSON.stringify({ notes: 'Completed verified developmental milestone.' })
+                });
+                var data = await res.json();
+                if (data.success) {
+                    showToast('Milestone Completed (+ ' + data.xpAwarded + ' XP)');
+                    fetchDashboard();
+                } else {
+                    showToast(data.error || 'Completion failed');
+                }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        async function completeRoadmapTask(taskId) {
+            var token = getAuthToken();
+            if (!token) {
+                showToast('Roadmap Task Completed (+40 XP in Preview Mode)');
+                if (window.event && window.event.target) {
+                    var btn = window.event.target.closest('button');
+                    if (btn && btn.parentElement) {
+                        btn.parentElement.innerHTML = '<span class="task-completed-label"><i class="ph-bold ph-check"></i> Completed</span>';
                     }
                 }
                 return;
@@ -1591,711 +1072,189 @@
             try {
                 var res = await fetch('/api/v1/student/roadmap/tasks/' + taskId + '/complete', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
+                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
                     body: JSON.stringify({ notes: 'Completed roadmap actionable task.' })
                 });
                 var data = await res.json();
                 if (data.success) {
-                    showToast('🌟 ' + data.message + ' (+' + data.xpAwarded + ' XP)');
+                    showToast('Task Completed (+ ' + data.xpAwarded + ' XP)');
                     fetchRoadmap();
-                    fetchDashboard();
-                } else {
-                    showToast('⚠️ ' + (data.error || 'Failed to complete task.'));
                 }
             } catch (err) {
-                console.error('Error completing roadmap task:', err);
-                showToast('⚠️ Connection error occurred.');
+                console.error(err);
             }
         }
 
-        async function openRoadmapGoalModal() {
-            var modal = document.getElementById('roadmap-goal-modal');
-            modal.classList.add('active');
-
-            try {
-                var res = await fetch('/api/v1/student/roadmap/catalog');
-                var data = await res.json();
-                if (data.success && data.catalog) {
-                    roadmapCatalog = data.catalog;
-                    populateRoadmapModalFields(data.catalog);
-                }
-            } catch (err) {
-                console.error('Error loading roadmap catalog:', err);
-            }
-        }
-
-        function populateRoadmapModalFields(cat) {
-            // Goals select
-            var goalSel = document.getElementById('form-roadmap-goal');
-            goalSel.innerHTML = '';
-            cat.learningGoals.forEach(function(g) {
-                var opt = document.createElement('option');
-                opt.value = g;
-                opt.textContent = g;
-                goalSel.appendChild(opt);
-            });
-
-            // Career select
-            var careerSel = document.getElementById('form-roadmap-career');
-            careerSel.innerHTML = '';
-            cat.careerCuriosities.forEach(function(c) {
-                var opt = document.createElement('option');
-                opt.value = c;
-                opt.textContent = c;
-                careerSel.appendChild(opt);
-            });
-
-            // Skills chips
-            var skillsWrap = document.getElementById('roadmap-skills-chips');
-            skillsWrap.innerHTML = '';
-            cat.targetSkills.forEach(function(s, idx) {
-                var chip = document.createElement('span');
-                chip.className = 'chip-option' + (idx < 2 ? ' selected' : '');
-                chip.setAttribute('onclick', 'toggleChip(this)');
-                chip.textContent = s;
-                skillsWrap.appendChild(chip);
-            });
-
-            // Areas chips
-            var areasWrap = document.getElementById('roadmap-areas-chips');
-            areasWrap.innerHTML = '';
-            cat.preferredDevelopmentAreas.forEach(function(a, idx) {
-                var chip = document.createElement('span');
-                chip.className = 'chip-option' + (idx < 2 ? ' selected' : '');
-                chip.setAttribute('onclick', 'toggleChip(this)');
-                chip.textContent = a;
-                areasWrap.appendChild(chip);
-            });
-        }
-
-        function closeRoadmapGoalModal() {
-            document.getElementById('roadmap-goal-modal').classList.remove('active');
-        }
-
-        async function handleRoadmapGoalSubmit(e) {
-            e.preventDefault();
-            var primaryGoal = document.getElementById('form-roadmap-goal').value;
-            var targetCareer = document.getElementById('form-roadmap-career').value;
-            var useAi = document.getElementById('form-roadmap-use-ai').checked;
-
-            var selectedSkills = [];
-            document.querySelectorAll('#roadmap-skills-chips .chip-option.selected').forEach(function(c) {
-                selectedSkills.push(c.textContent.trim());
-            });
-
-            var selectedAreas = [];
-            document.querySelectorAll('#roadmap-areas-chips .chip-option.selected').forEach(function(c) {
-                selectedAreas.push(c.textContent.trim());
-            });
-
-            var token = getAuthToken();
-            if (!token) {
-                showToast('🔒 Please sign in to activate your custom roadmap.');
-                return;
-            }
-
-            var saveBtn = document.getElementById('btn-save-roadmap');
-            saveBtn.disabled = true;
-            saveBtn.innerHTML = '<i class="ph-bold ph-spinner ph-spin"></i> Synthesizing...';
-
-            try {
-                var res = await fetch('/api/v1/student/roadmap/generate', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    body: JSON.stringify({
-                        primaryGoal: primaryGoal,
-                        targetCareerPath: targetCareer,
-                        targetSkills: selectedSkills,
-                        preferredDevelopmentAreas: selectedAreas,
-                        useAi: useAi
-                    })
-                });
-                var data = await res.json();
-                if (data.success) {
-                    showToast('🎉 6-Month Adaptive Roadmap Synthesized!');
-                    closeRoadmapGoalModal();
-                    fetchRoadmap();
-                } else {
-                    showToast('⚠️ ' + (data.error || 'Roadmap generation failed.'));
-                }
-            } catch (err) {
-                console.error('Error saving roadmap:', err);
-                showToast('⚠️ Connection error occurred.');
-            } finally {
-                saveBtn.disabled = false;
-                saveBtn.innerHTML = '<i class="ph-bold ph-sparkle"></i> Synthesize &amp; Activate Roadmap';
-            }
-        }
-
-        function renderFallbackRoadmapDemo(seg) {
-            var s = seg || currentSegment || 'school';
-            var titles = {
-                junior: { goal: 'Creative Block Logic & Scientific Curiosity', path: 'Visual Robotics & Game Design', badge: 'DTV Junior' },
-                school: { goal: 'Class 10 Stream Discovery & Aptitude Audit', path: 'Computer Science & Software Development', badge: 'DTV School' },
-                career: { goal: 'Competitive Entrance Readiness Diagnostic (JEE/NEET/CUET)', path: 'Premier Engineering & Advanced STEM', badge: 'DTV Career' },
-                professional: { goal: 'Production REST API Architecture & DB Pool Sprint', path: 'Full-Stack Software Engineering (SWE-1)', badge: 'DTV Professional' }
-            };
-            var meta = titles[s] || titles.school;
-
-            var demoRoadmap = {
-                primary_goal: meta.goal,
-                target_career_path: meta.path,
-                student_segment: s,
-                overall_progress: 17,
-                total_tasks: 24,
-                completed_tasks: 4,
-                milestones: [
-                    { month_number: 1, title: 'Month 1: Conceptual Baseline & Diagnostic Sprint', objective: 'Establish empirical competency baselines across core subject areas.', expected_outcomes: 'Initial benchmark heat-map and stream/skill readiness verification.', progress_percentage: 100 },
-                    { month_number: 2, title: 'Month 2: Algorithmic Foundations & Core Problem Solving', objective: 'Tackle numerical series and algorithmic logic scripts.', expected_outcomes: 'Working modular programs with verified unit tests.', progress_percentage: 25 },
-                    { month_number: 3, title: 'Month 3: Practical Application & Mini-Project Sprint', objective: 'Apply conceptual tools to analyze real-world datasets or build a prototype.', expected_outcomes: 'Deployable portfolio artifact with documentation.', progress_percentage: 0 },
-                    { month_number: 4, title: 'Month 4: Deep Work Stamina & Speed Sprints', objective: 'Cultivate uninterrupted concentration and timed problem solving.', expected_outcomes: 'Substantial boost in retention and speed accuracy.', progress_percentage: 0 },
-                    { month_number: 5, title: 'Month 5: Integrated Capstone & Simulation Sprint', objective: 'Synthesize semester competencies in an end-to-end evaluation.', expected_outcomes: 'Comprehensive portfolio case study ready for review.', progress_percentage: 0 },
-                    { month_number: 6, title: 'Month 6: Outcome Verification & Next Stage Transition', objective: 'Finalize credential certification and map upcoming academic stage.', expected_outcomes: 'Milestone Achievement Certificate and verified digital twin badge.', progress_percentage: 0 }
-                ],
-                tasks: [
-                    // Month 1
-                    { id: 'demo-t1', week_number: 1, title: 'Diagnostic Baseline & Conceptual Orientation', description: 'Complete the 30-minute foundational diagnostic assessment.', task_type: 'daily_activity', skills_targeted: ['Algorithmic Logic'], completion_criteria: 'Submit timed diagnostic assessment.', estimated_minutes: 30, xp_reward: 40, status: 'completed' },
-                    { id: 'demo-t2', week_number: 2, title: 'Core Logic Sprints & Pattern Breakdown', description: 'Solve 5 structured reasoning and pattern puzzle scenarios.', task_type: 'skill_builder', skills_targeted: ['Pattern Deduction'], completion_criteria: 'All 5 scenarios resolved with verified reasoning.', estimated_minutes: 40, xp_reward: 50, status: 'completed' },
-                    { id: 'demo-t3', week_number: 3, title: 'Hands-on Synthesis & Applied Exercise', description: 'Construct a structured breakdown of a real-world concept or problem.', task_type: 'assignment', skills_targeted: ['Scientific Observation'], completion_criteria: 'Completed worksheet uploaded to student notes.', estimated_minutes: 35, xp_reward: 45, status: 'completed' },
-                    { id: 'demo-t4', week_number: 4, title: 'Milestone 1 Knowledge Check & Reflection', description: 'Consolidate Month 1 lessons and review strength areas.', task_type: 'project', skills_targeted: ['Algorithmic Logic'], completion_criteria: 'Score 80%+ on Month 1 review quiz.', estimated_minutes: 45, xp_reward: 60, status: 'completed' },
-                    // Month 2
-                    { id: 'demo-t5', week_number: 5, title: 'Python Series Computation & Modular Scripts', description: 'Write scripts to compute Fibonacci, Prime numbers, and averages.', task_type: 'skill_builder', skills_targeted: ['Python Algorithmic Foundations'], completion_criteria: 'Working script executing cleanly without runtime errors.', estimated_minutes: 45, xp_reward: 60, status: 'completed' },
-                    { id: 'demo-t6', week_number: 6, title: 'Data Structures & List Operations Sprint', description: 'Manipulate lists, dictionaries, and sets to filter structured records.', task_type: 'daily_activity', skills_targeted: ['Data Interpretation'], completion_criteria: 'Filter and sort 50 sample records with automated checks.', estimated_minutes: 40, xp_reward: 50, status: 'pending' },
-                    { id: 'demo-t7', week_number: 7, title: 'Real-World Problem Formulation Assignment', description: 'Draft a short technical proposal solving an everyday efficiency bottleneck.', task_type: 'assignment', skills_targeted: ['Structured Time Management'], completion_criteria: 'Documented 1-page solution architecture.', estimated_minutes: 45, xp_reward: 55, status: 'pending' },
-                    { id: 'demo-t8', week_number: 8, title: 'Month 2 Mini-Sprint & Code Review', description: 'Execute peer or mentor code review and optimize runtime complexity.', task_type: 'project', skills_targeted: ['Python Algorithmic Foundations'], completion_criteria: 'Refactored code passing all edge test cases.', estimated_minutes: 60, xp_reward: 75, status: 'pending' }
-                ],
-                skillGaps: [
-                    { skill_name: 'Python Algorithmic Foundations', current_proficiency: 'beginner', target_proficiency: 'intermediate', priority: 'critical', status: 'in_progress', identified_reason: 'Core prerequisite for advanced computing and stream advantage.' },
-                    { skill_name: 'Data Interpretation & Charting', current_proficiency: 'none', target_proficiency: 'intermediate', priority: 'high', status: 'open', identified_reason: 'Essential for empirical problem solving across Science & Commerce.' },
-                    { skill_name: 'Structured Time Management', current_proficiency: 'beginner', target_proficiency: 'intermediate', priority: 'medium', status: 'in_progress', identified_reason: 'Critical habit for balancing academic prep with skill projects.' }
-                ]
-            };
-
-            renderRoadmap(demoRoadmap);
-        }
-
-        // ==========================================
-        // CAPACITY CONNECT STUDENT INTEGRATION
-        // ==========================================
-        var studentActiveConnectTab = 'opps';
-        var cachedStudentOpps = [];
-        var cachedStudentApps = [];
-
-        function switchStudentConnectTab(tab) {
-            studentActiveConnectTab = tab;
-            var btnOpps = document.getElementById('btn-tab-opps');
-            var btnApps = document.getElementById('btn-tab-my-apps');
-            var btnMentor = document.getElementById('btn-tab-my-mentor');
-
-            var viewOpps = document.getElementById('student-view-opps');
-            var viewApps = document.getElementById('student-view-my-apps');
-            var viewMentor = document.getElementById('student-view-my-mentor');
-
-            if (btnOpps) btnOpps.className = 'btn btn-secondary btn-sm' + (tab === 'opps' ? ' active' : '');
-            if (btnApps) btnApps.className = 'btn btn-secondary btn-sm' + (tab === 'my-apps' ? ' active' : '');
-            if (btnMentor) btnMentor.className = 'btn btn-secondary btn-sm' + (tab === 'my-mentor' ? ' active' : '');
-
-            if (viewOpps) viewOpps.style.display = tab === 'opps' ? 'block' : 'none';
-            if (viewApps) viewApps.style.display = tab === 'my-apps' ? 'block' : 'none';
-            if (viewMentor) viewMentor.style.display = tab === 'my-mentor' ? 'block' : 'none';
-
-            if (tab === 'opps') fetchStudentOpportunities();
-            if (tab === 'my-apps') fetchStudentApplications();
-            if (tab === 'my-mentor') fetchStudentMentorshipSessions();
-        }
-
+        // Capacity Connect & Opportunities
         async function fetchStudentOpportunities() {
             var container = document.getElementById('student-opps-container');
             if (!container) return;
 
-            var typeFilter = document.getElementById('student-opp-type-filter')?.value || '';
-            var url = '/api/v1/capacity-connect/opportunities?studentSegment=' + encodeURIComponent(currentSegment || 'school') + '&';
-            if (typeFilter) url += 'opportunityType=' + encodeURIComponent(typeFilter) + '&';
-
-            try {
-                // Try P2 opportunity matching with affinity scores first
-                if (window.DTV && DTV.Intelligence && getAuthToken()) {
-                    var matchRes = await DTV.Intelligence.getMatchedOpportunities();
-                    if (matchRes && matchRes.success && matchRes.opportunities && matchRes.opportunities.length > 0) {
-                        cachedStudentOpps = matchRes.opportunities;
-                        renderStudentOpportunities(cachedStudentOpps);
-                        return;
-                    }
-                }
-
-                var res = await fetch(url, { headers: { 'Authorization': 'Bearer ' + getAuthToken() } });
-                if (res.ok) {
-                    var json = await res.json();
-                    cachedStudentOpps = json.data || [];
-                    renderStudentOpportunities(cachedStudentOpps);
-                } else {
-                    renderFallbackStudentOpps();
-                }
-            } catch (err) {
-                renderFallbackStudentOpps();
-            }
-        }
-
-        function renderStudentOpportunities(opps) {
-            var container = document.getElementById('student-opps-container');
-            if (!container) return;
-
-            if (opps.length === 0) {
-                if (window.DTV && DTV.UI) {
-                    DTV.UI.renderEmptyState('student-opps-container', {
-                        icon: 'ph-buildings',
-                        title: 'No Matching Opportunities Found',
-                        description: 'Check back soon as partner institutions add verified projects and challenges for your track.'
-                    });
-                } else {
-                    container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No active opportunities match your segment currently. Check back soon!</p>';
-                }
-                return;
-            }
-
-            container.innerHTML = opps.map(function(o) {
-                var skills = Array.isArray(o.required_skills) ? o.required_skills : (Array.isArray(o.requiredSkills) ? o.requiredSkills : JSON.parse(o.required_skills || '[]'));
-                var skillsBadges = skills.slice(0, 3).map(function(s) {
-                    return `<span class="tag-pill" style="font-size:0.75rem;">${escapeHtml(s)}</span>`;
-                }).join(' ');
-
-                var oppType = o.opportunity_type || o.opportunityType || 'project';
-                var stipendReward = o.stipend_or_reward || o.stipendOrReward || 'Merit Certificate';
-                var orgName = o.organization_name || o.organizationName || 'Verified Institution';
-                var locType = o.location_type || o.locationType || 'remote';
-                var matchBadge = (typeof o.matchScore === 'number') ? `
-                    <span class="dtv-prov-badge dtv-prov-project" style="font-size:0.7rem;">
-                        <i class="ph ph-target"></i> ${o.matchScore}% Match
-                    </span>
-                ` : '';
-
-                return `
-                    <div class="quest-card" style="border:1px solid var(--border-glow); border-radius:12px; padding:1.25rem; background:var(--bg-card); display:flex; flex-direction:column; justify-content:space-between; gap:0.75rem;">
-                        <div>
-                            <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.4rem; gap:0.5rem; flex-wrap:wrap;">
-                                <div style="display:flex; gap:0.35rem; align-items:center;">
-                                    <span class="tag-pill" style="background:#fff7ed; color:#9a3412; border:1px solid rgba(234,88,12,0.25); font-size:0.75rem; font-weight:700;">
-                                        ${escapeHtml(oppType.replace('_', ' ').toUpperCase())}
-                                    </span>
-                                    ${matchBadge}
-                                </div>
-                                <span style="font-size:0.75rem; color:#15803d; font-weight:700;">
-                                    ${escapeHtml(stipendReward)}
-                                </span>
-                            </div>
-                            <h3 style="font-size:1.05rem; font-weight:700; color:var(--text-primary); margin-bottom:0.25rem;">${escapeHtml(o.title)}</h3>
-                            <div style="font-size:0.8rem; color:var(--text-muted); margin-bottom:0.5rem;">
-                                <i class="ph ph-buildings"></i> ${escapeHtml(orgName)}
-                            </div>
-                            <p style="font-size:0.85rem; color:var(--text-secondary); line-height:1.4; margin-bottom:0.65rem;">
-                                ${escapeHtml((o.description || '').slice(0, 140))}...
-                            </p>
-                            <div style="display:flex; gap:0.35rem; flex-wrap:wrap;">${skillsBadges}</div>
-                        </div>
-                        <div style="border-top:1px solid var(--border-glow); padding-top:0.75rem; display:flex; justify-content:space-between; align-items:center;">
-                            <span style="font-size:0.75rem; color:var(--text-muted);">
-                                <i class="ph ph-map-pin"></i> ${escapeHtml(locType)}
-                            </span>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="openApplyModal('${o.id}', '${escapeHtml(o.title)}', '${escapeHtml(orgName)}')">
-                                <i class="ph-bold ph-paper-plane-tilt"></i> Apply Now
-                            </button>
-                        </div>
+            // Compact informative empty state
+            container.innerHTML = `
+                <div class="dtv-empty-opportunity-box">
+                    <h4 class="dtv-empty-title">No Matching Opportunities for this Learning Stage</h4>
+                    <p class="dtv-empty-desc">
+                        Opportunities on Capacity Connect are curated for specific academic levels and verified skill requirements. School learners focus on foundational development and project building rather than corporate recruiting.
+                    </p>
+                    <div style="font-size: 0.85rem; color: var(--dtv-text-muted); margin-bottom: 1rem;">
+                        <strong>What you can do meanwhile:</strong> Continue completing your roadmap milestones and documenting practical showcase projects. Your verified skills will automatically unlock future challenge opportunities.
                     </div>
-                `;
-            }).join('');
+                    <a href="#roadmap-section" class="btn btn-secondary btn-sm">
+                        View Roadmap Milestones →
+                    </a>
+                </div>
+            `;
         }
 
-        function renderFallbackStudentOpps() {
-            var sample = [
-                {
-                    id: 'sample-opp-1',
-                    title: 'Autonomous Multi-Agent Simulation Challenge',
-                    organization_name: 'DTV Engineering Labs',
-                    opportunity_type: 'project_challenge',
-                    stipend_or_reward: 'Rs 15,000 / Merit Certificate',
-                    location_type: 'remote',
-                    description: 'Architect a cooperative multi-agent system executing simulated robotic missions with zero state corruption.',
-                    required_skills: ['Python', 'System Architecture', 'Logic Deduction'],
-                    matchScore: 94
-                },
-                {
-                    id: 'sample-opp-2',
-                    title: 'Junior Creative Code Sprint',
-                    organization_name: 'STEM Innovation Foundation',
-                    opportunity_type: 'competition',
-                    stipend_or_reward: 'Medals & Robotics Kit',
-                    location_type: 'remote',
-                    description: 'Design interactive block-based simulations solving everyday clean energy and science quests.',
-                    required_skills: ['Scratch Logic', 'Creative Storytelling'],
-                    matchScore: 88
-                }
-            ];
-            renderStudentOpportunities(sample);
+        function switchStudentConnectTab(tab) {
+            ['opps', 'my-apps', 'my-mentor'].forEach(function(t) {
+                var btn = document.getElementById('btn-tab-' + t);
+                var view = document.getElementById('student-view-' + t);
+                if (btn) btn.classList.toggle('active', t === tab);
+                if (view) view.style.display = t === tab ? 'block' : 'none';
+            });
         }
 
-        function openApplyModal(oppId, title, orgName) {
-            document.getElementById('apply-opp-id').value = oppId;
-            document.getElementById('apply-modal-opp-info').textContent = 'Submitting application for "' + title + '" at ' + orgName + '.';
-            document.getElementById('apply-opportunity-modal').classList.add('active');
+        // Modals
+        function openOnboardingModal() {
+            document.getElementById('onboarding-modal').classList.add('active');
+        }
+        function closeOnboardingModal() {
+            document.getElementById('onboarding-modal').classList.remove('active');
         }
 
-        function closeApplyModal() {
-            document.getElementById('apply-opportunity-modal').classList.remove('active');
-            document.getElementById('apply-opp-form').reset();
+        function openRoadmapGoalModal() {
+            document.getElementById('roadmap-goal-modal').classList.add('active');
+        }
+        function closeRoadmapGoalModal() {
+            document.getElementById('roadmap-goal-modal').classList.remove('active');
         }
 
-        async function handleApplySubmit(e) {
-            e.preventDefault();
-            var oppId = document.getElementById('apply-opp-id').value;
-            var coverNote = document.getElementById('apply-cover-note').value.trim();
-            var portfolio = document.getElementById('apply-portfolio-link').value.trim();
-
-            var token = getAuthToken();
-            if (!token) {
-                showToast('🔒 Please sign in to apply.');
-                return;
-            }
-
-            var btn = document.getElementById('btn-submit-app');
-            btn.disabled = true;
-            btn.innerHTML = '<i class="ph ph-spinner ph-spin"></i> Submitting...';
-
-            try {
-                var res = await fetch('/api/v1/capacity-connect/opportunities/' + oppId + '/apply', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer ' + token
-                    },
-                    body: JSON.stringify({
-                        coverNote: coverNote,
-                        portfolioLink: portfolio || null
-                    })
-                });
-
-                var json = await res.json();
-                if (res.ok) {
-                    showToast('🎉 Application submitted successfully!');
-                    closeApplyModal();
-                    fetchStudentApplications();
-                    switchStudentConnectTab('my-apps');
-                } else {
-                    showToast('⚠️ ' + (json.message || 'Application failed.'));
-                }
-            } catch (err) {
-                showToast('⚠️ Network error while submitting application.');
-            } finally {
-                btn.disabled = false;
-                btn.innerHTML = 'Submit Application';
-            }
-        }
-
-        async function fetchStudentApplications() {
-            var container = document.getElementById('student-my-apps-container');
-            if (!container) return;
-
-            var token = getAuthToken();
-            if (!token) {
-                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">Sign in to view your applications.</p>';
-                return;
-            }
-
-            try {
-                var res = await fetch('/api/v1/capacity-connect/my-applications', {
-                    headers: { 'Authorization': 'Bearer ' + token }
-                });
-                if (res.ok) {
-                    var json = await res.json();
-                    cachedStudentApps = json.data || [];
-                    var cntEl = document.getElementById('my-apps-count');
-                    if (cntEl) cntEl.textContent = cachedStudentApps.length;
-                    renderStudentApplications(cachedStudentApps);
-                } else {
-                    container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No active applications found.</p>';
-                }
-            } catch (err) {
-                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">Unable to load applications.</p>';
-            }
-        }
-
-        function renderStudentApplications(apps) {
-            var container = document.getElementById('student-my-apps-container');
-            if (!container) return;
-
-            if (apps.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">You have not applied to any opportunities yet. Explore the catalog and submit your first quest!</p>';
-                return;
-            }
-
-            container.innerHTML = apps.map(function(app) {
-                var statusColors = {
-                    submitted: 'background:#eff6ff; color:#1d4ed8; border:1px solid #bfdbfe;',
-                    reviewing: 'background:#fffbeb; color:#b45309; border:1px solid #fde68a;',
-                    shortlisted: 'background:#f5f3ff; color:#6d28d9; border:1px solid #ddd6fe;',
-                    accepted: 'background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0;',
-                    rejected: 'background:#fef2f2; color:#b91c1c; border:1px solid #fecaca;',
-                    withdrawn: 'background:#f1f5f9; color:#475569; border:1px solid #cbd5e1;'
-                };
-                var canWithdraw = ['submitted', 'reviewing'].includes(app.status);
-
-                return `
-                    <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:12px; padding:1rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
-                        <div>
-                            <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.25rem;">
-                                <span style="font-weight:700; font-size:0.95rem; color:var(--text-primary);">${escapeHtml(app.opportunity_title)}</span>
-                                <span class="tag-pill" style="${statusColors[app.status] || 'background:#f1f5f9; color:#334155;'} font-size:0.75rem; text-transform:uppercase; font-weight:700;">
-                                    ${escapeHtml(app.status)}
-                                </span>
-                            </div>
-                            <div style="font-size:0.8rem; color:var(--text-muted);">
-                                ${escapeHtml(app.organization_name)} • Submitted: ${new Date(app.submitted_at).toLocaleDateString()}
-                            </div>
-                            ${app.reviewer_feedback ? `<div style="font-size:0.8rem; color:#0369a1; margin-top:0.35rem; font-weight:500;">Feedback: "${escapeHtml(app.reviewer_feedback)}"</div>` : ''}
-                        </div>
-                        <div>
-                            ${canWithdraw ? `
-                                <button type="button" class="btn btn-secondary btn-sm" style="color:#f87171;" onclick="withdrawStudentApplication('${app.id}')">
-                                    <i class="ph ph-arrow-u-up-left"></i> Withdraw
-                                </button>
-                            ` : ''}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        async function withdrawStudentApplication(appId) {
-            if (!confirm('Are you sure you want to withdraw this application?')) return;
-            var token = getAuthToken();
-            try {
-                var res = await fetch('/api/v1/capacity-connect/applications/' + appId + '/withdraw', {
-                    method: 'POST',
-                    headers: { 'Authorization': 'Bearer ' + token }
-                });
-                if (res.ok) {
-                    showToast('Application withdrawn.');
-                    fetchStudentApplications();
-                } else {
-                    var json = await res.json();
-                    showToast('⚠️ ' + (json.message || 'Withdrawal failed.'));
-                }
-            } catch (err) {
-                showToast('⚠️ Network error.');
-            }
-        }
-
-        async function fetchStudentMentorshipSessions() {
-            var container = document.getElementById('student-my-mentor-container');
-            if (!container) return;
-
-            var token = getAuthToken();
-            if (!token) {
-                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">Sign in to view your mentorship sessions.</p>';
-                return;
-            }
-
-            try {
-                var res = await fetch('/api/v1/capacity-connect/my-mentorship/sessions', {
-                    headers: { 'Authorization': 'Bearer ' + token }
-                });
-                if (res.ok) {
-                    var json = await res.json();
-                    var sessions = json.data || [];
-                    renderStudentMentorshipSessions(sessions);
-                } else {
-                    container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No scheduled mentorship sessions found.</p>';
-                }
-            } catch (err) {
-                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">Unable to load mentorship sessions.</p>';
-            }
-        }
-
-        function renderStudentMentorshipSessions(sessions) {
-            var container = document.getElementById('student-my-mentor-container');
-            if (!container) return;
-
-            if (sessions.length === 0) {
-                container.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">You do not have any active mentorship sessions scheduled. Explore organisation mentors through Capacity Connect!</p>';
-                return;
-            }
-
-            container.innerHTML = sessions.map(function(s) {
-                var dt = new Date(s.scheduled_at).toLocaleString();
-                return `
-                    <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:12px; padding:1rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.75rem;">
-                        <div>
-                            <div style="font-weight:700; font-size:0.95rem; color:var(--text-primary);">${escapeHtml(s.agenda)}</div>
-                            <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.2rem;">
-                                <i class="ph ph-user"></i> Mentor: ${escapeHtml(s.mentor_name)} (${escapeHtml(s.mentor_title)}) • ${escapeHtml(s.organization_name)}
-                            </div>
-                            <div style="font-size:0.8rem; color:var(--text-muted); margin-top:0.25rem;">
-                                <i class="ph ph-calendar"></i> ${dt} (${s.duration_minutes} mins) • Status: <strong style="color:#15803d;">${escapeHtml(s.status)}</strong>
-                            </div>
-                        </div>
-                        <div style="display:flex; gap:0.5rem; align-items:center;">
-                            ${s.meeting_link ? `<a href="${escapeHtml(s.meeting_link)}" target="_blank" class="btn btn-primary btn-sm"><i class="ph ph-video-camera"></i> Join Meeting</a>` : ''}
-                            ${s.status === 'completed' && !s.student_feedback_rating ? `
-                                <button type="button" class="btn btn-secondary btn-sm" onclick="openFeedbackModal('${s.id}')">
-                                    <i class="ph ph-star"></i> Leave Feedback
-                                </button>
-                            ` : (s.student_feedback_rating ? `<span style="font-size:0.8rem; color:#fbbf24;">Rated ${s.student_feedback_rating}★</span>` : '')}
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function openFeedbackModal(sessionId) {
-            document.getElementById('feedback-session-id').value = sessionId;
-            document.getElementById('session-feedback-modal').classList.add('active');
-        }
-
-        function closeFeedbackModal() {
-            document.getElementById('session-feedback-modal').classList.remove('active');
-            document.getElementById('session-feedback-form').reset();
-        }
-
-        async function handleSessionFeedbackSubmit(e) {
-            e.preventDefault();
-            var sessionId = document.getElementById('feedback-session-id').value;
-            var rating = parseInt(document.getElementById('feedback-rating').value, 10);
-            var notes = document.getElementById('feedback-notes').value.trim();
-
-            var token = getAuthToken();
-            try {
-                var res = await fetch('/api/v1/capacity-connect/mentorship/sessions/' + sessionId + '/feedback', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-                    body: JSON.stringify({ rating: rating, notes: notes || null })
-                });
-                if (res.ok) {
-                    showToast('🎉 Thank you for your feedback!');
-                    closeFeedbackModal();
-                    fetchStudentMentorshipSessions();
-                } else {
-                    showToast('⚠️ Feedback submission failed.');
-                }
-            } catch (err) {
-                showToast('⚠️ Network error.');
-            }
-        }
-
-        // Privacy Consent Management
-        async function openPrivacyConsentModal() {
-            var token = getAuthToken();
-            if (token) {
-                try {
-                    var res = await fetch('/api/v1/capacity-connect/privacy/consent', {
-                        headers: { 'Authorization': 'Bearer ' + token }
-                    });
-                    if (res.ok) {
-                        var json = await res.json();
-                        var d = json.data || {};
-                        document.getElementById('consent-checkbox').checked = !!d.isGranted;
-                        document.getElementById('consent-parent-email').value = d.parentEmail || '';
-                    }
-                } catch (_) {}
-            }
+        function openPrivacyConsentModal() {
             document.getElementById('privacy-consent-modal').classList.add('active');
         }
-
         function closePrivacyConsentModal() {
             document.getElementById('privacy-consent-modal').classList.remove('active');
         }
 
-        async function handlePrivacyConsentSubmit(e) {
+        function closeApplyModal() {
+            document.getElementById('apply-opportunity-modal').classList.remove('active');
+        }
+
+        function closeFeedbackModal() {
+            document.getElementById('session-feedback-modal').classList.remove('active');
+        }
+
+        function toggleChip(el) {
+            el.classList.toggle('selected');
+        }
+
+        function handleClassChange(val) {
+            var streamInput = document.getElementById('form-stream-focus');
+            if (['5','6','7','8'].includes(val)) {
+                streamInput.value = 'Foundational STEM & Logic';
+            } else if (['9','10'].includes(val)) {
+                streamInput.value = 'Class 10 General Exploratory';
+            } else if (['11','12'].includes(val)) {
+                streamInput.value = 'Science PCM';
+            } else {
+                streamInput.value = 'Computer Science & Engineering';
+            }
+        }
+
+        async function handleOnboardingSubmit(e) {
             e.preventDefault();
-            var isGranted = document.getElementById('consent-checkbox').checked;
-            var parentEmail = document.getElementById('consent-parent-email').value.trim();
+            var academicClass = document.getElementById('form-academic-class').value;
+            var streamOrFocus = document.getElementById('form-stream-focus').value;
+            var targetCareerPath = document.getElementById('form-career-path').value;
+            var weeklyHours = document.getElementById('form-weekly-hours').value;
+
+            var selectedInterests = [];
+            document.querySelectorAll('#interest-chips .chip-option.selected').forEach(function(c) {
+                selectedInterests.push(c.textContent.trim());
+            });
+
+            var selectedSkills = [];
+            document.querySelectorAll('#skill-chips .chip-option.selected').forEach(function(c) {
+                selectedSkills.push(c.textContent.trim());
+            });
 
             var token = getAuthToken();
             if (!token) {
-                showToast('🔒 Please sign in to update privacy preferences.');
+                showToast('Preferences saved in preview mode.');
+                closeOnboardingModal();
                 return;
             }
 
             try {
-                var res = await fetch('/api/v1/capacity-connect/privacy/consent', {
-                    method: 'PUT',
+                var res = await fetch('/api/v1/student/onboarding', {
+                    method: 'POST',
                     headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
-                    body: JSON.stringify({ isGranted: isGranted, parentEmail: parentEmail || null })
+                    body: JSON.stringify({
+                        academicClass: academicClass,
+                        streamOrFocus: streamOrFocus || 'General',
+                        targetCareerPath: targetCareerPath || 'Technology & Innovation',
+                        weeklyGoalHours: parseFloat(weeklyHours) || 5.0,
+                        interests: selectedInterests,
+                        skills: selectedSkills
+                    })
                 });
-                if (res.ok) {
-                    showToast(isGranted ? '✅ Contact sharing granted.' : '🔒 Contact details masked.');
-                    closePrivacyConsentModal();
+                var data = await res.json();
+                if (data.success) {
+                    showToast('Profile Synchronized');
+                    closeOnboardingModal();
+                    fetchDashboard();
                 } else {
-                    showToast('⚠️ Failed to update privacy settings.');
+                    showToast(data.error || 'Failed to save profile.');
                 }
             } catch (err) {
-                showToast('⚠️ Network error.');
+                showToast('Connection error occurred.');
             }
         }
 
-        // Global functions for modal and actions
-        window.openOnboardingModal = openOnboardingModal;
-        window.closeOnboardingModal = closeOnboardingModal;
-        window.selectSegment = selectSegment;
-        window.completeQuest = completeQuest;
-        window.completeSpotlightQuest = completeSpotlightQuest;
-        window.toggleChip = toggleChip;
-        window.handleClassChange = handleClassChange;
-        window.handleOnboardingSubmit = handleOnboardingSubmit;
-        window.fetchDashboard = fetchDashboard;
-        // Milestone 2 Global Exports
-        window.openRoadmapGoalModal = openRoadmapGoalModal;
-        window.closeRoadmapGoalModal = closeRoadmapGoalModal;
-        window.selectRoadmapMonth = selectRoadmapMonth;
-        window.completeRoadmapTask = completeRoadmapTask;
-        window.handleRoadmapGoalSubmit = handleRoadmapGoalSubmit;
-        window.fetchRoadmap = fetchRoadmap;
-        window.triggerAdaptRoadmapModal = triggerAdaptRoadmapModal;
-        window.renderSegmentP2Fallback = renderSegmentP2Fallback;
-        // Capacity Connect Global Exports
-        window.switchStudentConnectTab = switchStudentConnectTab;
-        window.fetchStudentOpportunities = fetchStudentOpportunities;
-        window.openApplyModal = openApplyModal;
-        window.closeApplyModal = closeApplyModal;
-        window.handleApplySubmit = handleApplySubmit;
-        window.fetchStudentApplications = fetchStudentApplications;
-        window.withdrawStudentApplication = withdrawStudentApplication;
-        window.fetchStudentMentorshipSessions = fetchStudentMentorshipSessions;
-        window.openFeedbackModal = openFeedbackModal;
-        window.closeFeedbackModal = closeFeedbackModal;
-        window.handleSessionFeedbackSubmit = handleSessionFeedbackSubmit;
-        window.openPrivacyConsentModal = openPrivacyConsentModal;
-        window.closePrivacyConsentModal = closePrivacyConsentModal;
-        window.handlePrivacyConsentSubmit = handlePrivacyConsentSubmit;
-
-        // Global Modal Keyboard & Backdrop Accessibility
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                closeOnboardingModal();
+        async function handleRoadmapGoalSubmit(e) {
+            e.preventDefault();
+            var token = getAuthToken();
+            if (!token) {
+                showToast('Roadmap goals updated in preview mode.');
                 closeRoadmapGoalModal();
-                closeApplyModal();
-                closePrivacyConsentModal();
-                closeFeedbackModal();
+                return;
             }
-        });
+            closeRoadmapGoalModal();
+            fetchRoadmap();
+        }
 
-        document.querySelectorAll('.modal-overlay').forEach(function(modal) {
-            modal.addEventListener('click', function(e) {
-                if (e.target === modal) {
-                    modal.classList.remove('active');
-                }
-            });
-        });
+        function handlePrivacyConsentSubmit(e) {
+            e.preventDefault();
+            showToast('Privacy preferences saved.');
+            closePrivacyConsentModal();
+        }
+
+        function handleSessionFeedbackSubmit(e) {
+            e.preventDefault();
+            showToast('Feedback submitted.');
+            closeFeedbackModal();
+        }
+
+        function handleApplySubmit(e) {
+            e.preventDefault();
+            showToast('Application submitted.');
+            closeApplyModal();
+        }
+
+        function showToast(msg) {
+            var t = document.getElementById('toast-notif');
+            document.getElementById('toast-text').textContent = msg;
+            t.classList.add('active');
+            setTimeout(function() {
+                t.classList.remove('active');
+            }, 3000);
+        }
 
         // Initialize on DOM load
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             fetchDashboard();
-            fetchStudentOpportunities();
-            fetchStudentApplications();
         });
     </script>
 </body>

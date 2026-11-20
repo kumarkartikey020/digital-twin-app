@@ -444,82 +444,48 @@
             const userName = user.name || (user.email ? user.email.split('@')[0] : 'Student');
             const userInitial = userName.charAt(0).toUpperCase();
 
-            // Mobile menu drawer and desktop nav combined
+            // Minimal clean navigation bar
             el.innerHTML = `
-                <nav class="dtv-navbar" role="navigation" aria-label="Main Student Navigation">
-                    <div class="dtv-nav-brand-wrap">
-                        <a href="/" class="dtv-nav-brand" aria-label="Digital Twin Verse Home">
-                            <img src="/img/dtv-logo.jpg" alt="DTV Logo" class="dtv-nav-logo" loading="lazy">
-                            <div class="dtv-brand-text">
-                                <span class="dtv-brand-main">Digital</span><span class="dtv-brand-accent">Twin Verse</span>
-                            </div>
-                        </a>
-                        <div class="dtv-segment-pill" style="--seg-color: ${segMeta.themeColor};" title="Active Student Segment">
-                            <i class="${segMeta.badgeIcon}"></i>
-                            <span>${segMeta.displayName}</span>
-                        </div>
-                    </div>
+                <nav class="dtv-nav" role="navigation" aria-label="Main Student Navigation">
+                    <a href="/" class="dtv-nav-brand" aria-label="Digital Twin Verse Home">
+                        <img src="/img/dtv-logo.jpg" alt="DTV Logo" class="dtv-nav-logo" loading="lazy">
+                        <span class="dtv-nav-title">Digital<span>Twin</span> Verse</span>
+                    </a>
 
                     <!-- Desktop Navigation Links -->
-                    <div class="dtv-nav-links-desktop">
+                    <div class="dtv-nav-links">
                         <a href="/student-dashboard" class="dtv-nav-link ${activePage === 'dashboard' ? 'active' : ''}">
-                            <i class="ph ph-squares-four"></i> Dashboard
+                            Dashboard
                         </a>
                         <a href="/student-dashboard#roadmap-section" class="dtv-nav-link ${activePage === 'roadmap' ? 'active' : ''}">
-                            <i class="ph ph-path"></i> Roadmap
+                            Roadmap
                         </a>
                         <a href="/student-portfolio" class="dtv-nav-link ${activePage === 'portfolio' ? 'active' : ''}">
-                            <i class="ph ph-briefcase"></i> Portfolio
+                            Portfolio
                         </a>
                         ${segment === SEGMENTS.JUNIOR ? '' : `
                         <a href="/capacity-connect" class="dtv-nav-link ${activePage === 'connect' ? 'active' : ''}">
-                            <i class="ph ph-buildings"></i> Opportunities
+                            Opportunities
                         </a>`}
                     </div>
 
                     <!-- Right Actions & User Menu -->
                     <div class="dtv-nav-actions">
-                        <div class="dtv-xp-chip" title="Verified Development Experience Points">
-                            <i class="ph-fill ph-lightning"></i>
-                            <span id="dtv-global-xp">${xpPoints} XP</span>
-                        </div>
+                        <span class="dtv-nav-stage-badge">${segMeta.displayName}</span>
 
                         ${DTVAuth.isLoggedIn() ? `
-                        <div class="dtv-user-dropdown-wrap">
-                            <button type="button" class="dtv-user-btn" id="dtv-user-menu-btn" aria-expanded="false" aria-label="Open User Menu" onclick="DTV.Nav.toggleUserDropdown()">
-                                <div class="dtv-user-avatar">${userInitial}</div>
-                                <span class="dtv-user-name-short">${DTVUI.escapeHtml(userName)}</span>
-                                <i class="ph ph-caret-down dtv-caret"></i>
-                            </button>
-                            <div class="dtv-user-menu" id="dtv-user-menu-panel">
-                                <div class="dtv-user-menu-header">
-                                    <strong>${DTVUI.escapeHtml(userName)}</strong>
-                                    <span class="dtv-user-role-badge">${segMeta.targetAudience}</span>
-                                </div>
-                                <div class="dtv-user-menu-divider"></div>
-                                <button type="button" class="dtv-menu-item" onclick="if(window.openOnboardingModal){window.openOnboardingModal();}else{window.location.href='/student-dashboard';}">
-                                    <i class="ph ph-sliders"></i> Customize Focus
-                                </button>
-                                <a href="/student-portfolio" class="dtv-menu-item">
-                                    <i class="ph ph-user"></i> My Portfolio
-                                </a>
-                                <a href="/parent" class="dtv-menu-item">
-                                    <i class="ph ph-users"></i> Parent Portal
-                                </a>
-                                <div class="dtv-user-menu-divider"></div>
-                                <button type="button" class="dtv-menu-item dtv-menu-danger" onclick="DTV.Auth.logout()">
-                                    <i class="ph ph-sign-out"></i> Sign Out
-                                </button>
-                            </div>
-                        </div>
+                        <div class="dtv-nav-avatar" title="${DTVUI.escapeHtml(userName)}">${userInitial}</div>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="DTV.Auth.logout()">
+                            Sign Out
+                        </button>
                         ` : `
-                        <a href="/login" class="dtv-btn dtv-btn-primary dtv-btn-sm">
-                            <i class="ph ph-sign-in"></i> Sign In
+                        <a href="/login" class="btn btn-primary btn-sm">
+                            Sign In
                         </a>
                         `}
 
                         <!-- Mobile Hamburger Button -->
-                        <button type="button" class="dtv-hamburger-btn" id="dtv-mobile-hamburger" aria-label="Toggle Mobile Navigation" onclick="DTV.Nav.toggleMobileDrawer()">
+                        <button type="button" class="dtv-nav-burger" id="dtv-mobile-hamburger" aria-label="Toggle Mobile Navigation" onclick="DTV.Nav.toggleMobileDrawer()">
                             <i class="ph ph-list" id="dtv-hamburger-icon"></i>
                         </button>
                     </div>
@@ -527,56 +493,27 @@
 
                 <!-- Mobile Drawer Navigation -->
                 <div class="dtv-mobile-drawer" id="dtv-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
-                    <div class="dtv-drawer-head">
-                        <div class="dtv-brand-text">
-                            <span class="dtv-brand-main">Digital</span><span class="dtv-brand-accent">Twin Verse</span>
-                        </div>
-                        <button type="button" class="dtv-drawer-close" aria-label="Close Mobile Menu" onclick="DTV.Nav.toggleMobileDrawer()">
-                            <i class="ph ph-x"></i>
-                        </button>
-                    </div>
-
-                    <div class="dtv-drawer-user-card">
-                        <div class="dtv-user-avatar dtv-avatar-lg">${userInitial}</div>
-                        <div>
-                            <div class="dtv-drawer-name">${DTVUI.escapeHtml(userName)}</div>
-                            <div class="dtv-segment-pill dtv-pill-sm" style="--seg-color: ${segMeta.themeColor}; margin-top: 0.35rem;">
-                                <i class="${segMeta.badgeIcon}"></i>
-                                <span>${segMeta.displayName}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="dtv-drawer-nav-list">
-                        <a href="/student-dashboard" class="dtv-drawer-link ${activePage === 'dashboard' ? 'active' : ''}">
-                            <i class="ph ph-squares-four"></i> Dashboard
-                        </a>
-                        <a href="/student-dashboard#roadmap-section" class="dtv-drawer-link ${activePage === 'roadmap' ? 'active' : ''}">
-                            <i class="ph ph-path"></i> 6-Month Roadmap
-                        </a>
-                        <a href="/student-portfolio" class="dtv-drawer-link ${activePage === 'portfolio' ? 'active' : ''}">
-                            <i class="ph ph-briefcase"></i> Verified Portfolio
-                        </a>
-                        ${segment === SEGMENTS.JUNIOR ? '' : `
-                        <a href="/capacity-connect" class="dtv-drawer-link ${activePage === 'connect' ? 'active' : ''}">
-                            <i class="ph ph-buildings"></i> Capacity Connect
-                        </a>`}
-                        <a href="/parent" class="dtv-drawer-link">
-                            <i class="ph ph-users"></i> Parent Portal
-                        </a>
-                        <a href="/" class="dtv-drawer-link">
-                            <i class="ph ph-house"></i> Home
-                        </a>
-                    </div>
-
-                    <div class="dtv-drawer-footer">
+                    <a href="/student-dashboard" class="dtv-nav-link ${activePage === 'dashboard' ? 'active' : ''}">
+                        Dashboard
+                    </a>
+                    <a href="/student-dashboard#roadmap-section" class="dtv-nav-link ${activePage === 'roadmap' ? 'active' : ''}">
+                        Roadmap
+                    </a>
+                    <a href="/student-portfolio" class="dtv-nav-link ${activePage === 'portfolio' ? 'active' : ''}">
+                        Portfolio
+                    </a>
+                    ${segment === SEGMENTS.JUNIOR ? '' : `
+                    <a href="/capacity-connect" class="dtv-nav-link ${activePage === 'connect' ? 'active' : ''}">
+                        Opportunities
+                    </a>`}
+                    <div style="padding-top: 0.5rem; border-top: 1px solid var(--dtv-border); margin-top: 0.25rem;">
                         ${DTVAuth.isLoggedIn() ? `
-                        <button type="button" class="dtv-btn dtv-btn-secondary dtv-btn-block" onclick="DTV.Auth.logout()">
-                            <i class="ph ph-sign-out"></i> Sign Out
+                        <button type="button" class="btn btn-secondary btn-sm" style="width:100%;" onclick="DTV.Auth.logout()">
+                            Sign Out (${DTVUI.escapeHtml(userName)})
                         </button>
                         ` : `
-                        <a href="/login" class="dtv-btn dtv-btn-primary dtv-btn-block">
-                            <i class="ph ph-sign-in"></i> Sign In
+                        <a href="/login" class="btn btn-primary btn-sm" style="width:100%; text-align:center;">
+                            Sign In
                         </a>
                         `}
                     </div>
@@ -856,38 +793,26 @@
             const el = document.getElementById(containerId);
             if (!el || !action) return;
 
-            const icon = action.actionCta?.icon || 'ph-arrow-right';
-            const effort = action.estimatedEffortMinutes ? `${action.estimatedEffortMinutes} mins` : 'Flexible';
+            const effort = action.estimatedEffortMinutes ? `${action.estimatedEffortMinutes} mins` : '35 mins';
             const label = DTVUI.escapeHtml(action.actionCta?.label || 'Take Action');
             const url = DTVUI.escapeHtml(action.actionCta?.url || '#');
-            const btnClass = action.actionCta?.buttonClass || 'dtv-btn dtv-btn-primary';
 
             el.innerHTML = `
                 <div class="dtv-nba-container">
                     <div class="dtv-nba-header">
                         <span class="dtv-nba-tag">Recommended Next Step</span>
-                        <span class="dtv-nba-effort">
-                            <i class="ph ph-clock"></i> ~${effort} effort
-                        </span>
+                        <span class="dtv-nba-effort">~${effort}</span>
                     </div>
-                    <h3 class="dtv-nba-what">${DTVUI.escapeHtml(action.what || 'Recommended Action')}</h3>
+                    <h2 class="dtv-nba-what">${DTVUI.escapeHtml(action.what || 'Recommended Action')}</h2>
                     <p class="dtv-nba-why">${DTVUI.escapeHtml(action.why || '')}</p>
-                    <div class="dtv-nba-grid">
-                        <div class="dtv-nba-field">
-                            <span class="dtv-nba-label">Competency Supported</span>
-                            <span class="dtv-nba-val">${DTVUI.escapeHtml(action.goalOrSkillSupported || 'Trajectory Growth')}</span>
-                        </div>
-                        <div class="dtv-nba-field">
-                            <span class="dtv-nba-label">Expected Outcome</span>
-                            <span class="dtv-nba-val">${DTVUI.escapeHtml(action.expectedOutcome || 'Advance developmental trajectory')}</span>
-                        </div>
-                    </div>
+                    ${action.expectedOutcome ? `
+                    <div class="dtv-nba-rationale">
+                        <strong>Expected Outcome:</strong> ${DTVUI.escapeHtml(action.expectedOutcome)}
+                    </div>` : ''}
                     <div class="dtv-nba-action-row">
-                        <span class="dtv-nba-note">
-                            Objective step toward milestone completion
-                        </span>
-                        <a href="${url}" class="${btnClass}">
-                            <span>${label}</span> <i class="ph ${icon}"></i>
+                        <span class="dtv-nba-note">${DTVUI.escapeHtml(action.goalOrSkillSupported || 'Advancing foundational competence')}</span>
+                        <a href="${url}" class="btn btn-primary">
+                            ${label} →
                         </a>
                     </div>
                 </div>
@@ -983,28 +908,22 @@
             }
 
             const cardsHtml = projects.map(p => {
-                const tierClass = p.difficulty === 'beginner' 
-                    ? 'dtv-tier-beginner' 
-                    : (p.difficulty === 'advanced' ? 'dtv-tier-advanced' : 'dtv-tier-intermediate');
                 const techs = (p.technologies || []).map(t => `<span class="dtv-tech-tag">${DTVUI.escapeHtml(t)}</span>`).join(' ');
-                const skills = (p.skillsTargeted || []).join(' · ');
 
                 return `
                     <div class="dtv-project-item">
-                        <div class="dtv-project-meta">
-                            <span class="dtv-project-tier ${tierClass}">${DTVUI.escapeHtml(p.difficulty)}</span>
-                            <span class="dtv-project-time"><i class="ph ph-clock"></i> ~${p.estimatedHours} hrs</span>
-                        </div>
-                        <h4 class="dtv-project-title">${DTVUI.escapeHtml(p.title)}</h4>
-                        ${p.tagline ? `<p class="dtv-project-tagline">${DTVUI.escapeHtml(p.tagline)}</p>` : ''}
-                        <p class="dtv-project-desc">${DTVUI.escapeHtml(p.description)}</p>
-                        <div class="dtv-project-techs">${techs}</div>
-                        <div class="dtv-project-competencies">
-                            <strong>Target Competencies:</strong> ${DTVUI.escapeHtml(skills)}
+                        <div>
+                            <div class="dtv-project-meta">
+                                <span class="dtv-project-tier">${DTVUI.escapeHtml(p.difficulty)}</span>
+                                <span class="dtv-project-time">~${p.estimatedHours} hrs</span>
+                            </div>
+                            <h3 class="dtv-project-title">${DTVUI.escapeHtml(p.title)}</h3>
+                            <p class="dtv-project-desc">${DTVUI.escapeHtml(p.description)}</p>
+                            <div class="dtv-project-techs">${techs}</div>
                         </div>
                         <div class="dtv-project-foot">
-                            <span class="dtv-project-proof">Project-Verified Proof</span>
-                            <a href="/student-portfolio.html#add-project?title=${encodeURIComponent(p.title)}" class="dtv-btn dtv-btn-primary dtv-btn-sm">
+                            <span style="font-size: 0.775rem; color: #737373;">Practical Project</span>
+                            <a href="/student-portfolio.html#add-project?title=${encodeURIComponent(p.title)}" class="btn btn-secondary btn-sm">
                                 Start Project →
                             </a>
                         </div>
@@ -1051,40 +970,33 @@
             el.innerHTML = `
                 <div class="dtv-growth-block">
                     <div class="dtv-growth-header">
-                        <div>
-                            <h4 class="dtv-section-heading">Developmental Velocity &amp; Momentum</h4>
-                            <p class="dtv-section-sub">Empirically computed from learning, building, and verifying across your trajectory.</p>
-                        </div>
+                        <h3 class="section-title">Activity &amp; Milestone History</h3>
+                        <p class="section-sub">Chronological timeline of verified learning and project achievements.</p>
                     </div>
                     <div class="dtv-growth-stats-grid">
                         <div class="dtv-growth-stat">
                             <span class="dtv-growth-stat-label">Velocity Index</span>
-                            <div class="dtv-growth-stat-val">${velocity} <span style="font-size:0.9rem; font-weight:500; color:#737373;">/ 100</span></div>
-                            <div class="dtv-velocity-track">
-                                <div class="dtv-velocity-fill" style="width: ${velocity}%;"></div>
-                            </div>
+                            <div class="dtv-growth-stat-val">${velocity}</div>
+                            <span class="dtv-growth-stat-sub">Learning momentum</span>
                         </div>
                         <div class="dtv-growth-stat">
                             <span class="dtv-growth-stat-label">Verified Skills</span>
-                            <div class="dtv-growth-stat-val">${metrics.verifiedSkills || 0} <span style="font-size:0.9rem; font-weight:500; color:#737373;">/ ${metrics.totalSkillsTracked || 0}</span></div>
-                            <span class="dtv-growth-stat-sub">Demonstrated &amp; Proven</span>
+                            <div class="dtv-growth-stat-val">${metrics.verifiedSkills || 0}</div>
+                            <span class="dtv-growth-stat-sub">Proven competencies</span>
                         </div>
                         <div class="dtv-growth-stat">
                             <span class="dtv-growth-stat-label">Projects Published</span>
                             <div class="dtv-growth-stat-val">${metrics.projectsPublished || 0}</div>
-                            <span class="dtv-growth-stat-sub">Portfolio Items</span>
+                            <span class="dtv-growth-stat-sub">Portfolio items</span>
                         </div>
                         <div class="dtv-growth-stat">
-                            <span class="dtv-growth-stat-label">Roadmap Pace</span>
-                            <div class="dtv-growth-stat-val" style="color:#EA580C;">${metrics.roadmapProgress || 0}%</div>
-                            <span class="dtv-growth-stat-sub">Milestone Execution</span>
+                            <span class="dtv-growth-stat-label">Roadmap Progress</span>
+                            <div class="dtv-growth-stat-val">${metrics.roadmapProgress || 0}%</div>
+                            <span class="dtv-growth-stat-sub">Milestone execution</span>
                         </div>
                     </div>
-                    <div class="dtv-growth-timeline-wrap">
-                        <h5 class="dtv-timeline-heading">Recent Verified Milestones</h5>
-                        <div class="dtv-timeline-feed">
-                            ${timelineHtml}
-                        </div>
+                    <div class="dtv-timeline-feed">
+                        ${timelineHtml}
                     </div>
                 </div>
             `;
