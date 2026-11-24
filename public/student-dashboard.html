@@ -5,12 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Student Learning Dashboard | Digital Twin Verse</title>
     <meta name="description" content="Personalized student learning and developmental platform for Junior, School, Career, and College learners.">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <script>
+        // Force-clear any legacy Service Worker or stale CacheStorage
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.getRegistrations().then(function(regs) {
+                for (var i = 0; i < regs.length; i++) {
+                    regs[i].unregister();
+                }
+            }).catch(function() {});
+        }
+        if ('caches' in window) {
+            caches.keys().then(function(keys) {
+                keys.forEach(function(key) { caches.delete(key); });
+            }).catch(function() {});
+        }
+        window.__DTV_RELEASE__ = {
+            version: '2.0-p2',
+            engine: 'P2-Student-Intelligence-Engine',
+            verified: true,
+            updatedAt: '2026-11-23'
+        };
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/dist/dtv-student.9b0e0e3c.css?v=effd482db30ad2ee">
+    <link rel="stylesheet" href="/dist/dtv-student.9b0e0e3c.css?v=37f39fda48637663">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
-    <script src="/dist/dtv-student-core.26c62a3e.js?v=effd482db30ad2ee"></script>
+    <script src="/dist/dtv-student-core.26c62a3e.js?v=37f39fda48637663"></script>
 </head>
 <body>
 
@@ -243,6 +267,19 @@
                 <div id="student-my-mentor-container" style="display: flex; flex-direction: column; gap: 0.85rem;"></div>
             </div>
         </section>
+
+        <!-- Platform Build & Intelligence Engine Status Footer -->
+        <footer class="dtv-platform-footer" id="dtv-footer" style="margin-top: 3.5rem; padding-top: 1.5rem; border-top: 1px solid var(--dtv-border, #e2e8f0); display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 1rem; font-size: 0.8125rem; color: var(--dtv-text-muted, #64748b);">
+            <div style="display: flex; align-items: center; gap: 0.5rem;">
+                <span style="display: inline-block; width: 8px; height: 8px; border-radius: 50%; background: #10b981; box-shadow: 0 0 0 2px rgba(16, 185, 129, 0.2);"></span>
+                <span id="dtv-build-badge" style="font-weight: 500;">Digital Twin Verse &bull; Student Intelligence Engine (P2 Active)</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 1rem;">
+                <span>Release: <strong>v2.0-p2</strong></span>
+                <span>Branch: <code style="font-size: 0.75rem; background: #f1f5f9; padding: 2px 6px; border-radius: 4px; border: 1px solid #cbd5e1;">P2-student-intelligence-engine</code></span>
+                <span id="dtv-cache-status" style="font-size: 0.75rem; color: #10b981;">&bull; Edge Sync Active</span>
+            </div>
+        </footer>
     </main>
 
     <!-- Modals -->
