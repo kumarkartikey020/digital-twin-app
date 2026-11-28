@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,24 +9,25 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/css/premium-theme.css">
-    <link rel="stylesheet" href="/css/dtv-student.css">
+    <link rel="stylesheet" href="/dist/dtv-student.9b0e0e3c.css?v=37f39fda48637663">
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web@2.1.1/src/index.min.js"></script>
-    <script src="/js/dtv-student-core.js"></script>
+    <script src="/dist/dtv-student-core.26c62a3e.js?v=37f39fda48637663"></script>
     <style>
         :root {
-            --bg-dark: #080a0f;
-            --bg-card: rgba(17, 24, 39, 0.85);
-            --bg-card-hover: rgba(31, 41, 55, 0.95);
-            --border-glow: rgba(255, 255, 255, 0.08);
-            --border-active: rgba(139, 92, 246, 0.45);
-            --accent-purple: #8b5cf6;
-            --accent-blue: #3b82f6;
-            --accent-emerald: #10b981;
-            --accent-amber: #f59e0b;
-            --accent-rose: #f43f5e;
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
+            --bg-dark: #f8fafc;
+            --bg-card: #ffffff;
+            --bg-card-hover: #ffffff;
+            --border-glow: #e2e8f0;
+            --border-active: #ea580c;
+            --accent-orange: #ea580c;
+            --accent-purple: #ea580c;
+            --accent-blue: #1d4ed8;
+            --accent-emerald: #15803d;
+            --accent-amber: #b45309;
+            --accent-rose: #b91c1c;
+            --text-primary: #0f172a;
+            --text-secondary: #334155;
+            --text-muted: #475569;
         }
 
         * {
@@ -40,11 +41,9 @@
             background-color: var(--bg-dark);
             color: var(--text-primary);
             min-height: 100vh;
-            background-image: 
-                radial-gradient(circle at 15% 15%, rgba(139, 92, 246, 0.09) 0%, transparent 45%),
-                radial-gradient(circle at 85% 85%, rgba(59, 130, 246, 0.09) 0%, transparent 45%);
-            background-attachment: fixed;
+            background-image: none;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
         .container {
@@ -246,10 +245,11 @@
             display: flex;
             align-items: center;
             gap: 1.25rem;
-            background: rgba(0, 0, 0, 0.35);
+            background: #ffffff;
             border: 1px solid var(--border-glow);
             padding: 1rem 1.5rem;
             border-radius: 14px;
+            box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
         }
 
         .stat-item {
@@ -260,14 +260,14 @@
             font-family: 'Outfit', sans-serif;
             font-size: 1.6rem;
             font-weight: 800;
-            color: #fff;
+            color: var(--text-primary);
         }
 
         .stat-lbl {
             font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 700;
             letter-spacing: 0.04em;
         }
 
@@ -317,13 +317,14 @@
 
         .tab-btn:hover {
             color: var(--text-primary);
-            background: rgba(255, 255, 255, 0.04);
+            background: #f1f5f9;
         }
 
         .tab-btn.active {
-            color: #ffffff;
-            background: rgba(139, 92, 246, 0.18);
-            border: 1px solid rgba(139, 92, 246, 0.4);
+            color: var(--accent-orange);
+            background: #fff7ed;
+            border: 1.5px solid var(--accent-orange);
+            font-weight: 700;
         }
 
         /* Content Sections */
@@ -399,14 +400,14 @@
             font-family: 'Outfit', sans-serif;
             font-size: 1.2rem;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-primary);
             margin-bottom: 0.25rem;
         }
 
         .project-category-tag {
             font-size: 0.75rem;
             font-weight: 700;
-            color: var(--accent-purple);
+            color: var(--accent-orange);
             text-transform: uppercase;
             letter-spacing: 0.04em;
         }
@@ -418,21 +419,23 @@
         }
 
         .problem-statement-box {
-            background: rgba(0, 0, 0, 0.25);
-            border-left: 3px solid var(--accent-blue);
+            background: #fff7ed;
+            border: 1px solid rgba(234, 88, 12, 0.2);
+            border-left: 3px solid var(--accent-orange);
             padding: 0.65rem 0.85rem;
             border-radius: 0 8px 8px 0;
             font-size: 0.8rem;
-            color: #cbd5e1;
+            color: #9a3412;
+            line-height: 1.45;
         }
 
         .tech-pill {
-            background: rgba(255, 255, 255, 0.05);
+            background: #f1f5f9;
             border: 1px solid var(--border-glow);
             font-size: 0.75rem;
             padding: 0.2rem 0.55rem;
             border-radius: 6px;
-            color: #cbd5e1;
+            color: var(--text-secondary);
         }
 
         .project-links {
@@ -445,7 +448,7 @@
         }
 
         .project-links a {
-            color: #93c5fd;
+            color: var(--accent-orange);
             text-decoration: none;
             display: inline-flex;
             align-items: center;
@@ -454,7 +457,7 @@
         }
 
         .project-links a:hover {
-            color: #fff;
+            color: var(--accent-orange-hover);
         }
 
         /* Achievements Grid */
@@ -476,7 +479,7 @@
         }
 
         .achievement-card:hover {
-            border-color: rgba(16, 185, 129, 0.4);
+            border-color: var(--accent-orange);
             transform: translateY(-2px);
         }
 
@@ -484,13 +487,13 @@
             width: 48px;
             height: 48px;
             border-radius: 12px;
-            background: linear-gradient(135deg, rgba(16, 185, 129, 0.15), rgba(59, 130, 246, 0.15));
-            border: 1px solid rgba(16, 185, 129, 0.3);
+            background: #fff7ed;
+            border: 1px solid rgba(234, 88, 12, 0.3);
             display: flex;
             align-items: center;
             justify-content: center;
             font-size: 1.5rem;
-            color: #34d399;
+            color: var(--accent-orange);
             flex-shrink: 0;
         }
 
@@ -498,7 +501,7 @@
             font-family: 'Outfit', sans-serif;
             font-size: 1rem;
             font-weight: 700;
-            color: #fff;
+            color: var(--text-primary);
             margin-bottom: 0.2rem;
         }
 
@@ -1052,14 +1055,24 @@
             openModal('edit-portfolio-modal');
         }
 
-        function openCreateProjectModal() {
+        function openCreateProjectModal(prefillTitle) {
             document.getElementById('create-project-form').reset();
             document.getElementById('proj-edit-id').value = '';
+            if (prefillTitle) {
+                var titleEl = document.getElementById('proj-title');
+                if (titleEl) {
+                    titleEl.value = prefillTitle;
+                }
+            }
             var mUrl = document.getElementById('proj-media-url');
             if (mUrl) mUrl.value = '';
             var st = document.getElementById('proj-upload-status');
             if (st) { st.style.display = 'none'; st.innerHTML = ''; }
             openModal('create-project-modal');
+            if (prefillTitle) {
+                var descEl = document.getElementById('proj-desc');
+                if (descEl) descEl.focus();
+            }
         }
 
         async function handleProjectFileUpload(e) {
@@ -1295,12 +1308,19 @@
                 sc.innerHTML = '<p style="color:var(--text-muted); font-size:0.85rem;">No skills registered. Complete curriculum quests to verify your proficiencies.</p>';
             } else {
                 sc.innerHTML = skills.map(function(s) {
-                    var lvlColor = s.proficiency_level === 'advanced' ? '#34d399' : (s.proficiency_level === 'intermediate' ? '#60a5fa' : '#a78bfa');
+                    var lvlColor = s.proficiency_level === 'advanced' ? '#15803d' : (s.proficiency_level === 'intermediate' ? '#ea580c' : '#475569');
+                    var prov = s.provenance_type || (s.verified ? 'ASSESSMENT_VERIFIED' : 'SELF_DECLARED');
+                    var badgeClass = (window.DTV && DTV.Intelligence) ? DTV.Intelligence.getProvenanceBadgeClass(prov) : 'dtv-prov-self';
+                    var provLabel = (window.DTV && DTV.Intelligence) ? DTV.Intelligence.getProvenanceLabel(prov) : 'Self Declared';
+                    var provIcon = (window.DTV && DTV.Intelligence) ? DTV.Intelligence.getProvenanceIcon(prov) : 'ph-user';
+
                     return `
-                        <div style="background:var(--bg-card); border:1px solid var(--border-glow); padding:0.6rem 0.9rem; border-radius:10px; display:inline-flex; align-items:center; gap:0.5rem; font-size:0.85rem;">
-                            <span style="font-weight:700; color:#fff;">${escapeHtml(s.skill_name)}</span>
-                            <span style="font-size:0.75rem; color:${lvlColor}; text-transform:capitalize;">• ${escapeHtml(s.proficiency_level)}</span>
-                            ${s.verified ? '<i class="ph-fill ph-check-circle" style="color:#34d399; font-size:0.85rem;" title="Verified Skill"></i>' : ''}
+                        <div style="background:var(--bg-card); border:1px solid var(--border-glow); padding:0.6rem 0.9rem; border-radius:10px; display:inline-flex; align-items:center; gap:0.5rem; font-size:0.85rem; margin-right:0.5rem; margin-bottom:0.5rem;">
+                            <span style="font-weight:700; color:var(--text-primary);">${escapeHtml(s.skill_name)}</span>
+                            <span style="font-size:0.75rem; color:${lvlColor}; font-weight:600; text-transform:capitalize;">• ${escapeHtml(s.proficiency_level)}</span>
+                            <span class="dtv-prov-badge ${badgeClass}" style="font-size:0.68rem; padding:0.15rem 0.45rem;">
+                                <i class="ph ${provIcon}"></i> ${provLabel}
+                            </span>
                         </div>
                     `;
                 }).join('');
@@ -1356,18 +1376,18 @@
                     <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:14px; padding:1.25rem;">
                         <div style="display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:0.5rem; flex-wrap:wrap; gap:0.5rem;">
                             <div>
-                                <h3 style="font-weight:700; font-size:1.1rem; color:#fff;">${escapeHtml(r.title)}</h3>
-                                <div style="font-size:0.8rem; color:#93c5fd;">Goal: ${escapeHtml(r.primary_goal)} • Target: ${escapeHtml(r.target_career_path)}</div>
+                                <h3 style="font-weight:700; font-size:1.1rem; color:var(--text-primary);">${escapeHtml(r.title)}</h3>
+                                <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.2rem;">Goal: ${escapeHtml(r.primary_goal)} • Target: ${escapeHtml(r.target_career_path)}</div>
                             </div>
-                            <span class="brand-badge" style="background:rgba(59,130,246,0.15); color:#93c5fd;">${escapeHtml(r.status.toUpperCase())}</span>
+                            <span class="brand-badge" style="background:#fff7ed; color:#9a3412; border:1px solid rgba(234,88,12,0.25); font-weight:700;">${escapeHtml(r.status.toUpperCase())}</span>
                         </div>
                         <div style="margin-top:0.75rem;">
                             <div style="display:flex; justify-content:space-between; font-size:0.8rem; color:var(--text-secondary); margin-bottom:0.35rem;">
                                 <span>Roadmap Completion Progress</span>
-                                <strong style="color:#fff;">${progress}% (${r.completed_tasks || 0} / ${r.total_tasks || 24} tasks)</strong>
+                                <strong style="color:var(--text-primary);">${progress}% (${r.completed_tasks || 0} / ${r.total_tasks || 24} tasks)</strong>
                             </div>
-                            <div style="height:6px; background:rgba(255,255,255,0.08); border-radius:9999px; overflow:hidden;">
-                                <div style="width:${progress}%; height:100%; background:linear-gradient(90deg, var(--accent-purple), var(--accent-emerald)); border-radius:9999px;"></div>
+                            <div style="height:8px; background:#e2e8f0; border-radius:9999px; overflow:hidden;">
+                                <div style="width:${progress}%; height:100%; background:linear-gradient(90deg, var(--accent-orange), #15803d); border-radius:9999px;"></div>
                             </div>
                         </div>
                     </div>
@@ -1384,12 +1404,12 @@
                     return `
                         <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:12px; padding:1rem 1.25rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:0.5rem;">
                             <div>
-                                <div style="font-weight:700; font-size:0.95rem; color:#fff;">${escapeHtml(acc.opportunity_title)}</div>
-                                <div style="font-size:0.8rem; color:#93c5fd;">${escapeHtml(acc.organization_name)} (${escapeHtml(acc.org_type)})</div>
+                                <div style="font-weight:700; font-size:0.95rem; color:var(--text-primary);">${escapeHtml(acc.opportunity_title)}</div>
+                                <div style="font-size:0.8rem; color:var(--text-secondary); margin-top:0.2rem;">${escapeHtml(acc.organization_name)} (${escapeHtml(acc.org_type)})</div>
                             </div>
                             <div style="text-align:right;">
-                                <span class="brand-badge" style="background:rgba(16,185,129,0.15); color:#6ee7b7;"><i class="ph-bold ph-check"></i> ${escapeHtml(acc.status.toUpperCase())}</span>
-                                ${acc.stipend_or_reward ? `<div style="font-size:0.75rem; color:#34d399; margin-top:0.25rem;">${escapeHtml(acc.stipend_or_reward)}</div>` : ''}
+                                <span class="brand-badge" style="background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0; font-weight:700;"><i class="ph-bold ph-check"></i> ${escapeHtml(acc.status.toUpperCase())}</span>
+                                ${acc.stipend_or_reward ? `<div style="font-size:0.75rem; color:#15803d; font-weight:700; margin-top:0.25rem;">${escapeHtml(acc.stipend_or_reward)}</div>` : ''}
                             </div>
                         </div>
                     `;
@@ -1404,7 +1424,7 @@
                     return `
                         <div style="background:var(--bg-card); border:1px solid var(--border-glow); border-radius:10px; padding:0.85rem 1.15rem; display:flex; justify-content:space-between; align-items:center;">
                             <div>
-                                <div style="font-weight:700; font-size:0.9rem; color:#fff;">${escapeHtml(c.title)}</div>
+                                <div style="font-weight:700; font-size:0.9rem; color:var(--text-primary);">${escapeHtml(c.title)}</div>
                                 <div style="font-size:0.75rem; color:var(--text-muted);">${escapeHtml(c.issuing_organization)} ${c.issue_date ? '• ' + new Date(c.issue_date).toLocaleDateString() : ''}</div>
                             </div>
                             ${c.credential_url ? `<a href="${escapeHtml(c.credential_url)}" target="_blank" class="btn btn-secondary btn-sm"><i class="ph ph-arrow-square-out"></i> Verify</a>` : ''}
@@ -1594,7 +1614,39 @@
                 .replace(/'/g, '&#039;');
         }
 
-        document.addEventListener('DOMContentLoaded', initPortfolio);
+        function handleUrlHashActions() {
+            var hash = window.location.hash || '';
+            if (hash.startsWith('#add-project')) {
+                var queryIdx = hash.indexOf('?');
+                var title = '';
+                if (queryIdx !== -1) {
+                    var params = new URLSearchParams(hash.substring(queryIdx + 1));
+                    title = params.get('title') || '';
+                }
+                switchPortfolioTab('projects');
+                setTimeout(function() {
+                    openCreateProjectModal(title);
+                }, 150);
+            }
+        }
+
+        window.switchPortfolioTab = switchPortfolioTab;
+        window.switchTab = switchPortfolioTab;
+        window.openCreateProjectModal = openCreateProjectModal;
+
+        // Global Modal Keyboard Accessibility
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal('edit-portfolio-modal');
+                closeModal('create-project-modal');
+                closeModal('add-cert-modal');
+            }
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initPortfolio();
+            handleUrlHashActions();
+        });
     </script>
 </body>
 </html>

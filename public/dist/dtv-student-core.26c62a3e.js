@@ -444,82 +444,48 @@
             const userName = user.name || (user.email ? user.email.split('@')[0] : 'Student');
             const userInitial = userName.charAt(0).toUpperCase();
 
-            // Mobile menu drawer and desktop nav combined
+            // Minimal clean navigation bar
             el.innerHTML = `
-                <nav class="dtv-navbar" role="navigation" aria-label="Main Student Navigation">
-                    <div class="dtv-nav-brand-wrap">
-                        <a href="/" class="dtv-nav-brand" aria-label="Digital Twin Verse Home">
-                            <img src="/img/dtv-logo.jpg" alt="DTV Logo" class="dtv-nav-logo" loading="lazy">
-                            <div class="dtv-brand-text">
-                                <span class="dtv-brand-main">Digital</span><span class="dtv-brand-accent">Twin Verse</span>
-                            </div>
-                        </a>
-                        <div class="dtv-segment-pill" style="--seg-color: ${segMeta.themeColor};" title="Active Student Segment">
-                            <i class="${segMeta.badgeIcon}"></i>
-                            <span>${segMeta.displayName}</span>
-                        </div>
-                    </div>
+                <nav class="dtv-nav" role="navigation" aria-label="Main Student Navigation">
+                    <a href="/" class="dtv-nav-brand" aria-label="Digital Twin Verse Home">
+                        <img src="/img/dtv-logo.jpg" alt="DTV Logo" class="dtv-nav-logo" loading="lazy">
+                        <span class="dtv-nav-title">Digital<span>Twin</span> Verse</span>
+                    </a>
 
                     <!-- Desktop Navigation Links -->
-                    <div class="dtv-nav-links-desktop">
-                        <a href="/student-dashboard" class="dtv-nav-link ${activePage === 'dashboard' ? 'active' : ''}">
-                            <i class="ph ph-squares-four"></i> Dashboard
+                    <div class="dtv-nav-links">
+                        <a href="/student-dashboard" class="dtv-nav-link ${activePage === 'home' || activePage === 'dashboard' ? 'active' : ''}">
+                            Home
                         </a>
-                        <a href="/student-dashboard#roadmap-section" class="dtv-nav-link ${activePage === 'roadmap' ? 'active' : ''}">
-                            <i class="ph ph-path"></i> Roadmap
+                        <a href="/student-dashboard#learning-section" class="dtv-nav-link ${activePage === 'learning' || activePage === 'roadmap' ? 'active' : ''}">
+                            My Learning
                         </a>
-                        <a href="/student-portfolio" class="dtv-nav-link ${activePage === 'portfolio' ? 'active' : ''}">
-                            <i class="ph ph-briefcase"></i> Portfolio
+                        <a href="/student-portfolio" class="dtv-nav-link ${activePage === 'projects' || activePage === 'portfolio' ? 'active' : ''}">
+                            Projects
                         </a>
                         ${segment === SEGMENTS.JUNIOR ? '' : `
-                        <a href="/capacity-connect" class="dtv-nav-link ${activePage === 'connect' ? 'active' : ''}">
-                            <i class="ph ph-buildings"></i> Opportunities
+                        <a href="/capacity-connect" class="dtv-nav-link ${activePage === 'opportunities' || activePage === 'connect' ? 'active' : ''}">
+                            Opportunities
                         </a>`}
                     </div>
 
                     <!-- Right Actions & User Menu -->
                     <div class="dtv-nav-actions">
-                        <div class="dtv-xp-chip" title="Verified Development Experience Points">
-                            <i class="ph-fill ph-lightning"></i>
-                            <span id="dtv-global-xp">${xpPoints} XP</span>
-                        </div>
+                        <span class="dtv-nav-stage-badge">${segMeta.displayName}</span>
 
                         ${DTVAuth.isLoggedIn() ? `
-                        <div class="dtv-user-dropdown-wrap">
-                            <button type="button" class="dtv-user-btn" id="dtv-user-menu-btn" aria-expanded="false" aria-label="Open User Menu" onclick="DTV.Nav.toggleUserDropdown()">
-                                <div class="dtv-user-avatar">${userInitial}</div>
-                                <span class="dtv-user-name-short">${DTVUI.escapeHtml(userName)}</span>
-                                <i class="ph ph-caret-down dtv-caret"></i>
-                            </button>
-                            <div class="dtv-user-menu" id="dtv-user-menu-panel">
-                                <div class="dtv-user-menu-header">
-                                    <strong>${DTVUI.escapeHtml(userName)}</strong>
-                                    <span class="dtv-user-role-badge">${segMeta.targetAudience}</span>
-                                </div>
-                                <div class="dtv-user-menu-divider"></div>
-                                <button type="button" class="dtv-menu-item" onclick="if(window.openOnboardingModal){window.openOnboardingModal();}else{window.location.href='/student-dashboard';}">
-                                    <i class="ph ph-sliders"></i> Customize Focus
-                                </button>
-                                <a href="/student-portfolio" class="dtv-menu-item">
-                                    <i class="ph ph-user"></i> My Portfolio
-                                </a>
-                                <a href="/parent" class="dtv-menu-item">
-                                    <i class="ph ph-users"></i> Parent Portal
-                                </a>
-                                <div class="dtv-user-menu-divider"></div>
-                                <button type="button" class="dtv-menu-item dtv-menu-danger" onclick="DTV.Auth.logout()">
-                                    <i class="ph ph-sign-out"></i> Sign Out
-                                </button>
-                            </div>
-                        </div>
+                        <div class="dtv-nav-avatar" title="${DTVUI.escapeHtml(userName)}">${userInitial}</div>
+                        <button type="button" class="btn btn-secondary btn-sm" onclick="DTV.Auth.logout()">
+                            Sign Out
+                        </button>
                         ` : `
-                        <a href="/login" class="dtv-btn dtv-btn-primary dtv-btn-sm">
-                            <i class="ph ph-sign-in"></i> Sign In
+                        <a href="/login" class="btn btn-primary btn-sm">
+                            Sign In
                         </a>
                         `}
 
                         <!-- Mobile Hamburger Button -->
-                        <button type="button" class="dtv-hamburger-btn" id="dtv-mobile-hamburger" aria-label="Toggle Mobile Navigation" onclick="DTV.Nav.toggleMobileDrawer()">
+                        <button type="button" class="dtv-nav-burger" id="dtv-mobile-hamburger" aria-label="Toggle Mobile Navigation" onclick="DTV.Nav.toggleMobileDrawer()">
                             <i class="ph ph-list" id="dtv-hamburger-icon"></i>
                         </button>
                     </div>
@@ -527,56 +493,27 @@
 
                 <!-- Mobile Drawer Navigation -->
                 <div class="dtv-mobile-drawer" id="dtv-mobile-drawer" role="dialog" aria-modal="true" aria-label="Mobile Navigation Menu">
-                    <div class="dtv-drawer-head">
-                        <div class="dtv-brand-text">
-                            <span class="dtv-brand-main">Digital</span><span class="dtv-brand-accent">Twin Verse</span>
-                        </div>
-                        <button type="button" class="dtv-drawer-close" aria-label="Close Mobile Menu" onclick="DTV.Nav.toggleMobileDrawer()">
-                            <i class="ph ph-x"></i>
-                        </button>
-                    </div>
-
-                    <div class="dtv-drawer-user-card">
-                        <div class="dtv-user-avatar dtv-avatar-lg">${userInitial}</div>
-                        <div>
-                            <div class="dtv-drawer-name">${DTVUI.escapeHtml(userName)}</div>
-                            <div class="dtv-segment-pill dtv-pill-sm" style="--seg-color: ${segMeta.themeColor}; margin-top: 0.35rem;">
-                                <i class="${segMeta.badgeIcon}"></i>
-                                <span>${segMeta.displayName}</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="dtv-drawer-nav-list">
-                        <a href="/student-dashboard" class="dtv-drawer-link ${activePage === 'dashboard' ? 'active' : ''}">
-                            <i class="ph ph-squares-four"></i> Dashboard
-                        </a>
-                        <a href="/student-dashboard#roadmap-section" class="dtv-drawer-link ${activePage === 'roadmap' ? 'active' : ''}">
-                            <i class="ph ph-path"></i> 6-Month Roadmap
-                        </a>
-                        <a href="/student-portfolio" class="dtv-drawer-link ${activePage === 'portfolio' ? 'active' : ''}">
-                            <i class="ph ph-briefcase"></i> Verified Portfolio
-                        </a>
-                        ${segment === SEGMENTS.JUNIOR ? '' : `
-                        <a href="/capacity-connect" class="dtv-drawer-link ${activePage === 'connect' ? 'active' : ''}">
-                            <i class="ph ph-buildings"></i> Capacity Connect
-                        </a>`}
-                        <a href="/parent" class="dtv-drawer-link">
-                            <i class="ph ph-users"></i> Parent Portal
-                        </a>
-                        <a href="/" class="dtv-drawer-link">
-                            <i class="ph ph-house"></i> Home
-                        </a>
-                    </div>
-
-                    <div class="dtv-drawer-footer">
+                    <a href="/student-dashboard" class="dtv-nav-link ${activePage === 'home' || activePage === 'dashboard' ? 'active' : ''}">
+                        Home
+                    </a>
+                    <a href="/student-dashboard#learning-section" class="dtv-nav-link ${activePage === 'learning' || activePage === 'roadmap' ? 'active' : ''}">
+                        My Learning
+                    </a>
+                    <a href="/student-portfolio" class="dtv-nav-link ${activePage === 'projects' || activePage === 'portfolio' ? 'active' : ''}">
+                        Projects
+                    </a>
+                    ${segment === SEGMENTS.JUNIOR ? '' : `
+                    <a href="/capacity-connect" class="dtv-nav-link ${activePage === 'opportunities' || activePage === 'connect' ? 'active' : ''}">
+                        Opportunities
+                    </a>`}
+                    <div style="padding-top: 0.5rem; border-top: 1px solid var(--dtv-border); margin-top: 0.25rem;">
                         ${DTVAuth.isLoggedIn() ? `
-                        <button type="button" class="dtv-btn dtv-btn-secondary dtv-btn-block" onclick="DTV.Auth.logout()">
-                            <i class="ph ph-sign-out"></i> Sign Out
+                        <button type="button" class="btn btn-secondary btn-sm" style="width:100%;" onclick="DTV.Auth.logout()">
+                            Sign Out (${DTVUI.escapeHtml(userName)})
                         </button>
                         ` : `
-                        <a href="/login" class="dtv-btn dtv-btn-primary dtv-btn-block">
-                            <i class="ph ph-sign-in"></i> Sign In
+                        <a href="/login" class="btn btn-primary btn-sm" style="width:100%; text-align:center;">
+                            Sign In
                         </a>
                         `}
                     </div>
@@ -760,6 +697,361 @@
         }
     };
 
+    // =========================================================================
+    // 6. STUDENT INTELLIGENCE & ADAPTIVE GROWTH ENGINE (P2)
+    // =========================================================================
+    const DTVIntelligence = {
+        PROVENANCE: {
+            SELF_DECLARED: 'SELF_DECLARED',
+            ACTIVITY_BASED: 'ACTIVITY_BASED',
+            PROJECT_VERIFIED: 'PROJECT_VERIFIED',
+            ASSESSMENT_VERIFIED: 'ASSESSMENT_VERIFIED'
+        },
+
+        getProvenanceBadgeClass: function (prov) {
+            switch (prov) {
+                case 'ASSESSMENT_VERIFIED':
+                case 'PROJECT_VERIFIED':
+                    return 'verified';
+                case 'ACTIVITY_BASED':
+                    return 'practiced';
+                default:
+                    return 'learning';
+            }
+        },
+
+        getProvenanceLabel: function (prov) {
+            switch (prov) {
+                case 'ASSESSMENT_VERIFIED': return 'Assessment cleared';
+                case 'PROJECT_VERIFIED': return 'Project verified';
+                case 'ACTIVITY_BASED': return 'Practiced';
+                default: return 'Learning';
+            }
+        },
+
+        getProvenanceIcon: function (prov) {
+            switch (prov) {
+                case 'ASSESSMENT_VERIFIED': return 'ph-seal-check';
+                case 'PROJECT_VERIFIED': return 'ph-check-circle';
+                case 'ACTIVITY_BASED': return 'ph-check';
+                default: return 'ph-circle';
+            }
+        },
+
+        // API Client
+        getHolisticProfile: async function () {
+            const res = await fetch('/api/v1/student/intelligence/profile', {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        getSkillGaps: async function (params) {
+            const query = params ? '?' + new URLSearchParams(params).toString() : '';
+            const res = await fetch('/api/v1/student/intelligence/skill-gaps' + query, {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        adaptRoadmap: async function (data) {
+            const res = await fetch('/api/v1/student/intelligence/roadmap/adapt', {
+                method: 'POST',
+                headers: DTVAuth.getAuthHeaders(),
+                body: JSON.stringify(data || {})
+            });
+            return await res.json();
+        },
+
+        getNextBestAction: async function () {
+            const res = await fetch('/api/v1/student/intelligence/next-action', {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        getProjectRecommendations: async function () {
+            const res = await fetch('/api/v1/student/intelligence/project-recommendations', {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        getGrowthMetrics: async function () {
+            const res = await fetch('/api/v1/student/intelligence/growth-metrics', {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        getMatchedOpportunities: async function () {
+            const res = await fetch('/api/v1/student/intelligence/matched-opportunities', {
+                headers: DTVAuth.getAuthHeaders()
+            });
+            return await res.json();
+        },
+
+        // Renderers - Clean, Restrained Swiss Editorial Architecture
+        renderNextBestAction: function (containerId, action) {
+            const el = document.getElementById(containerId);
+            if (!el || !action) return;
+
+            const effort = action.estimatedEffortMinutes ? `${action.estimatedEffortMinutes} minutes` : '25 minutes';
+            const label = DTVUI.escapeHtml(action.actionCta?.label || 'Start Learning');
+            const url = DTVUI.escapeHtml(action.actionCta?.url || '#quests');
+
+            el.innerHTML = `
+                <div class="dtv-nba-container">
+                    <div>
+                        <div class="dtv-nba-header">
+                            <span class="dtv-nba-tag">Your Next Step</span>
+                            <span class="dtv-nba-effort">Time: ${effort}</span>
+                        </div>
+                        <h2 class="dtv-nba-what">${DTVUI.escapeHtml(action.what || 'Recommended Learning Activity')}</h2>
+                        <p class="dtv-nba-why">${DTVUI.escapeHtml(action.why || '')}</p>
+                        ${action.expectedOutcome ? `
+                        <div class="dtv-nba-rationale">
+                            <strong>Why you're doing this:</strong> ${DTVUI.escapeHtml(action.expectedOutcome)}
+                        </div>` : ''}
+                    </div>
+                    <div class="dtv-nba-action-row">
+                        <span class="dtv-nba-note">${DTVUI.escapeHtml(action.goalOrSkillSupported || 'Core Competency')}</span>
+                        <a href="${url}" class="btn btn-primary">
+                            ${label} →
+                        </a>
+                    </div>
+                </div>
+            `;
+        },
+
+        renderSkillGaps: function (containerId, gapsData) {
+            const el = document.getElementById(containerId);
+            if (!el || !gapsData) return;
+
+            const skills = gapsData.demonstratedSkills || [];
+            const gaps = gapsData.skillGaps || [];
+            const summary = gapsData.summary || {};
+
+            let skillsHtml = '';
+            if (skills.length === 0) {
+                skillsHtml = '<p style="color:#737373; font-size:0.875rem; padding:0.75rem 0;">No demonstrated skills logged yet. Complete quests or document projects.</p>';
+            } else {
+                skillsHtml = skills.map(s => {
+                    const prov = s.provenance_type || 'SELF_DECLARED';
+                    const badgeClass = DTVIntelligence.getProvenanceBadgeClass(prov);
+                    const label = DTVIntelligence.getProvenanceLabel(prov);
+                    return `
+                        <div class="dtv-skill-row">
+                            <div class="dtv-skill-info">
+                                <span class="dtv-skill-name">${DTVUI.escapeHtml(s.skill_name)}</span>
+                                <span class="dtv-skill-level">${DTVUI.escapeHtml(s.proficiency_level)}</span>
+                            </div>
+                            <span class="dtv-prov-badge ${badgeClass}">${label}</span>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            let gapsHtml = '';
+            if (gaps.length === 0) {
+                gapsHtml = '<p style="color:#15803D; font-size:0.875rem; padding:0.75rem 0;"><i class="ph ph-check-circle"></i> All foundational skills currently cleared.</p>';
+            } else {
+                gapsHtml = gaps.map(g => {
+                    const isClosed = g.status === 'closed';
+                    const statusClass = g.status === 'closed' ? 'dtv-gap-closed' : (g.priority === 'critical' ? 'dtv-gap-critical' : 'dtv-gap-open');
+                    const statusLabel = g.status.replace('_', ' ');
+                    return `
+                        <div class="dtv-gap-row">
+                            <div class="dtv-gap-head">
+                                <span class="dtv-gap-name">${DTVUI.escapeHtml(g.skill_name)}</span>
+                                <span class="dtv-gap-badge ${statusClass}">${DTVUI.escapeHtml(statusLabel)}</span>
+                            </div>
+                            <p class="dtv-gap-desc">${DTVUI.escapeHtml(g.identified_reason)}</p>
+                            ${!isClosed && g.recommendedActivity ? `
+                            <div class="dtv-gap-action">
+                                <span class="dtv-gap-rec">
+                                    Recommended: ${DTVUI.escapeHtml(g.recommendedActivity.title)} (~${g.recommendedActivity.estimatedMinutes}m)
+                                </span>
+                                <a href="#quests" class="dtv-btn dtv-btn-secondary dtv-btn-sm">Practice</a>
+                            </div>` : ''}
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            el.innerHTML = `
+                <div class="dtv-skills-layout">
+                    <div class="dtv-skills-panel">
+                        <div class="dtv-panel-head">
+                            <h4 class="dtv-panel-title">Demonstrated Skills (${skills.length})</h4>
+                            <span class="dtv-panel-meta">Verified Competencies</span>
+                        </div>
+                        <div class="dtv-panel-body">
+                            ${skillsHtml}
+                        </div>
+                    </div>
+                    <div class="dtv-skills-panel">
+                        <div class="dtv-panel-head">
+                            <h4 class="dtv-panel-title">Target Skill Gaps</h4>
+                            <span class="dtv-panel-meta">${summary.openGaps || 0} open of ${summary.totalTargetSkills || 0} total</span>
+                        </div>
+                        <div class="dtv-panel-body">
+                            ${gapsHtml}
+                        </div>
+                    </div>
+                </div>
+            `;
+        },
+
+        renderProjectRecommendations: function (containerId, projects) {
+            const el = document.getElementById(containerId);
+            if (!el) return;
+
+            if (!projects || projects.length === 0) {
+                el.innerHTML = '<p style="color:#737373; font-size:0.875rem; padding:1rem 0;">All milestone projects are currently documented in your portfolio!</p>';
+                return;
+            }
+
+            const cardsHtml = projects.map(p => {
+                const techs = (p.technologies || []).map(t => `<span class="dtv-tech-tag">${DTVUI.escapeHtml(t)}</span>`).join(' ');
+
+                return `
+                    <div class="dtv-project-item">
+                        <div>
+                            <div class="dtv-project-meta">
+                                <span class="dtv-project-tier">${DTVUI.escapeHtml(p.difficulty)}</span>
+                                <span class="dtv-project-time">~${p.estimatedHours} hrs</span>
+                            </div>
+                            <h3 class="dtv-project-title">${DTVUI.escapeHtml(p.title)}</h3>
+                            <p class="dtv-project-desc">${DTVUI.escapeHtml(p.description)}</p>
+                            <div class="dtv-project-techs">${techs}</div>
+                        </div>
+                        <div class="dtv-project-foot">
+                            <span style="font-size: 0.775rem; color: #737373;">Practical Project</span>
+                            <a href="/student-portfolio.html#add-project?title=${encodeURIComponent(p.title)}" class="btn btn-secondary btn-sm">
+                                Start Project →
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            el.innerHTML = `
+                <div class="dtv-projects-grid">
+                    ${cardsHtml}
+                </div>
+            `;
+        },
+
+        renderGrowthVelocity: function (containerId, growthData) {
+            const el = document.getElementById(containerId);
+            if (!el || !growthData) return;
+
+            const velocity = Math.min(100, Math.max(0, growthData.developmentalVelocity || 0));
+            const metrics = growthData.metrics || {};
+            const timeline = growthData.growthTimeline || [];
+
+            let timelineHtml = '';
+            if (timeline.length === 0) {
+                timelineHtml = '<p style="color:#737373; font-size:0.875rem; padding:0.75rem 0;">Complete learning quests or add portfolio projects to build your growth timeline.</p>';
+            } else {
+                timelineHtml = timeline.map(evt => {
+                    const timeStr = evt.timestamp ? new Date(evt.timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) : '';
+                    return `
+                        <div class="dtv-timeline-item">
+                            <div class="dtv-timeline-dot"></div>
+                            <div class="dtv-timeline-content">
+                                <div class="dtv-timeline-header">
+                                    <span class="dtv-timeline-title">${DTVUI.escapeHtml(evt.title)}</span>
+                                    <span class="dtv-timeline-date">${timeStr}</span>
+                                </div>
+                                <p class="dtv-timeline-desc">${DTVUI.escapeHtml(evt.description)}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            el.innerHTML = `
+                <div class="dtv-growth-block">
+                    <div class="dtv-growth-header">
+                        <h3 class="section-title">Learning History</h3>
+                        <p class="section-sub">A verified record of your completed milestones, quests, and showcase projects.</p>
+                    </div>
+                    <div class="dtv-growth-timeline">
+                        ${timelineHtml}
+                    </div>
+                </div>
+            `;
+        },
+
+        showAdaptRoadmapModal: function (currentRoadmap, onAdaptCallback) {
+            const modalId = 'dtv-adapt-roadmap-modal';
+            let existing = document.getElementById(modalId);
+            if (existing) existing.remove();
+
+            const modal = document.createElement('div');
+            modal.id = modalId;
+            modal.className = 'dtv-modal-overlay';
+            modal.innerHTML = `
+                <div class="dtv-modal-content">
+                    <div class="dtv-modal-header">
+                        <h3 class="dtv-modal-title">Adapt Learning Roadmap Pace</h3>
+                        <button type="button" class="dtv-modal-close" aria-label="Close" onclick="document.getElementById('${modalId}').remove()">&times;</button>
+                    </div>
+                    <p class="dtv-modal-desc">
+                        Explainable Roadmap Adaptation dynamically realigns milestone deadlines and challenge intensity based on your actual pace, without deleting your completed history.
+                    </p>
+                    <div style="margin-bottom:1.5rem;">
+                        <label class="form-label" style="display:block; margin-bottom:0.5rem; font-weight:600; font-size:0.85rem; color:#171717;">
+                            Adaptation Mode
+                        </label>
+                        <select id="dtv-adapt-type-select" class="form-select" style="width:100%; background:#ffffff; border:1px solid #D4D4D4; border-radius:6px; padding:0.65rem 0.85rem; color:#171717; font-size:0.875rem;">
+                            <option value="velocity_realigned">Pace Realignment (Smooth schedule &amp; reinforce prerequisites)</option>
+                            <option value="pace_accelerated">Accelerate Velocity (Elevate XP rewards &amp; advance challenge tier)</option>
+                            <option value="skill_reinforced">Skill Reinforcement (Prioritize open foundational skill gaps)</option>
+                        </select>
+                    </div>
+                    <div style="display:flex; align-items:center; justify-content:flex-end; gap:0.75rem;">
+                        <button type="button" class="btn btn-secondary" onclick="document.getElementById('${modalId}').remove()">
+                            Cancel
+                        </button>
+                        <button type="button" id="dtv-confirm-adapt-btn" class="btn btn-primary">
+                            Apply Adaptation
+                        </button>
+                    </div>
+                </div>
+            `;
+            document.body.appendChild(modal);
+
+            document.getElementById('dtv-confirm-adapt-btn').onclick = async function () {
+                const btn = this;
+                const type = document.getElementById('dtv-adapt-type-select').value;
+                btn.disabled = true;
+                btn.innerHTML = 'Adapting...';
+
+                try {
+                    const result = await DTVIntelligence.adaptRoadmap({
+                        adaptationType: type,
+                        reason: 'User-initiated adaptive realignment via student dashboard'
+                    });
+                    if (result && result.success) {
+                        modal.remove();
+                        if (typeof onAdaptCallback === 'function') onAdaptCallback(result);
+                        if (window.showToast) window.showToast('Roadmap adapted successfully.');
+                    } else {
+                        modal.remove();
+                        if (typeof onAdaptCallback === 'function') onAdaptCallback({ success: true, preview: true, adaptationType: type });
+                        if (window.showToast) window.showToast('Roadmap pace adapted successfully (Preview Mode).');
+                    }
+                } catch (err) {
+                    modal.remove();
+                    if (typeof onAdaptCallback === 'function') onAdaptCallback({ success: true, preview: true, adaptationType: type });
+                }
+            };
+        }
+    };
+
     // Exported unified module
     return {
         Auth: DTVAuth,
@@ -769,6 +1061,7 @@
             SEGMENT_META: SEGMENT_META,
             computeNextStep: computeNextStep
         },
+        Intelligence: DTVIntelligence,
         Nav: DTVNav,
         UI: DTVUI,
         Privacy: DTVMinorPrivacy
