@@ -608,11 +608,12 @@ async function getActiveRoadmap(userId) {
 
   return {
     ...roadmap,
+    tasks,
     milestones: milestonesWithTasks,
     skillGaps,
     activeMilestone,
     nextTask,
-    revisionCount: parseInt(revRes.rows[0].count, 10) || 1
+    revisionCount: parseInt(revRes.rows[0]?.count || 1, 10) || 1
   };
 }
 

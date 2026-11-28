@@ -70,7 +70,7 @@ async function getHolisticStudentProfile(userId) {
       [userId]
     ),
     db.query(
-      `SELECT id, title, description, badge_icon, category, xp_bonus, awarded_at
+      `SELECT id, badge_title AS title, description, badge_icon, category, xp_bonus, awarded_at
        FROM achievements 
        WHERE student_id = $1 
        ORDER BY awarded_at DESC`,
@@ -348,12 +348,13 @@ async function adaptRoadmap(userId, options = {}) {
   }
 
   const roadmapId = activeRoadmap.id;
-  const totalTasks = activeRoadmap.tasks.length;
-  const completedTasks = activeRoadmap.tasks.filter(t => t.status === 'completed').length;
+  const tasks = activeRoadmap.tasks || (activeRoadmap.milestones || []).flatMap(m => m.tasks || []);
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(t => t.status === 'completed').length;
   const progressRatio = totalTasks > 0 ? completedTasks / totalTasks : 0;
 
   // Evaluate student's recent pace and skill development
-  const pendingTasks = activeRoadmap.tasks.filter(t => t.status === 'pending');
+  const pendingTasks = tasks.filter(t => t.status === 'pending');
   const adaptationType = options.adaptationType || (progressRatio >= 0.5 ? 'pace_accelerated' : 'velocity_realigned');
   
   let reason = '';
@@ -820,7 +821,7 @@ async function computeGrowthIntelligence(userId) {
       FROM student_projects
       WHERE student_id = $1)
      UNION ALL
-     (SELECT 'achievement' as event_type, title, awarded_at as timestamp, 
+     (SELECT 'achievement' as event_type, badge_title AS title, awarded_at as timestamp, 
              xp_bonus as xp, description
       FROM achievements
       WHERE student_id = $1)
@@ -863,24 +864,25 @@ async function getMatchedOpportunities(userId) {
   const verifiedSkills = new Set(skills.filter(s => s.provenance_type !== PROVENANCE.SELF_DECLARED || s.verified).map(s => s.skill_name.toLowerCase().trim()));
 
   // Student interest set
-  const interests = (profile.interests || []).map(i => i.interest_name.toLowerCase().trim());
+  const interests = (profile.interests || []).map(i => ((typeof i === 'string' ? i : i.interest_name) || '').toLowerCase().trim()).filter(Boolean);
 
   // Fetch published opportunities
   let query = `
-    SELECT o.id, o.title, o.description, o.opportunity_type, o.department, 
-           o.student_segment, o.required_skills, o.eligibility_criteria, 
+    SELECT o.id, o.title, o.description, o.opportunity_type, 
+           o.eligibility_segments, o.required_skills, 
            o.stipend_or_reward, o.location_type, o.created_at,
-           org.name AS organization_name, org.logo_url AS organization_logo, org.verified AS org_verified
+           org.name AS organization_name, org.logo_url AS organization_logo, (org.verification_status = 'verified') AS org_verified
     FROM capacity_opportunities o
     JOIN organizations org ON org.id = o.organization_id
     WHERE o.status = 'published'
   `;
   const params = [];
 
-  // Minor Safeguards: Strictly segment-filtered
+  // Minor Safeguards: Strictly segment-filtered & no corporate internships for minors
   if (isMinor) {
-    query += ` AND o.student_segment = $1`;
-    params.push(segment);
+    query += ` AND o.opportunity_type != 'internship'`;
+    query += ` AND (o.eligibility_segments @> $1::jsonb OR o.eligibility_segments IS NULL)`;
+    params.push(JSON.stringify([segment]));
   }
 
   query += ` ORDER BY o.created_at DESC LIMIT 20`;
